@@ -47,6 +47,10 @@ spec:
           value: "{{ .Values.es_host }}"
         - name: FLUENT_ELASTICSEARCH_PORT
           value: "{{ .Values.es_port }}"
+        - name: FLUENT_ELASTICSEARCH_USER
+          value: "{{ .Values.beats_username }}"
+        - name: FLUENT_ELASTICSEARCH_PASSWD
+          value: "{{ .Values.beats_password }}"
         volumeMounts:
         - mountPath: /mnt/log
           name: datapath
