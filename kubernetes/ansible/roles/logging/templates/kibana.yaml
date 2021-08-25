@@ -24,7 +24,7 @@ kibanaConfig:
      elasticsearch.preserveHost: true
      elasticsearch.ssl.verificationMode: full
      elasticsearch.username: "{{ kibana_user }}"
-elasticsearch.password: "{{ El@st1cKibpass }}"
+     elasticsearch.password: "{{ kibana_password }}"
 
 updateStrategy:
   type: "RollingUpdate"
