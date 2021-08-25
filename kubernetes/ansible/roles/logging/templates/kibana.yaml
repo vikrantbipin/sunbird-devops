@@ -23,6 +23,8 @@ kibanaConfig:
      elasticsearch.requestTimeout: 300000
      elasticsearch.preserveHost: true
      elasticsearch.ssl.verificationMode: full
+     elasticsearch.username: "{{ kibana_user }}"
+elasticsearch.password: "{{ El@st1cKibpass }}"
 
 updateStrategy:
   type: "RollingUpdate"
