@@ -1,4 +1,9 @@
 ---
+- name: template values.yaml file
+  template:
+    src: "{{ chart_path }}/values.j2"
+    dest: "{{ chart_path }}/values.yaml"
+
 - name: tempating variables
   template:
     src: "{{ release_name }}.yaml"
