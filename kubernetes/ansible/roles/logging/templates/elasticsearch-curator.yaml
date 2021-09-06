@@ -36,3 +36,5 @@ configMaps:
     client:
       hosts: ["{{ groups['log-es'] | join('", "') }}"]
       port: 9200
+      username: {{ beats_username }}
+      password: {{ beats_password }}
