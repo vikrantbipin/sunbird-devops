@@ -31,30 +31,56 @@ ekstep_s3_env: "{{sunbird_env}}"
 registry_url: "{{proto}}://{{proxy_server_name}}/registry"
 ep_es_host:
 proxy_custom_config:
-kibana_service: "{{swarm_dashboard}}:5601"
 
 upstream_url: "ekstep-public-{{ekstep_s3_env}}.s3-ap-south-1.amazonaws.com"
 plugin_upstream_url: "ekstep-public-{{ekstep_s3_env}}.s3-ap-south-1.amazonaws.com"
+discussion_upstream_url: "{{ sunbird_public_storage_account_name  }}.blob.core.windows.net"
 sunbird_offline_azure_storage_account_url: "{{ sunbird_public_storage_account_name }}.blob.core.windows.net/{{ offline_installer_container_name }}"
+
+proxy_cache_path:
+  large_cache:
+    path: /tmp/large_cache
+    levels: "1:2"
+    keys_zone: large_cache:3m
+    max_size: 100m
+    inactive: 10m
+  medium_cache:
+    path: /tmp/medium_cache
+    levels: "1:2"
+    keys_zone: medium_cache:2m
+    max_size: 50m
+    inactive: 10m
+  small_cache:
+    path: /tmp/small_cache
+    levels: "1:2"
+    keys_zone: small_cache:1m
+    max_size: 10m
+    inactive: 10m
+
+proxy_cache_valid:
+  long_validity: 5m
+  medium_validity: 4m
+  short_validity: 3m
+
 adminutils_liveness_readiness:
   healthcheck: true
   readinessProbe:
     httpGet:
       path: /health
       port: 4000
-    initialDelaySeconds: 30
-    periodSeconds: 30
-    timeoutSeconds: 10
-    failureThreshold: 5
-    successThreshold: 2
+    initialDelaySeconds: 15
+    periodSeconds: 15
+    timeoutSeconds: 5
+    failureThreshold: 2
+    successThreshold: 1
   livenessProbe:
     httpGet:
       path: /health
       port: 4000
-    initialDelaySeconds: 30
-    periodSeconds: 30
-    timeoutSeconds: 10
-    failureThreshold: 5
+    initialDelaySeconds: 15
+    periodSeconds: 15
+    timeoutSeconds: 5
+    failureThreshold: 2
 
 api_managerecho_liveness_readiness:
   healthcheck: true
@@ -62,19 +88,19 @@ api_managerecho_liveness_readiness:
     httpGet:
       path: /hello
       port: 9595
-    initialDelaySeconds: 30
-    periodSeconds: 10
+    initialDelaySeconds: 15
+    periodSeconds: 15
     timeoutSeconds: 5
-    failureThreshold: 5
+    failureThreshold: 2
     successThreshold: 1
   livenessProbe:
     httpGet:
       path: /hello
       port: 9595
-    initialDelaySeconds: 60
-    periodSeconds: 10
-    timeoutSeconds: 10
-    failureThreshold: 5
+    initialDelaySeconds: 15
+    periodSeconds: 15
+    timeoutSeconds: 5
+    failureThreshold: 2
 
 adminutil__device_keyprefix: "device_key"
 adminutil__access_keyprefix: "access_key"

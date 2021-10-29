@@ -30,15 +30,15 @@ return """&lt;input name="value" value="${private_repo_branch}" class="setting-i
 }
 else
 return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
-              <sandbox>false</sandbox>
+              <sandbox>true</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.75">
               <script>return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
-              <sandbox>false</sandbox>
+              <sandbox>true</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>MongodbCluster</projectName>
-          <projectFullName>Provision/staging/Core/MongodbCluster</projectFullName>
+          <projectFullName>Provision/dev/Core/MongodbCluster</projectFullName>
           <parameters class="linked-hash-map"/>
           <referencedParameters/>
           <choiceType>ET_FORMATTED_HTML</choiceType>
@@ -57,15 +57,15 @@ return """&lt;input name="value" value="" class="setting-input"  type="text"&gt;
 }
 else
 return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
-              <sandbox>false</sandbox>
+              <sandbox>true</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.75">
               <script>return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
-              <sandbox>false</sandbox>
+              <sandbox>true</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>MongodbCluster</projectName>
-          <projectFullName>Provision/staging/Core/MongodbCluster</projectFullName>
+          <projectFullName>Provision/dev/Core/MongodbCluster</projectFullName>
           <parameters class="linked-hash-map"/>
           <referencedParameters/>
           <choiceType>ET_FORMATTED_HTML</choiceType>
@@ -82,7 +82,7 @@ return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
       <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
       <paramsToUseForLimit/>
     </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
-
+    
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.87">
     <scm class="hudson.plugins.git.GitSCM" plugin="git@4.5.0">
