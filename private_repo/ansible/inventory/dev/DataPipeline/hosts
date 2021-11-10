@@ -1,8 +1,5 @@
-[all:vars]
-ansible_ssh_user=deployer    # Replace the value deployer to your server login user name, for example ubuntu
-ansible_ssh_private_key_file=/var/lib/jenkins/secrets/deployer_ssh_key
-
 ################ Core #########################
+
 [core-cassandra]
 18.3.0.4
 
@@ -18,7 +15,8 @@ core-es-1
 [log-es:children]
 log-es-1
 
-################# KP ##########################
+################# LP ##########################
+
 [learning]
 18.3.1.5
 
@@ -34,9 +32,9 @@ log-es-1
 [lp-redis]
 18.3.1.5
 
-################# DP #########################
-[report-cassandra:children]
-core-cassandra
+################# LPA #########################
+[analytics-api]
+18.3.1.7
 
 [secor]
 18.3.1.7
@@ -55,6 +53,7 @@ spark
 secor
 analytics-api
 cassandra
+########################### DP #############################
 
 [kafka-indexer]
 18.3.1.7
@@ -74,23 +73,25 @@ redis
 [processing-cluster-zookeepers]
 18.3.1.5
 
-[ingestion-cluster-kafka:children]
-processing-cluster-kafka
-
-[ingestion-cluster-zookeeper:children]
-processing-cluster-zookeepers
 
 [zookeeper:children]
 processing-cluster-zookeepers
+
+[yarn-master]
+18.3.1.8
+
+[yarn-slave]
+18.3.1.9
+
+[yarn:children]
+yarn-master
+yarn-slave
 
 [local]
 localhost ansible_connection=local
 
 [druid-postgres]
 18.3.1.10
-
-[rollup-coordinator]
-raw-coordinator
 
 [raw-coordinator]
 18.3.1.10
@@ -113,6 +114,7 @@ raw-coordinator
 [raw-zookeeper]
 18.3.1.10
 
+
 [druid-raw:children]
 raw-coordinator
 raw-overlord
@@ -122,14 +124,14 @@ raw-middlemanager
 raw-graphite
 raw-zookeeper
 
-[druid-raw:vars]
-cluster=raw
-
 [broker]
-18.3.1.10
+0.0.0.0 #### its required for data products deploy
 
 [coordinator]
-18.3.1.10
+0.0.0.0 #### its required for analytics deploy
+
+[telemetry-search-cluster-kibana-node]
+0.0.0.0
 
 [dp:children]
 local
@@ -137,13 +139,22 @@ processing-cluster-kafka
 processing-cluster-zookeepers
 zookeeper
 postgres
+yarn
 kafka-indexer
 influxdb
 lpa
 druid-raw
 druid-postgres
-broker
-coordinator
 
 [env:children]
 dp
+
+[env:vars]
+ansible_ssh_user=deployer
+ansible_ssh_private_key_file=/var/lib/jenkins/secrets/deployer_ssh_key
+
+
+
+[all:vars]
+ansible_ssh_user=deployer
+ansible_ssh_private_key_file=/var/lib/jenkins/secrets/deployer_ssh_key

@@ -1,4 +1,4 @@
-- hosts: log-es-1
+- hosts: log-es-2
   vars_files:
     - ['{{inventory_dir}}/secrets.yml']
   become: yes    
