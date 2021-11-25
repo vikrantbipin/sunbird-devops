@@ -16,7 +16,7 @@ statsd_pulgin:
   config.port: "{{ statsd_port }}"
 
 # Default Rate limits
-small_rate_limit_per_hour: 100
+small_rate_limit_per_hour: 1000
 medium_rate_limit_per_hour: 5000
 x_medium_rate_limit_per_hour: 5000
 large_rate_limit_per_hour: 10000
