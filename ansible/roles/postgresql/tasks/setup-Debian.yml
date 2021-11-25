@@ -2,12 +2,14 @@
 - name: Ensure PostgreSQL Python libraries are installed.
   apt:
     name: "{{ postgresql_python_library }}"
-    state: present
+    state: installed
 
 - name: Ensure PostgreSQL packages are installed.
   apt:
-    name: "{{ postgresql_packages }}"
-    state: present
+    name: "{{ item }}"
+    update_cache: yes
+    state: installed
+  with_items: "{{ postgresql_packages }}"
 
 - name: Ensure all configured locales are present.
   locale_gen: "name={{ item }} state=present"

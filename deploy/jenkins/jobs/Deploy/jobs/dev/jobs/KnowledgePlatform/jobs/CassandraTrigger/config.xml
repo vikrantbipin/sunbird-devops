@@ -44,11 +44,11 @@ ArtifactRepo - Download the artifact from azure blob, JenkinsJob - Use the atrif
 &apos;JenkinsJob&apos;,
 &apos;ArtifactRepo&apos;
 ]</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.62">
               <script></script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>CassandraTrigger</projectName>
@@ -72,11 +72,11 @@ else
 { 
 return &quot;&lt;b&gt;Not Applicable&lt;/b&gt;&quot;
 }</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.62">
               <script></script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>CassandraTrigger</projectName>
@@ -98,11 +98,11 @@ return &quot;&quot;&quot;&lt;input name=&quot;value&quot; value=&quot;&quot; cla
 else {
 return &quot;&lt;b&gt;Not Applicable&lt;/b&gt;&quot;
 }</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.62">
               <script></script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>CassandraTrigger</projectName>
@@ -123,11 +123,11 @@ return &quot;&quot;&quot;&lt;input name=&quot;value&quot; value=&quot;${private_
 }
 else
 return &quot;&quot;&quot;&lt;b&gt;This parameter is not used&lt;/b&gt;&quot;&quot;&quot;</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.62">
               <script>return &quot;&quot;&quot;&lt;b&gt;This parameter is not used&lt;/b&gt;&quot;&quot;&quot;</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>CassandraTrigger</projectName>
@@ -149,11 +149,11 @@ return &quot;&quot;&quot;&lt;input name=&quot;value&quot; value=&quot;&quot; cla
 }
 else
 return &quot;&quot;&quot;&lt;b&gt;This parameter is not used&lt;/b&gt;&quot;&quot;&quot;</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureScript>
             <secureFallbackScript plugin="script-security@1.62">
               <script>return &quot;&quot;&quot;&lt;b&gt;This parameter is not used&lt;/b&gt;&quot;&quot;&quot;</script>
-              <sandbox>true</sandbox>
+              <sandbox>false</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>CassandraTrigger</projectName>

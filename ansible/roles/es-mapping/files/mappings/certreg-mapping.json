@@ -1,200 +1,150 @@
 {
-  "dynamic":"false",
-  "properties":{
-    "accessCode":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
+  "dynamic": false,
+  "properties": {
+    "id": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
         }
       },
-      "copy_to":[
+      "copy_to": [
         "all_fields"
       ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
     },
-    "createdAt":{
-      "type":"date",
-      "fields":{
-        "raw":{
-          "type":"date"
+    "accessCode": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
+        }
+      },
+      "copy_to": [
+        "all_fields"
+      ],
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
+    },
+    "related": {
+      "type": "object"
+    },
+    "data": {
+      "type": "object"
+    },
+    "recipient": {
+      "type": "object"
+    },
+    "createdAt": {
+      "type": "date",
+      "fields": {
+        "raw": {
+          "type": "date"
         }
       }
     },
-    "createdBy":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
-        }
-      },
-      "copy_to":[
-        "all_fields"
-      ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
-    },
-    "data":{
-      "type":"object"
-    },
-    "id":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
-        }
-      },
-      "copy_to":[
-        "all_fields"
-      ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
-    },
-    "isRevoked":{
-      "type":"boolean",
-      "fields":{
-        "raw":{
-          "type":"boolean"
+    "updatedAt": {
+      "type": "date",
+      "fields": {
+        "raw": {
+          "type": "date"
         }
       }
     },
-    "jsonUrl":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
+    "pdfUrl": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
         }
       },
-      "copy_to":[
+      "copy_to": [
         "all_fields"
       ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
     },
-    "pdfUrl":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
+    "jsonUrl": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
         }
       },
-      "copy_to":[
+      "copy_to": [
         "all_fields"
       ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
     },
-    "reason":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
+    "createdBy": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
         }
       },
-      "copy_to":[
+      "copy_to": [
         "all_fields"
       ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
     },
-    "recipient":{
-      "properties":{
-        "id":{
-          "type":"text",
-          "fields":{
-            "raw":{
-              "type":"text",
-              "analyzer":"keylower",
-              "fielddata":true
-            }
-          },
-          "copy_to":[
-            "all_fields"
-          ],
-          "analyzer":"cs_index_analyzer",
-          "search_analyzer":"cs_search_analyzer",
-          "fielddata":true
-        },
-        "type":{
-          "type":"text",
-          "fields":{
-            "raw":{
-              "type":"text",
-              "analyzer":"keylower",
-              "fielddata":true
-            }
-          },
-          "copy_to":[
-            "all_fields"
-          ],
-          "analyzer":"cs_index_analyzer",
-          "search_analyzer":"cs_search_analyzer",
-          "fielddata":true
+    "updatedBy": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
+        }
+      },
+      "copy_to": [
+        "all_fields"
+      ],
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
+    },
+    "isRevoked": {
+      "type": "boolean",
+      "fields": {
+        "raw": {
+          "type": "boolean"
         }
       }
     },
-    "related":{
-      "properties":{
-        "type":{
-          "type":"text",
-          "fields":{
-            "raw":{
-              "type":"text",
-              "analyzer":"keylower",
-              "fielddata":true
-            }
-          },
-          "copy_to":[
-            "all_fields"
-          ],
-          "analyzer":"cs_index_analyzer",
-          "search_analyzer":"cs_search_analyzer",
-          "fielddata":true
-        }
-      }
-    },
-    "updatedAt":{
-      "type":"date",
-      "fields":{
-        "raw":{
-          "type":"date"
-        }
-      }
-    },
-    "updatedBy":{
-      "type":"text",
-      "fields":{
-        "raw":{
-          "type":"text",
-          "analyzer":"keylower",
-          "fielddata":true
+    "reason": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "text",
+          "analyzer": "keylower",
+          "fielddata": true
         }
       },
-      "copy_to":[
+      "copy_to": [
         "all_fields"
       ],
-      "analyzer":"cs_index_analyzer",
-      "search_analyzer":"cs_search_analyzer",
-      "fielddata":true
+      "analyzer": "cs_index_analyzer",
+      "search_analyzer": "cs_search_analyzer",
+      "fielddata": true
     }
   }
 }

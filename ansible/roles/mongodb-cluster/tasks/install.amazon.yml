@@ -15,7 +15,7 @@
 
 - name: Install MongoDB package
   yum:
-    name: "{{ mongodb_package }}{% if (mongodb_version | length > 3) %}-{{ mongodb_version }}{% endif %}"
+    name: "{{ mongodb_package }}{% if (mongodb_version | length > 3) %}={{ mongodb_version }}{% endif %}"
     state: "{{ mongodb_package_state }}"
     lock_timeout: "{{ yum_lock_timeout }}"
 
@@ -28,14 +28,16 @@
 
 - name: Install PyMongo package
   yum:
-    name: "{{ mongodb_pymongo_package }}"
+    name: python-pymongo
     state: present
     lock_timeout: "{{ yum_lock_timeout }}"
   when: not mongodb_pymongo_from_pip
 
 - name: Install PIP
   yum:
-    name: "{{ mongodb_pymongo_deps }}"
+    name:
+      - python-devel
+      - python-pip
     lock_timeout: "{{ yum_lock_timeout }}"
   when: mongodb_pymongo_from_pip
 
@@ -44,5 +46,4 @@
     name: pymongo
     state: "{{ mongodb_pymongo_pip_version is defined | ternary('present', 'latest') }}"
     version: "{{ mongodb_pymongo_pip_version | default(omit) }}"
-    executable: "{{ mongodb_pip_executable }}"
   when: mongodb_pymongo_from_pip

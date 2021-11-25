@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 144,
-  "iteration": 1622093409708,
+  "id": 85,
+  "iteration": 1610513908145,
   "links": [],
   "panels": [
     {
@@ -4085,12 +4085,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:893",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:894",
               "name": "range to text",
               "value": 2
             }
@@ -4117,25 +4115,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.raw.events.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.raw\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.ingestion.events.backup\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.telemetry.ingestion\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.raw.events.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.ingestion.events.backup\", job=\"ingestion-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "15000000,20000000",
+          "thresholds": "10000000,15000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "raw-telemetry-backup",
+          "title": "IngestionTelemetryBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:896",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4180,12 +4177,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:934",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:935",
               "name": "range to text",
               "value": 2
             }
@@ -4212,25 +4207,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.failed.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.failed\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.raw.events.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.raw\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.failed.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.raw.events.backup\", job=\"processing-kafka-exporter\"}) ",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "1000000,2000000",
+          "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "failed-telemetry-backup",
+          "title": "RawTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:937",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4275,12 +4269,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1186",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1187",
               "name": "range to text",
               "value": 2
             }
@@ -4307,25 +4299,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.unique.events.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.unique\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.failed.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.failed\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.unique.events.backup\", job=\"processing-kafka-exporter\"} ",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.failed.backup\", job=\"processing-kafka-exporter\"}) ",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "15000000,20000000",
+          "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "unique-telemetry-backup",
+          "title": "FailedTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1189",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4370,12 +4361,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1018",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1019",
               "name": "range to text",
               "value": 2
             }
@@ -4402,25 +4391,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.channel.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.denorm\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.extractor.duplicate.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.extractor.duplicate\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.channel.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.extractor.duplicate.backup\", job=\"processing-kafka-exporter\"}) ",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "15000000,20000000",
+          "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "channel-telemetry-backup",
+          "title": "ExtractorDuplicateEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1021",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4465,12 +4453,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1312",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1313",
               "name": "range to text",
               "value": 2
             }
@@ -4497,10 +4483,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.denorm.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.denorm\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.channel.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.denorm\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.denorm.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without (partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.channel.backup\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -4510,12 +4496,11 @@
           "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "denorm-events-backup",
+          "title": "ChannelTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1315",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4560,12 +4545,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1477",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1478",
               "name": "range to text",
               "value": 2
             }
@@ -4592,10 +4575,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.summary.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.druid.events.summary\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.derived.unique.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.derived.unique\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.summary.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.derived.unique.backup\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -4605,12 +4588,11 @@
           "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "derived-denorm-events-backup",
+          "title": "DerivedUniqueTelemetryBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1480",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4655,12 +4637,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1228",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1229",
               "name": "range to text",
               "value": 2
             }
@@ -4687,25 +4667,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.summary.channel.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.druid.events.summary\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.assess.raw\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.assess.raw\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.summary.channel.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without (partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.assess.raw\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "15000000,20000000",
+          "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "channel-summary-backup",
+          "title": "AssesRawEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1231",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4750,12 +4729,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1144",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1145",
               "name": "range to text",
               "value": 2
             }
@@ -4782,10 +4759,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.extractor.failed.backup.tmp\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.extractor.failed\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.extractor.failed.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.extractor.failed\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.extractor.failed.backup.tmp\", job=\"processing-kafka-exporter\"} ",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.extractor.failed.backup\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -4795,12 +4772,11 @@
           "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "extractor-failed-backup",
+          "title": "ExtractorFailedEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1147",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -4875,10 +4851,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.assess.raw\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.assess.raw\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.unique.events.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.unique\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.assess.raw\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.unique.events.backup\", job=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.unique\"}) ",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -4888,7 +4864,7 @@
           "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "assess-raw-events-backup",
+          "title": "UniqueTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -4937,12 +4913,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1396",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1397",
               "name": "range to text",
               "value": 2
             }
@@ -4969,25 +4943,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.duplicate.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.duplicate\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.summary.channel.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.druid.events.summary\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.duplicate.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.summary.channel.backup\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "1000000,2000000",
+          "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "telemetry-duplicate-backup",
+          "title": "ChannelEventsSummaryBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1399",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5032,12 +5005,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:976",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:977",
               "name": "range to text",
               "value": 2
             }
@@ -5064,25 +5035,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.extractor.duplicate.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.extractor.duplicate\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.failed.learning.events.backup\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.learning.events.failed\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.extractor.duplicate.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.failed.learning.events.backup\", job=\"ingestion-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "1000000,2000000",
+          "thresholds": "50000,100000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "extractor-duplicate-backup",
+          "title": "LearningFailedEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:979",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5157,10 +5127,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.ingestion.events.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.telemetry.ingestion\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.denorm.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.denorm\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.ingestion.events.backup\", job=\"ingestion-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.denorm.backup\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -5170,7 +5140,7 @@
           "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "ingestion-telemetry-backup",
+          "title": "DenormTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -5219,12 +5189,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1060",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1061",
               "name": "range to text",
               "value": 2
             }
@@ -5251,25 +5219,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.derived.unique.backup\", endpoint=\"metrics\", instance=\"11.4.32.123:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-4vrgh\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.derived.unique\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.events.device.profile.backup\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.events.deviceprofile\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.derived.unique.backup\", job=\"processing-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.events.device.profile.backup\", job=\"ingestion-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "15000000,20000000",
+          "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "derived-telemetry-backup",
+          "title": "DeviceProfileEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1063",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5314,12 +5281,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1354",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1355",
               "name": "range to text",
               "value": 2
             }
@@ -5346,10 +5311,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.events.device.profile.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.events.deviceprofile\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.duplicate.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.telemetry.duplicate\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.events.device.profile.backup\", job=\"ingestion-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.duplicate.backup\", job=\"processing-kafka-exporter\"}) ",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -5359,12 +5324,11 @@
           "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "device-profile-backup",
+          "title": "DuplicateTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1357",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5409,12 +5373,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1558",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1559",
               "name": "range to text",
               "value": 2
             }
@@ -5441,25 +5403,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.learning.graph.events.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.learning.graph.events\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.telemetry.assess.events.backup\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.telemetry.assess\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.learning.graph.events.backup\", job=\"ingestion-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.telemetry.assess.events.backup\", job=\"ingestion-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "1000000,1500000",
+          "thresholds": "1000000,2000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": " learning-events-backup",
+          "title": "AssessTelemetryEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1561",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5504,12 +5465,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1270",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1271",
               "name": "range to text",
               "value": 2
             }
@@ -5536,25 +5495,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.failed.learning.events.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.learning.events.failed\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.summary.backup\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"ntpprod.druid.events.summary\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.failed.learning.events.backup\", job=\"ingestion-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.summary.backup\", job=\"processing-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "50000,100000",
+          "thresholds": "15000000,20000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "learning-failed-backup",
+          "title": "DerivedDenormEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1273",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5599,12 +5557,10 @@
           "mappingType": 1,
           "mappingTypes": [
             {
-              "$$hashKey": "object:1102",
               "name": "value to text",
               "value": 1
             },
             {
-              "$$hashKey": "object:1103",
               "name": "range to text",
               "value": 2
             }
@@ -5631,25 +5587,24 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.telemetry.assess.events.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.telemetry.assess\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.learning.graph.events.backup\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.learning.graph.events\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.telemetry.assess.events.backup\", job=\"ingestion-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.learning.graph.events.backup\", job=\"ingestion-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "thresholds": "1000000,2000000",
+          "thresholds": "1000000,1500000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "assess-events-backup",
+          "title": "LearningGraphEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "$$hashKey": "object:1105",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -5724,10 +5679,10 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.issue.certificate.request.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.issue.certificate.request\"}",
+          "tableColumn": "{consumergroup=\"ntpprod.coursebatch.job.request.backup\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.coursebatch.job.request\"}",
           "targets": [
             {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.issue.certificate.request.backup\", job=\"ingestion-kafka-exporter\"}",
+              "expr": "sum without(partition) (kafka_consumergroupzookeeper_lag_zookeeper{consumergroup=~\"$env.coursebatch.job.request.backup\", job=\"ingestion-kafka-exporter\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "",
@@ -5737,296 +5692,11 @@
           "thresholds": "4000000,8000000",
           "timeFrom": null,
           "timeShift": null,
-          "title": "issue-certificate-events-backup",
+          "title": "CourceBatchEventsBackup",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
             {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold: \nWarning: 1M\nCritical: 1.5M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 0,
-            "y": 19
-          },
-          "id": 166,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "$$hashKey": "object:1600",
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "$$hashKey": "object:1601",
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.coursebatch.job.request.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.coursebatch.job.request\"}",
-          "targets": [
-            {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.coursebatch.job.request.backup\", job=\"ingestion-kafka-exporter\"}",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "4000000,8000000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "content-consumption-events-backup",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "$$hashKey": "object:1603",
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold: \nWarning: 1M\nCritical: 1.5M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 4,
-            "y": 19
-          },
-          "id": 167,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "$$hashKey": "object:1681",
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "$$hashKey": "object:1682",
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.coursebatch.job.request.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.coursebatch.job.request\"}",
-          "targets": [
-            {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.druid.events.error.backup\", job=\"processing-kafka-exporter\"}",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "1000000,1500000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "error-telemetry-backup",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "$$hashKey": "object:1684",
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold: \nWarning: 1M\nCritical: 1.5M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 8,
-            "y": 19
-          },
-          "id": 168,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "$$hashKey": "object:1722",
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "$$hashKey": "object:1723",
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "kafka_consumergroup_lag_sum{consumergroup=\"ntpprod.auto.creation.job.request.backup\", endpoint=\"metrics\", instance=\"11.4.42.80:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-56dd78d448-5dcrk\", service=\"ingestion-kafka-exporter\", topic=\"ntpprod.auto.creation.job.request\"}",
-          "targets": [
-            {
-              "expr": "kafka_consumergroup_lag_sum{consumergroup=~\"$env.auto.creation.job.request.backup\", job=\"ingestion-kafka-exporter\"}",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "100000,150000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "content-auto-creation-events-backup",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "$$hashKey": "object:1725",
               "op": "=",
               "text": "N/A",
               "value": "null"
@@ -10083,5 +9753,5 @@
   "timezone": "",
   "title": "Lag Dashboard",
   "uid": "vfdQRdtM",
-  "version": 4
+  "version": 128
 }

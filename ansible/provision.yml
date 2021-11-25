@@ -43,9 +43,21 @@
   pre_tasks:
     - name: install setfacl support
       become: yes
-      apt:
-        name: ['acl', 'python-psycopg2']
+      apt: pkg=acl
   roles:
-    - postgresql
+    - postgresql-master
   tags:
-    - postgresql
+    - postgresql-master
+
+- hosts: postgresql-slave
+  become: yes
+  vars_files:
+    - ['{{inventory_dir}}/secrets.yml', 'secrets/{{env}}.yml']
+  pre_tasks:
+    - name: install setfacl support
+      become: yes
+      apt: pkg=acl
+  roles:
+    - postgresql-slave
+  tags:
+    - postgresql-slave

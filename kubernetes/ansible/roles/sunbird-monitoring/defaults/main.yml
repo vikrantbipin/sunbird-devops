@@ -14,22 +14,15 @@ monitoring_stack:
   - processing-kafka-exporter
   - json-path-exporter
 
-# Variable to add additional charts in monitoring.
-# eg:
-# monitoring_stack_additional_charts:
-  # - custom_chart1
-  # - custom_monitoring_chart2
-monitoring_stack_additional_charts: []
-
 namespace: monitoring
 
-monitor_alerts_mail_from_email:
-monitor_alerts_mail_server_host:
+monitor_alerts_mail_from_email: 
+monitor_alerts_mail_server_host: 
 monitor_alerts_mail_server_port: 587
-monitor_alerts_mail_server_username:
-monitor_alerts_mail_server_password:
-monitor_alerts_slack_url:
-monitor_alerts_slack_channel:
+monitor_alerts_mail_server_username: 
+monitor_alerts_mail_server_password: 
+monitor_alerts_slack_url: 
+monitor_alerts_slack_channel: 
 env: dev
 kubernetes_cluster_name: kubernetes-1
 #dp_monitor_alerts_slack_channel: "{{ monitor_alerts_slack_channel }}"
@@ -47,7 +40,7 @@ lp_process_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
 druid_team_mailing_list: "{{ default_mailing_list }}"
 druid_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
 druid_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
-default_mailing_list: "{{ alerts_mailing_list }}"
+default_mailing_list: smy.altamash@gmail.com
 dp_process_exporter_team_mailing_list: "{{ default_mailing_list }}"
 dp_process_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
 dp_process_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
@@ -76,7 +69,7 @@ alert_teams:
       - cassandra_.*
       - elasticsearch_.*
       - logstash_.*
-    severity_mailing_filter:
+    severity_mailing_filter: 
       - severity: critical
         alerts_mailing_list: "{{ lp_process_exporter_team_mailing_list_critical }}"
       - severity: fatal
@@ -92,7 +85,7 @@ alert_teams:
       - historical.*
       - broker.*
       - middle-Manager.*
-    severity_mailing_filter:
+    severity_mailing_filter: 
       - severity: critical
         alerts_mailing_list: "{{ druid_team_mailing_list_critical }}"
       - severity: fatal
@@ -107,7 +100,7 @@ alert_teams:
       - kafka_.*
       - zookeeper_.*
       - yarn_.*
-    severity_mailing_filter:
+    severity_mailing_filter: 
       - severity: critical
         alerts_mailing_list: "{{ dp_process_exporter_team_mailing_list_critical }}"
       - severity: fatal
@@ -117,7 +110,7 @@ alert_teams:
     alerts_mailing_list: "{{ node_exporter_team_mailing_list }}"
     services:
       - .*node-exporter
-    severity_mailing_filter:
+    severity_mailing_filter: 
       - severity: critical
         alerts_mailing_list: "{{ node_exporter_team_mailing_list_critical }}"
       - severity: fatal
@@ -127,7 +120,7 @@ alert_teams:
     alerts_mailing_list: "{{ elasticsearch_exporter_team_mailing_list }}"
     services:
       - .*elasticsearch-exporter
-    severity_mailing_filter:
+    severity_mailing_filter: 
       - severity: critical
         alerts_mailing_list: "{{ elasticsearch_exporter_team_mailing_list_critical }}"
       - severity: fatal
@@ -137,7 +130,7 @@ alert_teams:
     alerts_mailing_list: "{{ blackbox_exporter_team_mailing_list }}"
     services:
       - .*-service
-    severity_mailing_filter:
+    severity_mailing_filter: 
       - severity: critical
         alerts_mailing_list: "{{ blackbox_exporter_team_mailing_list_critical }}"
       - severity: fatal
@@ -221,40 +214,12 @@ redis_process_names: ""
 
 vault_azure_spark_cluster_http_password: ""
 azure_spark_cluster_http_password: "{{ vault_azure_spark_cluster_http_password }}"
-ignore_alert_list: #### This is the var being used to skip the list of alerts.
-  - AlertmanagerConfigInconsistent
-  - AlertmanagerFailedReload
-  - AlertmanagerMembersInconsistent
-  - etcdGRPCRequestsSlow
-  - etcdHTTPRequestsSlow
-  - etcdHighCommitDurations
-  - etcdHighFsyncDurations
-  - etcdHighNumberOfFailedGRPCRequests
-  - etcdHighNumberOfFailedHTTPRequests
-  - etcdHighNumberOfFailedProposals
-  - etcdHighNumberOfLeaderChanges
-  - etcdInsufficientMembers
-  - etcdMemberCommunicationSlow
-  - etcdNoLeader
-  - KubeControllerManagerDown
-  - KubeSchedulerDown
-  - KubeAPIDown
-  - KubeStateMetricsDown
-  - PrometheusDuplicateTimestamps
-igonore_alert_list_custom: [] #### This var can be used for custom related. For example if an adopter want to add any alerts to be skipped then those list can be added here instead of taking entire list and overriding the same by adding in the private repo.
-
-# for example refer the below snippet:
-
-#igonore_alert_list_custom:
-  #- alertname1
-  #- alertname2
-  #- alertname3
 
 service_health_checks:
   - service_name: 'analytics'
     targets: "http://analytics-service.{{ namespace }}.svc.cluster.local:9000/health"
   - service_name: 'learning-service'
-    targets: "http://{{ learningservice_ip }}:8080/learning-service/health"
+    targets: "http://{{ learningservice_ip }}:8080/learning-service/healthy"
   - service_name: 'player'
     targets: "http://player.{{ namespace }}.svc.cluster.local:3000/health"
   - service_name: 'search'
@@ -267,5 +232,3 @@ service_health_checks:
     targets: "http://lms-service.{{ namespace }}.svc.cluster.local:9000/health"
   - service_name: 'learner'
     targets: "http://learner-service.{{ namespace }}.svc.cluster.local:9000/health"
-
-api_response_upward_trend_threshold: 0.3

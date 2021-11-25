@@ -75,6 +75,11 @@ data:
           rewrite ^/content/(.*) /$1 break;
           proxy_pass $target;
         }
+        location /badger/ {
+          set $target http://badger-service.{{ .Values.namespace }}.svc.cluster.local:8004;
+          rewrite ^/badger/(.*) /$1 break;
+          proxy_pass $target;
+        }
         location /cert/ {
           set $target http://cert-service.{{ .Values.namespace }}.svc.cluster.local:9000;
           rewrite ^/cert/(.*) /$1 break;
@@ -140,11 +145,6 @@ data:
         location /nodebb/ {
           set $target http://nodebb-service.{{ .Values.namespace }}.svc.cluster.local:4567;
           rewrite ^/enc/(.*) /$1 break;
-          proxy_pass $target;
-        }
-        location /dial/ {
-          set $target http://dial-service.{{ .Values.namespace }}.svc.cluster.local:9000;
-          rewrite ^/dial/(.*) /$1 break;
           proxy_pass $target;
         }
       }
