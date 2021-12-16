@@ -309,7 +309,7 @@ learning_analytics_service_url: 'http://{{learningservice_ip}}:9000'
 
 #encryption Service
 sunbird_allowed_login:
-sunbird_course_batch_notification_enabled: 'true'
+sunbird_course_batch_notification_enabled: 'False'
 sunbird_device_register_api: "{{proto}}://{{api_proxy_name}}/v3/device/register/"
 sunbird_course_batch_notification_signature: sunbird
 
