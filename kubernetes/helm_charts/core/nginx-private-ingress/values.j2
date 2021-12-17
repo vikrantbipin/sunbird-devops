@@ -10,7 +10,7 @@ kube_dns_ip: {{kube_dns_ip}}
 # Grafana access htpasswd
 # You can generate one at
 # https://wtools.io/generate-htpasswd-online
-grafana_htpasswd: {{ grafana_nginx_private_htpasswd | default("") }}
+grafana_htpasswd: {{ grafana_nginx_private_htpasswd | default('') }}
 
 # This is the header with which grafana will authorize the admin user.
 # Make sure this is a random text.
