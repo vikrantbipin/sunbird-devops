@@ -392,6 +392,8 @@ proxyconfig: |-
       proxy_set_header X-Forwarded-Host $host;
       proxy_set_header X-Forwarded-Server $host;
       rewrite ^/apis/(.*) /$1 break;
+      proxy_redirect off;
+      proxy_set_header X-Forwarded-Proto $scheme;
       proxy_pass http://ui-proxies:3003;
       proxy_connect_timeout 10;
       proxy_send_timeout 300;
@@ -415,6 +417,8 @@ proxyconfig: |-
       proxy_set_header Host $host;
       proxy_set_header X-Forwarded-Host $host;
       proxy_set_header X-Forwarded-Server $host;
+      proxy_redirect off;
+      proxy_set_header X-Forwarded-Proto $scheme;
       proxy_pass http://ui-proxies:3003;
       proxy_connect_timeout 10;
       proxy_send_timeout 300;
