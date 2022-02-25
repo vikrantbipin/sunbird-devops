@@ -136,12 +136,6 @@ alertmanager:
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
 
-        email_configs:
-          - send_resolved: true
-            to: '{{ default_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
     templates:
       - '/etc/alertmanager/config/*.tmpl'
   templateFiles:
