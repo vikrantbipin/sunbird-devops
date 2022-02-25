@@ -254,10 +254,6 @@ alertmanager:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
     templates:
       - '/etc/alertmanager/config/*.tmpl'
-  templateFiles:
-    sunbird_alert_subject.tmpl: |-
-{% raw %}        {{ define "email.sunbird.subject" }}[{{ .Status | toUpper }}] [{{ .CommonLabels.severity }}] [{{ .CommonLabels.env }}] [{{ .CommonLabels.alertname }}] {{ end }}{% endraw %}{''}
-
   # Adding alertmanager custom spec overrides
   # Refrencing alert manager yaml anchor
   <<: *alertmanager_spec_overrides
