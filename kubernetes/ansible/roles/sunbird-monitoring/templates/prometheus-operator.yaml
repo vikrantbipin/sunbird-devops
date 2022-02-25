@@ -129,7 +129,8 @@ alertmanager:
       equal: ['alertname']
 
     receivers:
-        email_configs:
+       - name: test
+         email_configs:
           - send_resolved: true
             to: '{{ default_mailing_list }}'
             html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
