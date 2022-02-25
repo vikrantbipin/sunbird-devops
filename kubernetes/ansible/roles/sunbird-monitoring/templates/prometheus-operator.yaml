@@ -213,45 +213,6 @@ alertmanager:
                     *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
                     {{ "{{" }} end {{ "}}" }}
             icon_emoji: ':dart:'
-
-        email_configs:
-          - send_resolved: true
-            to: '{{ default_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      - name: 'null'
-
-      {% for item in alert_teams %}
-      # Comment to ensure proper indentation while templating
-      - name: "{{ item.team }}"
-        email_configs:
-          - send_resolved: true
-            to: '{{ item.alerts_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      {% if item.severity_mailing_filter is defined and item.severity_mailing_filter|length %}
-      {% for filter in item.severity_mailing_filter %}
-      # Comment to ensure proper indentation while templating
-      - name: "{{ item.team }}_{{ filter.severity }}"
-        email_configs:
-          - send_resolved: true
-            to: '{{ filter.alerts_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      {% endfor %}
-      {% endif %}
-      {% endfor %}
-      # Comment to ensure proper indentation while templating
-      - name: {{env}}_devops_team
-        email_configs:
-          - send_resolved: true
-            to: '{{ default_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
     templates:
       - '/etc/alertmanager/config/*.tmpl'
   # Adding alertmanager custom spec overrides
