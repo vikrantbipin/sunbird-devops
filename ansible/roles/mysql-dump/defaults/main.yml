@@ -1,0 +1,2 @@
+mysql_dump_dir: /tmp/mysql-backup
+mysql_dump_azure_container_name: mysql-backup
