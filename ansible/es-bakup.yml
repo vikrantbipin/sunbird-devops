@@ -5,5 +5,3 @@
 
   roles:
     - es-backup
-  tags:
-    - es-backup
