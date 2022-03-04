@@ -1,0 +1,5 @@
+elastic_user: elasticsearch
+elastic_password: elasticsearch
+es_backup_dir: /home/ubuntu/es-backup
+es_user: elasticsearch
+
