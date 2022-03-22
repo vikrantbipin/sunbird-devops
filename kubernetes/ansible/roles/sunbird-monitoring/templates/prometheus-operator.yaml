@@ -86,6 +86,11 @@ alertmanager:
       - match_re:
          alertname: "{{ '^(' + (ignore_alert_list + igonore_alert_list_custom) | join('|') + ')' }}"
         receiver: "null"
+
+      - receiver: slack
+        continue: true
+      {% for item in alert_teams %}
+      # Comment to ensure proper indentation while templating
       - match_re:
           {{ item.group }}: "{{ item.services | join('|') }}"
         receiver: "{{ item.team }}"
@@ -97,7 +102,9 @@ alertmanager:
         - match:
             severity: "{{ filter.severity }}"
           receiver: "{{ item.team }}_{{ filter.severity }}"
+        {% endfor %}
         {% endif %}
+      {% endfor %}
       # Comment to ensure proper indentation while templating
       - match:
           owner:
@@ -110,7 +117,9 @@ alertmanager:
       target_match:
         severity: 'warning'
       equal: ['alertname']
-    
+
+    receivers:
+
         email_configs:
           - send_resolved: true
             to: '{{ default_mailing_list }}'
@@ -124,6 +133,7 @@ alertmanager:
             html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
+
 
         email_configs:
           - send_resolved: true
@@ -152,9 +162,9 @@ alertmanager:
             html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-
+      {% endfor %}
       {% endif %}
-  
+      {% endfor %}
       # Comment to ensure proper indentation while templating
       - name: {{env}}_devops_team
         email_configs:
@@ -173,6 +183,7 @@ alertmanager:
   # Adding alertmanager custom spec overrides
   # Refrencing alert manager yaml anchor
   <<: *alertmanager_spec_overrides
+
   
 grafana:
   deploymentStrategy:
