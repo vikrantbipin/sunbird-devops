@@ -154,9 +154,9 @@ alertmanager:
             html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      {% endfor %}
+
       {% endif %}
-      {% endfor %}
+  
       # Comment to ensure proper indentation while templating
       - name: {{env}}_devops_team
         email_configs:
