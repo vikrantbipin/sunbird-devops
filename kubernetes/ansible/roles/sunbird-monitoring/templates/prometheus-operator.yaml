@@ -141,7 +141,7 @@ alertmanager:
             html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      - name: 'null'
+
 
       {% for item in alert_teams %}
       # Comment to ensure proper indentation while templating
