@@ -86,21 +86,6 @@ alertmanager:
       - match_re:
          alertname: "{{ '^(' + (ignore_alert_list + igonore_alert_list_custom) | join('|') + ')' }}"
         receiver: "null"
-      - match:
-          module: dp_process
-        receiver: dp-process_slack
-      - match:
-          module: dp_lag
-          severity: warning
-        receiver: dp-lag_slack_warning
-      - match:
-          module: dp_lag
-          severity: critical
-        receiver: dp-lag_slack_critical
-      - receiver: slack
-        continue: true
-      {% for item in alert_teams %}
-      # Comment to ensure proper indentation while templating
       - match_re:
           {{ item.group }}: "{{ item.services | join('|') }}"
         receiver: "{{ item.team }}"
@@ -128,42 +113,6 @@ alertmanager:
         severity: 'warning'
       equal: ['alertname']
     
-    receivers:
-      - name: 'slack'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ monitor_alerts_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ monitor_alerts_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}'
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                    *Alert:* {{ "{{" }} .Annotations.message {{ "}}" }} - `{{ "{{" }} .Labels.severity {{ "}}" }}`
-                    *Description:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                    *Details:*
-                    {{ "{{" }} range .Labels.SortedPairs {{ "}}" }} • *{{ "{{" }} .Name {{ "}}" }}:* `{{ "{{" }} .Value {{ "}}" }}`
-                    {{ "{{" }} end {{ "}}" }}
-                  {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
-
-      - name: 'dp-process_slack'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ dp_monitor_alerts_critical_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ dp_monitor_alerts_critical_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}' 
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                     *Alert:* {{ "{{" }} .Annotations.alertname {{ "}}" }}
-                    *ProcessName:* {{ "{{" }} .Annotations.job_id {{ "}}" }}
-                    *AlertType:* {{ "{{" }} .Labels.severity {{ "}}" }}
-                    *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                  {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
-    
         email_configs:
           - send_resolved: true
             to: '{{ default_mailing_list }}'
@@ -171,24 +120,6 @@ alertmanager:
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
 
-      - name: 'dp-lag_slack_warning'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ dp_monitor_alerts_warning_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ dp_monitor_alerts_warning_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}' 
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                     *Alert:* {{ "{{" }} .Annotations.alertname {{ "}}" }}
-                    *Job:* {{ "{{" }} .Annotations.job_id {{ "}}" }}
-                    *AlertType:* {{ "{{" }} .Labels.severity {{ "}}" }}
-                    *AlertMetric:* {{ "{{" }} .Annotations.lag {{ "}}" }}
-                    *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                    {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
-            
         email_configs:
           - send_resolved: true
             to: '{{ default_mailing_list }}'
@@ -196,24 +127,6 @@ alertmanager:
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
 
-      - name: 'dp-lag_slack_critical'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ dp_monitor_alerts_critical_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ dp_monitor_alerts_critical_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}' 
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                     *Alert:* {{ "{{" }} .Annotations.alertname {{ "}}" }}
-                    *Job:* {{ "{{" }} .Annotations.job_id {{ "}}" }}
-                    *AlertType:* {{ "{{" }} .Labels.severity {{ "}}" }}
-                    *AlertMetric:* {{ "{{" }} .Annotations.lag {{ "}}" }}
-                    *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                    {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
-            
         email_configs:
           - send_resolved: true
             to: '{{ default_mailing_list }}'
@@ -254,6 +167,14 @@ alertmanager:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
     templates:
       - '/etc/alertmanager/config/*.tmpl'
+  templateFiles:
+    sunbird_alert_subject.tmpl: |-
+{% raw %}        {{ define "email.sunbird.subject" }}[{{ .Status | toUpper }}] [{{ .CommonLabels.severity }}] [{{ .CommonLabels.env }}] [{{ .CommonLabels.alertname }}] {{ end }}{% endraw %}{''}
+    sunbird_alert_html.tmpl: |-
+       "{{ lookup('file', '../files/sunbird_alert_html.tmpl') | indent( width=8) }}"
+  # Adding alertmanager custom spec overrides
+  # Refrencing alert manager yaml anchor
+  <<: *alertmanager_spec_overrides
   
 grafana:
   deploymentStrategy:
