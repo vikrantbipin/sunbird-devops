@@ -86,35 +86,7 @@ alertmanager:
       - match_re:
          alertname: "{{ '^(' + (ignore_alert_list + igonore_alert_list_custom) | join('|') + ')' }}"
         receiver: "null"
-      - match:
-          module: dp_process
-        receiver: dp-process_slack
-      - match:
-          module: dp_lag
-          severity: warning
-        receiver: dp-lag_slack_warning
-      - match:
-          module: dp_lag
-          severity: critical
-        receiver: dp-lag_slack_critical
-      - receiver: slack
-        continue: true
-      {% for item in alert_teams %}
-      # Comment to ensure proper indentation while templating
-      - match_re:
-          {{ item.group }}: "{{ item.services | join('|') }}"
-        receiver: "{{ item.team }}"
-        # Comment to ensure proper indentation while templating
-        {% if item.severity_mailing_filter is defined and item.severity_mailing_filter|length %}
-        routes:
-        {% for filter in item.severity_mailing_filter %}
-        # Comment to ensure proper indentation while templating
-        - match:
-            severity: "{{ filter.severity }}"
-          receiver: "{{ item.team }}_{{ filter.severity }}"
-        {% endfor %}
-        {% endif %}
-      {% endfor %}
+
       # Comment to ensure proper indentation while templating
       - match:
           owner:
@@ -129,40 +101,6 @@ alertmanager:
       equal: ['alertname']
 
     receivers:
-      - name: 'slack'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ monitor_alerts_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ monitor_alerts_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}'
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                    *Alert:* {{ "{{" }} .Annotations.message {{ "}}" }} - `{{ "{{" }} .Labels.severity {{ "}}" }}`
-                    *Description:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                    *Details:*
-                    {{ "{{" }} range .Labels.SortedPairs {{ "}}" }} • *{{ "{{" }} .Name {{ "}}" }}:* `{{ "{{" }} .Value {{ "}}" }}`
-                    {{ "{{" }} end {{ "}}" }}
-                  {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
-
-      - name: 'dp-process_slack'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ dp_monitor_alerts_critical_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ dp_monitor_alerts_critical_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}'
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                     *Alert:* {{ "{{" }} .Annotations.alertname {{ "}}" }}
-                    *ProcessName:* {{ "{{" }} .Annotations.job_id {{ "}}" }}
-                    *AlertType:* {{ "{{" }} .Labels.severity {{ "}}" }}
-                    *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                  {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
 
         email_configs:
           - send_resolved: true
@@ -171,23 +109,6 @@ alertmanager:
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
 
-      - name: 'dp-lag_slack_warning'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ dp_monitor_alerts_warning_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ dp_monitor_alerts_warning_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}'
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                     *Alert:* {{ "{{" }} .Annotations.alertname {{ "}}" }}
-                    *Job:* {{ "{{" }} .Annotations.job_id {{ "}}" }}
-                    *AlertType:* {{ "{{" }} .Labels.severity {{ "}}" }}
-                    *AlertMetric:* {{ "{{" }} .Annotations.lag {{ "}}" }}
-                    *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                    {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
 
         email_configs:
           - send_resolved: true
@@ -196,23 +117,7 @@ alertmanager:
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
 
-      - name: 'dp-lag_slack_critical'
-        slack_configs:
-          - send_resolved: true
-            api_url: "{{ dp_monitor_alerts_critical_slack_url }}"
-            username: 'Monitor - Alerter'
-            channel: "{{ dp_monitor_alerts_critical_slack_channel }}"
-            title_link: ""
-            title: '{% raw %}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]{% endraw %}'
-            text: |-
-                  {{ "{{" }} range .Alerts {{ "}}" }}
-                     *Alert:* {{ "{{" }} .Annotations.alertname {{ "}}" }}
-                    *Job:* {{ "{{" }} .Annotations.job_id {{ "}}" }}
-                    *AlertType:* {{ "{{" }} .Labels.severity {{ "}}" }}
-                    *AlertMetric:* {{ "{{" }} .Annotations.lag {{ "}}" }}
-                    *Details:* {{ "{{" }} .Annotations.message {{ "}}" }}
-                    {{ "{{" }} end {{ "}}" }}
-            icon_emoji: ':dart:'
+
 
         email_configs:
           - send_resolved: true
@@ -220,30 +125,7 @@ alertmanager:
             html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
             headers:
               subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      - name: 'null'
 
-      {% for item in alert_teams %}
-      # Comment to ensure proper indentation while templating
-      - name: "{{ item.team }}"
-        email_configs:
-          - send_resolved: true
-            to: '{{ item.alerts_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      {% if item.severity_mailing_filter is defined and item.severity_mailing_filter|length %}
-      {% for filter in item.severity_mailing_filter %}
-      # Comment to ensure proper indentation while templating
-      - name: "{{ item.team }}_{{ filter.severity }}"
-        email_configs:
-          - send_resolved: true
-            to: '{{ filter.alerts_mailing_list }}'
-            html: '{% raw %}{{ template "email.sunbird.html" . }}{% endraw %}'
-            headers:
-              subject: '{% raw %}{{ template "email.sunbird.subject" . }}{% endraw %}'
-      {% endfor %}
-      {% endif %}
-      {% endfor %}
       # Comment to ensure proper indentation while templating
       - name: {{env}}_devops_team
         email_configs:
