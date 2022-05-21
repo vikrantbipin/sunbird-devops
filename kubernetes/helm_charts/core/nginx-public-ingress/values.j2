@@ -427,7 +427,7 @@ proxyconfig: |-
       proxy_send_timeout 300;
       proxy_read_timeout 300;
     }
-	
+    
     location ~ /apis/proxies/v8/searchBy/competency {
       if ($request_method = OPTIONS ) {
               add_header Access-Control-Allow-Origin "*" ;
@@ -457,7 +457,7 @@ proxyconfig: |-
       proxy_send_timeout 300;
       proxy_read_timeout 300;
     }
-
+    
     location /protected/v8/resource/ {
       if ($request_method = OPTIONS ) {
               add_header Access-Control-Allow-Origin "*" ;
