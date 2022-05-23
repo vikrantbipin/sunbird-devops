@@ -252,12 +252,12 @@ igonore_alert_list_custom: [] #### This var can be used for custom related. For 
   #- alertname3
 
 service_health_checks:
-  - service_name: 'analytics'
-    targets: "http://analytics-service.{{ namespace }}.svc.cluster.local:9000/health"
+ # - service_name: 'analytics'
+ #   targets: "http://analytics-service.{{ namespace }}.svc.cluster.local:9000/health"
   - service_name: 'learning-service'
     targets: "http://{{ learningservice_ip }}:8080/learning-service/health"
-  - service_name: 'player'
-    targets: "http://player.{{ namespace }}.svc.cluster.local:3000/health"
+ # - service_name: 'player'
+ #   targets: "http://player.{{ namespace }}.svc.cluster.local:3000/health"
   - service_name: 'search'
     targets: "http://search-service.{{ namespace }}.svc.cluster.local:9000/health"
   - service_name: 'knowledgemw'
