@@ -687,3 +687,4 @@ dial_service_schema_base_path: "https://{{sunbird_public_storage_account_name}}.
 
 plugin_media_base_url: "{{proto}}://{{domain_name}}"
 
+user_enrolments_response_cache_enable: False
