@@ -8685,3 +8685,45 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      
+  - name: getAllDeptDetails
+    uris: "{{ user_service_prefix }}/registration/v1/getDeptDetails"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/registration/v1/getDeptDetails"
+    strip_uri: true
+    plugins:
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ small_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+      
+  - name: registerUser
+    uris: "{{ user_service_prefix }}/registration/v1/register"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/registration/v1/register"
+    strip_uri: true
+    plugins:
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ small_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+      
+  - name: registerUser
+    uris: "{{ user_service_prefix }}/registration/v1/getRegisterDetails"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/registration/v1/getUserRegistrationDetails"
+    strip_uri: true
+    plugins:
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ small_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
