@@ -10,7 +10,7 @@ monitoring_stack:
   - additional-scrape-configs
   - alertrules
   - kafka-topic-exporter
-  - prometheus-redis-exporter
+  #- prometheus-redis-exporter
   - processing-kafka-exporter
   - json-path-exporter
 
