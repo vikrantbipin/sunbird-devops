@@ -5886,7 +5886,7 @@ keycloakconf: |
       proxy_pass http://ui-static;
     }
   }
-  location / {
+  location /web {
       rewrite ^/(.*) /$1 break;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
@@ -5898,7 +5898,7 @@ keycloakconf: |
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
-      proxy_pass http://ui-static/web;
+      proxy_pass http://ui-static;
     }
 compressionConfig: |-
   # Compression
