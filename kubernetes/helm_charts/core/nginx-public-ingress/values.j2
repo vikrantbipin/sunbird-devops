@@ -472,6 +472,9 @@ proxyconfig: |-
       proxy_cache searchnodes_cache;
       add_header X-Proxy-Cache $upstream_cache_status;
       add_header X-Proxy-Cache-Date $upstream_http_date;
+      
+      proxy_ignore_headers Expires Cache-Control Set-Cookie Vary;
+      
       proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
       proxy_cache_methods GET HEAD POST;
       proxy_cache_revalidate on;
@@ -481,7 +484,6 @@ proxyconfig: |-
       # Increasing the proxy buffer size
       proxy_buffer_size 16k;
       proxy_busy_buffers_size 16k;
-      rewrite ^/apis/(.*) /$1 break;
       proxy_set_header Connection "";
       proxy_set_header Host $host;
       proxy_set_header X-Scheme $scheme;
