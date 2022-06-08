@@ -5865,6 +5865,8 @@ nginxconfig: |
       proxy_cache_path /tmp/framework_cache levels=1:2 keys_zone=framework_cache:5m max_size=700m inactive=300m use_temp_path=off;
       # cache content
       proxy_cache_path /tmp/content_cache levels=1:2 keys_zone=content_cache:100m max_size=3000m inactive=600m use_temp_path=off;
+      # searchnodes content
+      proxy_cache_path /tmp/searchnodes_cache levels=1:2 keys_zone=searchnodes_cache:100m max_size=3000m inactive=600m use_temp_path=off;
       # cache content metadata
       proxy_cache_path /tmp/content_metadata levels=1:2 keys_zone=content_metadata:100m max_size=1000m inactive=300m use_temp_path=off;
       
