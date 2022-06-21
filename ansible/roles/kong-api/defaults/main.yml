@@ -8754,9 +8754,6 @@ kong_apis:
     - name: jwt
     - name: cors
     - "{{ statsd_pulgin }}"
-    - name: acl
-      config.whitelist:
-        - 'dataAccess'
     - name: rate-limiting
       config.policy: local
       config.hour: "{{ small_rate_limit_per_hour }}"
