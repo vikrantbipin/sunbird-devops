@@ -8815,7 +8815,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: orgExtendedSearch
-    uris: "{{ org_service_prefix }}/v1/ext/search"
+    uris: "{{ org_service_prefix }}/v1/cb/ext/search"
     upstream_url: "{{ sb_cb_ext_service_url }}/org/v1/ext/search"
     strip_uri: true
     plugins:
