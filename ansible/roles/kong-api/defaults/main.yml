@@ -117,7 +117,7 @@ discussions_mw_url: "http://discussionsmw-service:3002"
 nodebb_url: "http://nodebb-service:4567/discussions"
 analytics_url: "http://pm-analytics-service:8091"
 registry_service_url: "http://registry-service:8081"
-forms_service_url: "http://form-service/8099"
+forms_service_url: "http://form-service:8099"
 
 premium_consumer_rate_limits:
   - api: createContent
