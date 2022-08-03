@@ -60,7 +60,6 @@ mobile_device_groups:
   - userSuperAdmin
   - orgUpdatecontent 
   - SuperAdmin
-  - frameworkAdmin
   - orgSuperAdmin
   - orgAdmin
 
