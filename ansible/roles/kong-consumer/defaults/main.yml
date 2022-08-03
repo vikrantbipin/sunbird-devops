@@ -55,6 +55,14 @@ mobile_device_groups:
   - solutionAccess
   - surveyAccess
   - surveyUpdate
+  - frameworkAdmin
+  - frameworkCreate
+  - userSuperAdmin
+  - orgUpdatecontent 
+  - SuperAdmin
+  - frameworkAdmin
+  - orgSuperAdmin
+  - orgAdmin
 
 anonymous_user_groups:
   - deviceCreate
