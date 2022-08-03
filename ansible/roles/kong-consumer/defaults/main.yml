@@ -163,7 +163,6 @@ kong_all_consumer_groups:
   - userSuperAdmin
   - orgUpdatecontent 
   - SuperAdmin
-  - frameworkAdmin
   - orgSuperAdmin
   - orgAdmin
 
