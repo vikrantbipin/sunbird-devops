@@ -64,6 +64,12 @@ mobile_device_groups:
   - orgAdmin
   - dataAccess
   - dataCreate
+  - contentAdmin
+  - contentTempAccess
+  - pluginAccess
+  - channelAdmin
+  - noteAccess
+  - userTempAdmin
 
 anonymous_user_groups:
   - deviceCreate
