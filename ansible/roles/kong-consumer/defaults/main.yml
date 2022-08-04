@@ -62,6 +62,7 @@ mobile_device_groups:
   - SuperAdmin
   - orgSuperAdmin
   - orgAdmin
+  - dataAccess
 
 anonymous_user_groups:
   - deviceCreate
