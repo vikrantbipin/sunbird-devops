@@ -710,8 +710,8 @@ kong_apis:
       config.allowed_payload_size: "{{ large_request_size_limit }}"
 
   - name: createForm
-    uris: "{{ data_service_prefix }}/v1/form/create"
-    upstream_url: "{{ player_service_url }}/plugin/v1/form/create"
+    uris: "{{ data_service_prefix }}/v1/form/createForm"
+    upstream_url: "{{ player_service_url }}/plugin/v1/form/createForm"
     strip_uri: true
     plugins:
     - name: jwt
