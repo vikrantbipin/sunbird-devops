@@ -7531,7 +7531,7 @@ kong_apis:
           
   - name: userAutoComplete
     uris: "{{ user_service_prefix }}/v1/autocomplete"
-    upstream_url: "{{ learning_service_url }}/v1/user/autocomplete"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/v1/autocomplete"
     strip_uri: true
     plugins:
     - name: jwt
