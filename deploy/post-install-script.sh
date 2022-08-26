@@ -19,19 +19,6 @@ creator=""
 reviewer=""
 orgadmin=""
 
-cassandra_forms(){
-    # Import the forms into cassandra
-    echo -e "\e[0;32m${bold}Install cqlsh ${normal}"
-    pip install -U cqlsh
-    printf "\n"
-    echo -e "\e[0;32m${bold}Download forms ${normal}"
-    wget "$forms"
-    printf "\n"
-    echo -e "\e[0;32m${bold}Import forms ${normal}"
-    /var/lib/jenkins/.local/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
-    rm forms.csv
-}
-
 get_x_authenticated_token(){
     # Keycloak access token
     printf "\n\n"
