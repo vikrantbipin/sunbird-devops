@@ -22,7 +22,7 @@ orgadmin=""
 cassandra_forms(){
     # Import the forms into cassandra
     echo -e "\e[0;32m${bold}Install cqlsh ${normal}"
-    pip install -U cqlsh
+    pip install -U cqlsh==6.0.0
     printf "\n"
     echo -e "\e[0;32m${bold}Download forms ${normal}"
     wget "$forms"
