@@ -120,6 +120,7 @@ analytics_url: "http://pm-analytics-service:8091"
 registry_service_url: "http://registry-service:8081"
 forms_service_url: "http://form-service:8099"
 profanity-moderator-admin-service: "http://profanity-moderator-admin-service:4000"
+
 premium_consumer_rate_limits:
   - api: createContent
     config.hour: "{{ premium_consumer_small_rate_limit_per_hour }}"
@@ -8194,7 +8195,6 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"      
 
-      
   - name: assessmentSubmitV3
     uris: "/v3/user/assessment/submit"
     upstream_url: "{{ sb_cb_ext_service_url }}/v3/user/assessment/submit"
