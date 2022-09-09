@@ -88,7 +88,7 @@ workflow_handler_service_prefix: /workflow
 player_prefix: /player
 registry_service_prefix: /rc
 forms_service_prefix: /forms
-profanity-moderator-admin_prefix: /moderatoradmin
+profanity_moderator_admin_prefix: /moderatoradmin
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -119,7 +119,7 @@ nodebb_url: "http://nodebb-service:4567/discussions"
 analytics_url: "http://pm-analytics-service:8091"
 registry_service_url: "http://registry-service:8081"
 forms_service_url: "http://form-service:8099"
-profanity-moderator-admin-service: "http://profanity-moderator-admin-service:4000"
+profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -8124,8 +8124,8 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: profanityModerationPersistModeratedText
-    uris: "{{ profanity-moderator-admin_prefix }}/feedback/persist/text/moderated"
-    upstream_url: "{{ profanity-moderator-admin-service }}/feedback/persist/text/moderated"
+    uris: "{{ profanity_moderator_admin_prefix }}/feedback/persist/text/moderated"
+    upstream_url: "{{ profanity_moderator_admin_service }}/feedback/persist/text/moderated"
     strip_uri: true
     plugins:
     - name: jwt
@@ -8142,8 +8142,8 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: profanityModerationFetchText
-    uris: "{{ profanity-moderator-admin_prefix }}/feedback/text/fetch"
-    upstream_url: "{{ profanity-moderator-admin-service }}/feedback/text/fetch"
+    uris: "{{ profanity_moderator_admin_prefix }}/feedback/text/fetch"
+    upstream_url: "{{ profanity_moderator_admin_service }}/feedback/text/fetch"
     strip_uri: true
     plugins:
     - name: jwt
@@ -8160,8 +8160,8 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: profanityModerationTypeText
-    uris: "{{ profanity-moderator-admin_prefix }}/profanity/type/text"
-    upstream_url: "{{ profanity-moderator-admin-service }}/profanity/type/text"
+    uris: "{{ profanity_moderator_admin_prefix }}/profanity/type/text"
+    upstream_url: "{{ profanity_moderator_admin_service }}/profanity/type/text"
     strip_uri: true
     plugins:
     - name: jwt
@@ -8178,8 +8178,8 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: profanityModerationFeedbackFlags
-    uris: "{{ profanity-moderator-admin_prefix }}/feedback/flag/values"
-    upstream_url: "{{ profanity-moderator-admin-service }}/feedback/flag/values"
+    uris: "{{ profanity_moderator_admin_prefix }}/feedback/flag/values"
+    upstream_url: "{{ profanity_moderator_admin_service }}/feedback/flag/values"
     strip_uri: true
     plugins:
     - name: jwt
