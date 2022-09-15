@@ -16,9 +16,9 @@
   - debug:
       var: keycloak_access_token
 
- - name: Creating root org
-   block:
-   - uri:
+  - name: Creating root org
+    block:
+    - uri:
        url: "https://{{ domain_name }}/api/org/v1/create"
        method: POST
        headers:
@@ -44,9 +44,9 @@
        var: sunbird_custodian_org_id
 
 # # Else login won't work
- - name: Creating NTP org for login
-   block:
-   - uri:
+  - name: Creating NTP org for login
+    block:
+    - uri:
        url: "https://{{ domain_name }}/api/org/v1/create"
        method: POST
        headers:
