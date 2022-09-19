@@ -3179,7 +3179,7 @@ proxyconfig: |-
       proxy_read_timeout 70;
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
-      proxy_pass http://portal;
+      proxy_pass http://portal:3006;
     }
     # Caching for content consumption
     location ~ /api/(content/v1/read|course/v1/hierarchy) {
