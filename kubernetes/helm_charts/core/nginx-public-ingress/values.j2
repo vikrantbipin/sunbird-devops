@@ -1178,7 +1178,7 @@ proxyconfig: |-
                   add_header Content-Type text/plain;
                   return 200;
           }
-      set $bucket        "igot.blob.core.windows.net/$web/index.html";
+      set $bucket        "igot.blob.core.windows.net/igotweb/index.html";
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "https://igot.blob.core.windows.net";
@@ -1194,7 +1194,7 @@ proxyconfig: |-
           add_header             Access-Control-Allow-Origin "*";
           add_header             Access-Control-Allow-Methods GET;
       proxy_set_header X-Request-ID $sb_request_id;
-      proxy_pass             https://igot.blob.core.windows.net/$web/index.html;
+      proxy_pass             https://igot.blob.core.windows.net/igotweb/index.html;
   }
     
     location /v3/device/register {
