@@ -1145,7 +1145,7 @@ proxyconfig: |-
     }
      
     location / {
-      rewrite ^/(.*) /$1 break;
+      #rewrite ^/(.*) /$1 break;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
       proxy_set_header X-Scheme $scheme;
@@ -1156,7 +1156,8 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
-      proxy_pass http://ui-static;
+      # proxy_pass http://ui-static;
+      rewrite ^/(.*)$ https://igot.z29.web.core.windows.net/$1 redirect;
     }
     
     location /v3/device/register {
