@@ -1194,7 +1194,7 @@ proxyconfig: |-
           add_header             Access-Control-Allow-Origin "*";
           add_header             Access-Control-Allow-Methods GET;
       proxy_set_header X-Request-ID $sb_request_id;
-      proxy_pass             https://www.igot-dev.in;
+      rewrite ^/(.*)$           https://www.{{ domain_name }}/$1 redirect;
   }
     
     location /v3/device/register {
