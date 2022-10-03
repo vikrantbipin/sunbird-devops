@@ -1034,7 +1034,7 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
-      proxy_pass http://ui-static;
+      rewrite ^/(.*)$           https://www.{{ proxy_server_name }}/$1 redirect;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
