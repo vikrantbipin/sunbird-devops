@@ -300,7 +300,7 @@ proxyconfig: |-
       proxy_set_header X-Request-ID $sb_request_id;
       proxy_pass http://kong;
     }
-    location ~ /api/(framework/v1/read|data/v1/system/settings/get|org/v1/search|org/v2/search|data/v1/location/search) {
+    location ~ /api/(framework/v1/read|data/v1/system/settings/get|data/v1/location/search) {
       # Enabling compression
       include /etc/nginx/defaults.d/compression.conf;
       # Enabling caching
