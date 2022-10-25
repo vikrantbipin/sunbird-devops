@@ -3322,6 +3322,32 @@ proxyconfig: |-
       proxy_send_timeout 300;
       proxy_read_timeout 300;
     }
+    location ~ /apis/protected/v8/frac/searchNodes {
+      # Enabling caching
+      proxy_cache_key "$request_uri|$request_body";
+      proxy_cache searchnodes_cache;
+      add_header X-Proxy-Cache $upstream_cache_status;
+      add_header X-Proxy-Cache-Date $upstream_http_date;
+      proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+      proxy_cache_methods GET HEAD POST;
+      proxy_cache_revalidate on;
+      proxy_cache_background_update on;
+      proxy_cache_lock on;
+      proxy_cache_valid 200 14400s;
+      # Increasing the proxy buffer size
+      proxy_buffer_size 16k;
+      proxy_busy_buffers_size 16k;
+      rewrite ^/apis/(.*) /$1 break;
+      proxy_set_header Connection "";
+      proxy_set_header Host $host;
+      proxy_set_header X-Scheme $scheme;
+      proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
+      proxy_connect_timeout 5;
+      proxy_send_timeout 60;
+      proxy_read_timeout 70;
+      proxy_http_version 1.1;
+      proxy_pass http://ui-proxies:3003;
+    }    
     
     # This is Caching mechanism for r search
     location ~ /apis/proxies/v8/sunbirdigot/read {
@@ -6716,6 +6742,8 @@ nginxconfig: |
       proxy_cache_path /tmp/framework_cache levels=1:2 keys_zone=framework_cache:5m max_size=700m inactive=300m use_temp_path=off;
       # cache content
       proxy_cache_path /tmp/content_cache levels=1:2 keys_zone=content_cache:100m max_size=3000m inactive=600m use_temp_path=off;
+      # searchnodes content
+      proxy_cache_path /tmp/searchnodes_cache levels=1:2 keys_zone=searchnodes_cache:100m max_size=3000m inactive=600m use_temp_path=off;
       # cache content metadata
       proxy_cache_path /tmp/content_metadata levels=1:2 keys_zone=content_metadata:100m max_size=1000m inactive=300m use_temp_path=off;
       
