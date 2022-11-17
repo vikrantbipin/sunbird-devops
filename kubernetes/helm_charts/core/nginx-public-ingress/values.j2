@@ -3134,6 +3134,10 @@ proxyconfig: |-
       proxy_set_header X-Request-ID $sb_request_id;
       proxy_pass http://kong;
     }
+    
+    location /viewer/video/do_1134149436104130561300?primaryCategory=Course&collectionId=do_1134149423736668161390 {
+      rewrite ^/viewer/video/do_1134149436104130561300?primaryCategory=Course&collectionId=do_1134149423736668161390(.*)$ {{proto}}://{{ proxy_server_name }} redirect;
+    }
     location /auth/ {
       rewrite ^/auth/(.*) /auth/$1 break;
       proxy_set_header X-Request-ID $sb_request_id;
