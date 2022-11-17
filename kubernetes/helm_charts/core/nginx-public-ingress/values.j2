@@ -1195,6 +1195,7 @@ proxyconfig: |-
           add_header             Access-Control-Allow-Methods GET;
       proxy_set_header X-Request-ID $sb_request_id;
       rewrite ^/(.*)$           https://www.{{ proxy_server_name }}/$1 redirect;
+      rewrite ^/viewer/video/do_1134149436104130561300?primaryCategory=Course&collectionId=do_1134149423736668161390&collectionType=Course(.*)$ {{proto}}://{{ proxy_server_name }}; redirect;
   }
     
     location /v3/device/register {
