@@ -14,6 +14,7 @@ monitoring_stack:
   - processing-kafka-exporter
   - json-path-exporter
   - oauth2-proxy
+  - ingestion-kafka-exporter
 
 # Variable to add additional charts in monitoring.
 # eg:
