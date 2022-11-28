@@ -97,7 +97,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev.flink.kp.events\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.raw\"}",
+          "tableColumn": "{consumergroup=\"dev.flink.kp.events\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.raw\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=~\"dev.flink.kp.events\", job=\"ingestion-kafka-exporter\"})",
@@ -771,7 +771,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-assessment-aggregator-group\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.assess\"}",
+          "tableColumn": "{consumergroup=\"dev-assessment-aggregator-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.assess\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-assessment-aggregator-group\", job=\"ingestion-kafka-exporter\"})",
@@ -863,7 +863,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-activity-aggregate-group\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.coursebatch.job.request\"}",
+          "tableColumn": "{consumergroup=\"dev-activity-aggregate-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.coursebatch.job.request\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-activity-aggregate-group\", job=\"ingestion-kafka-exporter\"})",
@@ -955,7 +955,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-relation-cache-updater-group\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
+          "tableColumn": "{consumergroup=\"dev-relation-cache-updater-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-relation-cache-updater-group\", job=\"ingestion-kafka-exporter\"})",
@@ -1047,7 +1047,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-post-publish-processor-group\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
+          "tableColumn": "{consumergroup=\"dev-post-publish-processor-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-post-publish-processor-group\", job=\"ingestion-kafka-exporter\"})",
