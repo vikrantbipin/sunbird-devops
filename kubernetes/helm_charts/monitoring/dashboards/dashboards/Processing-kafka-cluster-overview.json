@@ -719,8 +719,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ntpprod",
-          "value": "ntpprod"
+          "text": "dev",
+          "value": "dev"
         },
         "hide": 2,
         "label": null,
@@ -728,11 +728,11 @@
         "options": [
           {
             "selected": true,
-            "text": "ntpprod",
-            "value": "ntpprod"
+            "text": "dev",
+            "value": "dev"
           }
         ],
-        "query": "ntpprod",
+        "query": "dev",
         "skipUrlSync": false,
         "type": "constant"
       },
