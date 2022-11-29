@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 144,
-  "iteration": 1622093409708,
+  "iteration": 1669706330837,
   "links": [],
   "panels": [
     {
@@ -97,7 +96,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev.flink.kp.events\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.raw\"}",
+          "tableColumn": "{consumergroup=\"dev.flink.kp.events\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.raw\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=~\"dev.flink.kp.events\", job=\"ingestion-kafka-exporter\"})",
@@ -350,7 +349,7 @@
             "h": 4,
             "w": 4,
             "x": 0,
-            "y": 6
+            "y": 2
           },
           "id": 16,
           "interval": null,
@@ -442,7 +441,7 @@
             "h": 4,
             "w": 4,
             "x": 4,
-            "y": 6
+            "y": 2
           },
           "id": 17,
           "interval": null,
@@ -534,7 +533,7 @@
             "h": 4,
             "w": 4,
             "x": 8,
-            "y": 6
+            "y": 2
           },
           "id": 18,
           "interval": null,
@@ -626,7 +625,7 @@
             "h": 4,
             "w": 4,
             "x": 12,
-            "y": 6
+            "y": 2
           },
           "id": 111,
           "interval": null,
@@ -694,7 +693,7 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -703,378 +702,561 @@
         "y": 2
       },
       "id": 41,
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold: \nWarning: 1M\nCritical: 2M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 0,
-            "y": 3
-          },
-          "id": 42,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "{consumergroup=\"dev-assessment-aggregator-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.assess\"}",
-          "targets": [
-            {
-              "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-assessment-aggregator-group\", job=\"ingestion-kafka-exporter\"})",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "1000000,2000000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "AssessmentAggregator Lag",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold:\nWarning: 1M\nCritical:  2M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 4,
-            "y": 3
-          },
-          "id": 43,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "{consumergroup=\"dev-activity-aggregate-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.coursebatch.job.request\"}",
-          "targets": [
-            {
-              "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-activity-aggregate-group\", job=\"ingestion-kafka-exporter\"})",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "1000000,2000000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "ActivityAggUpdater lag",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold: \nWarning: 1M\nCritical: 2M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 8,
-            "y": 3
-          },
-          "id": 44,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "{consumergroup=\"dev-relation-cache-updater-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
-          "targets": [
-            {
-              "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-relation-cache-updater-group\", job=\"ingestion-kafka-exporter\"})",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "1000000,2000000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "RelationCache Updater lag",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#73BF69",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
-          "datasource": "Prometheus",
-          "description": "Threshold: \nWarning: 1M\nCritical: 2M",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 12,
-            "y": 3
-          },
-          "id": 112,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false,
-            "ymax": null,
-            "ymin": null
-          },
-          "tableColumn": "{consumergroup=\"dev-post-publish-processor-group\", endpoint=\"metrics\", instance=\"10.21.181.239:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
-          "targets": [
-            {
-              "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-post-publish-processor-group\", job=\"ingestion-kafka-exporter\"})",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "1000000,2000000",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "PostPublishProcessor Lag",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        }
-      ],
+      "panels": [],
       "title": "KP Flink Consumer Group Lag",
       "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#73BF69",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "Prometheus",
+      "description": "Threshold: \nWarning: 1M\nCritical: 2M",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 3
+      },
+      "id": 42,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "{consumergroup=\"dev-assessment-aggregator-group\", endpoint=\"metrics\", instance=\"10.20.191.3:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-75f7894b77-5h8bw\", service=\"ingestion-kafka-exporter\", topic=\"dev.telemetry.assess\"}",
+      "targets": [
+        {
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-assessment-aggregator-group\", job=\"ingestion-kafka-exporter\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1000000,2000000",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "AssessmentAggregator Lag",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#73BF69",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "Prometheus",
+      "description": "Threshold:\nWarning: 1M\nCritical:  2M",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      },
+      "id": 43,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "{consumergroup=\"dev-activity-aggregate-group\", endpoint=\"metrics\", instance=\"10.0.1.7:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-69bffb4d45-mqj28\", service=\"ingestion-kafka-exporter\", topic=\"dev.coursebatch.job.request\"}",
+      "targets": [
+        {
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-activity-aggregate-group\", job=\"ingestion-kafka-exporter\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1000000,2000000",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ActivityAggUpdater lag",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#73BF69",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "Prometheus",
+      "description": "Threshold: \nWarning: 1M\nCritical: 2M",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 3
+      },
+      "id": 44,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "{consumergroup=\"dev-relation-cache-updater-group\", endpoint=\"metrics\", instance=\"10.0.1.7:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-69bffb4d45-mqj28\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
+      "targets": [
+        {
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-relation-cache-updater-group\", job=\"ingestion-kafka-exporter\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1000000,2000000",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "RelationCache Updater lag",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#73BF69",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "Prometheus",
+      "description": "Threshold: \nWarning: 1M\nCritical: 2M",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 3
+      },
+      "id": 112,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "{consumergroup=\"dev-post-publish-processor-group\", endpoint=\"metrics\", instance=\"10.0.1.7:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-69bffb4d45-mqj28\", service=\"ingestion-kafka-exporter\", topic=\"dev.content.postpublish.request\"}",
+      "targets": [
+        {
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-post-publish-processor-group\", job=\"ingestion-kafka-exporter\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1000000,2000000",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "PostPublishProcessor Lag",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#73BF69",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "Prometheus",
+      "description": "Threshold: \nWarning: 1M\nCritical: 2M",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 3
+      },
+      "id": 169,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "{consumergroup=\"dev-search-indexer-group\", endpoint=\"metrics\", instance=\"10.0.1.7:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-69bffb4d45-mqj28\", service=\"ingestion-kafka-exporter\", topic=\"dev.learning.graph.events\"}",
+      "targets": [
+        {
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-search-indexer-group\", job=\"ingestion-kafka-exporter\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1000000,2000000",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "searchIndexer Lag",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#73BF69",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "Prometheus",
+      "description": "Threshold: \nWarning: 1M\nCritical: 2M",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
+      "id": 170,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "{consumergroup=\"dev-lms-notification\", endpoint=\"metrics\", instance=\"10.0.1.7:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-69bffb4d45-mqj28\", service=\"ingestion-kafka-exporter\", topic=\"dev.lms.notification\"}",
+      "targets": [
+        {
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-lms-notification\", job=\"ingestion-kafka-exporter\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1000000,2000000",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "notification Lag",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "collapsed": true,
@@ -1083,7 +1265,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 7
       },
       "id": 80,
       "panels": [
@@ -2082,7 +2264,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 8
       },
       "id": 2,
       "panels": [
@@ -2705,7 +2887,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "flink_taskmanager_job_task_operator_KafkaConsumer_records_lag_max{endpoint=\"prom\", host=\"device_profile_updater_taskmanager_b48455c9c_b8kxh\", instance=\"11.4.10.171:9251\", job=\"device-profile-updater-taskmanager-prometheus\", job_id=\"5241445b6990eaafb1d29e32d2c31f83\", job_name=\"Device_profile_updater\", namespace=\"flink-production\", operator_id=\"9b2fa66376e7322a8972db73e0d4b7a7\", operator_name=\"Source:_device_profile_consumer\", pod=\"device-profile-updater-taskmanager-b48455c9c-b8kxh\", service=\"device-profile-updater-taskmanager-prometheus\", subtask_index=\"0\", task_attempt_id=\"39505adfe059901294e8c126e5e41a73\", task_attempt_num=\"0\", task_id=\"9b2fa66376e7322a8972db73e0d4b7a7\", task_name=\"Source:_device_profile_consumer\", tm_id=\"ef47173cf137d146ecc2af68e10e794a\"}",
+          "tableColumn": "flink_taskmanager_job_task_operator_KafkaConsumer_records_lag_max{endpoint=\"prom\", host=\"10_0_1_118\", instance=\"10.0.1.118:9251\", job=\"device-profile-updater-taskmanager-prometheus\", job_id=\"573cb1e7716bbd6cefd36f4227c3ac79\", job_name=\"Device_profile_updater\", namespace=\"flink-dev\", operator_id=\"9b2fa66376e7322a8972db73e0d4b7a7\", operator_name=\"Source:_device_profile_consumer\", pod=\"device-profile-updater-taskmanager-b68469599-86vg5\", service=\"device-profile-updater-taskmanager-prometheus\", subtask_index=\"0\", task_attempt_id=\"c8e06867358833ec23c47dce5e67e680\", task_attempt_num=\"0\", task_id=\"9b2fa66376e7322a8972db73e0d4b7a7\", task_name=\"Source:_device_profile_consumer\", tm_id=\"10_0_1_118:6122_280bf2\"}",
           "targets": [
             {
               "expr": "(flink_taskmanager_job_task_operator_KafkaConsumer_records_lag_max { job = \"device-profile-updater-taskmanager-prometheus\" })",
@@ -3017,7 +3199,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 9
       },
       "id": 46,
       "panels": [
@@ -3180,7 +3362,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-telemetry-extractor-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.ingest\"}",
+          "tableColumn": "{consumergroup=\"dev-telemetry-extractor-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.ingest\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-telemetry-extractor-group\", job=\"processing-kafka-exporter\"})",
@@ -3272,7 +3454,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-pipeline-preprocessor-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.raw\"}",
+          "tableColumn": "{consumergroup=\"dev-pipeline-preprocessor-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.raw\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-pipeline-preprocessor-group\", job=\"processing-kafka-exporter\"})",
@@ -3364,7 +3546,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-druid-validator-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.denorm\"}",
+          "tableColumn": "{consumergroup=\"dev-druid-validator-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.denorm\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-druid-validator-group\", job=\"processing-kafka-exporter\"})",
@@ -3456,7 +3638,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-telemetry-denorm-primary-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.unique.primary\"}",
+          "tableColumn": "{consumergroup=\"dev-telemetry-denorm-primary-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.unique.primary\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-telemetry-denorm-primary-group\", job=\"processing-kafka-exporter\"})",
@@ -3548,7 +3730,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-telemetry-denorm-secondary-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.unique.secondary\"}",
+          "tableColumn": "{consumergroup=\"dev-telemetry-denorm-secondary-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.unique.secondary\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-telemetry-denorm-secondary-group\", job=\"processing-kafka-exporter\"})",
@@ -3732,7 +3914,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-content-cache-updater-group\", endpoint=\"metrics\", instance=\"11.4.33.39:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-6fc747d9c-gm4lx\", service=\"ingestion-kafka-exporter\", topic=\"dev.learning.graph.events\"}",
+          "tableColumn": "{consumergroup=\"dev-content-cache-updater-group\", endpoint=\"metrics\", instance=\"10.0.1.7:9308\", job=\"ingestion-kafka-exporter\", namespace=\"monitoring\", pod=\"ingestion-kafka-exporter-69bffb4d45-mqj28\", service=\"ingestion-kafka-exporter\", topic=\"dev.learning.graph.events\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-content-cache-updater-group\", job=\"ingestion-kafka-exporter\"})",
@@ -3824,7 +4006,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-user-cache-updater-consumer-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.audit\"}",
+          "tableColumn": "{consumergroup=\"dev-user-cache-updater-consumer-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.audit\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-user-cache-updater-consumer-group\", job=\"processing-kafka-exporter\"})",
@@ -3916,7 +4098,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-summmary-denorm-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.derived\"}",
+          "tableColumn": "{consumergroup=\"dev-summmary-denorm-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.derived\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-summmary-denorm-group\", job=\"processing-kafka-exporter\"})",
@@ -4008,7 +4190,7 @@
             "ymax": null,
             "ymin": null
           },
-          "tableColumn": "{consumergroup=\"dev-error-denorm-group\", endpoint=\"metrics\", instance=\"11.4.34.184:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-5c4f4645d-gqjq7\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.error\"}",
+          "tableColumn": "{consumergroup=\"dev-error-denorm-group\", endpoint=\"metrics\", instance=\"10.0.1.206:9308\", job=\"processing-kafka-exporter\", namespace=\"monitoring\", pod=\"processing-kafka-exporter-669bcb46c7-frsnq\", service=\"processing-kafka-exporter\", topic=\"dev.telemetry.error\"}",
           "targets": [
             {
               "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-error-denorm-group\", job=\"processing-kafka-exporter\"})",
@@ -4044,7 +4226,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 10
       },
       "id": 23,
       "panels": [
@@ -6045,7 +6227,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 11
       },
       "id": 59,
       "panels": [
@@ -6378,7 +6560,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 12
       },
       "id": 73,
       "panels": [
@@ -6853,7 +7035,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "id": 67,
       "panels": [
@@ -7144,7 +7326,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 14
       },
       "id": 94,
       "panels": [
@@ -7711,7 +7893,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 15
       },
       "id": 102,
       "panels": [
@@ -8462,7 +8644,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 16
       },
       "id": 116,
       "panels": [
@@ -10083,5 +10265,5 @@
   "timezone": "",
   "title": "Lag Dashboard",
   "uid": "vfdQRdtM",
-  "version": 4
+  "version": 1
 }
