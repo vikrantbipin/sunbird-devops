@@ -8227,7 +8227,7 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
         
-- name: retakeAssessment
+  - name: retakeAssessment
     uris: "{{ player_prefix }}/questionset/v1/retake"
     upstream_url: "{{ sb_cb_ext_service_url }}/v1/quml/assessment/retake"
     strip_uri: true
