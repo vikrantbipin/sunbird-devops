@@ -219,6 +219,13 @@
     insertafter: '^SERVER_OPTS=""'
     line: 'JAVA_HOME=""'
     path: "{{ keycloak_home }}/bin/standalone.sh"
+    
+- name: Add trustStore Path
+  become: true
+  lineinfile:
+    path: "{{ keycloak_home }}/bin/standalone.sh"
+    insertafter: "DEFAULT_MODULAR_JVM_OPTIONS"
+    line: '    JAVA_OPTS="-Djavax.net.ssl.trustStore=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit $JAVA_OPTS"'
 
 - name: start keycloak service
   debug: msg="starting keycloak"
