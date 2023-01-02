@@ -7050,10 +7050,10 @@ nginxconfig: |
           server ui-static:3002;
           keepalive 1000;
       }
-      upstream player {
-          server player:3000;
-          keepalive 1000;
-      }
+     # upstream player {
+     #     server player:3000;
+     #     keepalive 1000;
+     # }
       upstream ui-cbp-igot {
           server ui-cbp-igot:3002;
           keepalive 1000;
