@@ -7087,10 +7087,10 @@ nginxconfig: |
           keepalive 1000;
       }
 
-      upstream vega-web-service {
-          server vega-web-service:3000;
-          keepalive 1000;
-      }
+     # upstream vega-web-service {
+      #    server vega-web-service:3000;
+      #    keepalive 1000;
+      #}
 
 
       include /etc/nginx/defaults.d/*.conf;
