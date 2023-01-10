@@ -9259,7 +9259,7 @@ kong_apis:
 
   - name: MDOContentPublish
     uris: "{{ mdo_content_prefix }}/v3/publish"
-    upstream_url: "{{ knowledge_mw_service_url }}/action/content/v3/publish"
+    upstream_url: "{{ vm_learning_service_url }}/content/v3/publish"
     strip_uri: true
     plugins:
     - name: jwt
