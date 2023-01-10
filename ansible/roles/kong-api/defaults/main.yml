@@ -9222,7 +9222,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: MDOContentHierarchyUpdate
-    uris: "{{ mdo_content_prefix }}/v3/hierarchyUpdate"
+    uris: "{{ mdo_content_prefix }}/v3/hierarchy/update"
     upstream_url: "{{ content_service_url }}/content/v3/hierarchy/update"
     strip_uri: true
     plugins:
