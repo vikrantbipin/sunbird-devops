@@ -89,6 +89,7 @@ player_prefix: /player
 registry_service_prefix: /rc
 forms_service_prefix: /forms
 profanity_moderator_admin_prefix: /moderatoradmin
+mdo_content_prefix: /mdo/content
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -9198,6 +9199,78 @@ kong_apis:
     - name: rate-limiting
       config.policy: local
       config.hour: "{{ large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: MDOContentCreate
+    uris: "{{ mdo_content_prefix }}/v3/create"
+    upstream_url: "{{ knowledge_mw_service_url }}/action/content/v3/create"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'contentCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: MDOContentHierarchyUpdate
+    uris: "{{ mdo_content_prefix }}/v3/hierarchyUpdate"
+    upstream_url: "{{ content_service_url }}/content/v3/hierarchy/update"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'contentUpdate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: MDOContentUpdate
+    uris: "{{ mdo_content_prefix }}/v3/update"
+    upstream_url: "{{ content_service_url }}/content/v3/update"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'contentUpdate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: MDOContentPublish
+    uris: "{{ mdo_content_prefix }}/v3/publish"
+    upstream_url: "{{ knowledge_mw_service_url }}/action/content/v3/publish"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'contentAdmin'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
