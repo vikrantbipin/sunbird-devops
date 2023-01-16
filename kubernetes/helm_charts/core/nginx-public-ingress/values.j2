@@ -855,7 +855,7 @@ proxyconfig: |-
 
    location ~* ^/content-store/user-report/(.*) {
         # Enabling cache for Response code 200
-        expires 1M;
+        expires -1;
         add_header Pragma public;
         add_header Cache-Control "public";
         # Enabling compression
