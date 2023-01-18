@@ -1,22 +1,22 @@
 ---
-#- name: Updating custodian org to system settings
-#  uri:
-#    url: "https://{{ domain_name }}/api/data/v1/system/settings/set"
-#    method: POST
-#    headers:
-#      x-authenticated-user-token: "{{ keycloak_access_token }}"
-#      Authorization: "Bearer {{ core_vault_sunbird_api_auth_token }}"
-#    body_format: json
-#    body: |-
-#      {
-#        "request": {{ item }}
-#      }
-#  with_items: "{{ custodian_org_data }}"
+- name: Updating custodian org to system settings
+  uri:
+    url: "https://{{ domain_name }}/api/data/v1/system/settings/set"
+    method: POST
+    headers:
+      x-authenticated-user-token: "{{ keycloak_access_token }}"
+      Authorization: "Bearer {{ core_vault_sunbird_api_auth_token }}"
+    body_format: json
+    body: |-
+      {
+        "request": {{ item }}
+      }
+  with_items: "{{ custodian_org_data }}"
 
-#- name: Restarting leaner service
-#  shell: |
-#    kubectl rollout restart deployment -n {{ namespace }} learner
-#    kubectl rollout status deployment -n {{ namespace }} learner
+- name: Restarting leaner service
+  shell: |
+    kubectl rollout restart deployment -n {{ namespace }} learner
+    kubectl rollout status deployment -n {{ namespace }} learner
 
 - name: Crating Users
   uri:
@@ -31,7 +31,6 @@
       }
   with_items: "{{ default_user_details }}"
   register: user_list
-  ignore_errors: yes
 
 - name: Assigning roles to user
   debug:
