@@ -129,9 +129,13 @@
             }]
       }
      }
-  with_items: "{{ user_list.results }}"
-  loop_control:
-    label: "{{ item.item.email }}"
+#  with_items: "{{ user_list.results }}"
+#  loop_control:
+#    label: "{{ item.item.email }}"
+  with_items: 
+  - "creator@yopmail.com"
+  - "reviewer@yopmail.com"
+  - "publisher@yopmail.com"
 
 - name: Crating state
   block:
