@@ -1635,9 +1635,9 @@ custodian_org_data:
   - { "id": "{{ sunbird_default_channel }}", "field": "{{ sunbird_default_channel }}", "value": "https://{{ domain_name }}/faq" }
 
 default_user_details:
-  - { "firstName": "creator6", "lastName": "", "email": "creator6@yopmail.com", "password":"Pass@123" }
-  - { "firstName": "reviewer6", "lastName": "", "email": "reviewer6@yopmail.com", "password":"Pass@123" }
-  - { "firstName": "publisher6", "lastName": "", "email": "publisher6@yopmail.com", "password":"Pass@123" }
+  - { "firstName": "creator7", "lastName": "", "email": "creator7@yopmail.com", "password":"Pass@123" }
+  - { "firstName": "reviewer7", "lastName": "", "email": "reviewer7@yopmail.com", "password":"Pass@123" }
+  - { "firstName": "publisher7", "lastName": "", "email": "publisher7@yopmail.com", "password":"Pass@123" }
 
 # These variables will get overridden on run time
 state_id: ""
