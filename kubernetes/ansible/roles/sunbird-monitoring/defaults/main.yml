@@ -15,6 +15,7 @@ monitoring_stack:
   - json-path-exporter
   - oauth2-proxy
   - ingestion-kafka-exporter
+  - igotdb
 
 # Variable to add additional charts in monitoring.
 # eg:
