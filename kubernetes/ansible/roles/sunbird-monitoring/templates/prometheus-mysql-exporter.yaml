@@ -1,0 +1,9 @@
+mysql:
+  db: ""
+  host: "{{ mysql_host }}"
+  param: ""
+  pass: "{{ mysql_password }}"
+  port: 3306
+  protocol: ""
+  user: "{{ mysql_username }}"
+  existingSecret: false
