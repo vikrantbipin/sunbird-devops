@@ -397,6 +397,7 @@ dashboards1:
        file: dashboards/node-exporter.json
      health:
        file: dashboards/health.json
+     
 
 dashboards2:
    kong:
@@ -433,6 +434,9 @@ dashboards2:
    graylog:
      graylogmetrics:
        file: dashboards/graylog-dashboard.json
+   mysql:
+     mysql-metrics:
+       file: dashboards/mysqldashboard.json
 
   #   prometheus-stats:
   #     gnetId: 2
