@@ -29,11 +29,11 @@
   async: 3600
   poll: 10
 
-- name: clean up backup dir after upload
+#- name: clean up backup dir after upload
 #  file: path="{{ es_backup_dir }}" state=absent
-  file:
-    path: '{{ item }}'
-    state: absent
-  with_items:
-    - "{{ es_backup_dir }}"
-    - "{{ es_backup_dir }}-{{ es_backup_gzip_file_name }}"
+ # file:
+ #   path: '{{ item }}'
+ #   state: absent
+ # with_items:
+   # - "{{ es_backup_dir }}"
+   # - "{{ es_backup_dir }}-{{ es_backup_gzip_file_name }}"
