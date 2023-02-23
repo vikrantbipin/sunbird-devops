@@ -137,7 +137,7 @@ services:
   kafka:
     port: 9092
     address: ["{{ groups['kafka'] | join('","') }}"]
-  KP-learning:
+  kplearning:
     port: 9092
     address: ["{{ groups['learning'] | join('","') }}"]
   es:
