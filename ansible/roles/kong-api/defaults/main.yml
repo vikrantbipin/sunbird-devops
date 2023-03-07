@@ -9202,6 +9202,60 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: workflowTaxonomyTransition
+    uris: "{{ workflow_handler_service_prefix }}/taxonomy/transition"
+    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy/transition"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowTaxonomyApplicationsSearch
+    uris: "{{ workflow_handler_service_prefix }}/taxonomy/search"
+    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: getWorkflowTaxonomyApplication
+    uris: "{{ workflow_handler_service_prefix }}/taxonomy"
+    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
         
   - name: searchForms
     uris: "{{ forms_service_prefix }}/searchForms"
