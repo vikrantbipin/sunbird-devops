@@ -160,6 +160,10 @@ service_blackbox_checks:
     probe_module: http_2xx
     targets:
       - "{{sunbird_search_service_api_base_url}}/health"
+  - service_name: 'cb-ext-service'
+    probe_module: http_2xx
+    targets:
+      - "{{igot_cbext_api_base_url}}/health"
   - service_name: 'keycloak-service'
     probe_module: http_2xx
     targets:
