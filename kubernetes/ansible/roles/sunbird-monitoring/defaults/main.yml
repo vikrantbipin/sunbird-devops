@@ -275,6 +275,9 @@ service_health_checks:
     targets: "http://lms-service.{{ namespace }}.svc.cluster.local:9000/health"
   - service_name: 'learner'
     targets: "http://learner-service.{{ namespace }}.svc.cluster.local:9000/health"
+  - service_name: 'cbext'
+    targets: "http://sb-cb-ext-service.{{ namespace }}.svc.cluster.local:7001/health"
+
 
 api_response_upward_trend_threshold: 0.3
 
