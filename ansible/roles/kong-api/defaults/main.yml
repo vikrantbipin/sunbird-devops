@@ -9134,9 +9134,27 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: workflowTaxonomyTransition
-    uris: "{{ workflow_handler_service_prefix }}/taxonomy/transition"
-    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy/transition"
+  - name: workflowTaxonomyCreate
+    uris: "{{ workflow_handler_service_prefix }}/taxonomy/create"
+    upstream_url: "{{ workflow_handler_service_url }}/taxonomy/workflow/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowTaxonomyUpdate
+    uris: "{{ workflow_handler_service_prefix }}/taxonomy/update"
+    upstream_url: "{{ workflow_handler_service_url }}/taxonomy/workflow/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -9154,7 +9172,7 @@ kong_apis:
 
   - name: workflowTaxonomyApplicationsSearch
     uris: "{{ workflow_handler_service_prefix }}/taxonomy/search"
-    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy/search"
+    upstream_url: "{{ workflow_handler_service_url }}/taxonomy/workflow/search"
     strip_uri: true
     plugins:
       - name: jwt
@@ -9171,8 +9189,8 @@ kong_apis:
         config.allowed_payload_size: "{{ large_request_size_limit }}"
 
   - name: getWorkflowTaxonomyApplication
-    uris: "{{ workflow_handler_service_prefix }}/taxonomy"
-    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy"
+    uris: "{{ workflow_handler_service_prefix }}/taxonomy/read"
+    upstream_url: "{{ workflow_handler_service_url }}/taxonomy/workflow/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -9187,22 +9205,4 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ large_request_size_limit }}"
-
-  - name: workflowTaxonomyTransitionCreate
-    uris: "{{ workflow_handler_service_prefix }}/taxonomy/transition/create"
-    upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/taxonomy/transition"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'dataCreate'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ small_request_size_limit }}"
         
