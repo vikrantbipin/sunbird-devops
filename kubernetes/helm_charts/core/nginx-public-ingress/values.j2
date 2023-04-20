@@ -7107,6 +7107,7 @@ nginxconfig: |
       client_max_body_size 200M;
       keepalive_timeout  65s;
       keepalive_requests 200;
+      etag off;
       # Nginx connection limit per ip
       limit_conn_zone $binary_remote_addr zone=limitbyaddr:10m;
       limit_conn_status 429;
