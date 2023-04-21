@@ -9515,9 +9515,6 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
-      - name: opa-checks
-        config.required: false
-        config.enabled: false
 
   - name: registerUser
     uris: "{{ org_service_prefix }}/ext/v2/signup/search"
