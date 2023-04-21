@@ -9519,3 +9519,16 @@ kong_apis:
         config.required: false
         config.enabled: false
 
+  - name: registerUser
+    uris: "{{ org_service_prefix }}/ext/v2/signup/search"
+    upstream_url: "{{ sb_cb_ext_service_url }}/org/v2/ext/signup/search"
+    strip_uri: true
+    plugins:
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
