@@ -9547,3 +9547,207 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workFlowPositionCreate
+    uris: "{{ workflow_handler_service_prefix }}/position/create"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/position/workflow/create"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workFlowOrgCreate
+    uris: "{{ workflow_handler_service_prefix }}/org/create"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/org/workflow/create"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workFlowEmailDomainCreate
+    uris: "{{ workflow_handler_service_prefix }}/domain/create"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/domain/workflow/create"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workFlowPositionUpdate
+    uris: "{{ workflow_handler_service_prefix }}/position/update"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/position/workflow/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workFlowOrgUpdate
+    uris: "{{ workflow_handler_service_prefix }}/org/update"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/org/workflow/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workFlowEmailDomainUpdate
+    uris: "{{ workflow_handler_service_prefix }}/domain/update"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/domain/workflow/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowPositionSearch
+    uris: "{{ workflow_handler_service_prefix }}/position/search"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/position/workflow/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: workflowOrgSearch
+    uris: "{{ workflow_handler_service_prefix }}/org/search"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/org/workflow/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: workflowEmailDomainSearch
+    uris: "{{ workflow_handler_service_prefix }}/domain/search"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/domain/workflow/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: getWorkflowPositionApplication
+    uris: "{{ workflow_handler_service_prefix }}/position/read"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/position/workflow/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: getWorkflowOrgApplication
+    uris: "{{ workflow_handler_service_prefix }}/org/read"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/org/workflow/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: getWorkflowEmailDomainApplication
+    uris: "{{ workflow_handler_service_prefix }}/domain/read"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/domain/workflow/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ large_request_size_limit }}"
