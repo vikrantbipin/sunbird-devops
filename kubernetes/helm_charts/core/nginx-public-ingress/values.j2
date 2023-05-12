@@ -4198,6 +4198,7 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
+      etag off;
       proxy_pass http://ui-static;
     }
     location /v3/device/register {
