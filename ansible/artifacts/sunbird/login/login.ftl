@@ -94,7 +94,8 @@
                                         <#-- TODO: need to find alternative for prepopulating username -->
                                         <input class="mt-8" id="username" name="username" type="text" disabled />
                                         <#else>
-                                        <input class="mt-8" id="username" name="username" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" type="text" autofocus autocomplete="off" />
+                                        <input class="mt-8" id="username" name="username" onkeyup="validateEmailChar()" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" type="text" autofocus autocomplete="off" />
+                                        <span id="emailLengthErr" class="ui text error" style="font-size:11px!important;"></span>
                                         </#if>
                                     </div>
                                     <div class="field">
@@ -292,6 +293,23 @@
                 }
             }
 
+    
+            function validateEmailChar() {
+                document.getElementById("login").disabled = false
+                let userEmail = document.getElementById("username").value
+                if (userEmail && userEmail.length > 0) {
+                    const email = userEmail.split('@')
+                    if (email && email.length === 2) {
+                        if((email[0] && email[0].length > 64 ) || (email[1] && email[1].length >255)) {
+                            document.getElementById("emailLengthErr").innerHTML = "Max 64 characters before @ & 255 characters after @ are valid."
+                            document.getElementById("login").disabled = true
+                        } else {
+                            document.getElementById("emailLengthErr").innerHTML = ""
+                            document.getElementById("login").disabled = false
+                            }
+                        }
+                    }
+                } 
     </script>
     </#if>
 </#if>

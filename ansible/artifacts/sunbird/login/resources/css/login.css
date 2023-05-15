@@ -20,6 +20,9 @@ body{
 .fs-14{
     font-size: 14px !important;
 }
+.fs-11 {
+    font-size: 11px !important;
+}
 .custom-grid{
     display: grid;
     align-items: center;
@@ -338,7 +341,7 @@ input[type='password']::placeholder {
 }
 .logo-image{
     max-width: 100% !important;
-    width: 300px !important;
+    width: auto !important;
     /* max-height: 56px !important; */
     /* margin-top: 20px!important; */
     /* height: 120px !important; */
