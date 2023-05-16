@@ -7,6 +7,9 @@
 - name: Save backup
   command: curl -u '{{ elastic_user }}:{{ elastic_password }}' -X PUT "http://{{ es_ip }}:9200/_snapshot/backup/snapshot_1?wait_for_completion=true&pretty"
 
-
-
-
+- name: Compress Directory
+  become: yes
+  archive:
+    path: "{{ es_backup_dir }}"
+    dest: "{{ es_backup_dir }}-{{ es_backup_gzip_file_name }}"
+    format: gz
