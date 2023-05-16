@@ -5,7 +5,7 @@
     es_backup_gzip_file_name: "es_backup_{{ lookup('pipe', 'date +%Z-%Y-%m-%d-%H-%M-%S') }}.tar.gz"
 
 - name: Save backup
-  command: curl -u '{{ elastic_user }}:{{ elastic_password }}' -X PUT "http://{{ es_ip }}:9200/_snapshot/my_backup/snapshot_1?wait_for_completion=true&pretty"
+  command: curl -u '{{ elastic_user }}:{{ elastic_password }}' -X PUT "http://{{ es_ip }}:9200/_snapshot/backup/snapshot_1?wait_for_completion=true&pretty"
 
 
 
