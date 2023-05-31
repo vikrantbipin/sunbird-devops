@@ -3534,7 +3534,7 @@ proxyconfig: |-
       proxy_pass http://ui-proxies:3003;
     }
 
-    location /content-store-new {
+    location /content-store-new/ {
 
       if ($request_method = OPTIONS ) {
               add_header Access-Control-Allow-Origin "*" ;
