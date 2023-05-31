@@ -467,6 +467,29 @@ proxyconfig: |-
       proxy_read_timeout 300;
     }
     
+    location /content-store-new {
+
+      if ($request_method = OPTIONS ) {
+              add_header Access-Control-Allow-Origin "*" ;
+              add_header Access-Control-Allow-Methods "GET, OPTIONS, PATCH, POST";
+              add_header Access-Control-Allow-Headers "Access-Control-Allow-Origin, Authorization, Content-Type, user-id, Content-Encoding, rootorg, org, wid, hostpath";
+              add_header Content-Length 0;
+              add_header Content-Type text/plain;
+              return 200;
+      }
+      proxy_cookie_path ~*^/.* /;
+      proxy_set_header X-Real-IP  $remote_addr;
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Server $host;
+      rewrite ^/content-store-new/(.*) /$1 break;
+      proxy_pass http://envoy-opa;
+      proxy_connect_timeout 10;
+      proxy_send_timeout 300;
+      proxy_read_timeout 300;
+    }
+    
     location ~ /apis/proxies/v8/searchBy/competency {
       if ($request_method = OPTIONS ) {
               add_header Access-Control-Allow-Origin "*" ;
