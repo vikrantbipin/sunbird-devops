@@ -297,7 +297,7 @@
             function validateEmailChar() {
                 document.getElementById("login").disabled = false
 		const validRegex = "/^[a-z0-9_-]+(?:\.[a-z0-9_-]+)*@((?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?){2,}\.){1,3}(?:\w){2,}$/"
-                let userEmail = document.getElementById("username").value
+                let userEmail = document.getElementById("username").value.trim()
                 if (userEmail && userEmail.length > 0) {
 		if(userEmail.length > 5 && !userEmail.match(validRegex)) {
                         document.getElementById("emailLengthErr").innerHTML = "email is not valid"
@@ -314,7 +314,7 @@
                             }
                         }
                     }
-			else if (userEmail.length == 0) {
+			else if (userEmail.replace(/\s+/g, '').length == 0 || userEmail === "") {
                         	document.getElementById("emailLengthErr").innerHTML = "email field can not be blank"
                         	document.getElementById("login").disabled = true
                     }
