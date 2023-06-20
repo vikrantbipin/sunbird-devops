@@ -9733,3 +9733,58 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ large_request_size_limit }}"
+  
+  - name: workflowBlendedProgramEnrol
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/enrol"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/enrol"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowBlendedProgramSearch
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/search"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/search"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowBlendedProgramUserSearch
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/user/search"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/user/search"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
