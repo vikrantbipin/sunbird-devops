@@ -9842,4 +9842,17 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
+  - name: getUserGroupList
+    uris: "{{ user_service_prefix }}/v1/groups"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/v1/groups"
+    strip_uri: true
+    plugins:
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
 
