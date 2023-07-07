@@ -17,7 +17,7 @@
                         </div>
                         <div class="ui content textCenter mt-8 mb-28">
                             <#if message?has_content>
-                            <div class="ui text ${message.type}">
+                            <div class="ui text ${message.type}" id="errorMsgMainBox">
                                 ${message.summary}
                             </div>
                             </#if>
@@ -25,7 +25,10 @@
                         <form id="kc-totp-login-form" class="${properties.kcFormClass!} ui form pre-signin" action="${url.loginAction}" method="post">
 			                <input type="hidden" name="page_type" value="sms_otp_page" />
                             <div class="field">
-                                <input id="totp" name="smsCode" type="text" class=" smsinput" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)"/>
+                                <input id="totp" name="smsCode" type="text" class=" smsinput" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" onkeyup="validateOtpChar()/>
+				 <span id="otpLengthErr" class="ui text error"></span>
+                                <span id="attempCount" class="ui text error"></span>
+                                 <p id="blockSpan" class="ui text error">You will be unblock after <span id="js-timeout-box"></span> minutes </p>
                             </div>
                             <div class="field">
                                 <button onclick="javascript:makeDivUnclickable()" class="ui fluid submit button" name="login" id="login" type="submit" value="${msg("doLogIn")}">${msg("doSubmit")}</button>
@@ -44,7 +47,7 @@
                                 <div class="ui text textCenter" id="timer-container">
                                     <span>Resend OTP after </span><span id="js-timeout"></span>
                                 </div>
-                                <button onclick="javascript:makeDivUnclickable()" class="ui fluid submit button mt-8" 
+                                <button onclick="javascript:makeDivUnclickable(); javascript:otpLoginUser()" class="ui fluid submit button mt-8" 
                                 name="resendOTP" id="resendOTP" type="submit" value="${msg("doLogIn")}" disabled>
                                     ${msg("doResendOTP")}
                                 </button>
@@ -67,6 +70,7 @@
     </div>
     </#if>
     <script>
+	 document.getElementById("timer-container").setAttribute("hidden", true);
         var interval
         function countdown() {
             document.getElementById("js-timeout").innerHTML = "3:00";
@@ -95,5 +99,114 @@
       }
 
       countdown()
+
+ 	function validateOtpChar() {
+	        let userOptVal = document.getElementById("totp").value.trim()
+	        if (userOptVal && userOptVal.length !== 6) {
+	            document.getElementById("otpLengthErr").innerHTML = "OPT should have 6 digits"
+	        } else if (userOptVal && userOptVal.length === 6) {
+	            document.getElementById("otpLengthErr").innerHTML = ""
+	        }
+	      }
+
+function convertStoMs(seconds) {
+         let minutes = Math.floor(seconds / 60);
+         let extraSeconds = seconds % 60;
+         minutes = minutes < 10 ? "0" + minutes : minutes;
+         extraSeconds = extraSeconds< 10 ? "0" + extraSeconds : extraSeconds;
+         return minutes + " : " + extraSeconds;
+      } 
+
+document.getElementById("blockSpan").style.display = "none"
+function timerCount() {
+  var timeInterval = setInterval(function () {
+    if (sessionStorage.getItem("timeLeftForUnblock")) {
+      timeLeftForUnblock = sessionStorage.getItem("timeLeftForUnblock")
+
+    } else {
+      sessionStorage.setItem("timeLeftForUnblock", timeLeftForUnblock)
+    }
+    timeLeftForUnblock = timeLeftForUnblock - 1
+    sessionStorage.setItem("timeLeftForUnblock", timeLeftForUnblock)
+    timeLeftForUnblock = parseInt(sessionStorage.getItem("timeLeftForUnblock"), 10)
+    document.getElementById("blockSpan").style.display = "block"
+    document.getElementById("js-timeout-box").innerHTML = convertStoMs(parseInt(timeLeftForUnblock), 10)
+    if (timeLeftForUnblock == 0) {
+      clearInterval(timeInterval)
+      sessionStorage.removeItem("loginAttempts")
+      sessionStorage.removeItem("timeLeftForUnblock")
+      document.getElementById("blockSpan").style.display = "none"
+      enableFields()
+      loginAttempts = 0
+      timeLeftForUnblock = 120
+    }
+  }, 1000);
+}
+
+ var timeLeftForUnblock = 120
+  var loginAttempts = Number(0) 
+  var totalLoginAttempts = Number(3)
+  document.getElementById("attempCount").style.display = "none"
+
+function otpLoginUser() {
+    var loginCount = parseInt(sessionStorage.getItem("loginAttempts"), 10)
+    if (!loginCount || loginCount === null || loginCount < totalLoginAttempts) {
+      loginAttempts += 1
+      sessionStorage.setItem("loginAttempts", loginAttempts)
+      loginCount = parseInt(sessionStorage.getItem("loginAttempts"), 10)
+      var pendingLoginAttempt = totalLoginAttempts - loginAttempts
+      document.getElementById("attempCount").style.display = "block"
+      document.getElementById("attempCount").innerHTML = "You have " + pendingLoginAttempt + " more attempts"
+      if(pendingLoginAttempt == 0) {
+         document.getElementById("attempCount").style.display = "none"
+        document.getElementById("attempCount").innerHTML = ""
+      }
+      enableFields()
+      countdown()
+      document.getElementById("timer-container").setAttribute("hidden", false);
+    }
+
+    if (loginCount && loginCount == totalLoginAttempts) {
+      disableFields()
+      timerCount()
+      document.getElementById("timer-container").setAttribute("hidden", true); 
+      document.getElementById("errorMsgMainBox").setAttribute("hidden", true); 
+    }
+  }
+
+  function disableFields() {
+    document.getElementById("totp").disabled = true
+    document.getElementById("login").disabled = true
+    document.getElementById("resendOTP").disabled = true
+  }
+
+  function enableFields() {
+    document.getElementById("totp").disabled = false
+    document.getElementById("login").disabled = false
+    document.getElementById("resendOTP").disabled = false
+  }
+
+ function onStart() {
+    if (parseInt(sessionStorage.getItem("loginAttempts"), 10)) {
+      loginAttempts = parseInt(sessionStorage.getItem("loginAttempts"), 10)
+    }
+    if (sessionStorage.getItem("timeLeftForUnblock",)) {
+      timeLeftForUnblock = parseInt(sessionStorage.getItem("timeLeftForUnblock"), 10)
+    }
+    if ((loginAttempts == totalLoginAttempts) && timeLeftForUnblock != 0) {
+      disableFields()
+      timerCount()
+     
+    
+    }
+    if ((loginAttempts == totalLoginAttempts) && timeLeftForUnblock == 0) {
+      enableFields()
+      sessionStorage.removeItem("loginAttempts")
+      sessionStorage.removeItem("timeLeftForUnblock")
+      clearInterval(timeInterval)
+      document.getElementById("blockSpan").style.display = "none"
+    }
+  }
+  onStart()
     </script>
 </@layout.registrationLayout>
