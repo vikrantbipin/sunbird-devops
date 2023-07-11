@@ -26,7 +26,7 @@
                         <form id="kc-totp-login-form" class="${properties.kcFormClass!} ui form pre-signin" action="${url.loginAction}" method="post">
 			                <input type="hidden" name="page_type" value="sms_otp_page" />
                             <div class="field">
-                                <input id="totp" name="smsCode" type="text" class=" smsinput" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" onkeyup="validateOtpChar()/>
+                                <input id="totp" name="smsCode" type="text" class=" smsinput" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" onkeyup="validateOtpChar()" />
 				 <span id="otpLengthErr" class="ui text error"></span>
                                  <span id="js-timeout-box" class="ui text error"></span>
                             </div>
