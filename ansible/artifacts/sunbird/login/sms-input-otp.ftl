@@ -98,8 +98,6 @@
         }, 1000);
       }
 
-      countdown()
-
  	function validateOtpChar() {
 	        let userOptVal = document.getElementById("totp").value.trim()
 	        if (userOptVal && userOptVal.length !== 6) {
