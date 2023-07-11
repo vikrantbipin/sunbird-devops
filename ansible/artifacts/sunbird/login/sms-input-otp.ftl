@@ -20,6 +20,7 @@
                             <div class="ui text ${message.type}" id="errorMsgMainBox">
                                 ${message.summary}
                             </div>
+				<span id="attempCount" class="ui text error"></span>
                             </#if>
                         </div>
                         <form id="kc-totp-login-form" class="${properties.kcFormClass!} ui form pre-signin" action="${url.loginAction}" method="post">
@@ -27,8 +28,7 @@
                             <div class="field">
                                 <input id="totp" name="smsCode" type="text" class=" smsinput" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" onkeyup="validateOtpChar()/>
 				 <span id="otpLengthErr" class="ui text error"></span>
-                                <span id="attempCount" class="ui text error"></span>
-                                 <p id="blockSpan" class="ui text error">You will be unblock after <span id="js-timeout-box"></span> minutes </p>
+                                 <span id="js-timeout-box" class="ui text error"></span>
                             </div>
                             <div class="field">
                                 <button onclick="javascript:makeDivUnclickable()" class="ui fluid submit button" name="login" id="login" type="submit" value="${msg("doLogIn")}">${msg("doSubmit")}</button>
@@ -70,7 +70,7 @@
     </div>
     </#if>
     <script>
-	 document.getElementById("timer-container").setAttribute("hidden", true);
+	
         var interval
         function countdown() {
             document.getElementById("js-timeout").innerHTML = "3:00";
@@ -117,7 +117,6 @@ function convertStoMs(seconds) {
          return minutes + " : " + extraSeconds;
       } 
 
-document.getElementById("blockSpan").style.display = "none"
 function timerCount() {
   var timeInterval = setInterval(function () {
     if (sessionStorage.getItem("timeLeftForUnblock")) {
@@ -129,26 +128,24 @@ function timerCount() {
     timeLeftForUnblock = timeLeftForUnblock - 1
     sessionStorage.setItem("timeLeftForUnblock", timeLeftForUnblock)
     timeLeftForUnblock = parseInt(sessionStorage.getItem("timeLeftForUnblock"), 10)
-    document.getElementById("blockSpan").style.display = "block"
-    document.getElementById("js-timeout-box").innerHTML = convertStoMs(parseInt(timeLeftForUnblock), 10)
+    document.getElementById("js-timeout-box").innerHTML = "You will be unblock after " + convertStoMs(parseInt(timeLeftForUnblock), 10) + " minutes" 
     if (timeLeftForUnblock == 0) {
       clearInterval(timeInterval)
       sessionStorage.removeItem("loginAttempts")
       sessionStorage.removeItem("timeLeftForUnblock")
-      document.getElementById("blockSpan").style.display = "none"
       enableFields()
       loginAttempts = 0
-      timeLeftForUnblock = 120
+      timeLeftForUnblock = 900
     }
   }, 1000);
 }
 
- var timeLeftForUnblock = 120
+ var timeLeftForUnblock = 900
   var loginAttempts = Number(0) 
   var totalLoginAttempts = Number(3)
-  document.getElementById("attempCount").style.display = "none"
 
 function otpLoginUser() {
+document.getElementById("attempCount").style.display = "none"
     var loginCount = parseInt(sessionStorage.getItem("loginAttempts"), 10)
     if (!loginCount || loginCount === null || loginCount < totalLoginAttempts) {
       loginAttempts += 1
@@ -189,6 +186,9 @@ function otpLoginUser() {
  function onStart() {
     if (parseInt(sessionStorage.getItem("loginAttempts"), 10)) {
       loginAttempts = parseInt(sessionStorage.getItem("loginAttempts"), 10)
+var LoginAttemptPending = totalLoginAttempts - loginAttempts
+      document.getElementById("attempCount").style.display = "block"
+      document.getElementById("attempCount").innerHTML = "You have " + LoginAttemptPending + " more attempts"
     }
     if (sessionStorage.getItem("timeLeftForUnblock",)) {
       timeLeftForUnblock = parseInt(sessionStorage.getItem("timeLeftForUnblock"), 10)
@@ -196,15 +196,14 @@ function otpLoginUser() {
     if ((loginAttempts == totalLoginAttempts) && timeLeftForUnblock != 0) {
       disableFields()
       timerCount()
-     
-    
+     document.getElementById("attempCount").innerHTML = ""
     }
     if ((loginAttempts == totalLoginAttempts) && timeLeftForUnblock == 0) {
       enableFields()
       sessionStorage.removeItem("loginAttempts")
+document.getElementById("attempCount").innerHTML = ""
       sessionStorage.removeItem("timeLeftForUnblock")
       clearInterval(timeInterval)
-      document.getElementById("blockSpan").style.display = "none"
     }
   }
   onStart()
