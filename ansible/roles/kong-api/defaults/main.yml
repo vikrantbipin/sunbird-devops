@@ -9856,3 +9856,76 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
+  - name: assessmentSubmitV4
+    uris: "/v4/user/assessment/submit"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v4/user/assessment/submit"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: playerQuSetReadHierarchyV4
+    uris: "{{ player_prefix }}/questionset/v4/hierarchy"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v4/quml/assessment/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: playerQuestionListV4
+    uris: "{{ player_prefix }}/question/v4/list"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v4/quml/question/list"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: playerGetAssessmentResultV4
+    uris: "{{ user_service_prefix }}/assessment/v4/result"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v4/quml/assessment/result"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+
