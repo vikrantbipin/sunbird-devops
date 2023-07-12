@@ -8205,7 +8205,7 @@ kong_apis:
         
   - name: retakeAssessment
     uris: "{{ user_service_prefix }}/assessment/retake"
-    upstream_url: "{{ sb_cb_ext_service_url }}/v1/quml/assessment/retake"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v4/quml/assessment/retake"
     strip_uri: true
     plugins:
       - name: jwt
