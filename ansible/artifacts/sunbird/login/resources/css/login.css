@@ -565,3 +565,26 @@ img {vertical-align: middle;}
         grid-template-columns: 1fr;
     }
 }
+
+
+.main-timeout-inner-box {
+    position: absolute;
+    opacity: 1;
+    height: 425px;
+    width: 320px;
+    background: #fff;
+    left: 0;
+    z-index: 1;
+    text-align: center;
+    padding-top: 210px;
+    top: -75px;
+    
+}
+#main-timeout-box {
+    display: none;
+}
+
+#js-timeout-box {
+    font-weight: 600;
+    font-size: 14px;
+}
