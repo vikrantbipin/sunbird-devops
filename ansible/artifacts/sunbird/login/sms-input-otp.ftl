@@ -144,7 +144,7 @@ function timerCount() {
       sessionStorage.removeItem("timeLeftForUnblock");
       enableFields();
       loginAttempts = 0;
-      timeLeftForUnblock = 900;
+      timeLeftForUnblock = 1800;
       
     }
   }, 1000);
@@ -152,7 +152,7 @@ function timerCount() {
 
 
 
-  var timeLeftForUnblock = 900;
+  var timeLeftForUnblock = 1800;
   var loginAttempts = Number(0); 
   var totalLoginAttempts = Number(3);
   
