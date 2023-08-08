@@ -9929,7 +9929,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: getDeptNameList
-    uris: "portal/v1/listDeptNames"
+    uris: "/portal/v1/listDeptNames"
     upstream_url: "{{ sb_cb_ext_service_url }}/portal/listDeptNames"
     strip_uri: true
     plugins:
