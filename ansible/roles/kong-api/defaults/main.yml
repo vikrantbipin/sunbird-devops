@@ -9444,6 +9444,24 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
+  - name: getMasterCountryList
+    uris: "{{ master_data_service_prefix }}/v1/countries"
+    upstream_url: "{{ sb_cb_ext_service_url }}/masterData/v1/getCountries"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
   - name: getProfilePageMetaData
     uris: "{{ master_data_service_prefix }}/v1/profilePageMetaData"
     upstream_url: "{{ sb_cb_ext_service_url }}/masterData/v1/getProfilePageMetaData"
