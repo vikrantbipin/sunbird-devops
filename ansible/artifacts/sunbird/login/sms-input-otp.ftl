@@ -154,7 +154,7 @@ function timerCount() {
 
   var timeLeftForUnblock = 1800;
   var loginAttempts = Number(0); 
-  var totalLoginAttempts = Number(3);
+  var totalLoginAttempts = Number(7);
   
 
   function otpLoginUser() {
