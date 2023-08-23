@@ -91,6 +91,7 @@ forms_service_prefix: /forms
 profanity_moderator_admin_prefix: /moderatoradmin
 mdo_content_prefix: /mdo/content
 master_data_service_prefix: /masterData
+blended_program_service_prefix: /blendedprogram
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -122,7 +123,6 @@ analytics_url: "http://pm-analytics-service:8091"
 registry_service_url: "http://registry-service:8081"
 forms_service_url: "http://form-service:8099"
 profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
-blended_program_service_prefix: /blendedprogram
 
 
 premium_consumer_rate_limits:
