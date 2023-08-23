@@ -91,6 +91,7 @@ forms_service_prefix: /forms
 profanity_moderator_admin_prefix: /moderatoradmin
 mdo_content_prefix: /mdo/content
 master_data_service_prefix: /masterData
+blended_program_service_prefix: /blendedprogram
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -122,6 +123,7 @@ analytics_url: "http://pm-analytics-service:8091"
 registry_service_url: "http://registry-service:8081"
 forms_service_url: "http://form-service:8099"
 profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
+
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -9967,6 +9969,42 @@ kong_apis:
   - name: storageReportDownloadDoc
     uris: "/storage/v1/report"
     upstream_url: "{{ sb_cb_ext_service_url }}/storage/v1/report"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowBlendedProgramAdminEnrol
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/admin/enrol"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/admin/enrol"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: blendedProgramUpdateAttendance
+    uris: "{{ blended_program_service_prefix }}/v1/update/progress"
+    upstream_url: "{{ sb_cb_ext_service_url }}/blendedprogram/v1/update/progress"
     strip_uri: true
     plugins:
       - name: jwt
