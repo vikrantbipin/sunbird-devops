@@ -10004,7 +10004,7 @@ kong_apis:
 
   - name: blendedProgramUpdateAttendance
     uris: "{{ blended_program_service_prefix }}/v1/update/progress"
-    upstream_url: "{{ sb_cb_ext_service_url }}/blendedprogram/v1/update/progress"
+    upstream_url: "{{ sb_cb_ext_service_url }}/content/progress/v1/ext/update"
     strip_uri: true
     plugins:
       - name: jwt
