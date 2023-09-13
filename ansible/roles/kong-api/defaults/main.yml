@@ -92,6 +92,7 @@ profanity_moderator_admin_prefix: /moderatoradmin
 mdo_content_prefix: /mdo/content
 master_data_service_prefix: /masterData
 blended_program_service_prefix: /blendedprogram
+faq_assistant_service_prefix: /faq
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -123,6 +124,7 @@ analytics_url: "http://pm-analytics-service:8091"
 registry_service_url: "http://registry-service:8081"
 forms_service_url: "http://form-service:8099"
 profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
+faq_assistant_service: "http://faq-assistant-service:4003"
 
 
 premium_consumer_rate_limits:
@@ -10092,3 +10094,38 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
+  - name: faqAssistantGetLanguage
+    uris: "{{ faq_assistant_service_prefix }}/v1/assistant/available/language"
+    upstream_url: "{{ faq_assistant_service }}/assistant/available/language"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: faqAssistantGetConfig
+    uris: "{{ faq_assistant_service_prefix }}/v1/assistant/configs/language"
+    upstream_url: "{{ faq_assistant_service }}/assistant/configs/language"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
