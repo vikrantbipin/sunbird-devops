@@ -93,7 +93,7 @@ mdo_content_prefix: /mdo/content
 master_data_service_prefix: /masterData
 blended_program_service_prefix: /blendedprogram
 faq_assistant_service_prefix: /faq
-curated_program_service_prefix: /curatedprogram
+curated_program_prefix: /curatedprogram
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -10124,7 +10124,7 @@ kong_apis:
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: curatedProgramEnrolment
-    uris: "{{ curated_program_service_prefix }}/v1/enrol"
+    uris: "{{ curated_program_prefix }}/v1/enrol"
     upstream_url: "{{ lms_service_url }}/v1/program/enroll"
     strip_uri: true
     plugins:
