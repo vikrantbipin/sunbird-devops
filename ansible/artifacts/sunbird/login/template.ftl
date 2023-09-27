@@ -88,7 +88,7 @@
                         if(sessionTenant){
                             var imgSrc = "${url.resourcesPath}/img/tenants/"+sessionTenant+".png";
                         }else{
-                            var imgSrc = "${url.resourcesPath}/img/karmayogiLogo.svg";
+                            var imgSrc = "${url.resourcesPath}/img/karmayogiLogo.jpg";
                         }
 
                         var logoImg =  document.querySelector(".ui.header img");
@@ -96,7 +96,7 @@
                             logoImg.setAttribute('class','logo-image');
                             logoImg.setAttribute('alt',sessionTenant);
                             logoImg.src = imgSrc;
-                            logoImg.addEventListener("error", ()=>{ logoImg.onerror=null;logoImg.src='${url.resourcesPath}/img/karmayogiLogo.svg'});
+                            logoImg.addEventListener("error", ()=>{ logoImg.onerror=null;logoImg.src='${url.resourcesPath}/img/karmayogiLogo.jpg'});
                         }
 
                     </script>
