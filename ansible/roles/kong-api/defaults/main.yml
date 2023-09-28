@@ -9811,9 +9811,9 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
-  - name: workflowBlendedProgramUpdate
-    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/update"
-    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/update"
+  - name: workflowBlendedProgramPCUpdate
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/update/pc"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/update/pc"
     strip_uri: true
     plugins:
     - name: jwt
@@ -10152,6 +10152,24 @@ kong_apis:
     - name: acl
       config.whitelist:
         - 'dataCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: workflowBlendedProgramMDOUpdate
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/update/mdo"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/update/mdo"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
     - name: rate-limiting
       config.policy: local
       config.hour: "{{ medium_rate_limit_per_hour }}"
