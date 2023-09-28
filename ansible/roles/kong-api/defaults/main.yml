@@ -10176,3 +10176,39 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+   - name: workflowBPPCSearchV2
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchv2/pc"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchv2/pc"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"  
+
+   - name: workflowBPMDOSearchV2
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchv2/mdo"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchv2/mdo"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"  
