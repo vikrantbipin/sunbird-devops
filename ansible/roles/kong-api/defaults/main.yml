@@ -10195,7 +10195,7 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"  
 
-   - name: workflowBPMDOSearchV2
+  - name: workflowBPMDOSearchV2
     uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchv2/mdo"
     upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchv2/mdo"
     strip_uri: true
