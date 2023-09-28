@@ -10178,8 +10178,8 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: workflowBPPCSearchV2
-    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchv2/pc"
-    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchv2/pc"
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchV2/pc"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchV2/pc"
     strip_uri: true
     plugins:
     - name: jwt
@@ -10196,8 +10196,8 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"  
 
   - name: workflowBPMDOSearchV2
-    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchv2/mdo"
-    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchv2/mdo"
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/searchV2/mdo"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/searchV2/mdo"
     strip_uri: true
     plugins:
     - name: jwt
