@@ -10059,9 +10059,9 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
-  - name: workflowBlendedProgramRemove
-    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/remove"
-    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/remove"
+  - name: workflowBPPCRemove
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/remove/pc"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/remove/pc"
     strip_uri: true
     plugins:
     - name: jwt
@@ -10076,6 +10076,25 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+ - name: workflowBPMDORemove
+    uris: "{{ workflow_handler_service_prefix }}/blendedprogram/remove/mdo"
+    upstream_url: "{{ workflow_handler_service_url }}/v1/blendedprogram/workflow/remove/mdo"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
   
   - name: blendedProgramOfflineSessionGetUsers
     uris: "{{ blended_program_service_prefix }}/v1/getUserContentProgress"
