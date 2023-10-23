@@ -10324,7 +10324,7 @@ kong_apis:
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: adminUserExtendedPatch
-    uris: "{{ user_service_prefix }}/v1/extPatch"
+    uris: "{{ user_service_prefix }}/v1/admin/extPatch"
     upstream_url: "{{ sb_cb_ext_service_url }}/user/admin/patch"
     strip_uri: true
     plugins:
