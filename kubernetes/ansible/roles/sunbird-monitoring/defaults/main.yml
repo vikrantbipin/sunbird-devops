@@ -7,9 +7,9 @@ monitoring_stack:
   - elasticsearch-exporter
   - logger
   - blackbox-exporter
- # - additional-scrape-configs
+  - additional-scrape-configs
   - alertrules
-  - kafka-topic-exporter
+ # - kafka-topic-exporter
   #- prometheus-redis-exporter
  # - processing-kafka-exporter
   - json-path-exporter
