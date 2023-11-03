@@ -7729,7 +7729,7 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
-      
+          
   - name: privateUserMigrate
     uris: "{{ user_service_prefix }}/private/v1/migrate"
     upstream_url: "{{ sb_cb_ext_service_url }}/user/v1/migrate"
@@ -7747,7 +7747,7 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-  
+
   - name: discussionHubAPIs
     uris: "/discussion"
     upstream_url: "{{ discussions_mw_url }}/discussion"
@@ -7770,7 +7770,7 @@ kong_apis:
         rename:
           headers:
           - nodebb_authorization_token:Authorization
-          
+
   - name: nodebbauthAPIs
     uris: "/nodebb/auth/api"
     upstream_url: "{{ nodebb_url }}/api"
@@ -10340,3 +10340,118 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: discussionHubAPIForRecent
+    uris: "/discussion/recent"
+    upstream_url: "{{ discussions_mw_url }}/discussion/recent"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      - name: request-transformer
+        config:
+          rename:
+            headers:
+              - nodebb_authorization_token:Authorization
+
+  - name: discussionHubAPIForTags
+    uris: "/discussion/tags "
+    upstream_url: "{{ discussions_mw_url }}/discussion/tags"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      - name: request-transformer
+        config:
+          rename:
+            headers:
+              - nodebb_authorization_token:Authorization
+
+  - name: discussionHubAPIForUserDiscussions
+    uris: "/discussion/user"
+    upstream_url: "{{ discussions_mw_url }}/discussion/user"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      - name: request-transformer
+        config:
+          rename:
+            headers:
+              - nodebb_authorization_token:Authorization
+
+  - name: discussionHubAPIForPost
+    uris: "/discussion/v2/topics"
+    upstream_url: "{{ discussions_mw_url }}/discussion/v2/topics"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      - name: request-transformer
+        config:
+          rename:
+            headers:
+              - nodebb_authorization_token:Authorization
+
+  - name: discussionHubAPIForCategories
+    uris: "/discussion/categories"
+    upstream_url: "{{ discussions_mw_url }}/discussion/categories"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      - name: request-transformer
+        config:
+          rename:
+            headers:
+              - nodebb_authorization_token:Authorization
