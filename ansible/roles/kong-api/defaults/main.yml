@@ -95,6 +95,7 @@ blended_program_service_prefix: /blendedprogram
 faq_assistant_service_prefix: /faq
 curated_program_prefix: /curatedprogram
 program_prefix: /program
+competency_prefix: /competency
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -127,6 +128,7 @@ registry_service_url: "http://registry-service:8081"
 forms_service_url: "http://form-service:8099"
 profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
 faq_assistant_service: "http://faq-assistant-service:4003"
+competency_url: "http://fracentity-service:8083"
 
 
 premium_consumer_rate_limits:
@@ -10542,5 +10544,59 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: readCompetencyById
+    uris: "{{ competency_prefix }}/read"
+    upstream_url: "{{ competency_url }}/v2/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: searchCompetency
+    uris: "{{ competency_prefix }}/search"
+    upstream_url: "{{ competency_url }}/v2/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: upsertCompetency
+    uris: "{{ competency_prefix }}/upsert"
+    upstream_url: "{{ competency_url }}/v2/upsert"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
 
