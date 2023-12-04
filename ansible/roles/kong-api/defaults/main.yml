@@ -10618,8 +10618,8 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: profilePhotoUpload
-    uris: "/storage/sb-cb-ext-dev/profilePhotoUpload"
-    upstream_url: "{{ sb_cb_ext_service_url }}/storage/sb-cb-ext-dev/profilePhotoUpload"
+    uris: "/storage/profilePhotoUpload"
+    upstream_url: "{{ sb_cb_ext_service_url }}/storage/profilePhotoUpload"
     strip_uri: true
     plugins:
     - name: jwt
