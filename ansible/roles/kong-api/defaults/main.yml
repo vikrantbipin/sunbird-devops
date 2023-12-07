@@ -10546,7 +10546,7 @@ kong_apis:
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: readCompetencyById
-    uris: "{{ competency_prefix }}/read"
+    uris: "{{ competency_prefix }}/v4/read"
     upstream_url: "{{ competency_url }}/v2/read"
     strip_uri: true
     plugins:
@@ -10564,7 +10564,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: searchCompetency
-    uris: "{{ competency_prefix }}/search"
+    uris: "{{ competency_prefix }}/v4/search"
     upstream_url: "{{ competency_url }}/v2/search"
     strip_uri: true
     plugins:
@@ -10582,7 +10582,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: upsertCompetency
-    uris: "{{ competency_prefix }}/upsert"
+    uris: "{{ competency_prefix }}/v4/upsert"
     upstream_url: "{{ competency_url }}/v2/upsert"
     strip_uri: true
     plugins:
@@ -10600,7 +10600,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: addUpdateCompetencyRelation
-    uris: "{{ competency_prefix }}/update/relation"
+    uris: "{{ competency_prefix }}/v4/update/relation"
     upstream_url: "{{ competency_url }}/v2/update/relation"
     strip_uri: true
     plugins:
