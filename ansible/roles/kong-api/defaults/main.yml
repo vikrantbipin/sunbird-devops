@@ -7528,6 +7528,24 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+    - name: userAdminAutoComplete
+    uris: "{{ user_service_prefix }}/v1/admin/autocomplete"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/v1/admin/autocomplete"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
       
   - name: userNetworkAutoComplete
     uris: "/v1/user/autocomplete"
