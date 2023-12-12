@@ -96,6 +96,7 @@ faq_assistant_service_prefix: /faq
 curated_program_prefix: /curatedprogram
 program_prefix: /program
 competency_prefix: /competency
+cb_plan_prefix: /cbplan
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -10653,3 +10654,56 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}" 
 
+  - name: cbPlanCreate
+    uris: "{{ cb_plan_prefix }}/v1/create"
+    upstream_url: "{{ sb_cb_ext_service_url }}/cbplan/v1/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: cbPlanPublish
+    uris: "{{ cb_plan_prefix }}/v1/publish"
+    upstream_url: "{{ sb_cb_ext_service_url }}/cbplan/v1/publish"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: cbPlanUpdate
+    uris: "{{ cb_plan_prefix }}/v1/update"
+    upstream_url: "{{ sb_cb_ext_service_url }}/cbplan/v1/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
