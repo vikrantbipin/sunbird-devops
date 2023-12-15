@@ -10799,7 +10799,7 @@ kong_apis:
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: cbPlanListByUser
-    uris: "{{ user_service_prefix }}v1/cbplan"
+    uris: "{{ user_service_prefix }}/v1/cbplan"
     upstream_url: "{{ sb_cb_ext_service_url }}/cbplan/v1/user/list"
     strip_uri: true
     plugins:
