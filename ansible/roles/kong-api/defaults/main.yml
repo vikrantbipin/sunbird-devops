@@ -10875,7 +10875,7 @@ kong_apis:
       - name: cors
       - "{{ statsd_pulgin }}"
       - name: acl
-         config.whitelist:
+        config.whitelist:
            - 'dataAccess'
       - name: rate-limiting
         config.policy: local
