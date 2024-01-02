@@ -10889,8 +10889,12 @@ kong_apis:
     upstream_url: "{{ learning_service_url }}/v1/user/login"
     strip_uri: true
     plugins:
+      - name: jwt
       - name: cors
       - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+           - 'dataAccess'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
