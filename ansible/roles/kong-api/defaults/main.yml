@@ -130,6 +130,7 @@ forms_service_url: "http://form-service:8099"
 profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
 faq_assistant_service: "http://faq-assistant-service:4003"
 competency_url: "http://fracentity-service:8083"
+search_url: "http://search-service:9000"
 
 
 premium_consumer_rate_limits:
@@ -10973,3 +10974,22 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: compositeSearchV4
+    uris: "{{ composite_service_prefix }}/v4/search"
+    upstream_url: "{{ search_url }}/v4/search"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist: 
+        - 'contentAdmin'
+        - 'contentTempAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ premium_consumer_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
