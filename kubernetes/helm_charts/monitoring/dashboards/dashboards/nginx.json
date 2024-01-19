@@ -392,7 +392,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "prom-fed",
+        "datasource": "Prometheus",
         "definition": "label_values(nginx_http_requests_total, sb_cluster)",
         "hide": 0,
         "includeAll": true,

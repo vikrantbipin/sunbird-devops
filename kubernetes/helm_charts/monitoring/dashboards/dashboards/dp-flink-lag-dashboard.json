@@ -330,7 +330,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "description": "Threshold:\nWarning: 1M\nCritical: 2M",
           "fieldConfig": {
             "defaults": {
@@ -422,7 +422,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "description": "Threshold:\nWarning: 1M\nCritical:  2M",
           "fieldConfig": {
             "defaults": {
@@ -514,7 +514,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "description": "Threshold:\nWarning: 1M\nCritical: 2M",
           "fieldConfig": {
             "defaults": {
@@ -606,7 +606,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "description": "Threshold:\nWarning: 1M\nCritical: 2M",
           "fieldConfig": {
             "defaults": {
@@ -2098,7 +2098,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 5M\nCritical:  10M",
       "fieldConfig": {
         "defaults": {
@@ -2190,7 +2190,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 5M\nCritical:  10M",
       "fieldConfig": {
         "defaults": {
@@ -2282,7 +2282,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2374,7 +2374,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2466,7 +2466,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2558,7 +2558,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2650,7 +2650,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2742,7 +2742,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2834,7 +2834,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {
@@ -2926,7 +2926,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Flink-Prometheus",
+      "datasource": "Prometheus",
       "description": "Threshold:\nWarning: 10M\nCritical: 15M",
       "fieldConfig": {
         "defaults": {

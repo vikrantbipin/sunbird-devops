@@ -36,7 +36,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prom-fed",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {
@@ -195,7 +195,7 @@
           "cacheTimeout": null,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prom-fed",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -357,7 +357,7 @@
             "mode": "opacity"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "prom-fed",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {
@@ -476,7 +476,7 @@
             "mode": "opacity"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "prom-fed",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {
@@ -586,7 +586,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "prom-fed",
+        "datasource": "Prometheus",
         "definition": "label_values(kong_request_count, sb_cluster)",
         "hide": 0,
         "includeAll": true,

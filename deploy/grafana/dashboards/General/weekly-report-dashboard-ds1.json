@@ -37,7 +37,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -141,7 +141,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "decimals": 4,
       "fill": 1,
       "gridPos": {
@@ -233,7 +233,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "decimals": 4,
       "fill": 1,
       "gridPos": {
@@ -339,7 +339,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -430,7 +430,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -535,7 +535,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -651,7 +651,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -761,7 +761,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -868,7 +868,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus_DS1",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -1788,7 +1788,7 @@
             "$__all"
           ]
         },
-        "datasource": "Prometheus_DS1",
+        "datasource": "Prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": true,

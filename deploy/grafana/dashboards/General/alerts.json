@@ -18,7 +18,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prom-fed",
+          "datasource": "Prometheus",
           "fill": 1,
           "id": 1,
           "legend": {

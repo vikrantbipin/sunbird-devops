@@ -37,7 +37,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -144,7 +144,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -235,7 +235,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -340,7 +340,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -431,7 +431,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -536,7 +536,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -627,7 +627,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prom-fed",
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -728,7 +728,7 @@
             "$__all"
           ]
         },
-        "datasource": "prom-fed",
+        "datasource": "Prometheus",
         "definition": "label_values(kong_request_count,api)",
         "hide": 0,
         "includeAll": true,

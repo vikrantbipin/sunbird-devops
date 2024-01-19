@@ -17,7 +17,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prom-fed",
+          "datasource": "Prometheus",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -119,7 +119,7 @@
           "text": "DC3",
           "value": "DC3"
         },
-        "datasource": "prom-fed",
+        "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
         "label": "swarm",
@@ -154,7 +154,7 @@
           "text": "11.3.1.6",
           "value": "11.3.1.6"
         },
-        "datasource": "prom-fed",
+        "datasource": "Prometheus",
         "hide": 0,
         "includeAll": false,
         "label": "server",

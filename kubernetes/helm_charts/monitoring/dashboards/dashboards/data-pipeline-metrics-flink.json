@@ -38,7 +38,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -125,7 +125,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -238,7 +238,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -329,7 +329,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#E02F44"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -420,7 +420,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#E02F44"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -511,7 +511,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#299c46"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -598,7 +598,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -707,7 +707,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -820,7 +820,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -911,7 +911,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1002,7 +1002,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "decimals": null,
           "fieldConfig": {
             "defaults": {
@@ -1094,7 +1094,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1184,7 +1184,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#299c46"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1274,7 +1274,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1365,7 +1365,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1456,7 +1456,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1547,7 +1547,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1638,7 +1638,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1725,7 +1725,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1838,7 +1838,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1951,7 +1951,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2042,7 +2042,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2133,7 +2133,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2224,7 +2224,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2315,7 +2315,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2406,7 +2406,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#299c46"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2497,7 +2497,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2588,7 +2588,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2679,7 +2679,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2770,7 +2770,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2861,7 +2861,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2948,7 +2948,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3043,7 +3043,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3156,7 +3156,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3247,7 +3247,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3338,7 +3338,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3429,7 +3429,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3520,7 +3520,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3611,7 +3611,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#299c46"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3702,7 +3702,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3793,7 +3793,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3884,7 +3884,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3975,7 +3975,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4066,7 +4066,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4153,7 +4153,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4248,7 +4248,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4361,7 +4361,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4452,7 +4452,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4543,7 +4543,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4634,7 +4634,7 @@
             "rgba(237, 129, 40, 0.89)",
             "#d44a3a"
           ],
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4721,7 +4721,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4833,7 +4833,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -4942,7 +4942,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5105,7 +5105,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5214,7 +5214,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5308,7 +5308,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5417,7 +5417,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5532,7 +5532,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5641,7 +5641,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -5762,7 +5762,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Flink-Prometheus",
+          "datasource": "Prometheus",
           "fieldConfig": {
             "defaults": {
               "custom": {}
