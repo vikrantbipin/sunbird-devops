@@ -385,6 +385,15 @@ dashboardsConfigMaps: {}
 ## ref: http://docs.grafana.org/installation/configuration/
 ##
 grafana.ini:
+  smtp:
+    enabled: {{smtp_enabled}}
+    host: {{monit_mail_server_host}}
+    user: {{mail_server_username}}
+    password: {{mail_server_password}}
+    skip_verify: {{smtp_enabled}}
+    from_address: {{monit_mail}}
+    from_name: Grafana
+    
   paths:
     data: /var/lib/grafana/data
     logs: /var/log/grafana
