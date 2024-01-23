@@ -253,19 +253,19 @@ igonore_alert_list_custom: [] #### This var can be used for custom related. For 
 service_health_checks:
 #  - service_name: 'analytics'
 #    targets: "http://analytics-service.{{ namespace }}.svc.cluster.local:9000/health"
-  - service_name: 'learning-service'
-    targets: "http://{{ learningservice_ip }}:8080/learning-service/health"
+#  - service_name: 'learning-service'
+ #   targets: "http://{{ learningservice_ip }}:8080/learning-service/health"
 #  - service_name: 'player'
 #    targets: "http://player.{{ namespace }}.svc.cluster.local:3000/health"
-  - service_name: 'search'
-    targets: "http://search-service.{{ namespace }}.svc.cluster.local:9000/health"
-  - service_name: 'knowledgemw'
-    targets: "http://knowledge-mw-service.{{ namespace }}.svc.cluster.local:5000/health"
-  - service_name: 'content'
-    targets: "http://content-service.{{ namespace }}.svc.cluster.local:9000/health"
-  - service_name: 'lms'
-    targets: "http://lms-service.{{ namespace }}.svc.cluster.local:9000/health"
-  - service_name: 'learner'
-    targets: "http://learner-service.{{ namespace }}.svc.cluster.local:9000/health"
+ # - service_name: 'search'
+  #  targets: "http://search-service.{{ namespace }}.svc.cluster.local:9000/health"
+  #- service_name: 'knowledgemw'
+  #  targets: "http://knowledge-mw-service.{{ namespace }}.svc.cluster.local:5000/health"
+  #- service_name: 'content'
+  #  targets: "http://content-service.{{ namespace }}.svc.cluster.local:9000/health"
+  #- service_name: 'lms'
+   # targets: "http://lms-service.{{ namespace }}.svc.cluster.local:9000/health"
+  #- service_name: 'learner'
+  #  targets: "http://learner-service.{{ namespace }}.svc.cluster.local:9000/health"
 
 api_response_upward_trend_threshold: 0.3
