@@ -10,6 +10,7 @@
     sed -i "s|smtp_monit_host|{{monit_mail_server_host}}|g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
     sed -i "s|smtp_monit_user|{{mail_server_username}}|g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
     sed -i "s|smtp_monit_pwd|{{mail_server_password}}|g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
+  no_log: true
     
 - name: Creating sunbird monitoring stack
   shell: helm upgrade --install --atomic --timeout {{helm_install_timeout | d("10m")}} {{ item }} {{chart_path}}/{{ item }} --namespace monitoring -f /tmp/{{ item }}.yaml
