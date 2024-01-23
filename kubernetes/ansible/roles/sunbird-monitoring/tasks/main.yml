@@ -7,9 +7,9 @@
   with_items: "{{ monitoring_stack + monitoring_stack_additional_charts }}"
 - name: updating variable values sunbird monitoring stack
   shell: |
-    sed "s/smtp_monit_host/{{monit_mail_server_host}}/g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
-    sed "s/smtp_monit_user/{{mail_server_username}}/g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
-    sed "s/smtp_monit_pwd/{{mail_server_password}}/g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
+    sed -i "s|smtp_monit_host|{{monit_mail_server_host}}|g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
+    sed -i "s|smtp_monit_user|{{mail_server_username}}|g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
+    sed -i "s|smtp_monit_pwd|{{mail_server_password}}|g" {{chart_path}}/prometheus-operator/charts/grafana/values.yaml
     
 - name: Creating sunbird monitoring stack
   shell: helm upgrade --install --atomic --timeout {{helm_install_timeout | d("10m")}} {{ item }} {{chart_path}}/{{ item }} --namespace monitoring -f /tmp/{{ item }}.yaml
