@@ -386,12 +386,9 @@ dashboardsConfigMaps: {}
 ##
 grafana.ini:
   smtp:
-    enabled: {{smtp_enabled}}
-    host: {{monit_mail_server_host}}
-    user: {{mail_server_username}}
-    password: {{mail_server_password}}
-    skip_verify: {{smtp_enabled}}
-    from_address: {{monit_mail}}
+    enabled: true
+    skip_verify: true
+    from_address: no-reply@aastrika.org
     from_name: Grafana
     
   paths:
