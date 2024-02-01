@@ -11014,7 +11014,7 @@ kong_apis:
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: adminGetDeptNameList
-    uris: "/portal/v1/listDeptNames"
+    uris: "/portal/v1/admin/listDeptNames"
     upstream_url: "{{ sb_cb_ext_service_url }}/portal/admin/listDeptNames"
     strip_uri: true
     plugins:
@@ -11032,7 +11032,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
         
   - name: adminGetPositionByOrgList
-    uris: "{{ master_data_service_prefix }}/v2/deptPosition"
+    uris: "{{ master_data_service_prefix }}/v2/admin/deptPosition"
     upstream_url: "{{ sb_cb_ext_service_url }}/masterData/v2/admin/deptPosition"
     strip_uri: true
     plugins:
