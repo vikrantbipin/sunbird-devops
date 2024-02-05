@@ -11065,4 +11065,22 @@ kong_apis:
       config.hour: "{{ medium_rate_limit_per_hour }}"
       config.limit_by: credential
     - name: request-size-limiting
-      config.allowed_payload_size: "{{ medium_request_size_limit }}"	
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: programAdminBulkEnrolment
+    uris: "{{ program_prefix }}/v2/admin/bulkEnroll"
+    upstream_url: "{{ lms_service_url }}/v2/program/admin/bulkEnroll"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'courseAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"      
