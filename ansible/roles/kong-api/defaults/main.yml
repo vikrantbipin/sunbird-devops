@@ -130,6 +130,7 @@ forms_service_url: "http://form-service:8099"
 profanity_moderator_admin_service: "http://profanity-moderator-admin-service:4000"
 faq_assistant_service: "http://faq-assistant-service:4003"
 competency_url: "http://fracentity-service:8083"
+search_url: "http://search-service:9000"
 
 
 premium_consumer_rate_limits:
@@ -9984,6 +9985,7 @@ kong_apis:
       - name: acl
         config.whitelist:
           - 'dataAccess'
+          - 'storageReportDownload'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -10973,3 +10975,112 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: compositeSearchV4
+    uris: "{{ composite_service_prefix }}/v4/search"
+    upstream_url: "{{ search_url }}/v4/search"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist: 
+        - 'contentAdmin'
+        - 'contentTempAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ premium_consumer_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: userContentRecommed
+    uris: "{{ user_service_prefix }}/v1/content/recommend"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/v1/content/recommend"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: adminGetDeptNameList
+    uris: "/portal/v1/admin/listDeptNames"
+    upstream_url: "{{ sb_cb_ext_service_url }}/portal/admin/listDeptNames"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: adminGetPositionByOrgList
+    uris: "{{ master_data_service_prefix }}/v2/admin/deptPosition"
+    upstream_url: "{{ sb_cb_ext_service_url }}/masterData/v2/admin/deptPosition"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: ehrmsProfileDetails
+    uris: "/ehrms/details"
+    upstream_url: "{{ sb_cb_ext_service_url }}/ehrms/details"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+       - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: programAdminBulkEnrolment
+    uris: "{{ program_prefix }}/v2/admin/bulkEnroll"
+    upstream_url: "{{ lms_service_url }}/v2/program/admin/bulkEnroll"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'courseAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"      
