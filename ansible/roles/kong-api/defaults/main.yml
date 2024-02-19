@@ -101,6 +101,14 @@ observationSubmissions_service_prefix: /observationSubmissions
 surveys_service_prefix: /surveys
 surveySubmissions_service_prefix: /surveySubmissions
 user_extension_prefix: /user-extension
+cloud_service_prefix: /cloud-services
+entities_service_prefix: /entities
+solutions_service_prefix: /solutions
+users_service_prefix: /users
+integration_app_prefix: /app
+userProjects_service_prefix: /userProjects
+reports_service_prefix: /reports
+observations_service_prefix: /observations
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
