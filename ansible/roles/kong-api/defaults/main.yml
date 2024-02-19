@@ -97,6 +97,7 @@ curated_program_prefix: /curatedprogram
 program_prefix: /program
 competency_prefix: /competency
 cb_plan_prefix: /cbplan
+observationSubmissions_service_prefix: /observationSubmissions
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
