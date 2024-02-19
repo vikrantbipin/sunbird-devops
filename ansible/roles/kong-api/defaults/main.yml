@@ -11019,9 +11019,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: observationSubmissionsList
     uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/list"
@@ -11040,9 +11037,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: observationQuestionList
     uris: "{{ observations_service_prefix }}/mlsurvey/v1/assessment"
@@ -11061,9 +11055,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: updateObservationSubmission
     uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/update"
@@ -11082,9 +11073,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: createObservationSubmission
     uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/create"
@@ -11103,9 +11091,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: searchLocationEntities
     uris: "{{ observations_service_prefix }}/mlsurvey/v1/searchEntities"
@@ -11124,9 +11109,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: addObservationEntity
     uris: "{{ observations_service_prefix }}/mlsurvey/v1/updateEntities"
@@ -11145,9 +11127,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: observationSolutionList
     uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/solutionList"
@@ -11166,9 +11145,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: surveyQuestionList
     uris: "{{ surveys_service_prefix }}/mlsurvey/v1/details"
@@ -11187,10 +11163,7 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
-
+  
   - name: solutionsVerifyLink
     uris: "{{ solutions_service_prefix }}/mlsurvey/v1/verifyLink"
     upstream_url: "{{ ml_survey_service_url }}/v1/solutions/verifyLink"
@@ -11208,9 +11181,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: updateSurveySubmission
     uris: "{{ surveySubmissions_service_prefix }}/mlsurvey/v1/update"
@@ -11229,9 +11199,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: getUsersPrograms
     uris: "{{ users_service_prefix }}/mlcore/v1/programs"
@@ -11250,9 +11217,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: getUsersSolutions
     uris: "{{ users_service_prefix }}/mlcore/v1/solutions"
@@ -11271,9 +11235,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: getTargetedSolutions
     uris: "{{ solutions_service_prefix }}/mlcore/v1/targetedSolutions"
@@ -11292,9 +11253,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: userLocationScope
     uris: "{{ entities_service_prefix }}/mlcore/v1/subEntityListBasedOnRoleAndLocation"
@@ -11313,9 +11271,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: mandatoryUserProfileFields
     uris: "{{ entities_service_prefix }}/mlcore/v1/entityTypesByLocationAndRole"
@@ -11334,9 +11289,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: locationListing
     uris: "{{ entities_service_prefix }}/mlcore/v1/subEntityList"
@@ -11355,9 +11307,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: getTargetedEntity
     uris: "{{ users_service_prefix }}/mlcore/v1/targetedEntity"
@@ -11376,9 +11325,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: getFileUploadUrls
     uris: "{{ cloud_service_prefix }}/mlcore/v1/files/preSignedUrls"
@@ -11397,9 +11343,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: listPlatformPrograms
     uris: "{{ user_extension_prefix }}/mlcore/v1/programsByPlatformRoles"
@@ -11418,9 +11361,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: listPlatformSolutions
     uris: "{{ user_extension_prefix }}/mlcore/v1/solutions"
@@ -11439,9 +11379,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: VerifyLink
     uris: "{{ solutions_service_prefix }}/mlcore/v1/verifyLink"
@@ -11460,9 +11397,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: GetTemplateOrQuestions
     uris: "{{ solutions_service_prefix }}/mlcore/v1/details"
@@ -11481,9 +11415,6 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
 
   - name: joinProgramByUser
     uris: "{{ programs_service_prefix }}/mlcore/v1/join"
@@ -11502,6 +11433,3 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
-    - name: opa-checks
-      config.required: false
-      config.enabled: false
