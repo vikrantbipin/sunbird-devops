@@ -131,6 +131,7 @@ profanity_moderator_admin_service: "http://profanity-moderator-admin-service:400
 faq_assistant_service: "http://faq-assistant-service:4003"
 competency_url: "http://fracentity-service:8083"
 search_url: "http://search-service:9000"
+ml_survey_service_url: "http://ml-survey-service:3000"
 
 
 premium_consumer_rate_limits:
@@ -11112,3 +11113,234 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: listObservationEntities
+  uris: "{{ observations_service_prefix }}/mlsurvey/v1/entities"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observations/entities"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: observationSubmissionsList
+  uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/list"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observationSubmissions/list"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: observationQuestionList
+  uris: "{{ observations_service_prefix }}/mlsurvey/v1/assessment"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observations/assessment"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: updateObservationSubmission
+  uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/update"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observationSubmissions/update"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationUpdate
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: createObservationSubmission
+  uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/create"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observationSubmissions/create"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationCreate
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: searchLocationEntities
+  uris: "{{ observations_service_prefix }}/mlsurvey/v1/searchEntities"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observations/searchEntities"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - registryAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: addObservationEntity
+  uris: "{{ observations_service_prefix }}/mlsurvey/v1/updateEntities"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observations/updateEntities"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationCreate
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: observationSolutionList
+  uris: "{{ observationSubmissions_service_prefix }}/mlsurvey/v1/solutionList"
+  upstream_url: "{{ ml_survey_service_url }}/v1/observationSubmissions/solutionList"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - observationAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: surveyQuestionList
+  uris: "{{ surveys_service_prefix }}/mlsurvey/v1/details"
+  upstream_url: "{{ ml_survey_service_url }}/v1/surveys/details"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - surveyAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: solutionsVerifyLink
+  uris: "{{ solutions_service_prefix }}/mlsurvey/v1/verifyLink"
+  upstream_url: "{{ ml_survey_service_url }}/v1/solutions/verifyLink"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - solutionAccess
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
+
+- name: updateSurveySubmission
+  uris: "{{ surveySubmissions_service_prefix }}/mlsurvey/v1/update"
+  upstream_url: "{{ ml_survey_service_url }}/v1/surveySubmissions/update"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - "{{ statsd_pulgin }}"
+  - name: acl
+    config.whitelist:
+    - surveyUpdate
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ small_request_size_limit }}"
+  - name: opa-checks
+    config.required: false
+    config.enabled: false
