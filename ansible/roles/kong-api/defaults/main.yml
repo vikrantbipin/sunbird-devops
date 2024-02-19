@@ -98,6 +98,9 @@ program_prefix: /program
 competency_prefix: /competency
 cb_plan_prefix: /cbplan
 observationSubmissions_service_prefix: /observationSubmissions
+surveys_service_prefix: /surveys
+surveySubmissions_service_prefix: /surveySubmissions
+user_extension_prefix: /user-extension
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
