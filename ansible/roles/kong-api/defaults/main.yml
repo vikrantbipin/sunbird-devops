@@ -110,6 +110,8 @@ userProjects_service_prefix: /userProjects
 reports_service_prefix: /reports
 observations_service_prefix: /observations
 programs_service_prefix: /programs
+private_ml_core_prefix: /private/mlcore
+private_ml_survey_prefix: /private/mlsurvey
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
