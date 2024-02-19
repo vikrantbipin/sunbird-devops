@@ -109,6 +109,7 @@ integration_app_prefix: /app
 userProjects_service_prefix: /userProjects
 reports_service_prefix: /reports
 observations_service_prefix: /observations
+programs_service_prefix: /programs
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
