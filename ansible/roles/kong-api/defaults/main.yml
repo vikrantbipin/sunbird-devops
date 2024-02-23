@@ -112,6 +112,7 @@ observations_service_prefix: /observations
 programs_service_prefix: /programs
 private_ml_core_prefix: /private/mlcore
 private_ml_survey_prefix: /private/mlsurvey
+open_program_prefix: /openprogram
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -12464,3 +12465,20 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
+  - name: moderatedOpenProgramEnroll
+    uris: "{{ open_program_prefix }}/v1/enrol"
+    upstream_url: "{{ lms_service_url }}/v1/openprogram/enroll"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
