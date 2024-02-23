@@ -12467,7 +12467,7 @@ kong_apis:
 
   - name: moderatedOpenProgramEnroll
     uris: "{{ open_program_prefix }}/v1/enrol"
-    upstream_url: "{{ lms_service_url }}/v1/openprogram/enroll"
+    upstream_url: "{{ lms_service_url }}/v1/openprogram/enrol"
     strip_uri: true
     plugins:
       - name: jwt
