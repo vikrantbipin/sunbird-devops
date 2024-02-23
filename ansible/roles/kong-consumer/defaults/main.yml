@@ -172,6 +172,12 @@ kong_all_consumer_groups:
   - SuperAdmin
   - orgSuperAdmin
   - orgAdmin
+  - registryUpdate
+  - frameworkUpdate
+  - programsUpdate
+  - programsAccess
+  - solutionsUpdate
+  - dbAccess
 
 kong_consumers:
   - username: api-admin
