@@ -101,7 +101,7 @@ observationSubmissions_service_prefix: /observationSubmissions
 surveys_service_prefix: /surveys
 surveySubmissions_service_prefix: /surveySubmissions
 user_extension_prefix: /user-extension
-cloud_service_prefix: /cloudservices
+cloud_service_prefix: /cloudServices
 entities_service_prefix: /entities
 solutions_service_prefix: /solutions
 users_service_prefix: /users
