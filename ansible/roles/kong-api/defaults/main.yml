@@ -103,7 +103,7 @@ surveySubmissions_service_prefix: /surveySubmissions
 user_extension_prefix: /user-extension
 cloud_service_prefix: /cloud-services
 entities_service_prefix: /entities
-solutions_service_prefix: /solutions
+solutions_mlservice_prefix: /solutions
 users_service_prefix: /users
 integration_app_prefix: /app
 userProjects_service_prefix: /userProjects
@@ -11169,7 +11169,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
   
   - name: solutionsVerifyLink
-    uris: "{{ solutions_service_prefix }}/mlsurvey/v1/verifyLink"
+    uris: "{{ solutions_mlservice_prefix }}/mlsurvey/v1/verifyLink"
     upstream_url: "{{ ml_survey_service_url }}/v1/solutions/verifyLink"
     strip_uri: true
     plugins:
@@ -11241,7 +11241,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: getTargetedSolutions
-    uris: "{{ solutions_service_prefix }}/mlcore/v1/targetedSolutions"
+    uris: "{{ solutions_mlservice_prefix }}/mlcore/v1/targetedSolutions"
     upstream_url: "{{ ml_core_service_url }}/v1/solutions/targetedSolutions"
     strip_uri: true
     plugins:
@@ -11385,7 +11385,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: VerifyLink
-    uris: "{{ solutions_service_prefix }}/mlcore/v1/verifyLink"
+    uris: "{{ solutions_mlservice_prefix }}/mlcore/v1/verifyLink"
     upstream_url: "{{ ml_core_service_url }}/v1/solutions/verifyLink"
     strip_uri: true
     plugins:
@@ -11403,7 +11403,7 @@ kong_apis:
       config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: GetTemplateOrQuestions
-    uris: "{{ solutions_service_prefix }}/mlcore/v1/details"
+    uris: "{{ solutions_mlservice_prefix }}/mlcore/v1/details"
     upstream_url: "{{ ml_core_service_url }}/v1/solutions/details"
     strip_uri: true
     plugins:
