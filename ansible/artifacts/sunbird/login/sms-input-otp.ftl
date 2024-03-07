@@ -190,11 +190,14 @@ function timerCount() {
   }
 
   function disableBtn() {
+    console.log("function called")
     document.getElementById('login').disabled = true;
-
+  console.log("btn disable")
     setTimeout(function(){
+      console.log("settime out function called")
       document.getElementById("login").disabled = false;
-    }, 1000); 
+      console.log("btn unable")
+    }, 3000); 
   }
 
  
