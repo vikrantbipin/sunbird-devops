@@ -34,7 +34,7 @@
                             </div>
                             
                             <div class="field">
-                                <button onclick="javascript:makeDivUnclickable(); javascript:otpLoginUser()" ondblclick="javascript:makeDivUnclickable(); javascript:otpLoginUser()" class="ui fluid submit button" name="login" id="login" type="submit" value="${msg("doLogIn")}">${msg("doSubmit")}</button>
+                                <button onclick="javascript:makeDivUnclickable(); javascript:otpLoginUser(); javascript:disableBtn()" class="ui fluid submit button" name="login" id="login" type="submit" value="${msg("doLogIn")}">${msg("doSubmit")}</button>
                             </div>
                             <div class="field or-container">
                                 <div class="or-holder">
@@ -187,6 +187,14 @@ function timerCount() {
       clearInterval(timeInterval);
       document.getElementById("timer-container").setAttribute("hidden", false); 
      }
+  }
+
+  function disableBtn() {
+    document.getElementById('login').disabled = true;
+
+    setTimeout(function(){
+      document.getElementById("login").disabled = false;
+    }, 1000); 
   }
 
  
