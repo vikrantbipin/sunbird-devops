@@ -158,6 +158,16 @@ function timerCount() {
   
 
   function otpLoginUser() {
+      console.log("function called")
+    document.getElementById('login').disabled = true;
+  console.log("btn disable")
+    setTimeout(function(){
+      console.log("settime out function called")
+      document.getElementById("login").disabled = false;
+      console.log("btn unable")
+    }, 3000); 
+
+    
     var loginCount = parseInt(sessionStorage.getItem("loginAttempts"), 10);
     if (!loginCount || loginCount === null || loginCount < totalLoginAttempts) {
       loginAttempts += 1;
