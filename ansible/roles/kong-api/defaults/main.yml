@@ -12643,7 +12643,7 @@ kong_apis:
 
   - name: BulkUserUpdateFileUpload
     uris: "/admin/transition/bulkupdate"
-    upstream_url: "{{ workflow_handler_service_url }}/v1/workflow/admin/bulkupdate/transition""
+    upstream_url: "{{ workflow_handler_service_url }}/v1/workflow/admin/bulkupdate/transition"
     strip_uri: true
     plugins:
       - name: jwt
