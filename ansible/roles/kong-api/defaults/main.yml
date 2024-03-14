@@ -12659,7 +12659,7 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-   - name: BulkUserUpdateFileDownload
+  - name: BulkUserUpdateFileDownload
     uris: "/admin/bulkuploadfile/download"
     upstream_url: "{{ workflow_handler_service_url }}/v1/workflow/admin/bulkbuplodfile/download/"
     strip_uri: true
