@@ -44,7 +44,7 @@
             <div class="ui raised shadow container segment fullpage-background-image login-section">
                   <div class="zoho-form-box">
                    <a id="needHelpBtn">
-                    <img" src="${url.resourcesPath}/img/help_icon.svg">
+                    <img src="${url.resourcesPath}/img/help_icon.svg">
                    </a>
                     </div>
                     <div id="popupBox" class="zoho-modal">
