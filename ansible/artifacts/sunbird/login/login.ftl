@@ -42,6 +42,18 @@
                 
             </div>
             <div class="ui raised shadow container segment fullpage-background-image login-section">
+                  <div class="zoho-form-box">
+                   <a id="needHelpBtn">Need help</a>
+
+                    <div id="popupBox" class="zoho-modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <iframe src="need-help.ftl" class="zoho-iframe"></iframe>
+                        </div>
+                    
+                    </div>
+
+                    </div>
                 <div class="ui one column grid stackable">
                     <#--  <div class="ui column tablet only computer only"></div>  -->
                     <div class="ui column height-fix">
@@ -263,6 +275,8 @@
         </div>
     </div>
     <script type="text/javascript">
+    callZohoForm()
+    
         var slideIndex = 0;
         showSlides();
 
