@@ -43,8 +43,10 @@
             </div>
             <div class="ui raised shadow container segment fullpage-background-image login-section">
                   <div class="zoho-form-box">
-                   <a id="needHelpBtn">Need help</a>
-
+                   <a id="needHelpBtn">
+                    <img" src="${url.resourcesPath}/img/help_icon.svg">
+                   </a>
+                    </div>
                     <div id="popupBox" class="zoho-modal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -54,7 +56,7 @@
                     
                     </div>
 
-                    </div>
+                  
                 <div class="ui one column grid stackable">
                     <#--  <div class="ui column tablet only computer only"></div>  -->
                     <div class="ui column height-fix">
