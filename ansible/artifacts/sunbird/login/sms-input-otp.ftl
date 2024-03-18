@@ -34,7 +34,7 @@
                             </div>
                             
                             <div class="field">
-                                <button onclick="javascript:makeDivUnclickable(); javascript:otpLoginUser()" class="ui fluid submit button" name="login" id="login" type="submit" value="${msg("doLogIn")}">${msg("doSubmit")}</button>
+                                <button onclick="javascript:makeDivUnclickable(); javascript:otpLoginUser()" ondblclick="javascript:disableBtn()" class="ui fluid submit button" name="login" id="login" type="submit" value="${msg("doLogIn")}">${msg("doSubmit")}</button>
                             </div>
                             <div class="field or-container">
                                 <div class="or-holder">
@@ -101,10 +101,6 @@
       }
 
       countdown()
-
-       
-
-      
 
       function validateOtpChar() {
         let userOptVal = document.getElementById("totp").value.trim()
@@ -188,6 +184,8 @@ function timerCount() {
       document.getElementById("timer-container").setAttribute("hidden", false); 
      }
   }
+
+
 
  
   function disableFields() {
