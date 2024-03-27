@@ -12678,7 +12678,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: getSector
-    uris: "/v1/catalog/sector"
+    uris: "/catalog/v1/sector"
     upstream_url: "{{ sb_cb_ext_service_url }}/v1/catalog/sector"
     strip_uri: true
     plugins:
