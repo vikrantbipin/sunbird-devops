@@ -224,15 +224,15 @@ var makeDivUnclickable = function () {
 	containerElement.setAttribute('class', 'unClickable');
 };
 
+var formSubmitted = false;
 var disableBtn = function () {
 	console.log("function called")
-	document.getElementById('login').disabled = true;
-	console.log("btn disable")
-	setTimeout(function () {
-		console.log("settime out function called")
-		document.getElementById("login").disabled = false;
-		console.log("btn unable")
-	}, 3000);
+	if( formSubmitted == true ) {
+		alert("This form has already been submitted!");
+     return false;
+  	}
+  formSubmitted = true;
+  return true;
 }
 
 var inputBoxFocusIn = function (currentElement) {
