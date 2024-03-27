@@ -229,6 +229,13 @@ var disableBtn = function () {
 	console.log("function called")
 	if( formSubmitted == true ) {
 		alert("This form has already been submitted!");
+		document.getElementById('login').disabled = true;
+	console.log("btn disable")
+	setTimeout(function () {
+		console.log("settime out function called")
+		document.getElementById("login").disabled = false;
+		console.log("btn unable")
+	}, 3000);
      return false;
   	}
   formSubmitted = true;
