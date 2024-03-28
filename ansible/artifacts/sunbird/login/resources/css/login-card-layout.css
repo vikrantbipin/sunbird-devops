@@ -1,7 +1,7 @@
 @import "./fonts/notosans/notosans.css";
-@import "./fonts/poppins/poppins.css";
+/* @import "./fonts/poppins/poppins.css"; */
 body{
-    font-family: "Poppins Regular";
+    font-family: 'Noto Sans Regular';
     position: relative;
     letter-spacing: 0.2px; 
     background: url(../img/Login_background.png) no-repeat center center fixed;
