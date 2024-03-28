@@ -93,6 +93,73 @@ window.onload = function () {
 	}
 };
 
+var gotoLang = function(event) {
+	event.preventDefault();
+	var lang = event.target.value
+	console.log('lang----', lang)
+	var array = lang.split('kc_locale=')
+	var lval = array[1]
+	console.log('lval----', lval)
+
+	// mapping existing lang to our regional langs
+	var setLang = 'en'
+	if (lval == 'ca') {
+		setLang = 'as';
+	} else if (lval == 'de') {
+		setLang = 'ta';
+	} else if (lval == 'es') {
+		setLang = 'te';
+	} else  if (lval == 'fr') {
+		setLang = 'gu';
+	} else if (lval == 'it') {
+		setLang = 'be';
+	} else if (lval == 'ja') {
+		setLang = 'ka';
+	} else if (lval == 'nl') {
+		setLang = 'ml';
+	} else if (lval == 'no') {
+		setLang = 'mr';
+	} else if (lval == 'ru') {
+		setLang = 'od';
+	} else if (lval == 'lt') {
+		setLang = 'pu';
+	} else {
+		setLang = lval
+	}
+
+	// to reload the language specific messages file
+	window.location.href = lang;
+	localStorage.setItem('websiteLanguage', setLang)
+	// custom function
+	// loadResourceBundle(onSuccess, onFailure, lval)
+}
+var onSuccess = function(data) {
+	console.log('data----', data)
+}
+var onFailure = function(data) {
+	console.log('error----', data)
+}
+function loadResourceBundle(success, error, langvalue) {
+	var req = new XMLHttpRequest();
+	console.log('----req-----', req)
+	var consoleBaseUrl = 'http://localhost:8080/';
+	req.open('GET', consoleBaseUrl + 'messages.json?lang=' + langvalue, true);
+	req.setRequestHeader('Accept', 'application/json');
+	
+	req.onreadystatechange = function () {
+		if (req.readyState == 4) {
+			if (req.status == 200) {
+				var data = JSON.parse(req.responseText);
+				console.log('---------', data)
+				success && success(data);
+			} else {
+				error && error();
+			}
+		}
+	}
+	req.send();
+}
+
 var storeValueForMigration = function () {
 	// storing values in sessionStorage for future references
 	sessionStorage.setItem('automerge', getValueFromSession('automerge'));
