@@ -12677,8 +12677,8 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: getSector
+        
+  - name: listSector
     uris: "/catalog/v1/sector"
     upstream_url: "{{ sb_cb_ext_service_url }}/v1/catalog/sector"
     strip_uri: true
@@ -12696,6 +12696,60 @@ kong_apis:
     - name: request-size-limiting
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
+  - name: readSector
+    uris: "/catalog/v1/sector/read"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/catalog/sector/read"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: createSector
+    uris: "/catalog/v1/sector/create"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/catalog/sector/create"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: createSubSector
+    uris: "/catalog/v1/subsector/create"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/catalog/subsector/create"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+      
   - name: createCalendarEvent
     uris: "{{ calendar_prefix }}/v4/create"
     upstream_url: "{{ content_service_url }}/event/v4/create"
