@@ -1,4 +1,4 @@
-<flow-definition plugin="workflow-job@1145.v7f2433caa07f">
+<?xml version="1.1" encoding="UTF-8" standalone="no"?><flow-definition plugin="workflow-job@1145.v7f2433caa07f">
   <actions>
     <org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction plugin="workflow-multibranch@716.vc692a_e52371b_">
       <jobPropertyDescriptors>
@@ -34,119 +34,106 @@
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1138.v8e727069a_025">
-              <script>if (override_private_branch.equals("true")) { return """
-                <input name="value" value="${private_repo_branch}" class="setting-input" type="text">
-                  <br>
-                    <font color=dimgray size=2>
-                      <b>Change this value to checkout a different branch from private repository.</b>
-                    </font>""" } else return """
-                    <b>This parameter is not used</b>"""
-                  </script>
-                  <sandbox>true</sandbox>
-                </secureScript>
-                <secureFallbackScript plugin="script-security@1138.v8e727069a_025">
-                  <script>return """
-                    <b>This parameter is not used</b>"""
-                  </script>
-                  <sandbox>true</sandbox>
-                </secureFallbackScript>
-              </script>
-              <projectName>InquiryUploadSchema</projectName>
-              <projectFullName>Deploy/dev/Kubernetes/InquiryUploadSchema</projectFullName>
-              <parameters class="linked-hash-map"/>
-              <referencedParameters/>
-              <choiceType>ET_FORMATTED_HTML</choiceType>
-              <omitValueField>true</omitValueField>
-            </org.biouno.unochoice.DynamicReferenceParameter>
-            <org.biouno.unochoice.DynamicReferenceParameter plugin="uno-choice@2.6.1">
-              <name>branch_or_tag</name>
-              <randomName>choice-parameter-2620434998790477</randomName>
-              <visibleItemCount>1</visibleItemCount>
-              <script class="org.biouno.unochoice.model.GroovyScript">
-                <secureScript plugin="script-security@1138.v8e727069a_025">
-                  <script>if (override_public_branch.equals("true")) { return """
-                    <input name="value" value="" class="setting-input" type="text">
-                      <br>
-                        <font color=dimgray size=2>
-                          <b>Provide the tag or branch name to checkout the Jenkinsfile and codebase.
-                            <br>Note: The tag or branch name for this job should be taken from 
-                              <a href="https://github.com/project-sunbird/sunbird-devops">project-sunbird/sunbird-devops</a>
-                            </b>
-                          </font>
-                        </b>
-                      </font>"""; } else return """
-                      <b>This parameter is not used</b>"""
-                    </script>
-                    <sandbox>true</sandbox>
-                  </secureScript>
-                  <secureFallbackScript plugin="script-security@1138.v8e727069a_025">
-                    <script>return """
-                      <b>This parameter is not used</b>"""
-                    </script>
-                    <sandbox>true</sandbox>
-                  </secureFallbackScript>
-                </script>
-                <projectName>InquiryUploadSchema</projectName>
-                <projectFullName>Deploy/dev/Kubernetes/InquiryUploadSchema</projectFullName>
-                <parameters class="linked-hash-map"/>
-                <referencedParameters/>
-                <choiceType>ET_FORMATTED_HTML</choiceType>
-                <omitValueField>true</omitValueField>
-              </org.biouno.unochoice.DynamicReferenceParameter>
-              <hudson.model.StringParameterDefinition>
-                <name>schema_repo</name>
-                <description>Enter the repo url from which schema folder to be uploaded</description>
-                <defaultValue>https://github.com/Sunbird-inQuiry/inquiry-api-service.git</defaultValue>
-                <trim>false</trim>
-              </hudson.model.StringParameterDefinition>
-              <hudson.model.StringParameterDefinition>
-                <name>schema_repo_branch_or_tag</name>
-                <description>Enter the branch or tag for schema repo</description>
-                <trim>false</trim>
-              </hudson.model.StringParameterDefinition>
-            </parameterDefinitions>
-          </hudson.model.ParametersDefinitionProperty>
-          <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@2.10">
-            <maxConcurrentPerNode>0</maxConcurrentPerNode>
-            <maxConcurrentTotal>0</maxConcurrentTotal>
-            <categories class="java.util.concurrent.CopyOnWriteArrayList"/>
-            <throttleEnabled>false</throttleEnabled>
-            <throttleOption>project</throttleOption>
-            <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
-            <paramsToUseForLimit/>
-          </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
-          <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
-            <triggers/>
-          </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
-        </properties>
-        <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2660.2664.v4c114e93f4c1">
-          <scm class="hudson.plugins.git.GitSCM" plugin="git@4.11.5">
-            <configVersion>2</configVersion>
-            <userRemoteConfigs>
-              <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/Sunbird-inQuiry/inquiry-api-service.git</url>
-              </hudson.plugins.git.UserRemoteConfig>
-            </userRemoteConfigs>
-            <branches>
-              <hudson.plugins.git.BranchSpec>
-                <name>${inquiry_release_branch_or_tag}</name>
-              </hudson.plugins.git.BranchSpec>
-            </branches>
-            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-            <submoduleCfg class="empty-list"/>
-            <extensions>
-              <hudson.plugins.git.extensions.impl.CloneOption>
-                <shallow>true</shallow>
-                <noTags>false</noTags>
-                <reference/>
-                <depth>0</depth>
-                <honorRefspec>false</honorRefspec>
-              </hudson.plugins.git.extensions.impl.CloneOption>
-            </extensions>
-          </scm>
-          <scriptPath>pipelines/upload/schema/inquiry/Jenkinsfile</scriptPath>
-          <lightweight>false</lightweight>
-        </definition>
-        <triggers/>
-        <disabled>false</disabled>
-      </flow-definition>
+              <script>if (override_private_branch.equals("true")) {
+return """&lt;input name="value" value="${private_repo_branch}" class="setting-input"  type="text"&gt;&lt;br&gt; &lt;font color=dimgray size=2&gt;&lt;b&gt;Change this value to checkout a different branch from private repository.&lt;/b&gt;&lt;/font&gt;"""
+}
+else
+return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
+              <sandbox>true</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1138.v8e727069a_025">
+              <script>return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
+              <sandbox>true</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>InquiryUploadSchema</projectName>
+          <projectFullName>Deploy/dev/Kubernetes/InquiryUploadSchema</projectFullName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters/>
+          <choiceType>ET_FORMATTED_HTML</choiceType>
+          <omitValueField>true</omitValueField>
+        </org.biouno.unochoice.DynamicReferenceParameter>
+        <org.biouno.unochoice.DynamicReferenceParameter plugin="uno-choice@2.6.1">
+          <name>branch_or_tag</name>
+          <randomName>choice-parameter-2620434998790477</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1138.v8e727069a_025">
+              <script>if (override_public_branch.equals("true")) {
+return """&lt;input name="value" value="" class="setting-input"  type="text"&gt;&lt;br&gt; &lt;font color=dimgray size=2&gt;&lt;b&gt;Provide the tag or branch name to checkout the Jenkinsfile and codebase.&lt;br&gt;Note: The tag or branch name for this job should be taken from &lt;a href="https://github.com/project-sunbird/sunbird-devops"&gt;project-sunbird/sunbird-devops&lt;/a&gt;&lt;/b&gt;&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;""";
+
+}
+else
+return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
+              <sandbox>true</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1138.v8e727069a_025">
+              <script>return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
+              <sandbox>true</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>InquiryUploadSchema</projectName>
+          <projectFullName>Deploy/dev/Kubernetes/InquiryUploadSchema</projectFullName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters/>
+          <choiceType>ET_FORMATTED_HTML</choiceType>
+          <omitValueField>true</omitValueField>
+        </org.biouno.unochoice.DynamicReferenceParameter>
+        <hudson.model.StringParameterDefinition>
+          <name>schema_repo</name>
+          <description>Enter the repo url from which schema folder to be uploaded</description>
+          <defaultValue>https://github.com/Sunbird-inQuiry/inquiry-api-service.git</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>schema_repo_branch_or_tag</name>
+          <description>Enter the branch or tag for schema repo</description>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@2.10">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories class="java.util.concurrent.CopyOnWriteArrayList"/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
+      <paramsToUseForLimit/>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2660.2664.v4c114e93f4c1">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.11.5">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>https://github.com/project-sunbird/sunbird-devops.git</url>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>${branch_or_tag}</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="empty-list"/>
+      <extensions>
+        <hudson.plugins.git.extensions.impl.CloneOption>
+          <shallow>true</shallow>
+          <noTags>false</noTags>
+          <reference/>
+          <depth>0</depth>
+          <honorRefspec>false</honorRefspec>
+        </hudson.plugins.git.extensions.impl.CloneOption>
+      </extensions>
+    </scm>
+    <scriptPath>pipelines/upload/schema/inquiry/Jenkinsfile</scriptPath>
+    <lightweight>false</lightweight>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
