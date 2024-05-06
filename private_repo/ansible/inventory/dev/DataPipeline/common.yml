@@ -6,6 +6,7 @@ domain_name: ""          # your domain name like example.com
 dockerhub: "change.docker.url"   # docker hub username or url incase of private registry
 private_ingressgateway_ip: ""    # your private kubernetes load balancer ip
 search_lb_ip:                    # search service Load balancer IP
+learningservice_ip: "10.0.1.5"             # Load balancer IP or server ip
 
 # Cloud Service Provider Variables
 # If cloud_service_provider is AWS then update with access key as value
@@ -136,6 +137,11 @@ postgres:
   db_port: 5432
   db_admin_user: postgres
   db_admin_password: "{{dp_vault_pgdb_admin_password}}"
+  dp_ssl: false
+  dp_ssl_mode: require
+  dp_sslfactory: org.postgresql.ssl.NonValidatingFactory
+  dp_db_name: analytics
+  spark_db_name: analytics
 
 druid_postgres_user: druid # Do not change this
 imagepullsecrets: "{{env}}registrysecret"                  # kubernetes imagePullSecrets
@@ -184,6 +190,11 @@ cloudstorage_base_path: "{{ cloud_storage_url }}"
 valid_cloudstorage_base_urls: '["{{ cloud_storage_url }}"]'
 cloudstorage_relative_path_prefix: "CONTENT_STORAGE_BASE_PATH"
 
+cloud_storage_telemetry_type: "{{ cloud_service_provider }}" 
+druid_storage_type:
+spark_bds_url:
+druid_cloud_storage_pathstyle_access: true
+spark_version: # overide this var if you need a different version of spark. Ex: spark_version: 3.1.3
 # The below sets the kafka topics retention time to 1 day, if you use the defaults from the public repo, it will be 7 days
 # If you want to retain the topics for 7 days, remove the below sections completely
 # Ensure you have atleast 1 TB of disk to retain data for 7 days

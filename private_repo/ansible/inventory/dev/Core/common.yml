@@ -518,12 +518,19 @@ portal_redis_connection_string: "redis://:@{{ sunbird_redis_host }}:6379/3"  # U
 #### ML Analytics Service #####
 ml_analytics_cname_url: # Reference value - https://obj.dev.sunbirded.org/samiksha/
 
+## ML internal kong ####
+internal_kong_postgres_host:
+internal_kong_ssl: True
+internal_kong_postgres_user:
+internal_kong_postgres_password:
+internal_kong_postgres_database:
+
 ### Variables added as part of 6.0.0 release - https://github.com/Sunbird-Ed/ml-analytics-service/tree/release-6.0.0/release-notes/6.0.0.md
 ml_analytics_client_id : project-sunbird-dev-client # Keycloak client group
 ml_analytics_username : reportAdmin1 # Username of a user which has roles of "PROGRAM_MANAGER", "PROGRAM_DESIGNER", "REPORT_ADMIN", "REPORT_VIEWER"
 ml_analytics_createdBy : fb85a044-d9eb-479b-a55a-faf1bfaea14d # Unique system generated user UUID which is the same user as above
 ml_container: samiksha
-
+ml_kafka_topic_create: "" # set to true if ml related topics needs to be created
 # provide the s3 compatible endpoint
 # for AWS
 # cloud_private_storage_account_endpoint: "https://s3.{{ cloud_public_storage_region }}.amazonaws.com"
