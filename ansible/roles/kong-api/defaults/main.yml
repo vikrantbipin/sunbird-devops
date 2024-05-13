@@ -115,6 +115,7 @@ private_ml_survey_prefix: /private/mlsurvey
 open_program_prefix: /openprogram
 calendar_prefix: /calendar
 careers_prefix: /careers
+demand_prefix: /demand
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -153,6 +154,7 @@ ml_survey_service_url: "http://ml-survey-service:3000"
 ml_core_service_url: "http://ml-core-service:3000"
 ml_survey_private_url: "http://{{private_ingressgateway_ip}}/ml-survey"
 ml_core_private_url:  "http://{{private_ingressgateway_ip}}/ml-core"
+cb_pores_service_url : "http://cb-pores-service:7001"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -13038,3 +13040,75 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: demandCreate
+    uris: "{{ demand_prefix }}/create"
+    upstream_url: "{{ cb_pores_service_url }}/demand/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: demandRead
+    uris: "{{ demand_prefix }}/read"
+    upstream_url: "{{ cb_pores_service_url }}/demand/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: deleteDemand
+    uris: "{{ demand_prefix }}/delete"
+    upstream_url: "{{ cb_pores_service_url }}/demand/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: searchDemand
+    uris: "{{ demand_prefix }}/filter"
+    upstream_url: "{{ cb_pores_service_url }}/demand/filter"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
