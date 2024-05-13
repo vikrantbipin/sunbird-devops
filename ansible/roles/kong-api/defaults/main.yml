@@ -13042,7 +13042,7 @@ kong_apis:
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
   - name: demandCreate
-    uris: "{{ demand_prefix }}/create"
+    uris: "{{ demand_prefix }}/content/create"
     upstream_url: "{{ cb_pores_service_url }}/demand/create"
     strip_uri: true
     plugins:
@@ -13060,7 +13060,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: demandRead
-    uris: "{{ demand_prefix }}/read"
+    uris: "{{ demand_prefix }}/content/read"
     upstream_url: "{{ cb_pores_service_url }}/demand/read"
     strip_uri: true
     plugins:
@@ -13078,7 +13078,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: deleteDemand
-    uris: "{{ demand_prefix }}/delete"
+    uris: "{{ demand_prefix }}/content/delete"
     upstream_url: "{{ cb_pores_service_url }}/demand/delete"
     strip_uri: true
     plugins:
@@ -13096,7 +13096,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: searchDemand
-    uris: "{{ demand_prefix }}/filter"
+    uris: "{{ demand_prefix }}/content/search"
     upstream_url: "{{ cb_pores_service_url }}/demand/filter"
     strip_uri: true
     plugins:
