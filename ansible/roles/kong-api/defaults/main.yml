@@ -115,6 +115,7 @@ private_ml_survey_prefix: /private/mlsurvey
 open_program_prefix: /openprogram
 calendar_prefix: /calendar
 careers_prefix: /careers
+demand_prefix: /demand
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -153,6 +154,7 @@ ml_survey_service_url: "http://ml-survey-service:3000"
 ml_core_service_url: "http://ml-core-service:3000"
 ml_survey_private_url: "http://{{private_ingressgateway_ip}}/ml-survey"
 ml_core_private_url:  "http://{{private_ingressgateway_ip}}/ml-core"
+cb_pores_service_url : "http://cb-pores-service:7001"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -13004,8 +13006,8 @@ kong_apis:
        config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: microsite
-    uris: "/microsite/topFeatured/content/search"
-    upstream_url: "{{ sb_cb_ext_service_url }}/microsite/topFeatured/content/search"
+    uris: "/msite/content/aggregation/search"
+    upstream_url: "{{ sb_cb_ext_service_url }}/content/aggregation/search"
     strip_uri: true
     plugins:
      - name: jwt
@@ -13022,7 +13024,7 @@ kong_apis:
        config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: workflowGetUserWFApplicationFieldsV2
-    uris: "{{ workflow_handler_service_prefix }}/v2/getUserWFApplicationFields"
+    uris: "{{ workflow_handler_service_prefix }}/v2/userWFApplicationFieldsSearch"
     upstream_url: "{{ workflow_handler_service_url }}/v2/workflow/getUserWFApplicationFields"
     strip_uri: true
     plugins:
@@ -13056,7 +13058,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
-
+        
   - name: externalOperationalReportDownload
     uris: "/external/operationalreports/download"
     upstream_url: "{{ sb_cb_ext_service_url }}/operational/reports/download"
@@ -13073,4 +13075,92 @@ kong_apis:
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
+  
+  - name: demandCreate
+    uris: "{{ demand_prefix }}/content/create"
+    upstream_url: "{{ cb_pores_service_url }}/demand/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: demandRead
+    uris: "{{ demand_prefix }}/content/read"
+    upstream_url: "{{ cb_pores_service_url }}/demand/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+  
+  - name: deleteDemand
+    uris: "{{ demand_prefix }}/content/delete"
+    upstream_url: "{{ cb_pores_service_url }}/demand/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: searchDemand
+    uris: "{{ demand_prefix }}/content/search"
+    upstream_url: "{{ cb_pores_service_url }}/demand/filter"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: orgAssetUpload
+    uris: "/storage/orgStoreUpload"
+    upstream_url: "{{ sb_cb_ext_service_url }}/storage/orgStoreUpload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
