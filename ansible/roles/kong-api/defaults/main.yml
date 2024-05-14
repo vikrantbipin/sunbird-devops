@@ -11185,7 +11185,7 @@ kong_apis:
       - surveyAccess
     - name: rate-limiting
       config.policy: local
-      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
@@ -11221,7 +11221,7 @@ kong_apis:
       - surveyUpdate
     - name: rate-limiting
       config.policy: local
-      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
@@ -11365,7 +11365,7 @@ kong_apis:
       - cloudUrlsCreate
     - name: rate-limiting
       config.policy: local
-      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
@@ -12428,7 +12428,7 @@ kong_apis:
       - cloudUrlsCreate
     - name: rate-limiting
       config.policy: local
-      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ large_request_size_limit }}"
@@ -13041,6 +13041,41 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
 
+  - name: externalOrgStorageReportDownloadDoc
+    uris: "/external/storage/v1/report"
+    upstream_url: "{{ sb_cb_ext_service_url }}/storage/v1/report"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'automatedReportAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: externalOperationalReportDownload
+    uris: "/external/operationalreports/download"
+    upstream_url: "{{ sb_cb_ext_service_url }}/operational/reports/download"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'automatedReportAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+  
   - name: demandCreate
     uris: "{{ demand_prefix }}/content/create"
     upstream_url: "{{ cb_pores_service_url }}/demand/create"
@@ -13058,7 +13093,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+        
   - name: demandRead
     uris: "{{ demand_prefix }}/content/read"
     upstream_url: "{{ cb_pores_service_url }}/demand/read"
@@ -13076,7 +13111,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+  
   - name: deleteDemand
     uris: "{{ demand_prefix }}/content/delete"
     upstream_url: "{{ cb_pores_service_url }}/demand/delete"
@@ -13094,7 +13129,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+        
   - name: searchDemand
     uris: "{{ demand_prefix }}/content/search"
     upstream_url: "{{ cb_pores_service_url }}/demand/filter"
@@ -13112,7 +13147,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+        
   - name: orgAssetUpload
     uris: "/storage/orgStoreUpload"
     upstream_url: "{{ sb_cb_ext_service_url }}/storage/orgStoreUpload"
@@ -13129,4 +13164,3 @@ kong_apis:
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
-        config.allowed_payload_size: "{{ x_large_request_size_limit }}"
