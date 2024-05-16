@@ -13076,7 +13076,8 @@ kong_apis:
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
-  
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
   - name: demandCreate
     uris: "{{ demand_prefix }}/content/create"
     upstream_url: "{{ cb_pores_service_url }}/demand/create"
@@ -13087,7 +13088,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'contentAccess'
+          - 'contentCreate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -13123,7 +13124,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'contentAccess'
+          - 'contentUpdate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -13165,6 +13166,7 @@ kong_apis:
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: playListCreate
     uris: "{{ playlist_prefix }}/create"
@@ -13176,7 +13178,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'contentAccess'
+          - 'contentCreate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -13194,7 +13196,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'contentAccess'
+          - 'contentUpdate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -13230,7 +13232,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'contentAccess'
+          - 'contentUpdate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
