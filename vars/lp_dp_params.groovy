@@ -29,7 +29,7 @@ def call(){
 
                 values = [:]
                 try {
-                    if buildNumber == "lastSuccessfulBuild"
+                    if (params.build_number == "")
                     {
                         copyArtifacts projectName: params.absolute_job_path, fingerprintArtifacts: true, flatten: true, selector: lastSuccessful()
                     }
