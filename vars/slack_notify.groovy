@@ -1,4 +1,4 @@
-def call(String buildStatus, String release_tag=null, String jobName=null, int buildNumber=0, String jobUrl=null) {
+def call(String buildStatus, String release_tag=null, String jobName=null, String buildNumber, String jobUrl=null) {
     try {
         ansiColor('xterm') {
             String ANSI_GREEN = "\u001B[32m"
@@ -19,7 +19,7 @@ def call(String buildStatus, String release_tag=null, String jobName=null, int b
 
                 if (jobName == null)
                     jobName = env.JOB_NAME
-                if (buildNumber == 0)
+                if (buildNumber == "lastSuccessfulBuild" || buildNumber == "" || buildNumber == "0" || buildNumber == null)
                     buildNumber = env.BUILD_NUMBER
                 if (jobUrl == null)
                     jobUrl = env.JOB_URL
