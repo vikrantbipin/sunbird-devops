@@ -17,7 +17,7 @@
     - block:
         - name: Write GCR service account key to a temporary file
           copy:
-            content: "{{ gcp_service_account }}"
+            content: "{{ gcr_docker_login_service_account }}"
             dest: "{{ service_account_local_path }}"
 
         - name: Authenticate Docker to GCR
@@ -27,10 +27,10 @@
 
         - name: Remove temporary GCR service account key file
           file:
-            path: "{{ service_account_local_path}}"
+            path: "{{ service_account_local_path }}"
             state: absent
       tags:
-      - gcr-docker-login 
+      - gcr-docker-login
 
     - block:
         - name: Push image to registry
