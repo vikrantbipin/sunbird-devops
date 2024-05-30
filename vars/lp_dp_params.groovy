@@ -19,7 +19,7 @@ def call(){
                     error 'Please resolve errors and rerun..'
                 }
 
-                if (params.build_number == "") {
+                if (params.build_number == "lastSuccessfulBuild" || params.build_number == "") {
                     println(ANSI_BOLD + ANSI_YELLOW + '''\
                    Setting build_number to lastSuccessfulBuild to copy metadata.json
                     '''.stripIndent().replace("\n", " ") + ANSI_NORMAL)
@@ -29,7 +29,7 @@ def call(){
 
                 values = [:]
                 try {
-                    if (params.build_number == "")
+                    if (buildNumber == "lastSuccessfulBuild")
                     {
                         copyArtifacts projectName: params.absolute_job_path, fingerprintArtifacts: true, flatten: true, selector: lastSuccessful()
                     }
