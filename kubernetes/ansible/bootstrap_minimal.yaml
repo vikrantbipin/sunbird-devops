@@ -34,8 +34,17 @@
       when: imagepullsecrets|length > 0
       with_items:
         - "{{ bootstrap_namespace.split(',') }}"
+      tags:
+        - non-gcr-docker-login
+    - name: Creating GCR docker secrets
+      shell: "kubectl create secret docker-registry {{ imagepullsecrets }} --namespace {{ item }} --docker-server {{ vault_docker_registry_url }} --docker-username _json_key --docker-password='{{ gcr_docker_login_service_account | regex_replace('\n', '') }}' --dry-run=client -o=yaml | kubectl apply -f -"
+      when: imagepullsecrets|length > 0
+      with_items:
+        - "{{ bootstrap_namespace.split(',') }}"
+      tags:
+        - gcr-docker-login
     - name: Creating domain ssl
-      shell: 
+      shell:
         cmd: |
           cat <<EOF | kubectl apply -f -
           apiVersion: v1

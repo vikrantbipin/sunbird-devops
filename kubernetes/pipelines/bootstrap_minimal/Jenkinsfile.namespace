@@ -13,7 +13,7 @@ node() {
             {
                println "Found .git folder. Clearing it.."
                sh'git clean -fxd'
-            }  
+            }
             checkout scm
         }
 
