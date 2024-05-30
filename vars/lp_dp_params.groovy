@@ -24,24 +24,20 @@ def call(){
                    Setting build_number to lastSuccessfulBuild to copy metadata.json
                     '''.stripIndent().replace("\n", " ") + ANSI_NORMAL)
                     buildNumber = "lastSuccessfulBuild"
-                    println("Build number: " + buildNumber)
                 } 
                 else
                 {
                     buildNumber = params.build_number
-                    println("Build number: " + buildNumber)
                 }
 
                 values = [:]
                 try {
                     if (buildNumber == "lastSuccessfulBuild")
                     {
-                        println("Using lastSuccessfulBuild" + buildNumber)
                         copyArtifacts projectName: params.absolute_job_path, fingerprintArtifacts: true, flatten: true, selector: lastSuccessful()
                     }
                     else
                     {
-                        println("Build number: " + buildNumber)
                         copyArtifacts projectName: params.absolute_job_path, fingerprintArtifacts: true, flatten: true, selector: specific(buildNumber)
                     }
                 }
