@@ -20,7 +20,7 @@
   copy: src=static-files/kong-api-scripts dest=/tmp mode=0755
 
 - name: Run script to save consumers
-  shell: "python /tmp/kong-api-scripts/kong_consumers.py /tmp/kong_consumers.json --kong-admin-api-url=http://{{ private_ingressgateway_ip }}/admin-api"
+  shell: "python2.7 /tmp/kong-api-scripts/kong_consumers.py /tmp/kong_consumers.json --kong-admin-api-url=http://{{ private_ingressgateway_ip }}/admin-api"
   register: jwt_token
 
 - name: Touch the token file
@@ -33,11 +33,11 @@
 - name: write to file
   become: yes
   copy: content="{{jwt_token.stdout}}" dest=/tmp/jwt_token_output.txt
-  
+
 - name: run the sed command
   shell: cat /tmp/jwt_token_output.txt | grep 'JWT token for player is' | cut -d ':' -f2
   register: token
-  
+
 - name: Copy the script
   copy: content="{{token.stdout}}" dest=~/jwt_token_player.txt
   ignore_errors: yes
