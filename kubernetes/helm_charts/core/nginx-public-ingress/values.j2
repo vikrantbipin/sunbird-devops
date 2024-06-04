@@ -5525,7 +5525,7 @@ keycloakconf: |
   server {
     listen 80;
     listen [::]:80;
-    server_name {{ merge_nginx_proxy_server_name }};
+    server_name {{ merge_proxy_server_name }};
     # Limitting open connection per ip
     limit_conn limitbyaddr {{ nginx_per_ip_connection_limit }};
     return 301 https://{{ merge_nginx_proxy_server_name }}$request_uri;
