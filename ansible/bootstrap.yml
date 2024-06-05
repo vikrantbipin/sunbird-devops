@@ -4,11 +4,11 @@
     - "{{inventory_dir}}/secrets.yml"
   pre_tasks:
     - name: Python predependency
-      raw: bash -c "test -e /usr/bin/python" || (sudo apt update && sudo apt install -y  python)
+      raw: bash -c "test -e /usr/bin/python" || (sudo apt update && sudo apt install -y  python2)
     - name: Installing other packages
       apt:
         state: present
-        name: ['python-pkg-resources', 'python2-pip']
+        name: ['python-pkg-resources', 'python-pip']
       when: ansible_distribution_version | float < 18
     - name: Installing other packages
       apt:
@@ -19,18 +19,16 @@
     - bootstrap_any
   tags:
     - bootstrap_any
-    - all
 
-- hosts: "{{hosts}}"
-  gather_facts: no
+- hosts: "{{ hosts }}"
   become: yes
   ignore_unreachable: yes
   vars_files:
     - "{{inventory_dir}}/secrets.yml"
   roles:
-    - role: azure-cli
+    - role: gcloud-cli
   tags:
-    - azure_cli
+    - gcloud_cli
 
 - hosts: "{{ hosts| default('all') }}"
   become: yes
@@ -42,4 +40,3 @@
     - vm-agents-nodeexporter
   tags:
     - node_exporter
-    - all
