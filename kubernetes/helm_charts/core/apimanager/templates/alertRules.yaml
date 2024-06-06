@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ include "kong.fullname" . }}-alert.rule
+  name: kong-alert.rule
   namespace: {{ default .Values.namespace .Release.Namespace  }}
   labels:
     {{- include "kong.labels" . | nindent 4 }}
