@@ -5391,6 +5391,9 @@ nginxconfig: |
       access_log  /var/log/nginx/access.log  main;
       # Shared dictionary to store metrics
       lua_shared_dict prometheus_metrics 100M;
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      lua_shared_dict token_cache 10m;
+      {% endif %}
       lua_package_path "/etc/nginx/lua_modules/?.lua";
       # Defining request_id
       # If the client send request_id it should be preffered over the default one
@@ -5412,6 +5415,36 @@ nginxconfig: |
           "nginx_http_request_duration_seconds", "HTTP request latency", {"host"})
         metric_connections = prometheus:gauge(
           "nginx_http_connections", "Number of HTTP connections", {"state"})
+        {% if nginx_token_refresh is defined and nginx_token_refresh %}
+        local update_interval = 600 -- 1 minutes in seconds
+        local gcp_token_key = "gcp_token"
+        local token_file_path = "/etc/nginx/token/token.txt"
+
+        local function update_gcp_token()
+            local file = io.open(token_file_path, "r")
+            if file then
+                local token = file:read("*a")
+                file:close()
+
+                local dict = ngx.shared.token_cache
+                dict:set(gcp_token_key, token)
+            else
+                ngx.log(ngx.ERR, "Failed to open token file")
+            end
+        end
+
+        -- Initial token read
+        update_gcp_token()
+
+        local function periodic_update()
+            while true do
+                ngx.sleep(update_interval)
+                update_gcp_token()
+            end
+        end
+
+        ngx.timer.at(0, periodic_update)
+        {% endif %}
       }
       log_by_lua_block {
         metric_requests:inc(1, {ngx.var.server_name, ngx.var.status, ngx.var.request_method, ngx.var.cache_status })
