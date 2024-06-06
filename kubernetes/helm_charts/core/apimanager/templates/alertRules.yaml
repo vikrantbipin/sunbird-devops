@@ -1,0 +1,65 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "kong.fullname" . }}-alert.rule
+  namespace: {{ default .Values.namespace .Release.Namespace  }}
+  labels:
+    {{- include "kong.labels" . | nindent 4 }}
+    {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
+spec:
+  groups:
+  - name: kong-alert.rules
+    rules:
+    - alert: kong_5xx_failure_alert_critical
+      annotations:
+        message: Kong error 5xx count is more than 1.5% for the last 2 minutes
+        summary: Prod Kong 5xx Error rate is above 1.5%
+      expr: (sum(increase(kong_request_status_count{status_code=~"5.."}[2m])) by (status_code)
+        / ignoring(status_code) group_left sum(increase(kong_request_status_count[2m])))
+        * 100 > 1.5
+      for: 2m
+      labels:
+        severity: critical
+    - alert: kong_5xx_failure_alert_fatal
+      annotations:
+        message: Kong error 5xx count is more than 1.5% for the last 10 minutes
+        summary: Prod Kong 5xx Error rate is above 1.5%
+      expr: (sum(increase(kong_request_status_count{status_code=~"5.."}[10m])) by
+        (status_code) / ignoring(status_code) group_left sum(increase(kong_request_status_count[10m])))
+        * 100 > 1.5
+      for: 10m
+      labels:
+        severity: fatal
+    - alert: kong_4xx_failure_alert_critical
+      annotations:
+        message: Kong error 4xx count is more than 3.5% for the last 2 minutes
+        summary: Prod Kong 4xx Error rate is above 3.5%
+      expr: (sum(increase(kong_request_status_count{status_code=~"401|404|429|405|413|406|415"}[2m]))
+        by (status_code) / ignoring(status_code) group_left sum(increase(kong_request_status_count[2m])))
+        * 100 > 3.5
+      for: 2m
+      labels:
+        severity: critical
+    - alert: kong_4xx_failure_alert_critical
+      annotations:
+        message: Kong error 4xx count is more than 3.5% for the last 2 minutes
+        summary: Prod Kong 4xx Error rate is above 3.5%
+      expr: (sum(increase(kong_request_status_count{status_code=~"400|499"}[2m]))
+        by (status_code) / ignoring(status_code) group_left sum(increase(kong_request_status_count[2m])))
+        * 100 > 3.5
+      for: 2m
+      labels:
+        severity: critical
+    - alert: kong_4xx_failure_alert_fatal
+      annotations:
+        message: Kong error 4xx count is more than 3.5% for the last 10 minutes
+        summary: Prod Kong 4xx Error rate is above 3.5%
+      expr: (sum(increase(kong_request_status_count{status_code=~"4.."}[10m])) by
+        (status_code) / ignoring(status_code) group_left sum(increase(kong_request_status_count[10m])))
+        * 100 > 3.5
+      for: 10m
+      labels:
+        severity: fatal
+        
+{{- end }}
+{{- end }}
