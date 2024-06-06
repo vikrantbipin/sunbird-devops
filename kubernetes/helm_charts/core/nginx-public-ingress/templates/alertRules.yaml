@@ -1,0 +1,43 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "nginx-public-ingress.fullname" . }}-alert.rule
+  namespace: {{ default .Values.namespace .Release.Namespace  }}
+  labels:
+    {{- include "nginx-public-ingress.labels" . | nindent 4 }}
+    {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
+spec:
+  groups:
+  - name: nginx-alert.rules
+    rules:
+    - alert: nginx_5xx_failure_alert_critical
+      annotations:
+        message: Nginx error 5xx count is more than 1% for the last 2 minutes
+        summary: Prod Nginx 5xx Error rate is above 1%
+      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|4..|1.."}[2m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[2m]))) * 100 > 1
+      labels:
+        severity: critical
+    - alert: nginx_4xx_failure_alert_critical
+      annotations:
+        message: Nginx error 4xx count is more than 3.5% for the last 2 minutes
+        summary: Prod Nginx 4xx Error rate is above 3.5%
+      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[2m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[2m]))) * 100 > 3.5
+      labels:
+        severity: critical
+    - alert: nginx_5xx_failure_alert_fatal
+      annotations:
+        message: Nginx error 5xx count is more than 1% for the last 10 minutes
+        summary: Prod Nginx 5xx Error rate is above 1%
+      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|4..|1.."}[10m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[10m]))) * 100 > 1
+      labels:
+        severity: fatal
+    - alert: nginx_4xx_failure_alert_fatal
+      annotations:
+        message: Nginx error 4xx count is more than 3.5% for the last 10 minutes
+        summary: Prod Nginx 4xx Error rate is above 3.5%
+      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[10m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[10m]))) * 100 > 3.5 
+      labels:
+        severity: fatal
+        
+{{- end }}
+{{- end }}
