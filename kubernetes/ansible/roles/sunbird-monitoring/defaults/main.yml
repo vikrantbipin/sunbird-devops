@@ -272,4 +272,4 @@ service_health_checks:
 
 api_response_upward_trend_threshold: 0.3
 
-kafka_exporter_image_tag: v1.3.0
+kafka_exporter_image_tag: v1.4.1
