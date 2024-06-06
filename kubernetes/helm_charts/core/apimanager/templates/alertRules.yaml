@@ -60,5 +60,3 @@ spec:
       for: 10m
       labels:
         severity: fatal
-        
-{{- end }}
