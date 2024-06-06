@@ -38,6 +38,3 @@ spec:
       expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[10m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[10m]))) * 100 > 3.5 
       labels:
         severity: fatal
-        
-{{- end }}
-{{- end }}
