@@ -11,6 +11,7 @@ monitoring_stack:
   - alertrules
   - kafka-topic-exporter
   - prometheus-redis-exporter
+  - ingestion-kafka-exporter
   - processing-kafka-exporter
   - json-path-exporter
   - oauth2-proxy
