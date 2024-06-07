@@ -143,7 +143,20 @@ proxyconfig: |-
           }
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1029,7 +1042,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1066,7 +1092,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+            {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1099,7 +1138,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1146,7 +1198,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1179,7 +1244,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1212,7 +1290,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -1249,7 +1340,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+        {% if nginx_token_refresh is defined and nginx_token_refresh %}
+        access_by_lua_block {
+            local dict = ngx.shared.token_cache
+            local token = dict:get("gcp_token")
+
+            if token then
+                ngx.req.set_header("Authorization", "Bearer " .. token)
+            else
+                ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+            end
+        }
+        {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -1309,7 +1413,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{sunbird_offline_azure_storage_account_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -1973,7 +2090,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2006,7 +2136,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2053,7 +2196,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2086,7 +2242,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2119,7 +2288,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2156,7 +2338,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -2216,7 +2411,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{sunbird_offline_azure_storage_account_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -2849,7 +3057,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2886,7 +3107,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2919,7 +3153,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2966,7 +3213,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -2999,7 +3259,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3032,7 +3305,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3069,7 +3355,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+        {% if nginx_token_refresh is defined and nginx_token_refresh %}
+        access_by_lua_block {
+            local dict = ngx.shared.token_cache
+            local token = dict:get("gcp_token")
+
+            if token then
+                ngx.req.set_header("Authorization", "Bearer " .. token)
+            else
+                ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+            end
+        }
+        {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -3730,7 +4029,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3763,7 +4075,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3810,7 +4135,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3843,7 +4181,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3876,7 +4227,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -3913,7 +4277,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+          {% if nginx_token_refresh is defined and nginx_token_refresh %}
+          access_by_lua_block {
+              local dict = ngx.shared.token_cache
+              local token = dict:get("gcp_token")
+
+              if token then
+                  ngx.req.set_header("Authorization", "Bearer " .. token)
+              else
+                  ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+              end
+          }
+          {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -3973,7 +4350,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{sunbird_offline_azure_storage_account_url.split('/')[0]|lower}}";
+        {% if nginx_token_refresh is defined and nginx_token_refresh %}
+        access_by_lua_block {
+            local dict = ngx.shared.token_cache
+            local token = dict:get("gcp_token")
+
+            if token then
+                ngx.req.set_header("Authorization", "Bearer " .. token)
+            else
+                ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+            end
+        }
+        {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -4886,7 +5276,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -4919,7 +5322,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -4966,7 +5382,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -4999,7 +5428,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -5032,7 +5474,20 @@ proxyconfig: |-
       set $url_full         '$1';
       proxy_http_version     1.1;
       proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
       proxy_set_header       Authorization '';
+      {% endif %}
       proxy_hide_header      Access-Control-Allow-Origin;
       proxy_hide_header      Access-Control-Allow-Methods;
       proxy_hide_header      x-amz-id-2;
@@ -5069,7 +5524,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
+      {% if nginx_token_refresh is defined and nginx_token_refresh %}
+      access_by_lua_block {
+          local dict = ngx.shared.token_cache
+          local token = dict:get("gcp_token")
+
+          if token then
+              ngx.req.set_header("Authorization", "Bearer " .. token)
+          else
+              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+          end
+      }
+      {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
@@ -5129,7 +5597,20 @@ proxyconfig: |-
          set $url_full         '$1';
          proxy_http_version     1.1;
          proxy_set_header       Host "{{sunbird_offline_azure_storage_account_url.split('/')[0]|lower}}";
+        {% if nginx_token_refresh is defined and nginx_token_refresh %}
+        access_by_lua_block {
+            local dict = ngx.shared.token_cache
+            local token = dict:get("gcp_token")
+
+            if token then
+                ngx.req.set_header("Authorization", "Bearer " .. token)
+            else
+                ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
+            end
+        }
+        {% else %}
          proxy_set_header       Authorization '';
+         {% endif %}
          proxy_hide_header      Access-Control-Allow-Origin;
          proxy_hide_header      Access-Control-Allow-Methods;
          proxy_hide_header      x-amz-id-2;
