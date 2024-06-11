@@ -53,7 +53,10 @@ prometheus:
       version: {{ thanos_sidecar_version | d('v0.11.0') }}
     evaluationInterval: "30s"
     scrapeInterval: "30s"
-    additionalScrapeConfigsExternal: true
+    additionalScrapeConfigsSecret:
+      enabled: true
+      name: "{{ fullnameOverride }}-prometheus-scrape-confg"
+      key: additional-scrape-configs.yaml
     retention: "{{ prometheus_retention_time | d('90d') }}"
     externalLabels:
       cluster: "{{ kubernetes_cluster_name | default('kubernetes-1')}}" # this label will deprecate in release-3.4.0
