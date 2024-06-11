@@ -273,6 +273,8 @@ grafana:
     repository: grafana/grafana
     tag: 7.0.6
     pullPolicy: IfNotPresent
+  adminUser: {{ grafana_admin_user }}
+  adminPassword: {{ grafana_admin_password }}
   env:
     GF_SERVER_ROOT_URL: http://grafana.local.com/grafana
 {% if grafana_data_sources is defined and grafana_data_sources %}

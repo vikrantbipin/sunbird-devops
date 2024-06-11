@@ -178,7 +178,6 @@ kafka_graph_events_backup_threshold_warning: 50000
 kafka_learning_failed_events_backup_warning: 50000
 kafka_telemetry_raw_backup_threshold_warning: 50000
 kafka_telemetry_duplicate_backup_threshold_warning: 50000
-kafka_telemetry_ingestion_backup_threshold_warning: 50000
 kafka_telemetry_unique_backup_threshold_warning: 50000
 summary_backup_threshold_warning: 50000
 summary_channel_backup_threshold_warning: 50000
@@ -198,7 +197,6 @@ kafka_graph_events_backup_threshold_critical: 100000
 kafka_learning_failed_events_backup_critical: 100000
 kafka_telemetry_raw_backup_threshold_critical: 100000
 kafka_telemetry_duplicate_backup_threshold_critical: 100000
-kafka_telemetry_ingestion_backup_threshold_critical: 100000
 kafka_telemetry_unique_backup_threshold_critical: 100000
 summary_backup_threshold_critical: 100000
 summary_channel_backup_threshold_critical: 100000
@@ -273,3 +271,5 @@ service_health_checks:
 api_response_upward_trend_threshold: 0.3
 
 kafka_exporter_image_tag: v1.4.1
+grafana_admin_user: admin
+grafana_admin_password: sunbird@123
