@@ -277,6 +277,7 @@ grafana:
   adminPassword: {{ grafana_admin_password }}
   env:
     GF_SERVER_ROOT_URL: http://grafana.local.com/grafana
+    GF_SECURITY_DISABLE_BRUTE_FORCE_LOGIN_PROTECTION: true
 {% if grafana_data_sources is defined and grafana_data_sources %}
   additionalDataSources: {{ (grafana_data_sources) | to_json}}
 {% endif %}
