@@ -13,20 +13,14 @@
   async: 3600
   poll: 10
 
-- name: Ensure azure blob storage container exists
-  command: az storage container create  --name {{ postgresql_backup_azure_container_name }}
-  ignore_errors: true
-  environment:
-    AZURE_STORAGE_ACCOUNT: "{{ sunbird_management_storage_account_name }}"
-    AZURE_STORAGE_KEY: "{{ sunbird_management_storage_account_key }}"
-
-- name: Upload to azure blob storage
-  command: az storage blob upload --name {{ postgresql_backup_gzip_file_name }} --file {{ postgresql_backup_gzip_file_path }} --container-name {{ postgresql_backup_azure_container_name }}
-  environment:
-    AZURE_STORAGE_ACCOUNT: "{{ sunbird_management_storage_account_name }}"
-    AZURE_STORAGE_KEY: "{{ sunbird_management_storage_account_key }}"
-  async: 3600
-  poll: 10
+- name: upload to gcs
+  include_role:
+    name: artifacts-upload-gcp
+  vars:
+    artifacts_container: "{{ backup_bucket }}/{{ postgresql_backup_folder }}"
+    artifact_path: "{{ postgresql_backup_gzip_file_path }}"
+    artifact: "{{ postgresql_backup_gzip_file_name }}"
+    service_account:  "{{ gcp_backups_service_account }}"
 
 - name: clean up backup dir after upload
   file: path="{{ postgresql_backup_dir }}" state=absent
