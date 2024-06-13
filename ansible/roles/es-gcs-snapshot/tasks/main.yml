@@ -39,4 +39,4 @@
   register: result
   until: result.json.snapshots[0].state == 'SUCCESS'
   retries: 120
-  delay: 10
+  delay: 60
