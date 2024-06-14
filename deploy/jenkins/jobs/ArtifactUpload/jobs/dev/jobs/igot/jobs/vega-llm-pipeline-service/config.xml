@@ -86,7 +86,7 @@ ArtifactRepo - Push the docker image to container registry.
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>http://192.168.3.200:8081/sunbird-cb/sunbird-cb-devops.git</url>
+          <url>http://192.168.3.200:8081/KB-iGOT/KB-iGOT-devops.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>

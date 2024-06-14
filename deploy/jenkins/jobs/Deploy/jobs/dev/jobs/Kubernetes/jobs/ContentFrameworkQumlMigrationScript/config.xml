@@ -66,7 +66,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/Sunbird-Ed/SunbirdEd-portal.git</url>
+          <url>https://github.com/KB-iGOT/SunbirdEd-portal.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
