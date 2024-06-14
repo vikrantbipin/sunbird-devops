@@ -53,9 +53,17 @@ default_mailing_list: "{{ alerts_mailing_list }}"
 dp_process_exporter_team_mailing_list: "{{ default_mailing_list }}"
 dp_process_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
 dp_process_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
-node_exporter_team_mailing_list: "{{ default_mailing_list }}"
-node_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
-node_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
+node_exporter_team_mailing_list: "{{ node_exporter_warning_mailing_list }}"
+node_exporter_team_mailing_list_warning: "{{ node_exporter_warning_mailing_list }}"
+node_exporter_team_mailing_list_critical: "{{ node_exporter_critical_mailing_list }}"
+node_exporter_team_mailing_list_fatal: "{{ node_exporter_fatal_mailing_list }}"
+http_status_team_mailing_list: "{{ http_status_warning_mailing_list }}"
+http_status_team_mailing_list_warning: "{{ http_status_warning_mailing_list }}"
+http_status_team_mailing_list_critical: "{{ http_status_critical_mailing_list }}"
+http_status_team_mailing_list_fatal: "{{ http_status_fatal_mailing_list }}"
+api_error_team_mailing_list_warning: "{{ default_mailing_list }}"
+api_error_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
+api_error_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
 elasticsearch_exporter_team_mailing_list: "{{ default_mailing_list }}"
 elasticsearch_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
 elasticsearch_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
@@ -120,10 +128,25 @@ alert_teams:
     services:
       - .*node-exporter
     severity_mailing_filter:
+      - severity: warning
+        alerts_mailing_list: "{{ node_exporter_team_mailing_list_warning }}"
       - severity: critical
         alerts_mailing_list: "{{ node_exporter_team_mailing_list_critical }}"
       - severity: fatal
         alerts_mailing_list: "{{ node_exporter_team_mailing_list_fatal }}"
+  - team: http_status_team
+    group: service
+    alerts_mailing_list: "{{ http_status_team_mailing_list }}"
+    services:
+      - .*nginx-public-ingress
+    severity_mailing_filter:
+      - severity: warning
+        group: http_status_alert_warning
+        alerts_mailing_list: "{{ http_status_team_mailing_list_warning }}"
+      - severity: critical
+        alerts_mailing_list: "{{ http_status_team_mailing_list_critical }}"
+      - severity: fatal
+        alerts_mailing_list: "{{ http_status_team_mailing_list_fatal }}"
   - team: elasticsearch_exporter_team
     group: service
     alerts_mailing_list: "{{ elasticsearch_exporter_team_mailing_list }}"
