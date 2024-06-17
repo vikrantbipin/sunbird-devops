@@ -3,11 +3,11 @@
   "auth_key": "{{smst_auth_key}}",
   "sender": "{{sms_vault_sender}}",
   "route": "{{sms_vault_route}}",
-  "campaign_name": "testing",
+  "campaign_name": "{{ sms_campaign_message }}",
   "messageTypes": [
     {
       "name": "{{ smsname }}",
-      "message": "{{ smsmessage }}",
+      "message": {{ smsmessage }},
       "Template_ID": "{{ smstemplateid }}"
     }
   ]
