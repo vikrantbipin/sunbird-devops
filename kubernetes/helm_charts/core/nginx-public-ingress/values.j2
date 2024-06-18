@@ -4690,8 +4690,6 @@ proxyconfig: |-
       proxy_connect_timeout 10;
       proxy_send_timeout 300;
       proxy_read_timeout 300;
-
-
     }
 
     location /oauth2callback {
@@ -4704,93 +4702,6 @@ proxyconfig: |-
     client_max_body_size 400M;
 
     }
-
-#  server {
-#    if ($host = frac-dictionary.{{ nginx_proxy_server_name }}) {
-#        return 301 https://$host$request_uri;
-#        }
-#
-#      listen       80;
-#      server_name  frac-dictionary.{{ nginx_proxy_server_name }};
-#      return 404;
-#    }
-
-#   server {
-#     listen                443 ssl;
-#     ssl_certificate       /etc/secrets/site.crt;
-#     ssl_certificate_key   /etc/secrets/site.key;
-#     ssl_protocols TLSv1.2 TLSv1.3;
-#     ssl_ciphers "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
-#     ssl_prefer_server_ciphers off;
-#     server_name *.frac-dictionary.{{ nginx_proxy_server_name }} frac-dictionary.{{ nginx_proxy_server_name }};
-#     server_tokens off;
-
-#     etag off;
-#     add_header Last-Modified "";
-#     add_header X-Frame-Options "SAMEORIGIN" always;
-#     add_header X-XSS-Protection "1; mode=block";
-#     add_header X-Content-Type-Options nosniff;
-#     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains;preload";
-#     add_header Referrer-Policy "no-referrer-when-downgrade";
-#     add_header Content-Security-Policy "upgrade-insecure-requests";
-#     add_header Cache-Control "public, max-age=2378";
-#     add_header Access-Control-Allow-Methods "GET, PUT, HEAD, PATCH, POST";
-#     add_header Allow "GET, HEAD, PUT, POST, PATCH" always;
-
-#     {#
-#     custom nginx server config section
-#     eg:
-#     nginx_server_config: |
-#       if ($allowed_country = no) {
-#           return 444;
-#       }
-#     #}
-# {% if nginx_server_config is defined and nginx_server_config %}
-#   {{ nginx_server_config | indent( width=6, indentfirst=True)  }}
-# {% endif %}
-
-#     if ($request_method ~ ^(OPTIONS)$ )
-#       {
-#        return 403;
-#       }
-#     add_header 'Access-Control-Allow-Origin' '$http_origin' always ;
-
-#     # Limitting open connection per ip
-#     # limit_conn limitbyaddr {{ nginx_per_ip_connection_limit }};
-#     proxy_set_header    Host              $host;
-#     proxy_set_header    X-Real-IP         {{ nginx_client_public_ip_header | d('$remote_addr') }};
-#     proxy_set_header    X-Forwarded-SSL   on;
-#     proxy_set_header    X-Forwarded-Proto $scheme;
-#     ignore_invalid_headers off;  #pass through headers from Jenkins which are considered invalid by Nginx server.
-#     resolver {{ kube_dns_ip }} valid=30s;
-
-#     location / {
-#       rewrite ^/(.*) /$1 break;
-#       server_tokens off;
-#       proxy_set_header Host $host;
-#       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
-#       proxy_set_header X-Scheme $scheme;
-#       proxy_connect_timeout 5;
-#       proxy_send_timeout 60;
-#       proxy_read_timeout 70;
-#       proxy_set_header    X-Forwarded-Proto $scheme;
-#       proxy_set_header Connection "";
-#       proxy_http_version 1.1;
-#       proxy_set_header X-Request-ID $sb_request_id;
-#       proxy_pass http://frac-dictionary-service:3040;
-#     }
-
-#     location /oauth2callback {
-#       return 200 'OK';
-#       add_header Content-Type text/plain;
-#     }
-#     {# Including custom configuration #}
-#     {{ proxy_custom_config }}
-
-#     client_max_body_size 400M;
-
-#     }
-
 
   server {
     if ($host = mdo.{{ nginx_proxy_server_name }}) {
