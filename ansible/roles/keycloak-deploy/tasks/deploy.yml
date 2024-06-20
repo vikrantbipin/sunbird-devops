@@ -21,7 +21,7 @@
     - {var: 'sunbird_authorization', value: '{{ core_vault_sunbird_ekstep_api_key }}'}
     - {var: 'sunbird_lms_base_url', value: 'https://{{ nginx_proxy_server_name }}/api'}
     - {var: 'sunbird_login_otp_template', value: 'loginWithOTP'}
-    - {var: 'sunbird_login_otp_email_subject', value: 'OTP Details for Login'}
+    - {var: 'sunbird_login_otp_email_subject', value: '"OTP Details for Login"'}
 
 - name: Remove old ENV Vars from environemt file
   lineinfile:
