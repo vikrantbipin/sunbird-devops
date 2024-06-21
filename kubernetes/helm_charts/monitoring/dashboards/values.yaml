@@ -380,6 +380,8 @@ dashboards1:
    data-pipeline:
      lag-dashboard:
        file: dashboards/lag-dashboard.json
+     lag-dashboard-dev:
+       file: dashboards/lag-dashboard-dev.json       
      flink-jobs:
        file: dashboards/data-pipeline-metrics-flink.json
    server:
