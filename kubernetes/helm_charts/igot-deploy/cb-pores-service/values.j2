@@ -1,0 +1,30 @@
+### Default variable file for cb-pores-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{cb_pores_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{cb_pores_replicacount|default(1)}}
+repository: {{ image_cb_pores_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{cb_pores_cpu_req|default('100m')}}
+    memory: {{cb_pores_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{cb_pores_cpu_limit|default('1')}}
+    memory: {{cb_pores_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_cb_pores_port }}
+  targetport: {{ service_cb_pores_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ cb_pores_maxsurge|default('25%') }}
+  maxunavailable: {{ cb_pores_maxunavailable|default('25%') }}
+
+cb_pores_backend_basepath: {{ cb_pores_backend_basepath | default('/keys/') }}
+

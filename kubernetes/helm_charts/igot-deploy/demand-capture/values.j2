@@ -1,0 +1,30 @@
+### Default variable file for demand_capture-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{demand_capture_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{demand_capture_replicacount|default(1)}}
+repository: {{ image_demand_capture_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{demand_capture_cpu_req|default('100m')}}
+    memory: {{demand_capture_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{demand_capture_cpu_limit|default('1')}}
+    memory: {{demand_capture_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_demand_capture_port }}
+  targetport: {{ service_demand_capture_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ demand_capture_maxsurge|default('25%') }}
+  maxunavailable: {{ demand_capture_maxunavailable|default('25%') }}
+
+demand_capture_backend_basepath: {{ demand_capture_backend_basepath | default('/keys/') }}
+
