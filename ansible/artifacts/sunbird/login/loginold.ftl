@@ -8,11 +8,38 @@
     <div class="custom-wrapper">
         <div class="custom-grid">
             <div class="ui raised shadow container segment fullpage-background-image left-box">
-                <div class="ui column" style="padding:0">
-                    <div class="img-container" style="width:100%; max-width:100%">
-                        <img alt="Slides" src="${url.resourcesPath}/img/StickyNotes.png" style="width: 88%">
+                <div class="ui column height-fix" style="padding:0">
+
+                    <div class="logo" style="width: 320px; max-width:100%">
+                        <img alt="Logo" src="${url.resourcesPath}/img/dopt_logo.png" style="width: inherit;">
+                    </div>
+                    <div class="img-container" style="width: 320px; max-width:100%">
+                        <div class="slideshow-container">
+
+                            <div class="mySlides fade">
+                                <img alt="Slides" src="${url.resourcesPath}/img/Hexagon.png">
+                            </div>
+
+                            <#--  <div class="mySlides fade">
+                                <img alt="Slides" src="${url.resourcesPath}/img/card1.png">
+                            </div>
+
+                            <div class="mySlides fade">
+                                <img alt="Slides" src="${url.resourcesPath}/img/card2.png">
+                            </div>  -->
+                            <div class="mySlides fade">
+                                <img alt="Slides" src="${url.resourcesPath}/img/card3.png">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="dots-menu">
+                        <span class="dot">*</span>
+                        <span class="dot">*</span>
+                        <#--  <span class="dot">*</span>  -->
                     </div>
                 </div>
+                
             </div>
             <div class="ui raised shadow container segment fullpage-background-image login-section">
                   <div class="zoho-form-box">
