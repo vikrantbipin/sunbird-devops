@@ -48,7 +48,7 @@
     "deploy-sb-cb-ext-service",
     "deploy-workflow-handler-service",
     "deploy-profanity-filter-service",
-    "deploy-cb-pores-service"
+    "deploy-cb-pores-service",
     ]
 
 - name: helm upgrade
