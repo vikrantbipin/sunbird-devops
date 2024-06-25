@@ -27,3 +27,5 @@ network_alias_name: "{{ network_alias_ui_static_service }}"
 docker_service_stack_name: ui
 docker_service_name: "{{ service_ui_static_service }}"
 force_reload: "{{ force_reload_ui_static_service }}"
+
+sprint_version: 4.8.14
