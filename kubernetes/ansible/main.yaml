@@ -1,0 +1,11 @@
+---
+- hosts: local
+  gather_facts: no
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  vars_files:
+    - "{{inventory_dir}}/group_vars/all.yml"
+    - "{{inventory_dir}}/common.yml"
+  roles:
+    - role: deploy-igot
+      tags: ["always"]
