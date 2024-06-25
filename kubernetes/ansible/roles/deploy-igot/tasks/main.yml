@@ -29,6 +29,9 @@
     path: "/tmp/all.env"
     state: absent
 
+- name: debug
+  debug:
+    var: role_name
 - name: Creating and loading keys
   block:
     - name: Load role to decrypt private keys, copy to helm chart and encrypt private keys
@@ -40,14 +43,14 @@
       copy:
         dest: "{{ chart_path }}/keys/{{ adminutil_refresh_token_public_key_kid }}"
         content: "{{ core_vault_sunbird_sso_publickey }}"
-  when: role_name in [
-    "deploy-cb-pores-service",
-    "deploy-content-partner-provider",
-    "deploy-fracentity-service",
-    "deploy-pdf-generator-service",
-    "deploy-sb-cb-ext-service",
-    "deploy-workflow-handler-service",
-    "deploy-profanity-filter-service",
+  when: release_name in [
+    "cb-pores-service",
+    "content-partner-provider",
+    "fracentity-service",
+    "pdf-generator-service",
+    "profanity-filter-service",
+    "sb-cb-ext-service",
+    "workflow-handler-service",
     ]
 
 - name: helm upgrade
