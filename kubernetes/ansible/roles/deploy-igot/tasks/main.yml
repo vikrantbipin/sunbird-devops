@@ -47,6 +47,7 @@
     - deploy-pdf-generator-service
     - deploy-sb-cb-ext-service
     - deploy-workflow-handler-service
+    - deploy-profanity-filter-service
 
 - name: helm upgrade
   shell: helm upgrade --install --atomic --timeout 10m {{ release_name }} {{ chart_path }} -n {{namespace}}
