@@ -37,4 +37,5 @@ tomcat_min_spare_threads: 20
 servlet_multipart_max_file_size: 100Mb
 servlet_multipart_max_request_size: 100Mb
 
+infosys_lex_core_ip: http://{{ network_alias_sb_cb_ext_service }}:{{ service_sb_cb_ext_port }}
 content_service_url: http://{{ network_alias_content_service }}:{{ service_content_service_port }}
