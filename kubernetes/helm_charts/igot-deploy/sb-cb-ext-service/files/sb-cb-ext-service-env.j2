@@ -409,3 +409,10 @@ cloud.public.store.container.name={{ sbworkflow_cloud_storage_content_bucketname
 
 user.bulk.upload.gender.value=Male,Female,Others
 user.bulk.upload.category.value=General,OBC,SC,ST
+
+insights.mapping.key={"PROVIDER_INSIGHT":"organisation","MDO_INSIGHT":"mdo"}
+mdo.insights.fields={{ mdo_insights_fields }}
+mdo.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#FFFFFF","linebreak":"false","background": "#1B4CA1","iconColor": "#FFFFFF"}
+mdo.insights.redis.key.mapping={"Total Users":"dashboard_user_count_by_user_org","Certificates":"dashboard_certificates_generated_count_by_user_org","Enrolments":"dashboard_enrolment_content_by_user_org","Content Published":"dashboard_live_content_count_by_course_org","24hr Login":"dashboard_login_percent_last_24_hrs_by_user_org"}
+spring.servlet.multipart.max-file-size=100MB
+spring.servlet.multipart.max-request-size=100MB
