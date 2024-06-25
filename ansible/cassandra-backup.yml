@@ -6,18 +6,21 @@
   become: yes
   serial: true
   tasks:
-  - name: taking cassandra snapshots
-    shell: |
-      nodetool clearsnapshot
-      nodetool snapshot -t "cassandra-backup-{{ lookup('pipe', 'date +%Y%m%d') }}-{{ ansible_hostname }}-new"
+    - name: taking cassandra snapshots
+      shell: |
+        nodetool clearsnapshot
+        nodetool snapshot -t "cassandra-backup-{{ lookup('pipe', 'date +%Y%m%d') }}-{{ ansible_hostname }}-new"
 
-# Once snaphot is done, 
+# Once snaphot is done,
 # We can take the snapshot and compress it and upload it
 # This will take some cpu and memory in the nodes
 # Because of that we're running it serially, so that it won't affect the perfomance
 - hosts: cassandra
   become: yes
   vars_files:
-    - ['{{ inventory_dir }}/secrets.yml']
+    - ["{{ inventory_dir }}/secrets.yml"]
   roles:
-    - {name: cassandra-backup, vars: [ additional_arguments: "--disablesnapshot"]}
+    - {
+        name: cassandra-backup,
+        vars: [additional_arguments: "--disablesnapshot"],
+      }
