@@ -27,7 +27,7 @@ more_like_this_api_base: "http://{{ network_alias_more_like_this_service }}:{{ s
 iap_profile_api_base: https://{{ var_common_iap_base }}
 iap_code_api_base: https://{{ var_common_iap_base }}
 dbms_api_base: "http://{{network_alias_dbms_api_service}}:{{service_dbms_api_port}}/"
-cassandra_contact_points: "{{ cassandra_host }}:{{ cassandra_port }}"
+cassandra_contact_points: "{{ core_cassandra_host }}:{{ cassandra_port }}"
 telemetry_sb_api_base: "http://{{ network_alias_sb_telemetry_service }}:{{ service_sb_telemetry_port }}"
 
 content_validation_api_base: "http://{{ network_alias_content_validation_service }}:{{ service_content_validation_port }}"
