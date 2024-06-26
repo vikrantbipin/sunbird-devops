@@ -319,7 +319,7 @@ progress.api.update.endpoint=/v1/content/state/admin/update
 
 bulk.upload.tag.verification.regex=^[a-zA-Z\\\s,]+$
 
-report.download.container.name={{ sb_cb_ext_container }}
+report.download.container.name={{ druid_gcloud_bucket }}
 report.download.folder.name=standalone-reports
 report.type.get.file.info=user-report,course-report,user-assessment-report-cbp,user-enrollment-report,cba-report,blended-program-report-mdo,blended-program-report-cbp,cbp-report-mdo-summary,cbp-report-mdo-enrolment,kcm-report
 
@@ -416,5 +416,3 @@ mdo.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#FFFFFF","l
 mdo.insights.redis.key.mapping={"Total Users":"dashboard_user_count_by_user_org","Certificates":"dashboard_certificates_generated_count_by_user_org","Enrolments":"dashboard_enrolment_content_by_user_org","Content Published":"dashboard_live_content_count_by_course_org","24hr Login":"dashboard_login_percent_last_24_hrs_by_user_org"}
 spring.servlet.multipart.max-file-size=100MB
 spring.servlet.multipart.max-request-size=100MB
-
-report.download.container.name={{ druid_gcloud_bucket }}
