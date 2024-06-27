@@ -33,7 +33,7 @@
     var: doc_data
 
 - set_fact:
-    cassandra_backup_name: "postgresql_backup_{{ lookup('pipe', 'date +%Z-%Y-%m-%d-%H-%M-%S') }}"
+    cassandra_backup_name: "cassanra_backup_{{ lookup('pipe', 'date +%Z-%Y-%m-%d-%H-%M-%S') }}"
 - name: upload to gcs
   include_role:
     name: artifacts-upload-gcp
