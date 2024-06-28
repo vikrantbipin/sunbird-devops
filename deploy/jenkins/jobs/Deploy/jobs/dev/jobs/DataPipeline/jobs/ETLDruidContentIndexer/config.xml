@@ -157,7 +157,7 @@ Default Druid content indexer job will run as cron.&lt;/b&gt;&lt;/font&gt;</desc
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.75">
               <script>if (override_public_branch.equals("true")) {
-return """&lt;input name="value" value="" class="setting-input"  type="text"&gt;&lt;br&gt; &lt;font color=dimgray size=2&gt;&lt;b&gt;Provide the tag or branch name to checkout the Jenkinsfile and codebase.&lt;br&gt;Note: The tag or branch name for this job should be taken from &lt;a href="https://github.com/project-sunbird/sunbird-data-pipeline"&gt;project-sunbird/sunbird-data-pipeline&lt;/a&gt;&lt;/b&gt;&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;""";
+return """&lt;input name="value" value="" class="setting-input"  type="text"&gt;&lt;br&gt; &lt;font color=dimgray size=2&gt;&lt;b&gt;Provide the tag or branch name to checkout the Jenkinsfile and codebase.&lt;br&gt;Note: The tag or branch name for this job should be taken from &lt;a href="https://github.com/KB-iGOT/sunbird-data-pipeline"&gt;KB-iGOT/sunbird-data-pipeline&lt;/a&gt;&lt;/b&gt;&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;""";
 
 }
 else
@@ -201,7 +201,7 @@ If you select the "execute script from the invoke_type drop down then choose whi
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
       <triggers>
         <hudson.triggers.TimerTrigger>
-          <spec>H 22 * * *</spec>
+          <spec></spec>
         </hudson.triggers.TimerTrigger>
       </triggers>
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
@@ -211,7 +211,7 @@ If you select the "execute script from the invoke_type drop down then choose whi
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/project-sunbird/sunbird-data-pipeline.git</url>
+          <url>https://github.com/KB-iGOT/sunbird-data-pipeline.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>

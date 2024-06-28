@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ml-kb-portal-environmentjs
+  namespace: {{ .Values.namespace }}
+data:
+  env.js: |
+{{ .Values.environmentjs | indent 4 }}
+
+---

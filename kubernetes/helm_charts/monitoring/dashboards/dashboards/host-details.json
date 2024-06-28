@@ -16,7 +16,8 @@
   "editable": true,
   "gnetId": 2666,
   "graphTooltip": 0,
-  "iteration": 1611320586220,
+  "id": 704,
+  "iteration": 1719216808201,
   "links": [],
   "panels": [
     {
@@ -175,12 +176,14 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": true
       },
-      "tableColumn": "{instance=\"28.0.2.25:9100\", job=\"vm-node-exporter\"}",
+      "tableColumn": "{instance=\"10.175.2.36:9100\", job=\"vm-node-exporter\"}",
       "targets": [
         {
           "expr": "node_load1{instance='$server:9100'} / count by (cluster, job, instance)(count by(cluster, job, instance, cpu)(node_cpu_seconds_total{instance='$server:9100'}))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -357,7 +360,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "node_memory_MemAvailable_bytes{instance=\"28.0.2.25:9100\", job=\"vm-node-exporter\"}",
+      "tableColumn": "node_memory_MemAvailable_bytes{instance=\"10.175.2.36:9100\", job=\"vm-node-exporter\"}",
       "targets": [
         {
           "expr": "node_memory_MemAvailable_bytes{instance=~\"$server:9100\"}",
@@ -452,7 +455,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{instance=\"28.0.2.25:9100\", job=\"vm-node-exporter\"}",
+      "tableColumn": "{instance=\"10.175.2.36:9100\", job=\"vm-node-exporter\"}",
       "targets": [
         {
           "expr": "count without(cpu, mode) (node_cpu_seconds_total{mode=\"idle\", instance=\"$server:9100\"})",
@@ -639,7 +642,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{instance=\"28.0.2.25:9100\", job=\"vm-node-exporter\"}",
+      "tableColumn": "{instance=\"10.175.2.36:9100\", job=\"vm-node-exporter\"}",
       "targets": [
         {
           "expr": "time() - node_boot_time_seconds{instance=~\"$server:9100\"}",
@@ -1088,7 +1091,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{instance=\"28.0.2.25:9100\", job=\"vm-node-exporter\"}",
+      "tableColumn": "{instance=\"10.175.2.36:9100\", job=\"vm-node-exporter\"}",
       "targets": [
         {
           "expr": "(node_memory_MemAvailable_bytes{instance=~\"$server:9100\"} / node_memory_MemTotal_bytes{instance=~\"$server:9100\"}) * 100",
@@ -1180,6 +1183,7 @@
           "expr": "sum by (instance) (irate(node_disk_reads_completed_total{instance=~\"$server:9100\"}[5m]))",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 4,
           "legendFormat": "reads per second",
           "refId": "A",
@@ -1391,11 +1395,14 @@
       }
     },
     {
+      "alerting": {},
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "Prometheus",
+      "editable": true,
+      "error": false,
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1404,6 +1411,7 @@
       },
       "fill": 1,
       "fillGradient": 0,
+      "grid": {},
       "gridPos": {
         "h": 5,
         "w": 20,
@@ -1411,7 +1419,7 @@
         "y": 18
       },
       "hiddenSeries": false,
-      "id": 20,
+      "id": 30,
       "legend": {
         "avg": false,
         "current": false,
@@ -1422,38 +1430,51 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 2,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "options": {
         "dataLinks": []
       },
       "percentage": false,
-      "pointradius": 2,
+      "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "alias": "read",
+          "yaxis": 1
+        },
+        {
+          "alias": "{instance=\"172.17.0.1:9100\"}",
+          "yaxis": 2
+        },
+        {
+          "alias": "io time",
+          "yaxis": 2
+        }
+      ],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(node_filesystem_free_bytes{instance=~'$server:9100', mountpoint='/'}[5m])",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{device}} mounted to {{ mountpoint }}",
-          "refId": "A"
+          "expr": "sum(node_sockstat_TCP_inuse{instance=\"$server:9100\"})",
+          "interval": "",
+          "legendFormat": "Number of Open Connections",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Disk usage pattern",
+      "title": "TCP Connections",
       "tooltip": {
+        "msResolution": false,
         "shared": true,
         "sort": 0,
-        "value_type": "individual"
+        "value_type": "cumulative"
       },
       "type": "graph",
       "xaxis": {
@@ -1465,7 +1486,7 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1473,7 +1494,7 @@
           "show": true
         },
         {
-          "format": "short",
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1582,6 +1603,102 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "hiddenSeries": false,
+      "id": 20,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(node_filesystem_free_bytes{instance=~'$server:9100', mountpoint='/'}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{device}} mounted to {{ mountpoint }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk usage pattern",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "Prometheus",
       "description": "",
       "fieldConfig": {
@@ -1596,7 +1713,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 29
       },
       "hiddenSeries": false,
       "id": 18,
@@ -1698,7 +1815,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 23,
@@ -1764,7 +1881,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:353",
           "format": "percentunit",
           "label": null,
           "logBase": 1,
@@ -1773,7 +1889,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:354",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1809,7 +1924,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 25,
@@ -1915,7 +2030,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 37
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 27,
@@ -2022,7 +2137,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 37
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 29,
@@ -2110,20 +2225,18 @@
       }
     }
   ],
-  "refresh": "1m",
+  "refresh": "30m",
   "schemaVersion": 25,
   "style": "dark",
-  "tags": [
-    "prometheus"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "28.0.2.25",
-          "value": "28.0.2.25"
+          "selected": true,
+          "text": "10.175.2.36",
+          "value": "10.175.2.36"
         },
         "datasource": "Prometheus",
         "definition": "label_values(node_boot_time_seconds,instance)",
@@ -2150,15 +2263,15 @@
         "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "10m",
-          "value": "10m"
+          "text": "1m",
+          "value": "1m"
         },
         "hide": 0,
         "label": null,
         "name": "interval",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "1m",
             "value": "1m"
           },
@@ -2168,7 +2281,7 @@
             "value": "5m"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "10m",
             "value": "10m"
           },
@@ -2222,12 +2335,10 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "tags": [],
-          "text": "/usr/share/filebeat/bin/filebeat | root",
-          "value": [
-            "/usr/share/filebeat/bin/filebeat | root"
-          ]
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
         },
         "datasource": "PrometheusProcessExporter",
         "definition": "label_values(namedprocess_namegroup_cpu_seconds_total{instance=\"$server:9256\"}, groupname)",
@@ -2251,7 +2362,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {

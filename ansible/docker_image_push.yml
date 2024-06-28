@@ -2,22 +2,41 @@
 - name: "Push docker images to any docker registry"
   hosts: local
   become: yes
+  vars:
+    service_account_local_path: /tmp/gcr_service_account_key.json
   vars_files:
-    - ['{{inventory_dir}}/secrets.yml']
-  become: yes
+    - ["{{inventory_dir}}/secrets.yml"]
   tasks:
     - name: login to registry
       docker_login:
         registry: "{{ vault_docker_registry_url }}"
         username: "{{ vault_docker_registry_user }}"
         password: "{{ vault_docker_registry_password }}"
-      tags: docker-login
+      tags:
+      - azure
+    - block:
+        - name: Write GCR service account key to a temporary file
+          copy:
+            content: "{{ gcr_docker_login_service_account }}"
+            dest: "{{ service_account_local_path }}"
 
-    - name: Push image to registry
-      docker_image:
-        name: "{{ hub_org }}/{{ image_name }}:{{ image_tag }}"
-        push: yes
-   
-    - file:
-        path: "/root/.docker"
-        state: absent
+        - name: Authenticate Docker to GCR
+          shell: >
+            cat "{{ service_account_local_path }}" | docker login -u _json_key --password-stdin {{ vault_docker_registry_url }}
+          no_log: true
+
+        - name: Remove temporary GCR service account key file
+          file:
+            path: "{{ service_account_local_path }}"
+            state: absent
+      tags:
+      - gcr-docker-login
+
+    - block:
+        - name: Push image to registry
+          shell: >
+            docker push "{{ hub_org }}/{{ image_name }}:{{ image_tag }}"
+        - file:
+            path: "/root/.docker"
+            state: absent
+      tags: always

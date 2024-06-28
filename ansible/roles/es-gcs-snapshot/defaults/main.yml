@@ -7,6 +7,5 @@ snapshot_create_request_body: {
 }
 
 # Override these values
-es_snapshot_host: "localhost"
 snapshot_base_path: "default"
-es_gcs_backup_folder_name: "elasticsearch-snapshots"
+es_gcs_backup_folder_name: "elasticsearch-snapshots-{{ ansible_host }}"

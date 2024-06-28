@@ -7,10 +7,11 @@ monitoring_stack:
   - elasticsearch-exporter
   - logger
   - blackbox-exporter
- # - additional-scrape-configs
+  - additional-scrape-configs
   - alertrules
   - kafka-topic-exporter
   - prometheus-redis-exporter
+  - ingestion-kafka-exporter
   - processing-kafka-exporter
   - json-path-exporter
   - oauth2-proxy
@@ -52,9 +53,17 @@ default_mailing_list: "{{ alerts_mailing_list }}"
 dp_process_exporter_team_mailing_list: "{{ default_mailing_list }}"
 dp_process_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
 dp_process_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
-node_exporter_team_mailing_list: "{{ default_mailing_list }}"
-node_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
-node_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
+node_exporter_team_mailing_list: "{{ node_exporter_warning_mailing_list }}"
+node_exporter_team_mailing_list_warning: "{{ node_exporter_warning_mailing_list }}"
+node_exporter_team_mailing_list_critical: "{{ node_exporter_critical_mailing_list }}"
+node_exporter_team_mailing_list_fatal: "{{ node_exporter_fatal_mailing_list }}"
+http_status_team_mailing_list: "{{ http_status_warning_mailing_list }}"
+http_status_team_mailing_list_warning: "{{ http_status_warning_mailing_list }}"
+http_status_team_mailing_list_critical: "{{ http_status_critical_mailing_list }}"
+http_status_team_mailing_list_fatal: "{{ http_status_fatal_mailing_list }}"
+api_error_team_mailing_list_warning: "{{ default_mailing_list }}"
+api_error_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
+api_error_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
 elasticsearch_exporter_team_mailing_list: "{{ default_mailing_list }}"
 elasticsearch_exporter_team_mailing_list_critical: "{{ default_critical_mailing_list }}"
 elasticsearch_exporter_team_mailing_list_fatal: "{{ default_fatal_mailing_list }}"
@@ -119,10 +128,25 @@ alert_teams:
     services:
       - .*node-exporter
     severity_mailing_filter:
+      - severity: warning
+        alerts_mailing_list: "{{ node_exporter_team_mailing_list_warning }}"
       - severity: critical
         alerts_mailing_list: "{{ node_exporter_team_mailing_list_critical }}"
       - severity: fatal
         alerts_mailing_list: "{{ node_exporter_team_mailing_list_fatal }}"
+  - team: http_status_team
+    group: service
+    alerts_mailing_list: "{{ http_status_team_mailing_list }}"
+    services:
+      - .*nginx-public-ingress
+    severity_mailing_filter:
+      - severity: warning
+        group: http_status_alert_warning
+        alerts_mailing_list: "{{ http_status_team_mailing_list_warning }}"
+      - severity: critical
+        alerts_mailing_list: "{{ http_status_team_mailing_list_critical }}"
+      - severity: fatal
+        alerts_mailing_list: "{{ http_status_team_mailing_list_fatal }}"
   - team: elasticsearch_exporter_team
     group: service
     alerts_mailing_list: "{{ elasticsearch_exporter_team_mailing_list }}"
@@ -177,7 +201,6 @@ kafka_graph_events_backup_threshold_warning: 50000
 kafka_learning_failed_events_backup_warning: 50000
 kafka_telemetry_raw_backup_threshold_warning: 50000
 kafka_telemetry_duplicate_backup_threshold_warning: 50000
-kafka_telemetry_ingestion_backup_threshold_warning: 50000
 kafka_telemetry_unique_backup_threshold_warning: 50000
 summary_backup_threshold_warning: 50000
 summary_channel_backup_threshold_warning: 50000
@@ -197,7 +220,6 @@ kafka_graph_events_backup_threshold_critical: 100000
 kafka_learning_failed_events_backup_critical: 100000
 kafka_telemetry_raw_backup_threshold_critical: 100000
 kafka_telemetry_duplicate_backup_threshold_critical: 100000
-kafka_telemetry_ingestion_backup_threshold_critical: 100000
 kafka_telemetry_unique_backup_threshold_critical: 100000
 summary_backup_threshold_critical: 100000
 summary_channel_backup_threshold_critical: 100000
@@ -271,4 +293,6 @@ service_health_checks:
 
 api_response_upward_trend_threshold: 0.3
 
-kafka_exporter_image_tag: v1.3.0
+kafka_exporter_image_tag: v1.4.1
+grafana_admin_user: admin
+grafana_admin_password: sunbird@123

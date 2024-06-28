@@ -7,7 +7,7 @@ ingestion_cluster_kafka_server_count: ["{{ ingestion_cluster_kafka | join('","')
 
 image:
   repository: danielqsj/kafka-exporter
-  tag: latest
+  tag: v1.4.1
   pullPolicy: IfNotPresent
 
 nameOverride: ""

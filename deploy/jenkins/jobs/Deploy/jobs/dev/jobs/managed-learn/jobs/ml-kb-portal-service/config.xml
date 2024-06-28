@@ -1,6 +1,6 @@
-<?xml version="1.1" encoding="UTF-8" standalone="no"?><flow-definition plugin="workflow-job@2.38">
+<?xml version="1.1" encoding="UTF-8" standalone="no"?><flow-definition plugin="workflow-job@1385.vb_58b_86ea_fff1">
   <actions>
-    <org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction plugin="workflow-multibranch@2.21">
+    <org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction plugin="workflow-multibranch@773.vc4fe1378f1d5">
       <jobPropertyDescriptors>
         <string>hudson.model.ParametersDefinitionProperty</string>
         <string>com.sonyericsson.rebuild.RebuildSettings</string>
@@ -18,8 +18,10 @@
         <artifactNumToKeep>5</artifactNumToKeep>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
-    <org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty/>
-    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.31">
+    <org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty>
+      <abortPrevious>false</abortPrevious>
+    </org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@332.va_1ee476d8f6d">
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
@@ -34,26 +36,24 @@
         <hudson.model.StringParameterDefinition>
           <name>image_tag</name>
           <description>&lt;font color=red size=2&gt;&lt;b&gt;CAUTION: If the value is blank, image tag will be taken from the latest metadata.json.&lt;/b&gt;&lt;/font&gt;</description>
-          <defaultValue/>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
-        <org.biouno.unochoice.DynamicReferenceParameter plugin="uno-choice@2.2.2">
+        <org.biouno.unochoice.DynamicReferenceParameter plugin="uno-choice@2.8.3">
           <name>private_branch</name>
-          <description/>
           <randomName>choice-parameter-2544395024638227</randomName>
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
-            <secureScript plugin="script-security@1.71">
+            <secureScript plugin="script-security@1336.vf33a_a_9863911">
               <script>if (override_private_branch.equals("true")) {
 return """&lt;input name="value" value="${private_repo_branch}" class="setting-input"  type="text"&gt;&lt;br&gt; &lt;font color=dimgray size=2&gt;&lt;b&gt;Change this value to checkout a different branch from private repository.&lt;/b&gt;&lt;/font&gt;"""
 }
 else
 return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
-              <sandbox>false</sandbox>
+              <sandbox>true</sandbox>
             </secureScript>
-            <secureFallbackScript plugin="script-security@1.71">
+            <secureFallbackScript plugin="script-security@1336.vf33a_a_9863911">
               <script>return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
-              <sandbox>false</sandbox>
+              <sandbox>true</sandbox>
             </secureFallbackScript>
           </script>
           <projectName>ml-kb-portal-service</projectName>
@@ -65,7 +65,6 @@ return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
         </org.biouno.unochoice.DynamicReferenceParameter>
         <hudson.model.ChoiceParameterDefinition>
           <name>role_name</name>
-          <description/>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>deploy-ml-kb-portal-service</string>
@@ -74,13 +73,12 @@ return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>branch_or_tag</name>
-          <description/>
           <defaultValue>dev-4.8.12</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
-    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@2.0.2">
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@2.14">
       <maxConcurrentPerNode>0</maxConcurrentPerNode>
       <maxConcurrentTotal>0</maxConcurrentTotal>
       <categories class="java.util.concurrent.CopyOnWriteArrayList"/>
@@ -94,7 +92,7 @@ return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
       <triggers>
         <jenkins.triggers.ReverseBuildTrigger>
           <spec/>
-          <upstreamProjects>ArtifactUpload/dev/managed-learn/ml-kb-portal-service</upstreamProjects>
+          <upstreamProjects/>
           <threshold>
             <name>SUCCESS</name>
             <ordinal>0</ordinal>
@@ -105,12 +103,13 @@ return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
       </triggers>
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.80">
-    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.2.2">
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@3894.3896.vca_2c931e7935">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@5.2.1">
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/sunbird-cb/sunbird-cb-devops.git</url>
+          <url>https://github.com/KB-iGOT/sunbird-cb-devops.git</url>
+          <credentialsId>github-cred</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
@@ -119,14 +118,14 @@ return """&lt;b&gt;This parameter is not used&lt;/b&gt;"""</script>
         </hudson.plugins.git.BranchSpec>
       </branches>
       <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-      <submoduleCfg class="list"/>
+      <submoduleCfg class="empty-list"/>
       <extensions>
         <hudson.plugins.git.extensions.impl.CloneOption>
           <shallow>true</shallow>
           <noTags>false</noTags>
           <reference/>
           <timeout>240</timeout>
-          <depth>0</depth>
+          <depth>1</depth>
           <honorRefspec>false</honorRefspec>
         </hudson.plugins.git.extensions.impl.CloneOption>
       </extensions>

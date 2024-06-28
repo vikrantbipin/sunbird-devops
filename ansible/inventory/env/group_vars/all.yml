@@ -693,3 +693,193 @@ dial_service_schema_base_path: "https://{{sunbird_public_storage_account_name}}.
 
 plugin_media_base_url: "{{proto}}://{{domain_name}}"
 tenant_name: sunbird
+
+###################################################
+##### These variables are from sunbird-cb/cb-devops
+###################################################
+# Variables common to all the roles, but which not not dependant on the environmwent will stay here
+
+#sunbird-service-variables
+
+sb_learner_service: learner-service
+sb_learner_service_port: 9000
+
+
+service_ui_static_service: lex-ui-static
+service_ui_proxies_service: lex-ui-proxies
+service_notification_service: lex-notification-service
+service_lex_core_lhub_service: lex-core-lhub-service
+service_sb_hub_service: sb-hub-service
+service_content_validation_service: content_validation_service
+service_sb_hub_graph_service: sb-hub-graph-service
+service_profanity_filter_service: profanity-filter
+service_ui_cbp_igot_service: ui-cbp-igot
+service_scoring_engine_service: scoring-engine-service
+service_workflow_handler_service: workflow-handler-service
+service_sb_cb_ext_service: sb-cb-ext-service
+service_ui_mdo_igot_service: ui-mdo-igot
+service_ui_spv_igot_service: ui-spv-igot
+service_profanity_image_moderation_service: profanity-image-moderation
+service_pm_analytics_service: pm-analytics-service
+service_wat_sourcing_service: wat-sourcing-service
+service_profanity_moderator_admin_service: profanity-moderator-admin-service
+service_form_service: form-service
+service_static_domian_service: static-domian-service
+service_faq_assistant_service: faq-assistant
+service_pdf_generator_service: pdf-generator-service
+service_fracentity_service: fracentity-service
+service_ml_kb_portal_service: ml-kb-portal-service
+service_cb_pores_service: cb-pores-service
+service_content_partner_provider_service: content-partner-provider
+
+# Ports
+service_bulk_upload_port: 3009
+service_content_service_port: 80
+service_dbms_api_port: 5801
+service_khub_migration_port: 3014
+service_lex_core_port: 7001
+service_more_like_this_port: 3015
+service_sb_ext_auth_tool_port: 3011
+service_sb_ext_port: 5902
+service_social_forum_port: 3000
+service_telemetry_port: 9001
+service_ui_proxies_port: 9001
+service_ui_static_port: 3002
+service_sb_telemetry_port: 8091
+service_sb_telemetry_port: 9001
+service_pid_service_port: 3008
+service_notification_service_port: 5805
+service_lex_core_critical_port: 7001
+service_lex_core_high_port: 7001
+service_lex_core_lhub_port: 7004
+service_lex_core_cassandra_port: 7001
+service_lex_hierarchy_service_port: 5906
+service_opensaber_port: 8080
+service_sb_hub_port: 3013
+service_content_validation_port: 6590
+service_sb_hub_graph_port: 4013
+service_profanity_filter_port: 5000
+service_ui_cbp_igot_port: 3024
+service_scoring_engine_port: 7014
+service_workflow_handler_port: 5099
+service_sb_cb_ext_port: 7001
+service_ui_mdo_igot_port: 3034
+service_ui_spv_igot_port: 3044
+service_frac_backend_port: 8095
+service_frac_web_service_port: 5000
+service_frac_collab_service_port: 8080
+service_profanity_image_moderation_port: 5006
+service_pm_web_service_port: 5000
+service_pm_analytics_port: 8091
+service_pm_zuul_port: 8080
+service_pm_user_port: 8081
+service_frac_dictionary_service_port: 3040
+service_ui_cbc_igot_port: 3054
+service_pm_microsurvey_port: 8099
+service_pm_microsurvey_web_service_port: 5000
+service_content_tagging_port: 5008
+service_wat_sourcing_web_port: 5000
+service_wat_sourcing_port: 5000
+service_developer_console_web_portal_port: 5000
+service_developer_console_service_port: 8080
+service_profanity_moderator_admin_port: 4000
+service_form_port: 8099
+service_static_domian_port: 80
+service_faq_assistant_port: 4003
+service_pdf_generator_port: 3000
+service_fracentity_port: 8083
+service_ml_kb_portal_port: 80
+service_karmaquest_port: 7001
+service_cb_pores_port: 7001
+service_demand_capture_port: 8080
+service_content_partner_provider_port: 8055
+
+# Network alias names, so that one service can talk to another
+network_alias_content_service: private-content-service
+network_alias_static_host: nginx-public-ingress-metrics
+network_alias_telemetry_service: telemetry-service
+network_alias_sb_ext_service: sb-ext-service
+network_alias_sb_ext_authoring_service: sb-ext-authoring-service
+network_alias_ui_static_service: ui-static
+network_alias_ui_proxies: ui-proxies
+network_alias_more_like_this_service: more-like-this
+network_alias_social_forum_service: social-forum
+network_alias_lex_core_service: lex-core
+network_alias_bulk_upload_service: bulk-upload-service
+network_alias_khub_migration_service: khub-migration-service
+network_alias_dbms_api_service: dbms-api
+network_alias_sb_telemetry_service: telemetry-service
+network_alias_pid_service: eagle-user-profile
+network_alias_notification_service: notification-service
+network_alias_lex_core_critical_service: lex-core
+network_alias_lex_core_cassandra_service: lex-core
+network_alias_lex_core_high_service: sb-cb-ext-service
+network_alias_lex_core_lhub_service: lex-core-lhub
+network_alias_lex_hierarchy_service: hierarchy-service
+network_alias_opensaber: sb-opensaber
+network_alias_sb_hub_service: sb-hub-service
+network_alias_content_validation_service: content-validation-service
+network_alias_sb_hub_graph_service: hub-graph-service
+network_alias_profanity_filter_service: profanity-filter
+network_alias_ui_cbp_igot_service: ui-cbp-igot
+network_alias_scoring_engine_service: scoring-engine-service
+network_alias_workflow_handler_service: workflow-handler-service
+network_alias_sb_cb_ext_service: sb-cb-ext-service
+network_alias_ui_mdo_igot_service: ui-mdo-igot
+network_alias_ui_spv_igot_service: ui-spv-igot
+network_alias_profanity_image_moderation_service: profanity-image-moderation
+network_alias_pm_analytics_service: pm-analytics-service
+network_alias_profanity_moderator_admin_service: profanity-moderator-admin-service
+network_alias_static_domian_service: static-domian-service
+network_alias_faq_assistant_service: faq-assistant
+network_alias_pdf_generator_service: pdf-generator-service
+network_alias_fracentity_service: fracentity-service
+network_alias_ml_kb_portal_service: ml-kb-portal-service
+network_alias_cb_pores_service: cb-pores-service
+network_alias_demand_capture_service: demand-capture
+network_alias_content_partner_provider_service: content-partner-provider
+
+# Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
+image_ui_static: ui-static
+image_ui_proxies: ui-proxies
+image_ui_static_fusion: ui-static
+image_content_validation_service: content-validation-service
+image_sb_hub_graph_service: sb-hub-graph-service
+image_profanity_filter_service: profanity-filter
+image_ui_cbp_igot: ui-cbp-igot
+image_workflow_handler_service: workflow-handler-service
+image_scoring_engine_service: scoring-engine-service
+image_sb_cb_ext_service: sb-cb-ext-service
+image_ui_mdo_igot: ui-mdo-igot
+image_ui_spv_igot: ui-spv-igot
+image_frac_backend_service: frac_backend_service
+image_frac_web_service: frac-web-service
+image_frac_collab_service: frac-collab-service
+image_profanity_image_moderation_service: profanity-image-moderation
+image_pm_web_service: pm-web-service
+image_pm_analytics_service: pm-analytics-service
+image_pm_zuul_service: pm-zuul-service
+image_pm_user_service: pm-user-service
+image_frac_dictionary_service: frac-dictionary-service
+image_ui_cbc_igot: ui-cbc-igot
+image_pm_microsurvey_service: pm-microsurvey-service
+image_pm_microsurvey_web_service: pm-survey-web-service
+image_content_tagging_service: content_tagging
+image_wat_sourcing_web_service: wat-sourcing-web-service
+image_wat_sourcing_service: wat-sourcing-service
+image_developer_console_web_portal: developer-console-web-portal
+image_developer_console_service: developer-console-service
+image_profanity_moderator_admin_service: profanity-moderator-admin-service
+image_form_service: form-service
+image_static_domian: static_domain
+image_faq_assistant_service: faq-assistant
+image_pdf_generator_service: pdf-generator
+image_fracentity_service: fracentity-service
+image_ml_kb_portal_service: kb-portal
+image_karmaquest_service: karmaquest-service
+image_cb_pores_service: cb-pores-service  
+image_demand_capture_service: demand-capture
+image_content_partner_provider_service: content-partner-provider
+
+#####################bulk-upload-spv#########
+host_bulk_upload: /mydata/bulk_upload

@@ -1,6 +1,6 @@
 rbac:
-  create: true
-  pspEnabled: true
+  create: false
+  pspEnabled: false
   pspUseAppArmor: true
   namespaced: false
   extraRoleRules: []
@@ -375,19 +375,13 @@ dashboards:
        file: dashboards/redis.json
      dashboard19:
        file: dashboards/secor-consumarlag-kafka.json
-     dashboard20:
-       file: dashboards/weekly-report.json
-     dashboard21:
-       file: dashboards/process-exporter.json
-     dashboard24:
-       file: dashboards/cassandra.json
-     dashboard25:
-       file: dashboards/kp-flink-jobs-metrics-dashboard.json
 
 dashboards1:
    data-pipeline:
      lag-dashboard:
        file: dashboards/lag-dashboard.json
+     lag-dashboard-dev:
+       file: dashboards/lag-dashboard-dev.json       
      flink-jobs:
        file: dashboards/data-pipeline-metrics-flink.json
    server:
@@ -409,7 +403,17 @@ dashboards2:
      dashboardkong4:
        file: dashboards/api-manager-req-resp-aggregated-beta.json
      dashboardkong5:
-       file: dashboards/api-manager-consumerlevel-dashboard.json  
+       file: dashboards/api-manager-consumerlevel-dashboard.json
+     dashboard20:
+       file: dashboards/weekly-report.json
+     dashboard21:
+       file: dashboards/process-exporter.json
+     dashboard24:
+       file: dashboards/cassandra.json
+     dashboard25:
+       file: dashboards/kp-flink-jobs-metrics-dashboard.json
+     dashboard26:
+       file: dashboards/one-view-node-exporter-dashboard.json
    fluentbit:
      fluent-bit:
        file: dashboards/fluent-bit.json

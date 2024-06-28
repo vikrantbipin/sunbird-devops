@@ -15,10 +15,10 @@ image_tag: {{ image_tag }}
 resources:
   requests:
     cpu: {{assessment_cpu_req|default('50m')}}
-    memory: {{assessment_mem_req|default('50Mi')}}
+    memory: {{assessment_mem_req|default('500Mi')}}
   limits:
     cpu: {{assessment_cpu_limit|default('1')}}
-    memory: {{assessment_mem_limit|default('500Mi')}}
+    memory: {{assessment_mem_limit|default('1Gi')}}
 network:
   port: 9003
   targetport: 9000

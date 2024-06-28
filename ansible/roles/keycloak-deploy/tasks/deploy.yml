@@ -19,8 +19,9 @@
   with_items:
     - {var: 'sunbird_user_service_base_url', value: '{{ sunbird_user_service_base_url }}'}
     - {var: 'sunbird_authorization', value: '{{ core_vault_sunbird_ekstep_api_key }}'}
-    - {var: 'sunbird_lms_base_url', value: 'https://{{ static_domain_name }}/api'}
+    - {var: 'sunbird_lms_base_url', value: 'https://{{ nginx_proxy_server_name }}/api'}
     - {var: 'sunbird_login_otp_template', value: 'loginWithOTP'}
+    - {var: 'sunbird_login_otp_email_subject', value: '"OTP Details for Login"'}
 
 - name: Remove old ENV Vars from environemt file
   lineinfile:
@@ -132,20 +133,11 @@
 
 - name: SMS provider configuration file
   template:
-    src: "roles/keycloak-deploy/templates/Msg91Creds.json.j2"
-    dest: "sunbird_auth_{{ sunbird_auth_version }}.config/Msg91Creds.json"
+    src: "roles/keycloak-deploy/templates/AmnexSmsCreds.json.j2"
+    dest: "sunbird_auth_{{ sunbird_auth_version }}.config/AmnexSmsCreds.json"
     mode: 0755
-  when: "{{ msg_91_required|default(false) }}"
+  when: "{{ sms_required|default(false) }}"
   ignore_errors: true
-
-- name: NIC SMS provider configuration file
-  template:
-    src: "roles/keycloak-deploy/templates/NicSmsCreds.json.j2"
-    dest: "sunbird_auth_{{ sunbird_auth_version }}.config/NicSmsCreds.json"
-    mode: 0755
-  when: "{{ msg_91_required|default(false) }}"
-  ignore_errors: true
-
 
 - name: Keycloak configuration XML file
   copy:
@@ -178,32 +170,19 @@
     path: "{{ keycloak_home }}/bin/sms-provider"
     state: directory
     mode: 0755
-  when: "{{ msg_91_required|default(false) }}"
+  when: "{{ sms_required|default(false) }}"
   ignore_errors: true
 
 - name: SMS provider configuration file
   copy:
-    src: "sunbird_auth_{{ sunbird_auth_version }}.config/Msg91Creds.json"
-    dest: "{{ keycloak_home }}/bin/sms-provider/Msg91Creds.json"
+    src: "sunbird_auth_{{ sunbird_auth_version }}.config/AmnexSmsCreds.json"
+    dest: "{{ keycloak_home }}/bin/sms-provider/AmnexSmsCreds.json"
     owner: "{{ wildfly_user }}"
     group: "{{ wildfly_group }}"
     mode: 0755
     remote_src: true
-  when: "{{ msg_91_required|default(false) }}"
+  when: "{{ sms_required|default(false) }}"
   ignore_errors: true
-
-
-- name: NIC SMS provider configuration file
-  copy:
-    src: "sunbird_auth_{{ sunbird_auth_version }}.config/NicSmsCreds.json"
-    dest: "{{ keycloak_home }}/bin/sms-provider/NicSmsCreds.json"
-    owner: "{{ wildfly_user }}"
-    group: "{{ wildfly_group }}"
-    mode: 0755
-    remote_src: true
-  when: "{{ msg_91_required|default(false) }}"
-  ignore_errors: true
-
 
 - name: Remove the sunbird_auth_{{ sunbird_auth_version }}.config
   become: true

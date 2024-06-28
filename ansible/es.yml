@@ -15,7 +15,6 @@
     - role: es5-snapshot-purge
   tags:
     - es_backup
-  run_once: true
 
 - hosts: log-es-backup
   become: yes
