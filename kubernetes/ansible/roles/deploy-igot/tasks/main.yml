@@ -1,6 +1,10 @@
 ---
-- include_vars:
-    file: ../../../shared_files/vars/ui-shared.yml
+- name: Including shared vars
+  block:
+    - name: Including shared vars
+      include_vars:
+        file: ../../../shared_files/vars/ui-shared.yml
+  when: release_name not in ['ml-kb-portal-service']
 - include_vars:
     file: "{{chart_path}}/files/ansible_vars.yaml"
 
@@ -11,12 +15,18 @@
 
 - name: Creating env variables
   block:
-    - name: template env file
+    - name: template shared env file
       template:
         src: "{{ item }}"
         dest: "{{ helm_env_file_location }}/{{ item | basename}}.env"
       with_fileglob:
         - "{{ template_shared_env_file_name }}"
+      when: release_name not in ['ml-kb-portal-service']
+    - name: template helm env file
+      template:
+        src: "{{ item }}"
+        dest: "{{ helm_env_file_location }}/{{ item | basename}}.env"
+      with_fileglob:
         - "{{ chart_path }}/files/*env.j2"
 
     - name: create env configmap
