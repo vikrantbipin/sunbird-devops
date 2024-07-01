@@ -2,20 +2,20 @@
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-echo -e "\n\e[0;32m${bold}Clean up${normal}"
-rm -rf /etc/apt/sources.list.d/azure-cli.list /etc/apt/sources.list.d/packages_microsoft_com_repos_azure_cli.list*
-
-echo -e "\n\e[0;32m${bold}Updating the apt repo${normal}\n"
-apt-get update
-
-echo -e "\n\e[0;32m${bold}Installating JDK8${normal}\n"
-apt-get install -y openjdk-8-jdk
-
-echo -e "\n\e[0;32m${bold}Installating Jenkins${normal}"
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
-apt-add-repository "deb https://pkg.jenkins.io/debian-stable binary/"
-apt-get update
-apt-get install -y jenkins=2.277.4
+# echo -e "\n\e[0;32m${bold}Clean up${normal}"
+# rm -rf /etc/apt/sources.list.d/azure-cli.list /etc/apt/sources.list.d/packages_microsoft_com_repos_azure_cli.list*
+#
+# echo -e "\n\e[0;32m${bold}Updating the apt repo${normal}\n"
+# apt-get update
+#
+# echo -e "\n\e[0;32m${bold}Installating JDK8${normal}\n"
+# apt-get install -y openjdk-8-jdk
+#
+# echo -e "\n\e[0;32m${bold}Installating Jenkins${normal}"
+# wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
+# apt-add-repository "deb https://pkg.jenkins.io/debian-stable binary/"
+# apt-get update
+# apt-get install -y jenkins=2.277.4
 
 echo -e "\n\e[0;32m${bold}Installating PIP${normal}"
 apt-get install -y python-pip
@@ -76,7 +76,7 @@ echo -e "\n\e[0;32m${bold}Installating azure cli${normal}"
 apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
 curl -sL https://packages.microsoft.com/keys/microsoft.asc |
     gpg --dearmor |
-    sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+    sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg >/dev/null
 AZ_REPO=$(lsb_release -cs)
 echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
     sudo tee /etc/apt/sources.list.d/azure-cli.list
@@ -137,13 +137,13 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 apt update && apt install -y yarn
 
-#Install openjdk
-echo -e "\n\e[0;32m${bold}Installating openjdk 11${normal}"
-wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
-tar -xf openjdk-11+28_linux-x64_bin.tar.gz
-mv jdk-11 java-11-openjdk-amd64
-cp -r java-11-openjdk-amd64 /usr/lib/jvm/
-rm -rf java-11-openjdk-amd64 openjdk-11+28_linux-x64_bin.tar.gz
+##Install openjdk
+#echo -e "\n\e[0;32m${bold}Installating openjdk 11${normal}"
+#wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
+#tar -xf openjdk-11+28_linux-x64_bin.tar.gz
+#mv jdk-11 java-11-openjdk-amd64
+#cp -r java-11-openjdk-amd64 /usr/lib/jvm/
+#rm -rf java-11-openjdk-amd64 openjdk-11+28_linux-x64_bin.tar.gz
 
 #Install maven 3.6.3
 echo -e "\n\e[0;32m${bold}Installating maven 3.6.3${normal}"
@@ -155,7 +155,7 @@ rm -rf apache-maven-3.6.3-bin.tar.gz
 
 #Install python-psycopg2
 echo -e "\n\e[0;32m${bold}Installating python-psycopg2${normal}"
-apt install -y python-psycopg2
+apt install -y python3-psycopg2
 
 #Install libpng-dev - Ubuntu 18 and above fix for plugin builds
 echo -e "\n\e[0;32m${bold}Installating libpng-dev${normal}"
@@ -172,30 +172,27 @@ apt install -y mongo-tools
 echo -e "\n\e[0;32m${bold}Installing required python2 pacakges if distro is ubuntu 18 and above${normal}"
 # For kong api and consumer onboarding
 osrelease=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | awk -F '=' '{print $2}')
-if [[ $osrelease > 18 ]]
-then
-  wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-  which pip
-  rc=$?
-  if [[ $rc == 0 ]]
-  then
-    cp /usr/local/bin/pip /usr/local/bin/pip3
-  fi
-  which python2.7
-  rc=$?
-  if [[ $rc == 0 ]]
-  then
-    python2.7 get-pip.py
-    pip install retry
-    pip install PyJWT
-    apt reinstall -y python3-pip
-  else
-    apt reinstall -y python2
-    python2.7 get-pip.py
-    python2.7 get-pip.py
-    pip install PyJWT
-    apt reinstall -y python3-pip
-  fi
+if [[ $osrelease > 18 ]]; then
+    wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+    which pip
+    rc=$?
+    if [[ $rc == 0 ]]; then
+        cp /usr/local/bin/pip /usr/local/bin/pip3
+    fi
+    which python2.7
+    rc=$?
+    if [[ $rc == 0 ]]; then
+        python2.7 get-pip.py
+        pip install retry
+        pip install PyJWT
+        apt reinstall -y python3-pip
+    else
+        apt reinstall -y python2
+        python2.7 get-pip.py
+        python2.7 get-pip.py
+        pip install PyJWT
+        apt reinstall -y python3-pip
+    fi
 fi
 rm -rf get-pip.py
 
