@@ -16,20 +16,20 @@ _JAVA_OPTIONS='-Dlog4j2.formatMsgNoLookups=true'
 LOGOUT=/var/log/keycloak.out.log
 # Error output log
 LOGERR=/var/log/keycloak.err.log
- 
+
 ## script start here
- 
+
 
 function echo_failure() { echo -en "\n[FAILED]"; }
 function echo_success() { echo -en "\n[OK]"; }
 [ -f /etc/rc.d/init.d/functions ] && source /etc/rc.d/init.d/functions
- 
+
 FINDPID="pgrep -u $keycloakuser -n -f standalone.sh";
 function _is_running() {
     $FINDPID 1>/dev/null
     return $?
 }
- 
+
 function stop_keycloak() {
     _is_running
     if [ $? -ne 0 ]; then
@@ -39,7 +39,7 @@ function stop_keycloak() {
         return 1
     else
         echo -n "Stopping $0..."
-        
+
         $FINDPID | xargs ps h -o pid --ppid | xargs kill
         sleep 1
         _is_running
@@ -53,9 +53,9 @@ function stop_keycloak() {
             return 0
         fi
     fi
- 
+
 }
- 
+
 function status() {
     _is_running
     if [ $? -eq 0 ]; then
@@ -70,7 +70,7 @@ function status() {
      #   return 1
     fi
 }
- 
+
 function start_keycloak() {
     _is_running
     if [ $? -eq 0 ]; then
@@ -83,7 +83,7 @@ function start_keycloak() {
         # Make sure log files exist and are writable by $PDIUSER first
         touch $LOGOUT $LOGERR
         chown $keycloakuser:$keycloakuser $LOGOUT $LOGERR
-        su - $keycloakuser -c "cd $keycloakpath && (nohup sh ./standalone.sh -b={{ansible_default_ipv4.address}} -bprivate={{ansible_default_ipv4.address}} --server-config standalone-ha.xml 0<&- 1>>$LOGOUT 2>>$LOGERR &)"
+        su - $keycloakuser -c "cd $keycloakpath && (nohup sh ./standalone.sh -b=0.0.0.0 -bprivate={{ansible_default_ipv4.address}} --server-config standalone-ha.xml 0<&- 1>>$LOGOUT 2>>$LOGERR &)"
         sleep 1
         _is_running
         if [ $? -eq 0 ]; then
@@ -97,7 +97,7 @@ function start_keycloak() {
         fi
     fi
 }
- 
+
 case "$1" in
     start)
         start_keycloak
