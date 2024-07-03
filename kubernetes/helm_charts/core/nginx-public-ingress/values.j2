@@ -125,56 +125,7 @@ proxyconfig: |-
 
     ignore_invalid_headers off;  #pass through headers from Jenkins which are considered invalid by Nginx server.
     resolver {{ kube_dns_ip }} valid=30s;
-    location /content-store {
-          # Enabling compression
-          gzip            on;
-          gzip_min_length 100000;
-          gzip_proxied    expired no-cache no-store private auth;
-          gzip_types application/javascript application/x-javascript text/css text/javascript;
-          if ($request_method = OPTIONS ) {
-                #  add_header Access-Control-Allow-Origin {{ nginx_proxy_server_name }};
-                  add_header Access-Control-Allow-Origin "*" ;
-                  add_header Access-Control-Allow-Methods "GET, OPTIONS, PATCH, POST";
-                  add_header Access-Control-Allow-Headers "Access-Control-Allow-Origin, Authorization, Content-Type, user-id";
-                  # add_header Access-Control-Allow-Credentials "true";
-                  add_header Content-Length 0;
-                  add_header Content-Type text/plain;
-                  return 200;
-          }
-      proxy_http_version     1.1;
-      proxy_set_header       Host "{{plugin_upstream_url.split('/')[0]|lower}}";
-      {% if nginx_token_refresh is defined and nginx_token_refresh %}
-      access_by_lua_block {
-          local dict = ngx.shared.token_cache
-          local token = dict:get("gcp_token")
-
-          if token then
-              ngx.req.set_header("Authorization", "Bearer " .. token)
-          else
-              ngx.log(ngx.ERR, "Failed to retrieve token from shared dictionary")
-          end
-      }
-      {% else %}
-      proxy_set_header       Authorization '';
-      {% endif %}
-      proxy_hide_header      Access-Control-Allow-Origin;
-      proxy_hide_header      Access-Control-Allow-Methods;
-      proxy_hide_header      x-amz-id-2;
-      proxy_hide_header      x-amz-request-id;
-      proxy_hide_header      Set-Cookie;
-      proxy_ignore_headers   "Set-Cookie";
-      proxy_buffering        off;
-      proxy_intercept_errors on;
-      add_header Access-Control-Allow-Origin "*" ;
-      #add_header             Access-Control-Allow-Origin {{ nginx_proxy_server_name }};
-      add_header             Access-Control-Allow-Methods GET;
-      proxy_set_header X-Request-ID $sb_request_id;
-
-
-      rewrite /content-store/(.*) /$1 break;
-      proxy_pass http://content-store/;
-
-    }
+    
     location ~* ^/auth/(.*)/impersonation {
       return 301 {{proto}}://portal.{{ nginx_proxy_server_name }};
     }
