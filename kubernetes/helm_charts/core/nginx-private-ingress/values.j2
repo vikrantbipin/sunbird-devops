@@ -38,3 +38,4 @@ autoscaling:
   targetCPUUtilizationPercentage: {{ nginx_private_ingress_autoscaling_targetCPUUtilizationPercentage|default(60) }}
   targetMemoryUtilizationPercentage: {{ nginx_private_ingress_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 
+kibana_url: {{ kibana_service }}

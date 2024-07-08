@@ -1,6 +1,6 @@
 replicas: {{ kibana_replicas | default(1) }}
 image: "docker.elastic.co/kibana/kibana"
-imageTag: {{ kibana_version | default('6.8.6') }}
+imageTag: {{ kibana_version | default('6.8.22') }}
 imagePullPolicy: "IfNotPresent"
 
 resources:
@@ -11,15 +11,15 @@ resources:
     cpu: "4"
     memory: "4Gi"
 
-healthCheckPath: "/dashboard"
+healthCheckPath: "/kibana"
 
 kibanaConfig:
    kibana.yml: |
-     server.basePath: "/dashboard"
+     server.basePath: "/kibana"
      server.host: "0.0.0.0"
      server.rewriteBasePath: true
      elasticsearch.shardTimeout: 0
-     elasticsearch.hosts: ["http://{{groups['log-es'] | join(':9200","http://')}}:9200"] 
+     elasticsearch.hosts: ["http://{{groups['log-es'] | join(':9200","http://')}}:9200"]
      elasticsearch.requestTimeout: 300000
      elasticsearch.preserveHost: true
      elasticsearch.ssl.verificationMode: full

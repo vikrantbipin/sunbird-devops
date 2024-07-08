@@ -250,6 +250,11 @@ data:
           proxy_http_version 1.1;
           proxy_pass $target;
         }
+        location /kibana/ {
+          set $target http://{{ .Values.kibana_url }};
+          proxy_http_version 1.1;
+          proxy_pass $target;
+        }
       }
     }
 kind: ConfigMap
