@@ -1,14 +1,13 @@
 ---
 
 - name: Install dependency packages
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  with_items:
+  package:
+    name:
     - unzip
     - build-essential
     - tcl
+    update_cache: yes
+    state: present
 
 - name: download redis tar file
   get_url:
