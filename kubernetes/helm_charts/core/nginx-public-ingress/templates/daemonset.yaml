@@ -11,7 +11,7 @@ spec:
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 25%
+      maxUnavailable: 10%
   template:
     metadata:
       annotations:
@@ -41,6 +41,13 @@ spec:
       containers:
       - name: nginx-public
         image: "{{ .Values.dockerhub }}/{{ .Values.repository }}:{{ .Values.image_tag }}"
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - sleep 5; nginx -s quit; while pgrep -x nginx; do sleep 10; done
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
@@ -89,7 +96,6 @@ metadata:
 {{ toYaml .Values.service.annotations | indent 4 }}
 {{- end }}
 spec:
-  externalTrafficPolicy: Local
   selector:
     app: nginx-public-ingress
   type: {{ .Values.service.type }}
