@@ -85,9 +85,14 @@ anonymous_user_groups:
 
 kong_all_consumer_groups:
   - announcementAccess
+  - anonymousCertificateAccess
+  - anonymousUserAccess
+  - anonymousUserCreate
   - appAccess
   - appAdmin
+  - appCreate
   - appUpdate
+  - automatedReportAccess
   - badgeAccess
   - badgeAdmin
   - badgeCreate
@@ -97,87 +102,101 @@ kong_all_consumer_groups:
   - certificateCreate
   - certificateUpdate
   - channelAccess
+  - channelAdmin
   - channelCreate
   - channelUpdate
+  - cloudUrlsCreate
   - contentAccess
   - contentAdmin
   - contentCreate
+  - contentSuperAdmin
+  - contentTempAccess
   - contentUpdate
   - courseAccess
   - courseAdmin
   - courseCreate
   - courseUpdate
+  - dataAccess
+  - dataCreate
+  - dbAccess
+  - deleteNotificationFeed
   - deviceCreate
   - dialcodeAccess
   - dialcodeAdmin
   - dialcodeCreate
   - dialcodeUpdate
+  - digiLockerAccess
+  - discussionAccess
+  - druidReportAdmin
+  - druidReportCreate
+  - externalCertificateAccess
+  - frameworkAccess
+  - frameworkAdmin
+  - frameworkCreate
+  - frameworkUpdate
+  - group
+  - groupAccess
+  - groupAdmin
+  - groupCreate
+  - groupUpdate
   - locationAccess
+  - mentorServiceMentee
+  - mentorServiceMentor
+  - mentorServiceOrgAdmin
+  - mentorServiceSysAdmin
+  - mlApp
+  - mobileAdmin
+  - mobileSuperAdmin
   - noteAccess
   - noteAdmin
   - noteCreate
   - noteUpdate
   - objectAccess
+  - observationAccess
+  - observationCreate
+  - observationUpdate
   - orgAccess
+  - orgAdmin
   - orgCreate
+  - orgUpdate
+  - orgSuperAdmin
+  - orgUpdatecontent
   - pageAccess
   - pluginAccess
+  - portalAnonymous
+  - portalLoggedin
+  - programAccess
+  - programsAccess
+  - programsUpdate
+  - projectAccess
+  - projectCreate
+  - projectUpdate
+  - readNotificationFeed
+  - refreshTokenCreate
+  - registryAccess
+  - registryUpdate
   - reportsAccess
   - reportsAdmin
   - reportsCreate
   - reportsUpdate
+  - solutionAccess
+  - solutionsAccess
+  - solutionsUpdate
   - ssoCreate
+  - storageReportDownload
+  - SuperAdmin
+  - surveyAccess
+  - surveyUpdate
+  - telemetryCreate
+  - updateNotificationFeed
+  - useraccess
   - userAccess
   - userAdmin
   - userCreate
+  - userSuperAccess
+  - userSuperAdmin
   - userTempAdmin
   - userUpdate
-  - groupCreate
-  - groupUpdate
-  - groupAccess
-  - groupAdmin
-  - dataAccess
-  - druidReportCreate
-  - druidReportAdmin
-  - dataCreate
-  - frameworkAccess
-  - programAccess
-  - solutionAccess
-  - registryAccess
-  - projectAccess
-  - projectUpdate
-  - projectCreate
-  - observationAccess
-  - observationUpdate
-  - observationCreate
-  - surveyAccess
-  - cloudUrlsCreate
-  - surveyUpdate
-  - refreshTokenCreate
-  - telemetryCreate
-  - anonymousCertificateAccess
-  - anonymousContentAccess
-  - anonymousCourseAccess
-  - anonymousOrgAccess
-  - anonymousUserAccess
-  - anonymousAppAccess
-  - anonymousUserCreate
-  - readNotificationFeed
-  - updateNotificationFeed
-  - deleteNotificationFeed
-  - frameworkAdmin
-  - frameworkCreate
-  - userSuperAdmin
-  - orgUpdatecontent 
-  - SuperAdmin
-  - orgSuperAdmin
-  - orgAdmin
-  - registryUpdate
-  - frameworkUpdate
-  - programsUpdate
-  - programsAccess
-  - solutionsUpdate
-  - dbAccess
 
 kong_consumers:
   - username: api-admin
