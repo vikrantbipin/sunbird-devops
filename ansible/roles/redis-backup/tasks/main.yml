@@ -16,14 +16,17 @@
     remote_src: yes
     
 
-- name: upload to azure
+- set_fact:
+    redis_backup_name: "redis_backup_{{ lookup('pipe', 'date +%Z-%Y-%m-%d-%H-%M-%S') }}"
+- name: upload to gcs
   include_role:
-    name: artifacts-upload-azure
+    name: artifacts-upload-gcp
   vars:
-    artifact: "{{ redis_backup_file_name }}"
-    artifact_path: "{{ redis_backup_file_path }}"
-    artifacts_container: "{{ nodebb_redis_backup_azure_container_name }}"
-   
+    artifacts_container: "{{ backup_bucket }}/{{ redis_backup_folder }}/{{redis_backup_name}}"
+    artifact_path: "{{redis_backup_dir}}"
+    artifact: "{{redis_backup_file_name}}"
+    service_account: "{{ gcp_backups_service_account }}"
+
 - name: clean up backup dir after upload
   file: path={{ redis_backup_dir }} state=absent
 

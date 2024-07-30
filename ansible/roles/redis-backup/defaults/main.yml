@@ -1,3 +1,4 @@
 redis_backup_dir: /tmp/redis-backup
 nodebb_redis_backup_azure_container_name: nodebb-redis-backup
 learner_user: learning
+redis_backup_folder: neo4j-backup-{{ ansible_host }}
