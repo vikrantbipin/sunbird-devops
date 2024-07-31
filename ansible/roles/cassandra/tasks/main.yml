@@ -95,8 +95,8 @@
     force: yes
 
 - name: Force systemd to reread configs
-  systemd: daemon_reload=yes    
-    
+  systemd: daemon_reload=yes
+
 - name: Restart Cassandra seeds
   service:
     name: cassandra
