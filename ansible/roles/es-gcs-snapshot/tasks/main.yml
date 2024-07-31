@@ -38,5 +38,5 @@
     body_format: json
   register: result
   until: result.json.snapshots[0].state == 'SUCCESS'
-  retries: 240
-  delay: 30
+  retries: 720
+  delay: 60
