@@ -89,3 +89,13 @@ sb.search.service.host=http://search-service:9000
 sb.composite.v4.search=/v4/search
 playlist_course_facets=courseCategory,primaryCategory
 
+knowledge.mv.service=http://knowledge-mw-service:5000/
+odcs.term.create=v1/framework/term/create
+odcs.category.fields=identifier,code,name,description,refId,refType
+odcs.framework.create=v1/framework/create
+odcs.framework.read=v1/framework/read
+odcs.designation.term.read=v1/framework/term/read
+framework.copy=v1/framework/copy
+framework.publish=v1/framework/publish
+kafka.topic.framework.create={{env}}.framework.create
+kafka.topic.framework.create.group=framework.create.group

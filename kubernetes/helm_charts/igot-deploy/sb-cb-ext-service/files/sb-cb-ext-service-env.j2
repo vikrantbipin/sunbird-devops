@@ -402,17 +402,19 @@ domain.url=https://{{ domain_name }}/
 payload.to.redis.key.mapping='{"TOP":"dashboard_top_10_courses_by_completion_by_course_org","FEATURED":"featured"}'
 
 organisation.insights.fields={{ organisation_insights_fields }}
-organisation.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#000000","linebreak":"true","background":"banner-metrics","iconColor": "#FFFFFF"}
-organisation.insights.redis.key.mapping={"Average Course Rating":"dashboard_content_average_rating_by_course_org","Content Available":"dashboard_live_content_count_by_course_org","Enrolments So Far":"dashboard_enrolment_content_by_course_org","Certificates Issued So Far":"dashboard_certificates_generated_count_by_course_org"}
-
+organisation.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#000000","linebreak":"true","background":"banner-metrics","iconColor": "#FFFFFF","iconBackgroupColorV2": "#FFFFFF","labelColorV2": "#FFFFFF","valueColorV2": "#F3962F","valueColorMobV2": "#FFFFFF","backgroundV2": "#1B4CA1"}
+organisation.insights.redis.key.mapping={"Courses Available":"dashboard_live_course_moderated_course_count_by_course_org", "Course Enrolments":"dashboard_course_moderated_course_enrolment_count_by_course_org", "Course Completions":"dashboard_course_moderated_course_certificates_generated_count_by_course_org", "Average Course Rating":"dashboard_course_moderated_course_average_rating_by_course_org"}
 cloud.public.store.container.name={{ sbworkflow_cloud_storage_content_bucketname }}
 
 user.bulk.upload.gender.value=Male,Female,Others
-user.bulk.upload.category.value=General,OBC,SC,ST
+user.bulk.upload.category.value=General,OBC,SC,ST,EWS
 
 insights.mapping.key={"PROVIDER_INSIGHT":"organisation","MDO_INSIGHT":"mdo"}
 mdo.insights.fields={{ mdo_insights_fields }}
 mdo.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#FFFFFF","linebreak":"false","background": "#1B4CA1","iconColor": "#FFFFFF"}
-mdo.insights.redis.key.mapping={"Total Users":"dashboard_user_count_by_user_org","Certificates":"dashboard_certificates_generated_count_by_user_org","Enrolments":"dashboard_enrolment_content_by_user_org","Content Published":"dashboard_live_content_count_by_course_org","24hr Login":"dashboard_login_percent_last_24_hrs_by_user_org"}
+mdo.insights.redis.key.mapping={"Total Users":"dashboard_rolled_up_user_count", "Daily Logins":"dashboard_rolled_up_login_percent_last_24_hrs", "Certificates":"dashboard_rolled_up_certificates_generated_count", "Enrolments":"dashboard_rolled_up_enrolment_content_count"}
 spring.servlet.multipart.max-file-size=100MB
 spring.servlet.multipart.max-request-size=100MB
+#SearchService
+sb.search.service.host=http://search-service:9000
+sb.composite.v4.search=/v4/search
