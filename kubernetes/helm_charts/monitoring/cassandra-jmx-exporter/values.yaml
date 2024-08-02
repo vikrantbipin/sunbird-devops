@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: sunbird/cassandra_jmx_exporter
+  repository: criteord/cassandra_exporter:2.3
   pullPolicy: IfNotPresent
   imageTag: 0.11
 
@@ -97,3 +97,6 @@ serviceMonitor:
   labels: # labels with which the prometheus choose the serviceMonitor
     app: monitoring
     release: prometheus-operator
+
+cassandra_host: "1.2.3.4"
+cassandra_port: "7199"
