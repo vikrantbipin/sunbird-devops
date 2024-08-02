@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: criteord/cassandra_exporter:2.3
+  repository: criteord/cassandra_exporter
   pullPolicy: IfNotPresent
-  imageTag: 0.11
+  imageTag: 2.3
 
 imagePullSecrets: []
 nameOverride: ""
@@ -33,16 +33,16 @@ securityContext: {}
   # runAsUser: 1000
 
 ports:
-  - containerPort: 5556
+  - containerPort: 8080
     name: http
     protocol: TCP
 
 service:
   type: ClusterIP
   ports:
-    - port: 5556
+    - port: 8080
       name: http
-      targetPort: 5556
+      targetPort: 8080
 
 ingress:
   enabled: false
@@ -63,10 +63,10 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   requests:
-    cpu: 50m
+    cpu: 0.25
     memory: 128Mi
   limits:
-    cpu: 100m
+    cpu: 0.5
     memory: 256Mi
 
 nodeSelector: {}
@@ -74,22 +74,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-# Config map values for jmx http server
-configMapValuesJmxHttpServer:
-  hostPort: '"11.2.3.63:7199,11.2.3.64:7199,11.2.3.66:7199:7199"' # In private this should be an asible variable
-  username:
-  password:
-  # Following values should be in '' because of go templating.
-  whitelistObjectNames: '["org.apache.cassandra.metrics:type=Keyspace,name=CasProposeLatency,*"]'
-  blacklistObjectNames: '["org.apache.cassandra.metrics:type=ColumnFamily,*"]'
-
-# Configmap for cassandra exporter logger properties
-configMpapValuesLoggingProperties:
-  handlers: java.util.logging.ConsoleHandler
-  java.util.logging.ConsoleHandler.level: INFO
-  io.prometheus.jmx.level: INFO
-  io.prometheus.jmx.shaded.io.prometheus.jmx.level: INFO
 
 # This section will create service monitor for prometheus operator
 serviceMonitor:

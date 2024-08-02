@@ -22,13 +22,6 @@ spec:
       serviceAccountName: {{ include "cassandra-jmx-exporter.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      volumes:
-        - name: logging-properties
-          configMap:
-            name: {{ include "cassandra-jmx-exporter.name" . }}-logging-properties
-        - name: jmx-httpserver
-          configMap:
-            name: {{ include "cassandra-jmx-exporter.name" . }}-jmx-httpserver
       containers:
         - name: {{ .Chart.Name }}
           env:
@@ -38,13 +31,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.imageTag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-            - mountPath: /opt/app/jmx_httpserver.yml
-              subPath: jmx_httpserver.yml
-              name: jmx-httpserver
-            - mountPath: /opt/app/logging.properties
-              subPath: logging.properties
-              name: logging-properties
           ports:
             {{- toYaml .Values.ports | nindent 12 }}
           resources:

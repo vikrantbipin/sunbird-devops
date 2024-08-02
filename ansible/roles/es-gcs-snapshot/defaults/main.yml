@@ -11,5 +11,5 @@ snapshot_create_request_body: {
 # Override these values
 snapshot_base_path: "default"
 es_gcs_backup_folder_name: "elasticsearch-snapshots-{{ ansible_host }}"
-gcs_connect_timeout: 300s
-gcs_read_timeout: 300s
+gcs_connect_timeout: 1800s
+gcs_read_timeout: 1800s
