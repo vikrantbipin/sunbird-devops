@@ -31,6 +31,9 @@ spec:
             name: {{ include "cassandra-jmx-exporter.name" . }}-jmx-httpserver
       containers:
         - name: {{ .Chart.Name }}
+          env:
+            - name: CASSANDRA_EXPORTER_CONFIG_host
+              value: {{ .Values.cassandra_host }}:{{ .Values.cassandra_port }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.imageTag }}"

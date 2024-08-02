@@ -2,10 +2,14 @@ snapshot_create_request_body: {
     type: gcs,
     settings: {
       bucket: "{{ gcs_management_bucket_name }}",
-      base_path: "{{ es_gcs_backup_folder_name }}/{{ snapshot_base_path }}_{{ base_path_date }}"
+      base_path: "{{ es_gcs_backup_folder_name }}/{{ snapshot_base_path }}_{{ base_path_date }}",
+      connect_timeout: "{{gcs_connect_timeout}}",
+      read_timeout: "{{gcs_read_timeout}}"
     }
 }
 
 # Override these values
 snapshot_base_path: "default"
 es_gcs_backup_folder_name: "elasticsearch-snapshots-{{ ansible_host }}"
+gcs_connect_timeout: 300s
+gcs_read_timeout: 300s

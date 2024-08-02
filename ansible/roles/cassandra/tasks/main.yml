@@ -5,7 +5,7 @@
 - name: add entry in hosts file
   become: yes
   lineinfile:
-    line: "127.0.0.1 {{hostnameOfCql.stdout}}"
+    line: "{{ansible_default_ipv4.address}} {{hostnameOfCql.stdout}}"
     path: /etc/hosts
 
 - name: debian | Adding Cassandra Debian Repo Key
