@@ -4,12 +4,18 @@ snapshot_create_request_body: {
       bucket: "{{ gcs_management_bucket_name }}",
       base_path: "{{ es_gcs_backup_folder_name }}/{{ snapshot_base_path }}_{{ base_path_date }}",
       connect_timeout: "{{gcs_connect_timeout}}",
-      read_timeout: "{{gcs_read_timeout}}"
+      read_timeout: "{{gcs_read_timeout}}",
+      compress: "{{compress_snapshot}}",
+      max_snapshot_bytes_per_sec: "{{snapshot_bytes_per_sec}}",
+      max_restore_bytes_per_sec: "{{restore_bytes_per_sec}}"
     }
 }
 
 # Override these values
 snapshot_base_path: "default"
 es_gcs_backup_folder_name: "elasticsearch-snapshots-{{ ansible_host }}"
-gcs_connect_timeout: 1800s
-gcs_read_timeout: 1800s
+gcs_connect_timeout: 3600s
+gcs_read_timeout: 3600s
+snapshot_bytes_per_sec: 500mb
+restore_bytes_per_sec: 500mb
+compress_snapshot: true
