@@ -16,6 +16,6 @@ snapshot_base_path: "default"
 es_gcs_backup_folder_name: "elasticsearch-snapshots-{{ ansible_host }}"
 gcs_connect_timeout: 3600s
 gcs_read_timeout: 3600s
-snapshot_bytes_per_sec: 500mb
-restore_bytes_per_sec: 500mb
+snapshot_bytes_per_sec: 1gb
+restore_bytes_per_sec: 1gb
 compress_snapshot: true
