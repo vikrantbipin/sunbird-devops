@@ -123,9 +123,15 @@ announcement_prefix: /announcements
 cios_prefix: /cios
 ciosIntegration_prefix: /ciosIntegration
 tenders_prefix: /tenders
-mentoring_prefix : /private/mentoring
-mentoring_user_prefix : /private/mentoringUser
-mentoring_interface_prefix : /private/mentoringInterface
+mentoring_prefix : /mentoring
+mentoring_interface_prefix : /interface
+external_enrollment_prefix: /cios-enroll
+designation_prefix : /designation
+comp_area_prefix : /competencyArea
+comp_theme_prefix : /competencyTheme
+comp_sub_theme_prefix : /competencySubTheme
+org_prefix : /org
+contentpartner_prefix: /contentpartner
 
 
 # Service URLs
@@ -167,7 +173,8 @@ ml_survey_private_url: "http://{{private_ingressgateway_ip}}/ml-survey"
 ml_core_private_url:  "http://{{private_ingressgateway_ip}}/ml-core"
 cb_pores_service_url : "http://cb-pores-service:7001"
 cios_content_service_url : "http://cios-content-service:7001"
-mentoring_service_url: "http://mentoring-interface-service:3567"
+mentoring_interface_service_url: "http://mentoring-interface-service:3567"
+cb_external_enrollment_service_url: "http://cb-enrollment-service:7002"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -13971,29 +13978,10 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: profileDetails
-    uris: "{{ mentoring_user_prefix }}/v1/user/read/"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/user/read/"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceMentee'
-          - 'mentorServiceMentor'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-    
+ 
   - name: mentorProfileDetails
-    uris: "{{ mentoring_prefix }}/v1/mentors/profile/"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/profile/"
+    uris: "{{ mentoring_prefix }}/v1/mentors/profile"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/profile"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14010,9 +13998,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: menteeProfileDetails
-    uris: "{{ mentoring_prefix }}/v1/mentors/profile/"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/users/list"
+  - name: mentoringUsersList
+    uris: "{{ mentoring_prefix }}/v1/users/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/users/list"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14022,24 +14010,6 @@ kong_apis:
         config.whitelist:
           - 'mentorServiceMentee'
           - 'mentorServiceMentor'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: fileCloudUpload
-    uris: "{{ mentoring_user_prefix }}/v1/cloud-services/file/upload"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/cloud-services/file/upload"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'     
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -14049,7 +14019,7 @@ kong_apis:
 
   - name: menteeSessions
     uris: "{{ mentoring_prefix }}/v1/mentees/sessions"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentees/sessions"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/sessions"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14067,27 +14037,8 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: homeFeeds
-    uris: "{{ mentoring_prefix }}/v1/mentees/sessions"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentees/homeFeed"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceMentee'
-          - 'mentorServiceMentor'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: getSignedUrl
-    uris: "{{ mentoring_user_prefix }}/v1/cloud-services/file"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/cloud-services/file"
+    uris: "{{ mentoring_prefix }}/v1/mentees/homeFeed"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/homeFeed"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14107,7 +14058,7 @@ kong_apis:
 
   - name: uploadFile
     uris: "{{ mentoring_prefix }}/v1/cloud-services/getSignedUrl"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/cloud-services/getSignedUrl"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/cloud-services/getSignedUrl"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14126,7 +14077,7 @@ kong_apis:
 
   - name: feedbackSubmit
     uris: "{{ mentoring_prefix }}/v1/feedback/submit"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/feedback/submit"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/feedback/submit"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14145,7 +14096,7 @@ kong_apis:
 
   - name: upcomingSessions
     uris: "{{ mentoring_prefix }}/v1/mentors/upcomingSessions"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/upcomingSessions"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/upcomingSessions"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14165,7 +14116,7 @@ kong_apis:
 
   - name: shareMentorProfile
     uris: "{{ mentoring_prefix }}/v1/mentors/share"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/share"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/share"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14184,7 +14135,7 @@ kong_apis:
 
   - name: reportIssue
     uris: "{{ mentoring_prefix }}/v1/issues/create"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/issues/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/issues/create"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14203,7 +14154,7 @@ kong_apis:
 
   - name: mentorProfileRead
     uris: "{{ mentoring_prefix }}/v1/profile/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/profile/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/interface/v1/profile/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14223,7 +14174,7 @@ kong_apis:
 
   - name: createdSessions
     uris: "{{ mentoring_prefix }}/v1/mentors/createdSessions"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/createdSessions"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/createdSessions"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14241,28 +14192,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: mentorsList
-    uris: "{{ mentoring_prefix }}/v1/mentors/list"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/list"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceMentor'
-          - 'mentorServiceOrgAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
   - name: mentorProfileDetailsv1
     uris: "{{ mentoring_prefix }}/v1/mentors/details"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/details"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/details"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14281,7 +14213,7 @@ kong_apis:
 
   - name: formRead
     uris: "{{ mentoring_prefix }}/v1/form/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/form/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/form/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14302,7 +14234,7 @@ kong_apis:
   
   - name: sessionCreate
     uris: "{{ mentoring_prefix }}/v1/sessions/update"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14319,10 +14251,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-
   - name: sessionList
     uris: "{{ mentoring_prefix }}/v1/sessions/list"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/list"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14342,7 +14273,7 @@ kong_apis:
   
   - name: sessionDetails
     uris: "{{ mentoring_prefix }}/v1/sessions/details"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/details"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/details"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14361,7 +14292,7 @@ kong_apis:
 
   - name: shareSession
     uris: "{{ mentoring_prefix }}/v1/sessions/share"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/share"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/share"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14381,7 +14312,7 @@ kong_apis:
 
   - name: sessionEnroll
     uris: "{{ mentoring_prefix }}/v1/sessions/enroll"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/enroll"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/enroll"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14400,7 +14331,7 @@ kong_apis:
 
   - name: sessionsUnEnroll
     uris: "{{ mentoring_prefix }}/v1/sessions/unEnroll"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/unEnroll"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/unEnroll"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14418,7 +14349,7 @@ kong_apis:
   
   - name: sessionStart
     uris: "{{ mentoring_prefix }}/v1/sessions/start"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/start"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/start"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14438,7 +14369,7 @@ kong_apis:
 
   - name: joinSession
     uris: "{{ mentoring_prefix }}/v1/mentees/joinSession"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentees/joinSession"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/joinSession"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14457,7 +14388,7 @@ kong_apis:
 
   - name: mentorsReport
     uris: "{{ mentoring_prefix }}/v1/mentors/reports"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/reports"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/reports"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14475,7 +14406,7 @@ kong_apis:
   
   - name: menteeReport
     uris: "{{ mentoring_prefix }}/v1/mentees/reports"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentees/reports"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/reports"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14493,7 +14424,7 @@ kong_apis:
 
   - name: questionsSetRead
     uris: "{{ mentoring_prefix }}/v1/questionsSet/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questionsSet/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/questionsSet/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14515,7 +14446,7 @@ kong_apis:
 
   - name: questionsRead
     uris: "{{ mentoring_prefix }}/v1/questions/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questions/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/questions/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14537,7 +14468,7 @@ kong_apis:
     
   - name: entityTypeRead
     uris: "{{ mentoring_interface_prefix }}/v1/entity-type/read"
-    upstream_url: "{{ mentoring_service_url }}/interface/v1/entity-type/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/interface/v1/entity-type/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14556,7 +14487,7 @@ kong_apis:
 
   - name: mentorEntityTypeRead
     uris: "{{ mentoring_prefix }}/v1/entity-type/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/entity-type/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity-type/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14574,29 +14505,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
     
-
-  - name: listOfOrgRoles
-    uris: "{{ mentoring_user_prefix }}/v1/user-role/list"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/user-role/list"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceOrgAdmin'  
-          - 'mentorServiceSysAdmin'     
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
   - name: menteeList
     uris: "{{ mentoring_prefix }}/v1/mentees/list"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentees/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/list"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14615,7 +14526,7 @@ kong_apis:
 
   - name: mentorList
     uris: "{{ mentoring_prefix }}/v1/mentors/list"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/mentors/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/list"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14635,7 +14546,7 @@ kong_apis:
 
   - name: enrolledMenteesList
     uris: "{{ mentoring_prefix }}/v1/sessions/enrolledMentees"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/sessions/enrolledMentees"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/enrolledMentees"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14654,7 +14565,7 @@ kong_apis:
 
   - name: platformConfig
     uris: "{{ mentoring_prefix }}/v1/platform/config"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/platform/config"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/platform/config"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14674,46 +14585,7 @@ kong_apis:
 
   - name: entityTypeCreate
     uris: "{{ mentoring_prefix }}/v1/entity-type/create"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/entity-type/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceOrgAdmin'  
-          - 'mentorServiceSysAdmin'     
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: entityTypeCreateUser
-    uris: "{{ mentoring_user_prefix }}/v1/entity-type/create"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/entity-type/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceOrgAdmin'  
-          - 'mentorServiceSysAdmin'     
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-
-  - name: entityTypeUpdateUser
-    uris: "{{ mentoring_user_prefix }}/v1/entity-type/update"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/entity-type/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity-type/create"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14731,8 +14603,8 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: entityTypeUpdate
-    uris: "{{ mentoring_prefix }}/v1/entity-type/create"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/entity-type/create"
+    uris: "{{ mentoring_prefix }}/v1/entity-type/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity-type/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14751,7 +14623,7 @@ kong_apis:
 
   - name: toChangeUserRole
     uris: "{{ mentoring_prefix }}/v1/org-admin/roleChange"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/org-admin/roleChange"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/roleChange"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14770,7 +14642,7 @@ kong_apis:
 
   - name: getOrgPolicy
     uris: "{{ mentoring_prefix }}/v1/org-admin/getOrgPolicies"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/org-admin/getOrgPolicies"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/getOrgPolicies"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14791,7 +14663,7 @@ kong_apis:
 
   - name: setReleateOrganisation
     uris: "{{ mentoring_prefix }}/v1/org-admin/updateRelatedOrgs"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/org-admin/updateRelatedOrgs"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/updateRelatedOrgs"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14808,8 +14680,8 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: setOrgPolicy
-    uris: "{{ mentoring_prefix }}/v1/org-admin/setOrgPoliciessetOrgPolicies"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/org-admin/setOrgPoliciessetOrgPolicies"
+    uris: "{{ mentoring_prefix }}/v1/org-admin/setOrgPolicies"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/setOrgPolicies"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14827,7 +14699,7 @@ kong_apis:
 
   - name: updateSampleCsv
     uris: "{{ mentoring_prefix }}/v1/org-admin/uploadSampleCSV"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/org-admin/uploadSampleCSV"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/uploadSampleCSV"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14843,46 +14715,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: createUserServiceForm
-    uris: "{{ mentoring_user_prefix }}/v1/form/create"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/form/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
   - name: createMentorServiceForm
     uris: "{{ mentoring_prefix }}/v1/form/create"
-    upstream_url: "{{ mentoring_service_url }}/mentor/v1/form/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-
-  - name: updateUserServiceForm
-    uris: "{{ mentoring_user_prefix }}/v1/form/update"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/form/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/form/create"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14900,7 +14735,7 @@ kong_apis:
 
   - name: updateMentorServiceForm
     uris: "{{ mentoring_prefix }}/v1/form/update"
-    upstream_url: "{{ mentoring_service_url }}/mentor/v1/form/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/form/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -14909,153 +14744,6 @@ kong_apis:
       - name: acl
         config.whitelist:
           - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: adminAccountCreate
-    uris: "{{ mentoring_user_prefix }}/v1/admin/create"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/admin/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: adminAccountLogin
-    uris: "{{ mentoring_user_prefix }}/v1/admin/login"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/admin/login"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-
-  - name: addOrgAdmin
-    uris: "{{ mentoring_user_prefix }}/v1/admin/addOrgAdmin"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/admin/addOrgAdmin"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: deactivateOrg
-    uris: "{{ mentoring_user_prefix }}/v1/admin/deactivateOrg"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/admin/deactivateOrg"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-
-  - name: orgCreate
-    uris: "{{ mentoring_user_prefix }}/v1/organization/create"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/organization/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: updateOrg
-    uris: "{{ mentoring_user_prefix }}/v1/organization/update"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/organization/update"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceOrgAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: orgList
-    uris: "{{ mentoring_user_prefix }}/v1/organization/list"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/organization/list"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceMentor'
-          - 'mentorServiceMentee'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: requestOrgRole
-    uris: "{{ mentoring_user_prefix }}/v1/organization/requestOrgRole"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/organization/requestOrgRole"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceOrgAdmin'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -15065,7 +14753,7 @@ kong_apis:
 
   - name:  buildorrebuildMaterializedviewsInternal
     uris: "{{ mentoring_prefix }}/v1/admin/triggerViewRebuildInternal"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/admin/triggerViewRebuildInternal"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/triggerViewRebuildInternal"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15083,7 +14771,7 @@ kong_apis:
   
   - name:  buildorrebuildMaterializedviews
     uris: "{{ mentoring_prefix }}/v1/admin/triggerViewRebuild"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/admin/triggerViewRebuild"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/triggerViewRebuild"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15099,10 +14787,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-
-  - name:  buildorrebuildMaterializedviewsUserInternal
-    uris: "{{ mentoring_user_prefix }}/v1/admin/triggerViewRebuildInternal"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/admin/triggerViewRebuildInternal"
+  - name:  mentoringProfileFilterList
+    uris: "{{ mentoring_prefix }}/v1/profile/filterList"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/profile/filterList"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15111,6 +14798,1124 @@ kong_apis:
       - name: acl
         config.whitelist:
           - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringEntityCreate
+    uris: "{{ mentoring_prefix }}/v1/entity/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringEntityRead
+    uris: "{{ mentoring_prefix }}/v1/entity/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringEntityUpdate
+    uris: "{{ mentoring_prefix }}/v1/entity/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringEntityDelete
+    uris: "{{ mentoring_prefix }}/v1/entity/delete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: entityTypeDelete
+    uris: "{{ mentoring_prefix }}/v1/entity-type/delete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity-type/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'  
+          - 'mentorServiceSysAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: seesionFeedBack
+    uris: "{{ mentoring_prefix }}/v1/sessions/feedback"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/feedback"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: seesionUpdateRecordingUrl
+    uris: "{{ mentoring_prefix }}/v1/sessions/updateRecordingUrl"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/updateRecordingUrl"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: seesionsCompleted
+    uris: "{{ mentoring_prefix }}/v1/sessions/completed"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/completed"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: menteesProfile
+    uris: "{{ mentoring_prefix }}/v1/mentees/profile"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/profile"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: menteesCreate
+    uris: "{{ mentoring_prefix }}/v1/mentees/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: menteesUpdate
+    uris: "{{ mentoring_prefix }}/v1/mentees/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: menteesGetExtension
+    uris: "{{ mentoring_prefix }}/v1/mentees/getMenteeExtension"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/getMenteeExtension"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: deleteMenteesExtension
+    uris: "{{ mentoring_prefix }}/v1/mentees/deleteMenteeExtension"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentees/deleteMenteeExtension"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentorsCreate
+    uris: "{{ mentoring_prefix }}/v1/mentors/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentorsUpdate
+    uris: "{{ mentoring_prefix }}/v1/mentors/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentorsGetExtension
+    uris: "{{ mentoring_prefix }}/v1/mentors/getMentorExtension"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/getMentorExtension"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: deleteMentorExtension
+    uris: "{{ mentoring_prefix }}/v1/mentors/deleteMentorExtension"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/deleteMentorExtension"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringfeedbackForms
+    uris: "{{ mentoring_prefix }}/v1/feedback/forms"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/feedback/forms"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringQuestionsCreate
+    uris: "{{ mentoring_prefix }}/v1/questions/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/questions/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringQuestionsUpdate
+    uris: "{{ mentoring_prefix }}/v1/questions/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/questions/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringQuestionsSetCreate
+    uris: "{{ mentoring_prefix }}/v1/question-set/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/question-set/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringQuestionsSetUpdate
+    uris: "{{ mentoring_prefix }}/v1/question-set/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/question-set/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringQuestionsSetRead
+    uris: "{{ mentoring_prefix }}/v1/question-set/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/question-set/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringUsersPendingFeedbacks
+    uris: "{{ mentoring_prefix }}/v1/users/pendingFeedbacks"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/users/pendingFeedbacks"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringAdmingUserDelete
+    uris: "{{ mentoring_prefix }}/v1/admin/userDelete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/userDelete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringRolePermissionList
+    uris: "{{ mentoring_prefix }}/v1/role-permission-mapping/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/role-permission-mapping/list"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringInheritEntityType
+    uris: "{{ mentoring_prefix }}/v1/org-admin/inheritEntityType"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/inheritEntityType"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin'     
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringDownloadCloudFile
+    uris: "{{ mentoring_prefix }}/v1/cloud-services/getDownloadableUrl"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/cloud-services/getDownloadableUrl"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: triggerPeriodicViewRefresh
+    uris: "{{ mentoring_prefix }}/v1/admin/triggerPeriodicViewRefresh"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/triggerPeriodicViewRefresh"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: triggerViewRebuild
+    uris: "{{ mentoring_prefix }}/v1/admin/triggerViewRebuild"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/triggerViewRebuild"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: triggerPeriodicViewRefreshInternal
+    uris: "{{ mentoring_prefix }}/v1/admin/triggerPeriodicViewRefreshInternal"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/triggerPeriodicViewRefreshInternal"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: triggerViewRebuildInternal
+    uris: "{{ mentoring_prefix }}/v1/admin/triggerViewRebuildInternal"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/admin/triggerViewRebuildInternal"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringNotificationTemplate
+    uris: "{{ mentoring_prefix }}/v1/notification/template"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/notification/template"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringUpdateOrganization
+    uris: "{{ mentoring_prefix }}/v1/org-admin/updateOrganization"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/org-admin/updateOrganization"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringPermissionsCreate
+    uris: "{{ mentoring_prefix }}/v1/permissions/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/permissions/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringPermissionsUpdate
+    uris: "{{ mentoring_prefix }}/v1/permissions/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/permissions/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringPermissionsList
+    uris: "{{ mentoring_prefix }}/v1/permissions/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/permissions/list"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringPermissionsDelete
+    uris: "{{ mentoring_prefix }}/v1/permissions/delete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/permissions/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringModulesCreate
+    uris: "{{ mentoring_prefix }}/v1/modules/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/modules/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringModulesUpdate
+    uris: "{{ mentoring_prefix }}/v1/modules/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/modules/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringModulesList
+    uris: "{{ mentoring_prefix }}/v1/modules/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/modules/list"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringModulesDelete
+    uris: "{{ mentoring_prefix }}/v1/modules/delete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/modules/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringRolePermissionMappingCreate
+    uris: "{{ mentoring_prefix }}/v1/role-permission-mapping/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/role-permission-mapping/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringRolePermissionMappingDelete
+    uris: "{{ mentoring_prefix }}/v1/role-permission-mapping/delete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/role-permission-mapping/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringbulkSessionCreate
+    uris: "{{ mentoring_prefix }}/v1/sessions/bulkSessionCreate"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/bulkSessionCreate"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringSessionSampleCSV
+    uris: "{{ mentoring_prefix }}/v1/sessions/getSampleCSV"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/getSampleCSV"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"    
+
+  - name: mentoringOrganizationUpdate
+    uris: "{{ mentoring_prefix }}/v1/organization/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/organization/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"     
+
+  - name: mentoringOrganizationEventListner
+    uris: "{{ mentoring_prefix }}/v1/organization/eventListener"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/organization/eventListener"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: mentoringCreatedSessions
+    uris: "{{ mentoring_prefix }}/v1/manage-sessions/createdSessions"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/manage-sessions/createdSessions"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: mentoringDownloadSessions
+    uris: "{{ mentoring_prefix }}/v1/manage-sessions/downloadSessions"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/manage-sessions/downloadSessions"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: mentoringSessionsAddMentees
+    uris: "{{ mentoring_prefix }}/v1/sessions/addMentees"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/addMentees"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: mentoringSessionsRemoveMentees
+    uris: "{{ mentoring_prefix }}/v1/sessions/removeMentees"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/removeMentees"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: mentoringBulkUpdateMentorNames
+    uris: "{{ mentoring_prefix }}/v1/sessions/bulkUpdateMentorNames"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/sessions/bulkUpdateMentorNames"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: ciosProgressExcel
+    uris: "{{ ciosIntegration_prefix }}/v1/loadContentProgressFromExcel"
+    upstream_url: "{{ cios_content_service_url }}/ciosIntegration/v1/loadContentProgressFromExcel"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: privateUserCourseEnrollmentList
+    uris: "{{ course_service_prefix }}/private/v3/user/enrollment/list"
+    upstream_url: "{{ lms_service_url }}/private/v3/user/courses/list"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'courseAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: approvedEmailDomains
+    uris: "{{ user_service_prefix }}/v1/email/approvedDomains"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/email/approved/domains"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'courseAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: extEnrollmentCreate
+    uris: "{{ external_enrollment_prefix }}/v1/create"
+    upstream_url: "{{ cb_external_enrollment_service_url }}/cios-enroll/v1/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'courseAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: extEnrollmentReadByUserId
+    uris: "{{ external_enrollment_prefix }}/v1/courselist/byuserid"
+    upstream_url: "{{ cb_external_enrollment_service_url }}/cios-enroll/v1/courselist/byuserid"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'courseAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: extEnrollmentReadByUserIdAndCourseId
+    uris: "{{ external_enrollment_prefix }}/v1/readby/useridcourseid"
+    upstream_url: "{{ cb_external_enrollment_service_url }}/cios-enroll/v1/readby/useridcourseid"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'courseAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: designationList
+    uris: "{{ designation_prefix }}/search"
+    upstream_url: "{{ cb_pores_service_url }}/designation/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -15118,9 +15923,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
   
-  - name:  buildorrebuildMaterializedviewsUser
-    uris: "{{ mentoring_user_prefix }}/v1/admin/triggerViewRebuild"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/admin/triggerViewRebuild"
+  - name: designationCreate
+    uris: "{{ designation_prefix }}/create"
+    upstream_url: "{{ cb_pores_service_url }}/designation/create"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15128,7 +15933,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'mentorServiceSysAdmin'
+          - 'contentCreate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -15136,9 +15941,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name:  deleteEnityUser
-    uris: "{{ mentoring_user_prefix }}/v1/entity-type/delete"
-    upstream_url: "{{ mentoring_service_url }}/user/v1/entity-type/delete"
+  - name: designationUpdate
+    uris: "{{ designation_prefix }}/update"
+    upstream_url: "{{ cb_pores_service_url }}/designation/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15146,17 +15951,17 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'mentorServiceOrgAdmin'
+          - 'contentUpdate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name:  deleteEnity
-    uris: "{{ mentoring_prefix }}/v1/entity-type/delete"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/entity-type/delete"
+        
+  - name: designationDelete
+    uris: "{{ designation_prefix }}/delete"
+    upstream_url: "{{ cb_pores_service_url }}/designation/delete"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15164,7 +15969,7 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'mentorServiceOrgAdmin'
+          - 'contentUpdate'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -15172,118 +15977,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name:  questionsSetCreate
-    uris: "{{ mentoring_prefix }}/v1/questionsSet/create"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questionsSet/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name:  questionsSetUpdate
-    uris: "{{ mentoring_prefix }}/v1/questionsSet/update"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questionsSet/update"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name:  questionsSetReadv1
-    uris: "{{ mentoring_prefix }}/v1/questionsSet/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questionsSet/read"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name:  questionRead
-    uris: "{{ mentoring_prefix }}/v1/questionsSet/read"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questions/read"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-
-  - name:  questionCreate
-    uris: "{{ mentoring_prefix }}/v1/questionsSet/create"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questions/create"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name:  questionUpdate
-    uris: "{{ mentoring_prefix }}/v1/questionsSet/update"
-    upstream_url: "{{ mentoring_service_url }}/mentoring/v1/questions/update"
-    strip_uri: true
-    plugins:
-      - name: jwt
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: acl
-        config.whitelist:
-          - 'mentorServiceSysAdmin'
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
-      
-  - name: exploreCourseCreate
-    uris: "{{ course_service_prefix }}/v1/explore/upsert"
-    upstream_url: "{{ sb_cb_ext_service_url }}/course/v1/explore/upsert"
+  - name: designationRead
+    uris: "{{ designation_prefix }}/read"
+    upstream_url: "{{ cb_pores_service_url }}/designation/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15299,9 +15995,28 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: exploreCourseDelete
-    uris: "{{ course_service_prefix }}/v1/explore/delete"
-    upstream_url: "{{ sb_cb_ext_service_url }}/course/v1/explore/delete"
+  - name: designationUpload
+    uris: "{{ designation_prefix }}/upload"
+    upstream_url: "{{ cb_pores_service_url }}/designation/upload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'orgSuperAdmin'
+          - 'orgAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyAreaList
+    uris: "{{ comp_area_prefix }}/search"
+    upstream_url: "{{ cb_pores_service_url }}/competencyArea/search"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15317,9 +16032,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: externalMentoringCreate
-    uris: "{{ mentoring_interface_prefix }}/v1/external/create"
-    upstream_url: "{{ mentoring_service_url }}/interface/v1/external/create"
+  - name: competencyAreaUpload
+    uris: "{{ comp_area_prefix }}/upload"
+    upstream_url: "{{ cb_pores_service_url }}/competencyArea/upload"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15327,8 +16042,8 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'mentorServiceMentee'  
-          - 'mentorServiceMentor'     
+          - 'orgSuperAdmin'
+          - 'orgAdmin'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -15336,9 +16051,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: pendingRequestCSVDwonload
-    uris: "{{ workflow_handler_service_prefix }}/admin/pending/request"
-    upstream_url: "{{ workflow_handler_service_url }}/v1/workflow/admin/pendingRequest/download/"
+  - name: competencyThemeList
+    uris: "{{ comp_theme_prefix }}/search"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/search"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15346,17 +16061,17 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-           - 'dataAccess'
+          - 'contentAccess'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-   
-  - name: externalMentoringUpdate
-    uris: "{{ mentoring_interface_prefix }}/v1/external/update"
-    upstream_url: "{{ mentoring_service_url }}/interface/v1/external/update"
+
+  - name: competencyThemeUpload
+    uris: "{{ comp_theme_prefix }}/upload"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/upload"
     strip_uri: true
     plugins:
       - name: jwt
@@ -15364,11 +16079,537 @@ kong_apis:
       - "{{ statsd_pulgin }}"
       - name: acl
         config.whitelist:
-          - 'mentorServiceMentee'  
-          - 'mentorServiceMentor'     
+          - 'orgSuperAdmin'
+          - 'orgAdmin'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencySubThemeList
+    uris: "{{ comp_sub_theme_prefix }}/search"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencySubThemeUpload
+    uris: "{{ comp_sub_theme_prefix }}/upload"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/upload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'orgSuperAdmin'
+          - 'orgAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyAreaCreate
+    uris: "{{ comp_area_prefix }}/create"
+    upstream_url: "{{ cb_pores_service_url }}/competencyArea/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyAreaUpdate
+    uris: "{{ comp_area_prefix }}/update"
+    upstream_url: "{{ cb_pores_service_url }}/competencyArea/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyAreaDelete
+    uris: "{{ comp_area_prefix }}/delete"
+    upstream_url: "{{ cb_pores_service_url }}/competencyArea/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyAreaRead
+    uris: "{{ comp_area_prefix }}/read"
+    upstream_url: "{{ cb_pores_service_url }}/competencyArea/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyThemeCreate
+    uris: "{{ comp_theme_prefix }}/create"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyThemeUpdate
+    uris: "{{ comp_theme_prefix }}/update"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+       
+  - name: competencyThemeDelete
+    uris: "{{ comp_theme_prefix }}/delete"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyThemeRead
+    uris: "{{ comp_theme_prefix }}/read"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: competencySubThemeCreate
+    uris: "{{ comp_sub_theme_prefix }}/create"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencySubThemeUpdate
+    uris: "{{ comp_sub_theme_prefix }}/update"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+       
+  - name: competencySubThemeDelete
+    uris: "{{ comp_sub_theme_prefix }}/delete"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencySubThemeRead
+    uris: "{{ comp_sub_theme_prefix }}/read"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: topTenlearners
+    uris: "/halloffame/top/learners"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/top/learners"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: ciosReadByExtId
+    uris: "{{ cios_prefix }}/v1/content/readby/externalid"
+    upstream_url: "{{ cb_pores_service_url }}/cios/v1/content/readby/externalid"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: designationTermCreate
+    uris: "{{ designation_prefix }}/create/term"
+    upstream_url: "{{ cb_pores_service_url }}/designation/term/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+           - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencyThemeTermCreate
+    uris: "{{ comp_theme_prefix }}/create/term"
+    upstream_url: "{{ cb_pores_service_url }}/competencyTheme/term/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: competencySubThemeTermCreate
+    uris: "{{ comp_sub_theme_prefix }}/create/term"
+    upstream_url: "{{ cb_pores_service_url }}/competencySubTheme/term/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: OrgFrameworkRead
+    uris: "{{ org_prefix }}/framework/read"
+    upstream_url: "{{ cb_pores_service_url }}/org/framework/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: mentoringEntityList
+    uris: "{{ mentoring_prefix }}/v1/entity/list"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/entity/list"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceMentee'
+          - 'mentorServiceMentor'
+          - 'mentorServiceOrgAdmin'
+          - 'mentorServiceSysAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: getBrowseByChannelCompetency
+    uris: "/v1/search/competenciesByOrg"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/competenciesByOrg"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: retireFrameworkTerm
+    uris: "{{ framework_service_prefix }}/v1/term/retire"
+    upstream_url: "{{ knowledge_mw_service_url }}/v1/framework/term/retire"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'frameworkCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: partnerCreate
+    uris: "{{ contentpartner_prefix }}/v1/create"
+    upstream_url: "{{ cb_pores_service_url }}/contentpartner/v1/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: partnerUpdate
+    uris: "{{ contentpartner_prefix }}/v1/update"
+    upstream_url: "{{ cb_pores_service_url }}/contentpartner/v1/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: partnerRead
+    uris: "{{ contentpartner_prefix }}/v1/read"
+    upstream_url: "{{ cb_pores_service_url }}/contentpartner/v1/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: partnerSearch
+    uris: "{{ contentpartner_prefix }}/v1/search"
+    upstream_url: "{{ cb_pores_service_url }}/contentpartner/v1/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: partnerDelete
+    uris: "{{ contentpartner_prefix }}/v1/delete"
+    upstream_url: "{{ cb_pores_service_url }}/contentpartner/v1/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: surveyEvidenceDownload
+    uris: "{{ cloud_service_prefix }}/mlcore/v1/files/download"
+    upstream_url: "{{ ml_core_service_url }}/v1/cloud-services/files/download"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - cloudUrlsCreate
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
