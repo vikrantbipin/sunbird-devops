@@ -1409,7 +1409,7 @@ envjs: |-
     window["env"]["resendOTPTIme"] = 180;
     window["env"]["domainName"] = 'https://{{ domain_name }}/';
     window["env"]["userBucket"] = 'content-store/user-report/';
-    window["env"]["KCMframeworkName"] = 'kcmfinal_fw';
+    window["env"]["KCMframeworkName"] = '{{mdo_kcmframeworkname}}';
     window["env"]["connectionType"] = 'online';
-    window["env"]["ODCSMasterFramework"] = 'odcs_master_fw';
+    window["env"]["ODCSMasterFramework"] = '{{mdo_odcsmasterframework}}';
  })(this);
