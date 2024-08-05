@@ -730,6 +730,7 @@ service_ml_kb_portal_service: ml-kb-portal-service
 service_cb_pores_service: cb-pores-service
 service_content_partner_provider_service: content-partner-provider
 service_cb_enrollment_service: cb-enrollment-service
+service_cios_content_service: cios-content-service
 
 # Ports
 service_bulk_upload_port: 3009
@@ -793,6 +794,7 @@ service_cb_pores_port: 7001
 service_demand_capture_port: 8080
 service_content_partner_provider_port: 8055
 service_cb_enrollment_port: 7002
+service_cios_content_port: 7001
 
 # Network alias names, so that one service can talk to another
 network_alias_content_service: private-content-service
@@ -839,6 +841,7 @@ network_alias_cb_pores_service: cb-pores-service
 network_alias_demand_capture_service: demand-capture
 network_alias_content_partner_provider_service: content-partner-provider
 network_alias_cb_enrollment_service: cb-enrollment-service
+network_alias_cios_content_service: cios-content-service
 
 # Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
 image_ui_static: ui-static
@@ -882,6 +885,7 @@ image_cb_pores_service: cb-pores-service
 image_demand_capture_service: demand-capture
 image_content_partner_provider_service: content-partner-provider
 image_cb_enrollment_service: cb-enrollment-service
+image_cios_content_service: cios-content-service
 
 #####################bulk-upload-spv#########
 host_bulk_upload: /mydata/bulk_upload
