@@ -382,7 +382,7 @@
       }
     }
   ],
-  "refresh": "5m",
+  "refresh": "30s",
   "schemaVersion": 25,
   "style": "dark",
   "tags": [],
