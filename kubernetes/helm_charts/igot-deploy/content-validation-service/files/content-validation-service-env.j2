@@ -40,3 +40,10 @@ spring.data.cassandra.password={{ cassandra_password }}
 content-service-host=http://content-service:9000/
 profanity.image.service.host=http://profanity-image-moderation/
 profanity.image.service.path=thor-igot/image/upload
+
+######Storage Details#######
+cloud.storage.type.name={{ cloud_service_provider }}
+cloud.storage.secret={{ cloud_storage_secret | replace('\n', '\\n')}}
+cloud.container.name={{ sb_cb_ext_container }}
+cloud.storage.endpoint={{ cloud_storage_endpoint }}
+cloud.storage.key={{ cloud_storage_key }}
