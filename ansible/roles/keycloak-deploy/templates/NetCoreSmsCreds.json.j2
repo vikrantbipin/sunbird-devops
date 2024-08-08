@@ -1,0 +1,20 @@
+{
+    "gatewayUrl": "{{netcore_smsgatewayurl}}",
+    "feedId": "{{netcore_feedid}}",
+    "username": "{{netcore_username}}",
+    "password": "{{netcore_password}}",
+    "short": "0",
+    "async": "0",
+    "messageTypes": [
+        {
+            "name": "{{smsname}}",
+            "message": "{{netcore_loginotp_message}}",
+            "Template_ID": "{{netcore_loginotp_template_id}}"
+        },
+        {
+            "name": "resetPasswordOtp",
+            "message": "{{netcore_resetpassword_message}}",
+            "Template_ID": "{{netcore_resetpassword_template_id}}"
+        }
+    ]
+}

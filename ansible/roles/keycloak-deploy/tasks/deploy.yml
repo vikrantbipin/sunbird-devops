@@ -139,6 +139,14 @@
   when: "{{ sms_required|default(false) }}"
   ignore_errors: true
 
+- name: SMS provider configuration file
+  template:
+    src: "roles/keycloak-deploy/templates/NetCoreSmsCreds.json.j2"
+    dest: "sunbird_auth_{{ sunbird_auth_version }}.config/NetCoreSmsCreds.json"
+    mode: 0755
+  when: "{{ sms_required|default(false) }}"
+  ignore_errors: true
+
 - name: Keycloak configuration XML file
   copy:
     src: "sunbird_auth_{{ sunbird_auth_version }}.config/standalone-ha.xml"
@@ -184,6 +192,16 @@
   when: "{{ sms_required|default(false) }}"
   ignore_errors: true
 
+- name: SMS provider configuration file
+  copy:
+    src: "sunbird_auth_{{ sunbird_auth_version }}.config/NetCoreSmsCreds.json"
+    dest: "{{ keycloak_home }}/bin/sms-provider/NetCoreSmsCreds.json"
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+    mode: 0755
+    remote_src: true
+  when: "{{ sms_required|default(false) }}"
+  ignore_errors: true
 - name: Remove the sunbird_auth_{{ sunbird_auth_version }}.config
   become: true
   file:
