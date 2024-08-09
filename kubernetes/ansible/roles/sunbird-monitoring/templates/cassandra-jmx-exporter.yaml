@@ -1,3 +1,2 @@
-# Config map values for jmx http server
-configMapValuesJmxHttpServer:
-  hostPort: "{{groups['cassandra']|join(':7199,')}}:7199"
+cassandra_host: "{{ groups['cassandra'][0] }}"
+cassandra_port: "7199"

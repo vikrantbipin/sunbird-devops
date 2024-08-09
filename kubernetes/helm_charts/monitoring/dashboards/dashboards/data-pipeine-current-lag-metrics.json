@@ -1620,7 +1620,7 @@
       "valueName": "total"
     }
   ],
-  "refresh": "5m",
+  "refresh": "30s",
   "schemaVersion": 21,
   "style": "dark",
   "tags": [],

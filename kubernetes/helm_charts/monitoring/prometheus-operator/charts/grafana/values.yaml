@@ -746,6 +746,8 @@ grafana.ini:
     mode: console
   grafana_net:
     url: https://grafana.net
+  dashboards:
+    min_refresh_interval: 30s
   server:
     domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ .Values.ingress.hosts | first }}{{ else }}''{{ end }}"
 ## grafana Authentication can be enabled with the following values on grafana.ini

@@ -1,4 +1,3 @@
-#!/bin/bash
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -50,15 +49,6 @@ calculate_heap_sizes()
         system_cpu_cores="1"
     fi
 
-    # For sunbird adopter machines, we run ES and Cassandra together.
-    # It'll lead competing for resources.
-    # So in ansible put
-    #   resource_crunch: yes
-    # to run cassandra in a minimal config.
-    # Note: Never do this in production.
-    #
-    # If resource_crunch == yes then take quarter size of the Server
-
     # set max heap size based on the following
     # max(min(1/2 ram, 1024MB), min(1/4 ram, 8GB))
     # calculate 1/2 ram and cap to 1024MB
@@ -66,9 +56,6 @@ calculate_heap_sizes()
     # pick the max
     half_system_memory_in_mb=`expr $system_memory_in_mb / 2`
     quarter_system_memory_in_mb=`expr $half_system_memory_in_mb / 2`
-
-    resource_crunch="{{resource_crunch}}"
-
     if [ "$half_system_memory_in_mb" -gt "1024" ]
     then
         half_system_memory_in_mb="1024"
@@ -83,12 +70,7 @@ calculate_heap_sizes()
     else
         max_heap_size_in_mb="$quarter_system_memory_in_mb"
     fi
-
-    if [ $resource_crunch = "yes" ]; then
-      MAX_HEAP_SIZE="${quarter_system_memory_in_mb}M"
-    else
-      MAX_HEAP_SIZE="${max_heap_size_in_mb}M"
-    fi
+    MAX_HEAP_SIZE="${max_heap_size_in_mb}M"
 
     # Young gen: min(max_sensible_per_modern_cpu_core * num_cores, 1/4 * heap size)
     max_sensible_yg_per_core_in_mb="100"
@@ -120,7 +102,7 @@ if [ "$JVM_VERSION" \< "1.8" ] && [ "$JVM_PATCH_VERSION" -lt 40 ] ; then
     exit 1;
 fi
 
-jvm=`echo "$java_ver_output" | grep -A 1 'java version' | awk 'NR==2 {print $1}'`
+jvm=`echo "$java_ver_output" | grep -A 1 '[openjdk|java] version' | awk 'NR==2 {print $1}'`
 case "$jvm" in
     OpenJDK)
         JVM_VENDOR=OpenJDK
@@ -139,8 +121,13 @@ case "$jvm" in
         ;;
 esac
 
+# Sets the path where logback and GC logs are written.
+if [ "x$CASSANDRA_LOG_DIR" = "x" ] ; then
+    CASSANDRA_LOG_DIR="/var/log/cassandra"
+fi
+
 #GC log path has to be defined here because it needs to access CASSANDRA_HOME
-JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc.log"
+JVM_OPTS="$JVM_OPTS -Xloggc:${CASSANDRA_LOG_DIR}/gc.log"
 
 # Here we create the arguments that will get passed to the jvm when
 # starting cassandra.
@@ -232,10 +219,22 @@ if [ "x$CASSANDRA_HEAPDUMP_DIR" != "x" ]; then
     JVM_OPTS="$JVM_OPTS -XX:HeapDumpPath=$CASSANDRA_HEAPDUMP_DIR/cassandra-`date +%s`-pid$$.hprof"
 fi
 
+# stop the jvm on OutOfMemoryError as it can result in some data corruption
+# uncomment the preferred option
+# ExitOnOutOfMemoryError and CrashOnOutOfMemoryError require a JRE greater or equals to 1.7 update 101 or 1.8 update 92
+# For OnOutOfMemoryError we cannot use the JVM_OPTS variables because bash commands split words
+# on white spaces without taking quotes into account
+# JVM_OPTS="$JVM_OPTS -XX:+ExitOnOutOfMemoryError"
+# JVM_OPTS="$JVM_OPTS -XX:+CrashOnOutOfMemoryError"
+JVM_ON_OUT_OF_MEMORY_ERROR_OPT="-XX:OnOutOfMemoryError=kill -9 %p"
+
+# print an heap histogram on OutOfMemoryError
+# JVM_OPTS="$JVM_OPTS -Dcassandra.printHeapHistogramOnOutOfMemoryError=true"
+
 # jmx: metrics and administration interface
 #
 # add this if you're having trouble connecting:
-JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname={{hostvars[inventory_hostname]['ansible_hostname']}}"
+# JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"
 #
 # see
 # https://blogs.oracle.com/jmxetc/entry/troubleshooting_connection_problems_in_jconsole
@@ -246,28 +245,28 @@ JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname={{hostvars[inventory_hostname]['a
 # To enable remote JMX connections, uncomment lines below
 # with authentication and/or ssl enabled. See https://wiki.apache.org/cassandra/JmxSecurity
 #
-#if [ "x$LOCAL_JMX" = "x" ]; then
-#    LOCAL_JMX=yes
-#fi
+if [ "x$LOCAL_JMX" = "x" ]; then
+    LOCAL_JMX=yes
+fi
+
 # Specifies the default port over which Cassandra will be available for
 # JMX connections.
 # For security reasons, you should not expose this port to the internet.  Firewall it if needed.
-
-JMX_PORT="7199"
-
 LOCAL_JMX=no
+JMX_PORT="7199"
 
 if [ "$LOCAL_JMX" = "yes" ]; then
   JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.local.port=$JMX_PORT"
   JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
 else
   JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.remote.port=$JMX_PORT"
+  JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
   # if ssl is enabled the same port cannot be used for both jmx and rmi so either
   # pick another value for this property or comment out to use a random port (though see CASSANDRA-7087 for origins)
   JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT"
 
   # turn on JMX authentication. See below for further options
-  #JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
+  # JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
 
   # jmx ssl options
   #JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.ssl=true"
@@ -283,7 +282,7 @@ fi
 # jmx authentication and authorization options. By default, auth is only
 # activated for remote connections but they can also be enabled for local only JMX
 ## Basic file based authn & authz
-#JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/jmxremote.password"
+JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/jmxremote.password"
 #JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.access.file=/etc/cassandra/jmxremote.access"
 ## Custom auth settings which can be used as alternatives to JMX's out of the box auth utilities.
 ## JAAS login modules can be used for authentication by uncommenting these two properties.
@@ -291,7 +290,7 @@ fi
 ## which delegates to the IAuthenticator configured in cassandra.yaml. See the sample JAAS configuration
 ## file cassandra-jaas.config
 #JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.remote.login.config=CassandraLogin"
-#JVM_OPTS="$JVM_OPTS -Djava.security.auth.login.config=$CASSANDRA_HOME/conf/cassandra-jaas.config"
+#JVM_OPTS="$JVM_OPTS -Djava.security.auth.login.config=$CASSANDRA_CONF/cassandra-jaas.config"
 
 ## Cassandra also ships with a helper for delegating JMX authz calls to the configured IAuthorizer,
 ## uncomment this to use it. Requires one of the two authentication options to be enabled
@@ -299,8 +298,8 @@ fi
 
 # To use mx4j, an HTML interface for JMX, add mx4j-tools.jar to the lib/
 # directory.
-# See http://wiki.apache.org/cassandra/Operations#Monitoring_with_MX4J
-# By default mx4j listens on 0.0.0.0:8081. Uncomment the following lines
+# See http://cassandra.apache.org/doc/3.11/operating/metrics.html#jmx
+# By default mx4j listens on the broadcast_address, port 8081. Uncomment the following lines
 # to control its listen address and port.
 #MX4J_ADDRESS="-Dmx4jaddress=127.0.0.1"
 #MX4J_PORT="-Dmx4jport=8081"
