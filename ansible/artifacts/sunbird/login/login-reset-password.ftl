@@ -73,7 +73,7 @@
                                         <#else>${msg("email")}
                                         </#if>
                                     </label>
-                                    <input type="text" id="username" class="mt-8" name="username" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" autofocus autocomplete="off"/>
+                                    <input type="text" id="username" class="mt-8" name="username" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" autofocus autocomplete="off" maxLength=256 />
                                 </div>
                                 <div class="field">
                                     <button id="login" class="ui fluid submit button">
