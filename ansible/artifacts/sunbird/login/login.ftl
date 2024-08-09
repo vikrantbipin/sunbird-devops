@@ -83,7 +83,7 @@
                                         <#-- TODO: need to find alternative for prepopulating username -->
                                         <input class="mt-8" id="username" name="username" type="text" disabled />
                                         <#else>
-                                        <input class="mt-8" id="username" name="username" onkeyup="validateEmailChar()" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" type="text" autofocus autocomplete="off" />
+                                        <input class="mt-8" id="username" name="username" onkeyup="validateEmailChar()" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" type="text" autofocus autocomplete="off" maxLength=256 />
                                         <span id="emailLengthErr" class="ui text error" style="font-size:11px!important;"></span>
                                         </#if>
                                     </div>
@@ -100,7 +100,7 @@
                                                 ${msg("placeholderForPassword")}
                                             </label>
                                         </div>
-                                        <input placeholder="${msg('passwordPlaceholder')}" class=" mt-8" id="password" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" name="password" type="password" autocomplete="off" />
+                                        <input placeholder="${msg('passwordPlaceholder')}" class=" mt-8" id="password" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" name="password" type="password" autocomplete="off" maxLength=100 />
                                         <span class="ui text error hide" id="inCorrectPasswordError">${msg("inCorrectPasswordError")}</span>
                                     </div>
                                     <div class="field">
@@ -185,7 +185,7 @@
                                         </div>
                                         <input tabindex="0" required id="emailOrPhone" placeholder="Email/Phone number (10 digit number)"
                                         class="mdc-text-field__input ${properties.kcInputClass!} mt-8" 
-                                        name="emailOrPhone" type="text" autofocus autocomplete="off" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)">
+                                        name="emailOrPhone" type="text" autofocus autocomplete="off" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" maxlength=256>
                                     </div>
                                     
                                     <div class="mdc-card__actions">
