@@ -3045,6 +3045,10 @@ proxyconfig: |-
       rewrite ^/(.*) /$1 break;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
+      add_header X-Frame-Options "SAMEORIGIN";
+      add_header X-Content-Type-Options nosniff;
+      add_header X-XSS-Protection "1; mode=block" always;
+      add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
       add_header 'Access-Control-Allow-Headers'  'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, x-channel-id, x-app-id, Authorization, auth-token, x-user-id';
       proxy_set_header X-Scheme $scheme;
       proxy_connect_timeout 5;
@@ -4993,13 +4997,14 @@ nginxconfig: |
       include       /etc/nginx/mime.types;
       default_type  application/octet-stream;
       resolver {{ kube_dns_ip }} valid=30s;
-      add_header X-Frame-Options "SAMEORIGIN";
-      add_header Strict-Transport-Security max-age=31536000;
-      add_header X-Content-Type-Options nosniff;
-      add_header X-XSS-Protection "1; mode=block" always;
+      #commenting these security headers because of duplicate headers from apimanager
+      #add_header X-Frame-Options "SAMEORIGIN";
+      #add_header Strict-Transport-Security max-age=31536000;
+      #add_header X-Content-Type-Options nosniff;
+      #add_header X-XSS-Protection "1; mode=block" always;
 
-      #add_header Content-Security-Policy "default-src 'self'; font-src *;img-src * data:; script-src *; style-src *";
-      add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
+      #dont add this add_header Content-Security-Policy "default-src 'self'; font-src *;img-src * data:; script-src *; style-src *";
+      #add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
       add_header Referrer-Policy "strict-origin";
       add_header Permissions-Policy "geolocation=(),midi=(),sync-xhr=(),microphone=(),camera=(),magnetometer=(),gyroscope=(),fullscreen=(self),payment=()";
 
