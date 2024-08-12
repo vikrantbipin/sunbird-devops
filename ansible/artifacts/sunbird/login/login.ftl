@@ -64,7 +64,8 @@
                                 </div>
                             </div>
                             <div id="usePasswordDiv" class="mw-100" >
-                                <form id="kc-form-login" onsubmit="login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
+                                <form id="kc-form-login" onsubmit="encryptPassword(); login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
+                                    <input type="hidden" id="ivField" name="iv" />
 				                    <input type="hidden" name="page_type" value="login_with_pass" />
                                     <div class="field">
                                         <label id="usernameLabel" for="username" class="">
@@ -251,6 +252,22 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script type="text/javascript">
+        function encryptPassword() {
+                var secretKey = CryptoJS.enc.Utf8.parse("${secretKey}");
+                var passwordField = document.getElementById("password");
+                var iv = CryptoJS.lib.WordArray.random(16);
+                var encrypted = CryptoJS.AES.encrypt(passwordField.value, secretKey, {
+                        iv: iv,
+                        padding: CryptoJS.pad.Pkcs7,
+                        mode: CryptoJS.mode.CBC
+                }).toString();
+                document.getElementById('ivField').value = CryptoJS.enc.Base64.stringify(iv);
+
+                passwordField.value = encrypted;
+        }
+    </script>
     <script type="text/javascript">
     callZohoForm()
 
