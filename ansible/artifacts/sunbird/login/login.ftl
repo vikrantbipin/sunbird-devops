@@ -63,8 +63,12 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="captcha" id="captchaBlock">
+                                <div id="captcha"></div>
+                                
+                            </div>
                             <div id="usePasswordDiv" class="mw-100" >
-                                <form id="kc-form-login" onsubmit="encryptPassword(); login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
+                                <form id="kc-form-login" onsubmit="encryptPassword(); return validateRecaptcha(); login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
                                     <input type="hidden" id="ivField" name="iv" />
 				                    <input type="hidden" name="page_type" value="login_with_pass" />
                                     <div class="field">
@@ -162,7 +166,7 @@
                                 </form>
                             </div>
                             <div id="useOTPDiv" class="mw-100" style="display:none">
-                                <form id="kc-form-login" class="${properties.kcFormClass!} ui form" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
+                                <form id="kc-form-login" class="${properties.kcFormClass!} ui form" onsubmit="return validateRecaptcha(); login.disabled = true; return true;" action="${url.loginAction}" method="post">
                                     <input type="hidden" name="page_type" value="login_page" />
                                     <#--  <div class="${properties.kcFormGroupClass!}">
                                         <div class="mdc-text-field mdc-text-field--with-leading-icon ${properties.kcLabelClass!} <#if usernameEditDisabled??>mdc-text-field--disabled</#if>">
@@ -269,6 +273,7 @@
         }
     </script>
     <script type="text/javascript">
+    
     callZohoForm()
 
         var slideIndex = 0;
@@ -327,6 +332,31 @@
                         	document.getElementById("login").disabled = true
                     }
                 } 
+
+    
+    </script>
+    <script type="text/javascript">
+        var onloadCallback = function() {
+            grecaptcha.render('captcha', {
+            'sitekey' : '6LfY0l0gAAAAAAgmOgNn-VEW5jwu_-AyXTTH8gq4',
+            'size': 'invisible',
+            'badge' : 'bottomright'
+            });
+        };
+        var validateRecaptcha = function() {
+            var v = grecaptcha.getResponse();
+            console.log("Resp" + v);
+            if (v == '') {
+                document.getElementById('captcha').innerHTML = "Invalid Captcha";
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
     </script>
     </#if>
 </#if>
