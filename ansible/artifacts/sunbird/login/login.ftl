@@ -62,11 +62,7 @@
                                         Login with OTP
                                     </label>
                                 </div>
-                            </div>
-                            <div class="captcha" id="captchaBlock">
-                                <div id="captcha"></div>
-                                
-                            </div>
+                            </div>                            
                             <div id="usePasswordDiv" class="mw-100" >
                                 <form id="kc-form-login" onsubmit="encryptPassword(); return validateRecaptcha(); login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
                                     <input type="hidden" id="ivField" name="iv" />
@@ -125,6 +121,10 @@
                                             <span class="or-divider"></span>
                                             <span class="or-text">or</span>
                                         </div>
+                                    </div>
+                                    <div class="captcha" id="captchaBlock">
+                                        <div id="captcha"></div>
+                                        
                                     </div>
                                     <div class="field">
                                         <a id="loginp" href="/apis/public/v8/parichay/auth" class="ui fluid button">${msg("loginWithParichay")}</a>
@@ -339,7 +339,6 @@
         var onloadCallback = function() {
             grecaptcha.render('captcha', {
             'sitekey' : '6Lc38yQqAAAAABWqKr130W-FABWkC6gEYCW1jv-v',
-            'size': 'invisible',
             'badge' : 'bottomright'
             });
         };
