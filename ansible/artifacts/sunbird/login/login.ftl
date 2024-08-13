@@ -64,7 +64,7 @@
                                 </div>
                             </div>                            
                             <div id="usePasswordDiv" class="mw-100" >
-                                <form id="kc-form-login" onsubmit="encryptPassword(); return validateRecaptcha(); login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
+                                <form id="kc-form-login" onsubmit="return validateRecaptcha(); encryptPassword();  login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
                                     <input type="hidden" id="ivField" name="iv" />
 				                    <input type="hidden" name="page_type" value="login_with_pass" />
                                     <div class="field">
@@ -113,6 +113,10 @@
                                         </div>
                                     </#if>
                                     </div>
+                                    <div class="captcha" id="captchaBlock">
+                                        <div id="captcha"></div>
+                                        
+                                    </div>
                                     <div class="field">
                                         <button id="login" class="ui fluid button">${msg("doLogIn")}</button>
                                     </div>
@@ -121,11 +125,7 @@
                                             <span class="or-divider"></span>
                                             <span class="or-text">or</span>
                                         </div>
-                                    </div>
-                                    <div class="captcha" id="captchaBlock">
-                                        <div id="captcha"></div>
-                                        
-                                    </div>
+                                    </div>                                   
                                     <div class="field">
                                         <a id="loginp" href="/apis/public/v8/parichay/auth" class="ui fluid button">${msg("loginWithParichay")}</a>
                                     </div>
@@ -350,7 +350,7 @@
                 return true;
             }
             else {
-                return true;
+                return false;
             }
         }
     </script>
