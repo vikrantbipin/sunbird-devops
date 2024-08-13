@@ -338,7 +338,7 @@
     <script type="text/javascript">
         var onloadCallback = function() {
             grecaptcha.render('captcha', {
-            'sitekey' : 6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
+            'sitekey' : '6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
             'badge' : 'bottomright'
             });
         };
