@@ -2,33 +2,34 @@
 # vars file for deploy-lex-core-service
 
 # For script
-release_name: "{{ network_alias_content_validation_service }}"
-template_compose_file_name: content-validation-service.j2
-template_env_file_name: content-validation-service-env.j2
-compose_file_name: "{{ service_content_validation_service }}.yml"
-env_file_name: "{{ service_content_validation_service }}.env"
+release_name: "{{ network_alias_cb_pores_service }}"
+template_compose_file_name: cb-pores-service.j2
+template_env_file_name: cb-pores-service-env.j2
+compose_file_name: "{{ service_cb_pores_service }}.yml"
+env_file_name: "{{ service_cb_pores_service }}.env"
 helm_env_file_location: "../helm_charts/igot-deploy/templates/"
-helm_env_file_name: "{{ helm_env_file_location }}/{{ service_content_validation_service }}.env"
-#chart_path: "../kubernetes-deploy/content-validation-service"
+helm_env_file_name: "{{ helm_env_file_location }}/{{ service_cb_pores_service }}.env"
+#chart_path: "../kubernetes-deploy/cb-pores-service"
+
 env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
 compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
 user_friendly_name: content validation service
 
 # For service
-application_port: "{{ service_content_validation_port }}"
-image_name: "{{ image_content_validation_service }}"
-tag: "{{ tags_content_validation_service }}"
+application_port: "{{ service_cb_pores_port }}"
+image_name: "{{ image_cb_pores_service }}"
+tag: "{{ tags_cb_pores_service }}"
 host_port: "{{ application_port }}"
 docker_port: "{{ application_port }}"
-replicas: "{{ service_replicas_content_validation_service }}"
-reserved_memory: "{{ service_mem_reserved_content_validation_service }}"
-limited_memory: "{{ service_mem_limit_content_validation_service }}"
+replicas: "{{ service_replicas_cb_pores_service }}"
+reserved_memory: "{{ service_mem_reserved_cb_pores_service }}"
+limited_memory: "{{ service_mem_limit_cb_pores_service }}"
 #limited_memory: 2048M
 health_check_endpoint: http://127.0.0.1:{{ docker_port }}/contentValidation/actuator/health
-network_alias_name: "{{ network_alias_content_validation_service }}"
+network_alias_name: "{{ network_alias_cb_pores_service }}"
 docker_service_stack_name: lms
-docker_service_name: "{{ service_content_validation_service }}"
-force_reload: "{{ force_reload_content_validation_service }}"
+docker_service_name: "{{ service_cb_pores_service }}"
+force_reload: "{{ force_reload_cb_pores_service }}"
 
 # For application
 server_connection_timeout: 5000
@@ -38,3 +39,5 @@ servlet_multipart_max_file_size: 100Mb
 servlet_multipart_max_request_size: 100Mb
 
 content_service_url: http://{{ network_alias_content_service }}:{{ service_content_service_port }}
+
+infosys_lex_core_ip: http://{{ network_alias_sb_cb_ext_service }}:{{ service_sb_cb_ext_port }}
