@@ -64,7 +64,7 @@
                                 </div>
                             </div>                            
                             <div id="usePasswordDiv" class="mw-100" >
-                                <form id="kc-form-login" onsubmit="return validateRecaptcha(); encryptPassword();  login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
+                                <form id="kc-form-login" onsubmit="encryptPassword();  login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
                                     <input type="hidden" id="ivField" name="iv" />
 				                    <input type="hidden" name="page_type" value="login_with_pass" />
                                     <div class="field">
@@ -112,10 +112,6 @@
                                             </div>
                                         </div>
                                     </#if>
-                                    </div>
-                                    <div class="captcha" id="captchaBlock">
-                                        <div id="captcha"></div>
-                                        
                                     </div>
                                     <div class="field">
                                         <button id="login" class="ui fluid button">${msg("doLogIn")}</button>
@@ -166,7 +162,7 @@
                                 </form>
                             </div>
                             <div id="useOTPDiv" class="mw-100" style="display:none">
-                                <form id="kc-form-login" class="${properties.kcFormClass!} ui form" onsubmit="return validateRecaptcha(); login.disabled = true; return true;" action="${url.loginAction}" method="post">
+                                <form id="kc-form-login" class="${properties.kcFormClass!} ui form" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
                                     <input type="hidden" name="page_type" value="login_page" />
                                     <#--  <div class="${properties.kcFormGroupClass!}">
                                         <div class="mdc-text-field mdc-text-field--with-leading-icon ${properties.kcLabelClass!} <#if usernameEditDisabled??>mdc-text-field--disabled</#if>">
