@@ -3042,6 +3042,9 @@ proxyconfig: |-
       rewrite ^/public/toc/(.*)$ {{proto}}://portal.{{ nginx_proxy_server_name }}/public/toc/$1 redirect;
     }
     location / {
+      if ($request_method !~ ^(GET|POST|HEAD|OPTIONS|PUT|DELETE|PATCH)$) {
+       return 405;
+      }    
       rewrite ^/(.*) /$1 break;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
