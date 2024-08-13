@@ -347,10 +347,10 @@
             console.log("Resp" + v);
             if (v == '') {
                 document.getElementById('captcha').innerHTML = "Invalid Captcha";
-                return true;
+                return false;
             }
             else {
-                return false;
+                return true;
             }
         }
     </script>
