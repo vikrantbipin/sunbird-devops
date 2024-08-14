@@ -64,7 +64,7 @@
                                 </div>
                             </div>                            
                             <div id="usePasswordDiv" class="mw-100" >
-                                <form id="kc-form-login" onsubmit="return validateRecaptcha(); encryptPassword();  login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
+                                <form id="kc-form-login" onsubmit="return encryptPassword(); login.disabled = true; return true;" class="ui form" method="POST" action="${url.loginAction}">
                                     <input type="hidden" id="ivField" name="iv" />
 				                    <input type="hidden" name="page_type" value="login_with_pass" />
                                     <div class="field">
@@ -270,6 +270,7 @@
                 document.getElementById('ivField').value = CryptoJS.enc.Base64.stringify(iv);
 
                 passwordField.value = encrypted;
+                return validateRecaptcha();
         }
     </script>
     <script type="text/javascript">
