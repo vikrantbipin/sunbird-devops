@@ -352,11 +352,23 @@
 
     
     </script>
-    <script type="text/javascript">
+    <script type="text/javascript">    
+        function recaptchaCheckedCallback() {
+            if(grecaptcha && grecaptcha.getResponse().length > 0) {
+                document.getElementById("login").disabled = false
+            } else {
+                document.getElementById("login").disabled = true
+            }
+        }  
+        function recaptchaExpiredCallback() {
+            grecaptcha.reset();
+        }  
         var onloadCallback = function() {
             grecaptcha.render('captcha', {
             'sitekey' : '6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
-            'badge' : 'bottomright'
+            'badge' : 'bottomright'   
+            'callback': recaptchaCheckedCallback,
+            'expired-callback': recaptchaExpiredCallback
             });
         };
         var validateRecaptcha = function() {
