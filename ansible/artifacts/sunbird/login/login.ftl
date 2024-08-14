@@ -363,10 +363,10 @@
         function recaptchaExpiredCallback() {
             grecaptcha.reset();
         }  
-        function onloadCallback() {
+        var onloadCallback = function() {
             grecaptcha.render('captcha', {
             'sitekey' : '6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
-            'badge' : 'bottomright'   
+            'badge' : 'bottomright',
             'callback': recaptchaCheckedCallback,
             'expired-callback': recaptchaExpiredCallback
             });
