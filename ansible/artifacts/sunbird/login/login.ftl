@@ -337,7 +337,11 @@
                             
                         } else {
                             document.getElementById("emailLengthErr").innerHTML = ""
-                            document.getElementById("login").disabled = false
+                                if(validateRecaptchaFlag) {
+                                    document.getElementById("login").disabled = false
+                                } else {
+                                    document.getElementById("login").disabled = true
+                                }
                             }
                         }
                     }
