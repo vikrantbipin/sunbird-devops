@@ -309,7 +309,11 @@
 
     
             function validateEmailChar() {
-                document.getElementById("login").disabled = false
+                if(validateRecaptchaFlag) {
+                                document.getElementById("login").disabled = false
+                        } else {
+                            document.getElementById("login").disabled = true
+                        }
 		const validRegex = "/^[a-z0-9_-]+(?:\.[a-z0-9_-]+)*@((?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?){2,}\.){1,3}(?:\w){2,}$/"
                 let userEmail = document.getElementById("username").value.trim()
                 if (userEmail && userEmail.length > 0) {
