@@ -315,7 +315,7 @@
                 if (userEmail && userEmail.length > 0) {
 		if(userEmail.length > 5 && !userEmail.match(validRegex)) {
                         document.getElementById("emailLengthErr").innerHTML = "email is not valid"
-                        if(validateRecaptcha()) {
+                        if(validateRecaptchaFlag) {
                                 document.getElementById("login").disabled = false
                         } else {
                             document.getElementById("login").disabled = true
@@ -325,7 +325,7 @@
                     if (email && email.length === 2) {
                         if((email[0] && email[0].length > 64 ) || (email[1] && email[1].length >255)) {
                             document.getElementById("emailLengthErr").innerHTML = "Max 64 characters before @ & 255 characters after @ are valid."
-                            if(validateRecaptcha()) {
+                            if(validateRecaptchaFlag) {
                                 document.getElementById("login").disabled = false
                             } else {
                                 document.getElementById("login").disabled = true
@@ -339,7 +339,7 @@
                     }
 			else if (userEmail.replace(/\s+/g, '').length == 0 || userEmail === "") {
                         	document.getElementById("emailLengthErr").innerHTML = "email field can not be blank"
-                        	if(validateRecaptcha()) {
+                        	if(validateRecaptchaFlag) {
                                 document.getElementById("login").disabled = false
                             } else {
                                 document.getElementById("login").disabled = true
@@ -350,6 +350,7 @@
     
     </script>
     <script type="text/javascript">
+        var validateRecaptchaFlag = false
         var onloadCallback = function() {
             grecaptcha.render('captcha', {
             'sitekey' : '6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
@@ -360,11 +361,13 @@
             var v = grecaptcha.getResponse();
             console.log("Resp" + v);
             if (v == '') {
+                validateRecaptchaFlag = false
                 document.getElementById("login").disabled = true
                 document.getElementById('captcha').innerHTML = "Invalid Captcha";
                 return false;
             }
             else {
+                validateRecaptchaFlag = true
                 document.getElementById("login").disabled = false
                 return true;
             }
