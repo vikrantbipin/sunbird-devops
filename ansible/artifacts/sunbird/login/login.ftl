@@ -341,7 +341,7 @@
             'sitekey' : '6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
             'badge' : 'bottomright'
             });
-        };\
+        };
         var validateRecaptcha = function() {
             var v = grecaptcha.getResponse();
             console.log("Resp" + v);
