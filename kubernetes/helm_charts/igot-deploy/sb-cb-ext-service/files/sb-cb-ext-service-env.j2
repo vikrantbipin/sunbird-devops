@@ -402,8 +402,8 @@ domain.url=https://{{ domain_name }}/
 payload.to.redis.key.mapping='{"TOP":"dashboard_top_10_courses_by_completion_by_course_org","FEATURED":"featured"}'
 
 organisation.insights.fields={{ organisation_insights_fields }}
-organisation.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#000000","linebreak":"true","background":"banner-metrics","iconColor": "#FFFFFF","iconBackgroupColorV2": "#FFFFFF","labelColorV2": "#FFFFFF","valueColorV2": "#F3962F","valueColorMobV2": "#FFFFFF","backgroundV2": "#1B4CA1"}
-organisation.insights.redis.key.mapping={"Courses Available":"dashboard_live_course_moderated_course_count_by_course_org", "Course Enrolments":"dashboard_course_moderated_course_enrolment_count_by_course_org", "Course Completions":"dashboard_course_moderated_course_certificates_generated_count_by_course_org", "Average Course Rating":"dashboard_course_moderated_course_average_rating_by_course_org"}
+organisation.insights.redis.key.mapping='{"Courses Available":"dashboard_live_course_moderated_course_count_by_course_org","Course Enrolments":"dashboard_course_moderated_course_enrolment_count_by_course_org","Course Completions":"dashboard_course_moderated_course_certificates_generated_count_by_course_org","Average Course Rating":"dashboard_course_moderated_course_average_rating_by_course_org"}'
+organisation.insights.property.fields='{"valueColor": "#FFFFFF","labelColor": "#000000","linebreak":"true","background":"banner-metrics","iconColor": "#FFFFFF","iconBackgroupColorV2":"#FFFFFF","labelColorV2": "#FFFFFF","valueColorV2": "#F3962F","valueColorMobV2": "#FFFFFF","backgroundV2": "#1B4CA1"}'
 cloud.public.store.container.name={{ sbworkflow_cloud_storage_content_bucketname }}
 
 user.bulk.upload.gender.value=Male,Female,Others
