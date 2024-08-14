@@ -363,7 +363,7 @@
         function recaptchaExpiredCallback() {
             grecaptcha.reset();
         }  
-        var onloadCallback = function() {
+        function onloadCallback() {
             grecaptcha.render('captcha', {
             'sitekey' : '6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX',
             'badge' : 'bottomright'   
