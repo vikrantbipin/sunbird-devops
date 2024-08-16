@@ -30,3 +30,15 @@ data:
   keycloak.conf: |
 {{ .Values.keycloakconf | indent 4 }}
 {{- end }}
+
+---
+{{- if .Values.searchbycompetencyapi_response_json }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: searchbycompetencyapi-response-json
+  namespace: {{ .Values.namespace }}
+data:
+  SearchByCompetencyAPI-Response.json: |
+{{ .Values.searchbycompetencyapi_response_json | indent 4 }}
+{{- end }}
