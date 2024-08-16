@@ -1399,7 +1399,7 @@ proxyconfig: |-
       return 200 'OK';
       add_header Content-Type text/plain;
     }
-{% if apple_app_site_association is defined %}
+{% if searchbycompetencyapi_response_json is defined %}
     location /apis/proxies/v8/searchBy/competency {
       alias /var/www/html/;
       index SearchByCompetencyAPI-Response.json;
