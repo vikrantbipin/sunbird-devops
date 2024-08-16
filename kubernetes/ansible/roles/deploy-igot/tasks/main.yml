@@ -61,6 +61,7 @@
     "profanity-filter-service",
     "sb-cb-ext-service",
     "workflow-handler-service",
+    "cb-enrollment-service",
     ]
 
 - name: helm upgrade
