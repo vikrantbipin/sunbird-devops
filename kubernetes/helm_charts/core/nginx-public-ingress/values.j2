@@ -5316,5 +5316,5 @@ serviceMonitor:
 
 {# Add the apple site association json contents in a single line within single quotes as shown below in Core/common.yml  #}
 {# apple_app_site_association: '{"applinks":{"apps":[],"details":[{"appID":"123456.dev.sunbird.app","paths":["/explore","/dial/*","/get/dial","/play/content","/play/collection","/learn/course","/explore-course/course","/explore-course","/search","/search/Library","/faq","/profile","/play/quiz","/explore","/learn","/resources"]}]}}' #}
-searchbycompetencyapi_response_json:
+searchbycompetencyapi_response_json: |
   {{ searchbycompetencyapi_response_json | default("") }}
