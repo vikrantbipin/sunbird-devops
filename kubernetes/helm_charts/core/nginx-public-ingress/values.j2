@@ -1405,6 +1405,12 @@ proxyconfig: |-
       index SearchByCompetencyAPI-Response.json;
     }
 {% endif %}
+{% if searchbycompetencyapi_response_json is defined %}
+    location /api/searchBy/competency {
+      alias /var/www/html/;
+      index SearchByCompetencyAPI-Response.json;
+    }
+{% endif %}
     {# Including custom configuration #}
     {{ proxy_custom_config }}
 
