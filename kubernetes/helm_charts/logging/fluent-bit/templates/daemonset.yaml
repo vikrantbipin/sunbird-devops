@@ -61,7 +61,7 @@ spec:
       volumes:
       - name: datapath
         hostPath:
-          path: /mnt/log
+          path: /mnt/stateful_partition/log
       - name: varlog
         hostPath:
           path: /var/log
