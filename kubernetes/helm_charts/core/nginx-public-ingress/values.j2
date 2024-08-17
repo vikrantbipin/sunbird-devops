@@ -2317,7 +2317,7 @@ proxyconfig: |-
     }
     location = /maintenance.png {
         root /var/www/maintenance;
-        internal;
+        allow all;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
@@ -3205,7 +3205,7 @@ proxyconfig: |-
     }
     location = /maintenance.png {
         root /var/www/maintenance;
-        internal;
+        allow all;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
@@ -4151,7 +4151,7 @@ proxyconfig: |-
     }
     location = /maintenance.png {
         root /var/www/maintenance;
-        internal;
+        allow all;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
@@ -5110,7 +5110,7 @@ proxyconfig: |-
     }
     location = /maintenance.png {
         root /var/www/maintenance;
-        internal;
+        allow all;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
@@ -5546,7 +5546,7 @@ keycloakconf: |
     }
     location = /maintenance.png {
         root /var/www/maintenance;
-        internal;
+        allow all;
     }
   }
 compressionConfig: |-
