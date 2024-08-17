@@ -54,6 +54,8 @@ proxyconfig: |-
   server {
     listen 80;
     listen [::]:80;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     server_name portal.{{ nginx_proxy_server_name }};
@@ -99,10 +101,14 @@ proxyconfig: |-
   {% if proto=='http' %}
     listen                80;
     listen    [::]:80;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
   {% else %}
     listen                443 ssl;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
@@ -1430,9 +1436,13 @@ proxyconfig: |-
         }
 
       listen       80;
+      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      real_ip_header X-Forwarded-For;
       allow 14.143.125.146;   # Whitelisted IP
       deny all;            # Deny all other IPs
       server_name  cbp.{{ nginx_proxy_server_name }};
+      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      real_ip_header X-Forwarded-For;
       allow 14.143.125.146;   # Whitelisted IP
       deny all;            # Deny all other IPs
       return 404;
@@ -1440,6 +1450,8 @@ proxyconfig: |-
 
    server {
     listen                443 ssl;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
@@ -2339,6 +2351,8 @@ proxyconfig: |-
         }
 
       listen       80;
+      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      real_ip_header X-Forwarded-For;
       allow 14.143.125.146;   # Whitelisted IP
       deny all;            # Deny all other IPs
       server_name  {{ nginx_proxy_server_name }};
@@ -2347,6 +2361,8 @@ proxyconfig: |-
 
    server {
     listen                443 ssl;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
@@ -3192,6 +3208,8 @@ proxyconfig: |-
 
       listen       80;
       server_name  spv.{{ nginx_proxy_server_name }};
+      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      real_ip_header X-Forwarded-For;
       allow 14.143.125.146;   # Whitelisted IP
       deny all;            # Deny all other IPs
       return 404;
@@ -3199,6 +3217,8 @@ proxyconfig: |-
 
    server {
     listen                443 ssl;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
@@ -4099,6 +4119,8 @@ proxyconfig: |-
         }
 
       listen       80;
+      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      real_ip_header X-Forwarded-For;
       allow 14.143.125.146;   # Whitelisted IP
       deny all;            # Deny all other IPs
       server_name  mdo.{{ nginx_proxy_server_name }};
@@ -4107,6 +4129,8 @@ proxyconfig: |-
 
   server {
     listen                443 ssl;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
@@ -5089,6 +5113,10 @@ nginxconfig: |
         default  $upstream_cache_status;
         ''       "NONE";
       }
+    map $http_x_forwarded_for $real_client_ip {
+        default $remote_addr;
+        "~^(?P<first_ip>[0-9.]+)" $first_ip;
+    }
       # Defining metrics
       init_worker_by_lua_block {
         prometheus = require("prometheus").init("prometheus_metrics")
@@ -5219,6 +5247,8 @@ keycloakconf: |
   server {
     listen 80;
     listen [::]:80;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     server_name {{ merge_proxy_server_name }};
@@ -5228,6 +5258,8 @@ keycloakconf: |
   }
   server {
     listen                443 ssl;
+    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    real_ip_header X-Forwarded-For;
     allow 14.143.125.146;   # Whitelisted IP
     deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets-merge/tls.crt;
