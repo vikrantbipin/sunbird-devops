@@ -40,6 +40,9 @@ spec:
           configMap:
             name: searchbycompetencyapi-response-json
 {{- end }}
+        - name: maintenance.png
+          configMap:
+            name: maintenance.png
 {{- if .Values.volumes }}
 {{ toYaml .Values.volumes | indent 8 }}
 {{- end }}
@@ -68,6 +71,8 @@ spec:
           - name: searchbycompetencyapi-response-json
             mountPath: /var/www/html
 {{- end }}
+          - name: maintenance.png
+            mountPath: /var/www/maintenance
 {{- if .Values.volumeMounts }}
 {{ toYaml .Values.volumeMounts | indent 10 }}
 {{- end }}
