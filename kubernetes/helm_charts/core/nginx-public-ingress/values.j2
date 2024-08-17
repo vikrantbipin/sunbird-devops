@@ -1338,7 +1338,12 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
+      error_page 403 /maintenance.png;
       proxy_pass http://ui-static;
+    }
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
     }
     location /training {
       rewrite ^/(.*) /$1 break;
@@ -2307,7 +2312,12 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
+      error_page 403 /maintenance.png;
       proxy_pass http://ui-cbp-igot;
+    }
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
@@ -3189,10 +3199,14 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
+      error_page 403 /maintenance.png;
       #proxy_pass http://192.168.3.215:81;
       proxy_pass http://static-domain:80;
     }
-
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
+    }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
       proxy_pass http://kong;
@@ -4135,6 +4149,10 @@ proxyconfig: |-
       error_page 403 /maintenance.png;
       proxy_pass http://ui-spv-igot;
     }
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
+    }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
       proxy_pass http://kong;
@@ -4224,10 +4242,6 @@ proxyconfig: |-
     {{ proxy_custom_config }}
 
     client_max_body_size 400M;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     }
 
 
@@ -5091,7 +5105,12 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
+      error_page 403 /maintenance.png;
       proxy_pass http://ui-mdo-igot;
+    }
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
     }
     location /v3/device/register {
       proxy_set_header X-Request-ID $sb_request_id;
@@ -5522,7 +5541,12 @@ keycloakconf: |
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $request_id;
+      error_page 403 /maintenance.png;
       proxy_pass http://ui-static;
+    }
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
     }
   }
 compressionConfig: |-
