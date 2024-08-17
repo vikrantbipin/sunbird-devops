@@ -54,6 +54,8 @@ proxyconfig: |-
   server {
     listen 80;
     listen [::]:80;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     server_name portal.{{ nginx_proxy_server_name }};
     add_header Content-Security-Policy upgrade-insecure-requests;
     {#
@@ -97,8 +99,12 @@ proxyconfig: |-
   {% if proto=='http' %}
     listen                80;
     listen    [::]:80;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
   {% else %}
     listen                443 ssl;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -1424,12 +1430,18 @@ proxyconfig: |-
         }
 
       listen       80;
+      allow 14.143.125.146;   # Whitelisted IP
+      deny all;            # Deny all other IPs
       server_name  cbp.{{ nginx_proxy_server_name }};
+      allow 14.143.125.146;   # Whitelisted IP
+      deny all;            # Deny all other IPs
       return 404;
     }
 
    server {
     listen                443 ssl;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -2327,12 +2339,16 @@ proxyconfig: |-
         }
 
       listen       80;
+      allow 14.143.125.146;   # Whitelisted IP
+      deny all;            # Deny all other IPs
       server_name  {{ nginx_proxy_server_name }};
       return 404;
     }
 
    server {
     listen                443 ssl;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -3176,11 +3192,15 @@ proxyconfig: |-
 
       listen       80;
       server_name  spv.{{ nginx_proxy_server_name }};
+      allow 14.143.125.146;   # Whitelisted IP
+      deny all;            # Deny all other IPs
       return 404;
     }
 
    server {
     listen                443 ssl;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -4079,12 +4099,16 @@ proxyconfig: |-
         }
 
       listen       80;
+      allow 14.143.125.146;   # Whitelisted IP
+      deny all;            # Deny all other IPs
       server_name  mdo.{{ nginx_proxy_server_name }};
       return 404;
     }
 
   server {
     listen                443 ssl;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -5195,6 +5219,8 @@ keycloakconf: |
   server {
     listen 80;
     listen [::]:80;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     server_name {{ merge_proxy_server_name }};
     # Limitting open connection per ip
     limit_conn limitbyaddr {{ nginx_per_ip_connection_limit }};
@@ -5202,6 +5228,8 @@ keycloakconf: |
   }
   server {
     listen                443 ssl;
+    allow 14.143.125.146;   # Whitelisted IP
+    deny all;            # Deny all other IPs
     ssl_certificate       /etc/secrets-merge/tls.crt;
     ssl_certificate_key   /etc/secrets-merge/tls.key;
     server_name           {{ merge_proxy_server_name }};
