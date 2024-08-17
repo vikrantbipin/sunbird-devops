@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for hubgraph-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -6,26 +6,26 @@ dockerhub: {{ docker_hub_url }}
 
 
 env:
-  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{hubgraph_java_mem_limit|default('-Xmx600m')}}
 
-replicaCount: {{lms_replicacount|default(1)}}
+replicaCount: {{hubgraph_replicacount|default(1)}}
 repository: {{ image_sb_hub_graph_service }}
 image_tag: {{image_tag}}
 
 resources:
   requests:
-    cpu: {{lms_cpu_req|default('100m')}}
-    memory: {{lms_mem_req|default('100Mi')}}
+    cpu: {{hubgraph_cpu_req|default('100m')}}
+    memory: {{hubgraph_mem_req|default('100Mi')}}
   limits:
-    cpu: {{lms_cpu_limit|default('1')}}
-    memory: {{lms_mem_limit|default('1024Mi')}}
+    cpu: {{hubgraph_cpu_limit|default('1')}}
+    memory: {{hubgraph_mem_limit|default('1024Mi')}}
 network:
   port: {{ service_sb_hub_graph_port }}
   targetport: {{ service_sb_hub_graph_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ hubgraph_maxsurge|default('25%') }}
+  maxunavailable: {{ hubgraph_maxunavailable|default('25%') }}
 
 
 
