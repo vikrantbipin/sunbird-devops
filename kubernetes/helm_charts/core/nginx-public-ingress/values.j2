@@ -57,6 +57,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     server_name portal.{{ nginx_proxy_server_name }};
@@ -105,6 +106,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
   {% else %}
@@ -112,6 +114,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
@@ -1442,6 +1445,7 @@ proxyconfig: |-
       set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
       allow 14.143.125.146;
+      allow 34.93.132.80;
       real_ip_recursive on;
       deny all;
       server_name  cbp.{{ nginx_proxy_server_name }};
@@ -1454,6 +1458,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
@@ -2356,6 +2361,7 @@ proxyconfig: |-
       set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
       allow 14.143.125.146;
+      allow 34.93.132.80;
       real_ip_recursive on;
       deny all;
       server_name  {{ nginx_proxy_server_name }};
@@ -2367,6 +2373,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
@@ -3215,6 +3222,7 @@ proxyconfig: |-
       set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
       allow 14.143.125.146;
+      allow 34.93.132.80;
       real_ip_recursive on;
       deny all;
       return 404;
@@ -3225,6 +3233,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
@@ -4128,6 +4137,7 @@ proxyconfig: |-
       set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
       allow 14.143.125.146;
+      allow 34.93.132.80;
       real_ip_recursive on;
       deny all;
       server_name  mdo.{{ nginx_proxy_server_name }};
@@ -4139,6 +4149,7 @@ proxyconfig: |-
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
@@ -5262,6 +5273,7 @@ keycloakconf: |
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     server_name {{ merge_proxy_server_name }};
@@ -5274,6 +5286,7 @@ keycloakconf: |
     set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
     allow 14.143.125.146;
+    allow 34.93.132.80;
     real_ip_recursive on;
     deny all;
     ssl_certificate       /etc/secrets-merge/tls.crt;
