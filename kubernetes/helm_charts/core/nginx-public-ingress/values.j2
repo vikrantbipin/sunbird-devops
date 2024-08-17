@@ -5117,6 +5117,10 @@ nginxconfig: |
         default  $http_x_request_id;
         ''  $request_id;
       }
+      map $http_x_forwarded_for $real_client_ip {
+          default $remote_addr;
+          "~^(?P<first_ip>[0-9.]+)" $first_ip;
+      }
       # Defining upstream cache status for nginx metrics
       map $upstream_cache_status $cache_status {
         default  $upstream_cache_status;
