@@ -72,11 +72,6 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
     server_name portal.{{ nginx_proxy_server_name }};
     add_header Content-Security-Policy upgrade-insecure-requests;
@@ -123,11 +118,6 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
   {% else %}
     listen                443 ssl;
@@ -149,11 +139,6 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
@@ -1497,11 +1482,6 @@ proxyconfig: |-
       allow 223.187.120.64;
       allow 98.70.38.196;
       real_ip_recursive on;
-      error_page 403 /maintenance.png;
-      location = /maintenance.png {
-          root /var/www/maintenance;
-          internal;
-      }
       deny all;
       server_name  cbp.{{ nginx_proxy_server_name }};
       set_real_ip_from 0.0.0.0/0;
@@ -1528,11 +1508,6 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
@@ -2448,11 +2423,6 @@ proxyconfig: |-
       allow 223.187.120.64;
       allow 98.70.38.196;
       real_ip_recursive on;
-      error_page 403 /maintenance.png;
-      location = /maintenance.png {
-          root /var/www/maintenance;
-          internal;
-      }
       deny all;
       server_name  {{ nginx_proxy_server_name }};
       return 404;
@@ -2478,11 +2448,6 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
@@ -4167,7 +4132,7 @@ proxyconfig: |-
       proxy_set_header Connection "";
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
-      error_page 403 /maintenance.png
+      error_page 403 /maintenance.png;
       proxy_pass http://ui-spv-igot;
     }
     location /v3/device/register {
@@ -4289,11 +4254,6 @@ proxyconfig: |-
       allow 223.187.120.64;
       allow 98.70.38.196;
       real_ip_recursive on;
-      error_page 403 /maintenance.png;
-      location = /maintenance.png {
-          root /var/www/maintenance;
-          internal;
-      }
       deny all;
       server_name  mdo.{{ nginx_proxy_server_name }};
       return 404;
@@ -4319,11 +4279,6 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
@@ -5460,11 +5415,6 @@ keycloakconf: |
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     deny all;
     server_name {{ merge_proxy_server_name }};
     # Limitting open connection per ip
@@ -5492,11 +5442,6 @@ keycloakconf: |
     allow 98.70.38.196;
     real_ip_recursive on;
     deny all;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
     ssl_certificate       /etc/secrets-merge/tls.crt;
     ssl_certificate_key   /etc/secrets-merge/tls.key;
     server_name           {{ merge_proxy_server_name }};
