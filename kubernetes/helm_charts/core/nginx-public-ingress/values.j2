@@ -5059,7 +5059,6 @@ nginxconfig: |
 {% if nginx_modules is defined and nginx_modules %}
   {{ nginx_modules | indent( width=2, indentfirst=True)  }}
 {% endif %}
-  error_:q1
    /var/log/nginx/error.log warn;
   pid        /var/run/nginx.pid;
   events {
