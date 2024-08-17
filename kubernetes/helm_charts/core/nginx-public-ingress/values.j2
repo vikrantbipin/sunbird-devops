@@ -54,10 +54,11 @@ proxyconfig: |-
   server {
     listen 80;
     listen [::]:80;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     server_name portal.{{ nginx_proxy_server_name }};
     add_header Content-Security-Policy upgrade-insecure-requests;
     {#
@@ -101,16 +102,18 @@ proxyconfig: |-
   {% if proto=='http' %}
     listen                80;
     listen    [::]:80;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
   {% else %}
     listen                443 ssl;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -1436,21 +1439,23 @@ proxyconfig: |-
         }
 
       listen       80;
-      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
-      allow 14.143.125.146;   # Whitelisted IP
-      deny all;            # Deny all other IPs
+      allow 14.143.125.146;
+      real_ip_recursive on;
+      deny all;
       server_name  cbp.{{ nginx_proxy_server_name }};
-      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      set_real_ip_from 0.0.0.0/0;
       return 404;
     }
 
    server {
     listen                443 ssl;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -2348,20 +2353,22 @@ proxyconfig: |-
         }
 
       listen       80;
-      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
-      allow 14.143.125.146;   # Whitelisted IP
-      deny all;            # Deny all other IPs
+      allow 14.143.125.146;
+      real_ip_recursive on;
+      deny all;
       server_name  {{ nginx_proxy_server_name }};
       return 404;
     }
 
    server {
     listen                443 ssl;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -3205,19 +3212,21 @@ proxyconfig: |-
 
       listen       80;
       server_name  spv.{{ nginx_proxy_server_name }};
-      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
-      allow 14.143.125.146;   # Whitelisted IP
-      deny all;            # Deny all other IPs
+      allow 14.143.125.146;
+      real_ip_recursive on;
+      deny all;
       return 404;
     }
 
    server {
     listen                443 ssl;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -4116,20 +4125,22 @@ proxyconfig: |-
         }
 
       listen       80;
-      set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+      set_real_ip_from 0.0.0.0/0;
       real_ip_header X-Forwarded-For;
-      allow 14.143.125.146;   # Whitelisted IP
-      deny all;            # Deny all other IPs
+      allow 14.143.125.146;
+      real_ip_recursive on;
+      deny all;
       server_name  mdo.{{ nginx_proxy_server_name }};
       return 404;
     }
 
   server {
     listen                443 ssl;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -5048,7 +5059,8 @@ nginxconfig: |
 {% if nginx_modules is defined and nginx_modules %}
   {{ nginx_modules | indent( width=2, indentfirst=True)  }}
 {% endif %}
-  error_log  /var/log/nginx/error.log warn;
+  error_:q1
+   /var/log/nginx/error.log warn;
   pid        /var/run/nginx.pid;
   events {
       worker_connections  10000;
@@ -5091,7 +5103,7 @@ nginxconfig: |
                         ' $request_time $upstream_response_time $pipe'
                         ' "$http_referer" "$http_user_agent" "$sb_request_id"'
                         ' "$http_x_device_id" "$http_x_channel_id" "$http_x_app_id"'
-                        ' "$http_x_app_ver" "$http_x_session_id"';
+                        ' "$http_x_app_ver" "$http_x_session_id" "$http_x_forwarded_for"';
       access_log  /var/log/nginx/access.log  main;
       # Shared dictionary to store metrics
       lua_shared_dict prometheus_metrics 100M;
@@ -5244,10 +5256,11 @@ keycloakconf: |
   server {
     listen 80;
     listen [::]:80;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     server_name {{ merge_proxy_server_name }};
     # Limitting open connection per ip
     limit_conn limitbyaddr {{ nginx_per_ip_connection_limit }};
@@ -5255,10 +5268,11 @@ keycloakconf: |
   }
   server {
     listen                443 ssl;
-    set_real_ip_from 0.0.0.0/0;  # Trust all proxies (adjust as needed)
+    set_real_ip_from 0.0.0.0/0;
     real_ip_header X-Forwarded-For;
-    allow 14.143.125.146;   # Whitelisted IP
-    deny all;            # Deny all other IPs
+    allow 14.143.125.146;
+    real_ip_recursive on;
+    deny all;
     ssl_certificate       /etc/secrets-merge/tls.crt;
     ssl_certificate_key   /etc/secrets-merge/tls.key;
     server_name           {{ merge_proxy_server_name }};
