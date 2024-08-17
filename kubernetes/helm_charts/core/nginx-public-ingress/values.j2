@@ -3344,11 +3344,6 @@ proxyconfig: |-
       allow 223.187.120.64;
       allow 98.70.38.196;
       real_ip_recursive on;
-      error_page 403 /maintenance.png;
-      location = /maintenance.png {
-          root /var/www/maintenance;
-          internal;
-      }
       deny all;
       return 404;
     }
@@ -3373,11 +3368,7 @@ proxyconfig: |-
     allow 223.187.120.64;
     allow 98.70.38.196;
     real_ip_recursive on;
-    error_page 403 /maintenance.png;
-    location = /maintenance.png {
-        root /var/www/maintenance;
-        internal;
-    }
+
     deny all;
     ssl_certificate       /etc/secrets/site.crt;
     ssl_certificate_key   /etc/secrets/site.key;
@@ -4267,7 +4258,11 @@ proxyconfig: |-
     {{ proxy_custom_config }}
 
     client_max_body_size 400M;
-
+    error_page 403 /maintenance.png;
+    location = /maintenance.png {
+        root /var/www/maintenance;
+        internal;
+    }
     }
 
 
@@ -5232,7 +5227,6 @@ proxyconfig: |-
     {{ proxy_custom_config }}
 
     client_max_body_size 400M;
-
     }
 
 nginxconfig: |
