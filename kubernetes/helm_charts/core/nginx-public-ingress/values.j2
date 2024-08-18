@@ -1346,7 +1346,7 @@ proxyconfig: |-
     }
     location = /maintenance.png {
         root /var/www/maintenance;
-        internal;
+        allow all;
     }
     location /training {
       rewrite ^/(.*) /$1 break;
