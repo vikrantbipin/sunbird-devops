@@ -17,7 +17,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 913,
+  "id": 1042,
   "links": [],
   "panels": [
     {
@@ -378,8 +378,10 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "1 - sum(:node_memory_MemAvailable_bytes:sum) / sum(kube_node_status_allocatable_memory_bytes)",
+          "expr": "1 - sum(:node_memory_MemAvailable_bytes:sum) / sum(kube_node_status_allocatable{resource=\"memory\", unit=\"byte\"})\n",
           "instant": false,
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -469,8 +471,10 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kube_pod_container_resource_requests_cpu_cores) / sum(kube_node_status_allocatable_cpu_cores)",
+          "expr": "sum(kube_pod_container_resource_requests {resource=\"cpu\", unit=\"core\"}) / sum(kube_node_status_allocatable{resource=\"cpu\", unit=\"core\"})",
           "instant": false,
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -560,8 +564,10 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kube_pod_container_resource_requests_memory_bytes) / sum(kube_node_status_allocatable_memory_bytes)",
+          "expr": "sum(kube_pod_container_resource_requests{resource=\"memory\", unit=\"byte\"}) / sum(kube_node_status_allocatable{resource=\"memory\", unit=\"byte\"})",
           "instant": false,
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -651,8 +657,10 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kube_pod_container_resource_limits_cpu_cores) / sum(kube_node_status_allocatable_cpu_cores)",
+          "expr": "sum(kube_pod_container_resource_limits{resource=\"cpu\", unit=\"core\"}) / sum(kube_node_status_allocatable{resource=\"cpu\", unit=\"core\"})",
           "instant": false,
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -742,8 +750,10 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kube_pod_container_resource_limits_memory_bytes) / sum(kube_node_status_allocatable_memory_bytes)",
+          "expr": "sum(kube_pod_container_resource_limits{resource=\"memory\", unit=\"byte\"}) / sum(kube_node_status_allocatable{resource=\"memory\", unit=\"byte\"})",
           "instant": false,
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -2338,7 +2348,7 @@
       "valueName": "current"
     }
   ],
-  "refresh": "1m",
+  "refresh": "30s",
   "schemaVersion": 25,
   "style": "dark",
   "tags": [],
@@ -2373,6 +2383,6 @@
   },
   "timezone": "",
   "title": "Dashboard-All",
-  "uid": "O7qeGyCSz",
-  "version": 2
+  "uid": "MMZejyjSz",
+  "version": 6
 }
