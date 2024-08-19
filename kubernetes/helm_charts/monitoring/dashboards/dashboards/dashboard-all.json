@@ -17,7 +17,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 142,
+  "id": 913,
   "links": [],
   "panels": [
     {
@@ -192,7 +192,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kube_node_status_condition{condition!=\"Ready\",status=\"true\"})",
+          "expr": "sum(changes(kube_node_status_condition{status=\"true\",condition=\"Ready\"}[15m]))",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -2007,7 +2007,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{endpoint=\"https-metrics\", instance=\"28.0.24.37:10250\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", node=\"aks-nodepool1-10765083-vmss000000\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\", service=\"sunbird-monitoring-kubelet\"}",
+      "tableColumn": "{endpoint=\"https-metrics\", instance=\"10.175.5.64:10250\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", node=\"gke-kb-prd-gke-clust-kb-prd-gke-node--aedf8738-cqz5\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\", service=\"sunbird-monitoring-kubelet\"}",
       "targets": [
         {
           "expr": "(\n  kubelet_volume_stats_capacity_bytes{cluster=\"\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\"}\n  -\n  kubelet_volume_stats_available_bytes{cluster=\"\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\"}\n)\n/\nkubelet_volume_stats_capacity_bytes{cluster=\"\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\"}\n* 100",
@@ -2083,7 +2083,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": ":kube_pod_info_node_count:",
+          "expr": "sum(kube_node_status_condition{condition=\"Ready\", status=\"true\"}==1)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -2310,7 +2310,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{endpoint=\"https-metrics\", instance=\"28.0.24.5:10250\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", node=\"aks-nodepool1-10765083-vmss000000\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\", service=\"sunbird-monitoring-kubelet\"}",
+      "tableColumn": "{endpoint=\"https-metrics\", instance=\"10.175.5.64:10250\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", node=\"gke-kb-prd-gke-clust-kb-prd-gke-node--aedf8738-cqz5\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\", service=\"sunbird-monitoring-kubelet\"}",
       "targets": [
         {
           "expr": "(\n  kubelet_volume_stats_capacity_bytes{cluster=\"\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\"}\n  -\n  kubelet_volume_stats_available_bytes{cluster=\"\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\"}\n)\n/\nkubelet_volume_stats_capacity_bytes{cluster=\"\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"monitoring\", persistentvolumeclaim=\"prometheus-sunbird-monitoring-prometheus-db-prometheus-sunbird-monitoring-prometheus-0\"}\n* 100",
@@ -2346,14 +2346,11 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
       "1m",
       "5m",
       "15m",
@@ -2376,6 +2373,6 @@
   },
   "timezone": "",
   "title": "Dashboard-All",
-  "uid": "000000006",
-  "version": 3
+  "uid": "O7qeGyCSz",
+  "version": 2
 }
