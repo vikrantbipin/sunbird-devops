@@ -298,3 +298,14 @@
 
     - name: Redis Update Pending Publish Course Count
       command: "redis-cli -h {{ redis_host }} -p {{ redis_port }} -n {{ redis_db }} SET {{ redis_key_lp_es_pending_publish_course_count }} {{ pending_publish_course_count }}"
+
+    - mail:
+        host: {{mail_server_host}}
+        port: {{sunbird_mail_server_port}}
+        from: {{sunbird_mail_server_from_email}}
+        username: {{mail_server_username}}
+        password: {{core_vault_mail_server_password}}
+        to: "{{ staticpage_dashboard_mailto }}"
+        subject: "Dashboard data status Production dated {{ ansible_date_time.date }}"
+        body: "{{ lookup('template','dashboard.html.j2') }}"
+        subtype: html
