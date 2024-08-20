@@ -88,9 +88,17 @@ alertmanager:
       group_interval: 5m
       repeat_interval: 4h
       routes:
+        - matchers:
+            - severity="critical"
+          receiver: node_exporter_team_critical
+      routes:
+        - matchers:
+            - severity="fatal"
+          receiver: node_exporter_team_fatal      
+      routes:
       - match_re:
          alertname: "{{ '^(' + (ignore_alert_list + igonore_alert_list_custom) | join('|') + ')' }}"
-        receiver: "null"
+        receiver: "null"           
       - match:
           module: dp_process
         receiver: dp-process_slack
