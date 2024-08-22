@@ -1,0 +1,32 @@
+---
+# vars file for deploy-lex-core-service
+
+# For script
+release_name: "{{ network_alias_mentoring_portal }}"
+template_compose_file_name: mentoring-portal.j2
+template_env_file_name: mentoring-portal-env.j2
+compose_file_name: "{{ service_mentoring_portal }}.yml"
+env_file_name: "{{ service_mentoring_portal }}.env"
+helm_env_file_location: "../helm_charts/igot-deploy/templates/"
+helm_env_file_name: "{{ helm_env_file_location }}/{{ service_mentoring_portal }}.env"
+#chart_path: "../kubernetes-deploy/pdf-generator-service" 
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+user_friendly_name: ml-kb-portal service
+
+# For service
+application_port: "{{ service_mentoring_portal_port }}"
+image_name: "{{ image_mentoring_portal }}"
+tag: "{{ tags_mentoring_portal }}"
+host_port: "{{ application_port }}"
+docker_port: "{{ application_port }}"
+replicas: "{{ service_replicas_mentoring_portal }}"
+reserved_memory: "{{ service_mem_reserved_mentoring_portal }}"
+limited_memory: "{{ service_mem_limit_mentoring_portal }}"
+#limited_memory: 2048M
+health_check_endpoint: http://127.0.0.1:{{ docker_port }}/actuator/health
+network_alias_name: "{{ network_alias_mentoring_portal }}"
+docker_service_stack_name: lms
+docker_service_name: "{{ service_mentoring_portal }}"
+force_reload: "{{ force_reload_mentoring_portal }}"
+

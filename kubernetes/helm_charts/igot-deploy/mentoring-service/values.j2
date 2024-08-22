@@ -1,0 +1,108 @@
+### Default variable file for lms-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{mentoring_service_java_mem_limit|default('-Xmx4096m')}}
+
+replicaCount: {{mentoring_service_replicacount|default(1)}}
+repository: {{ image_mentoring_service }}
+image_tag: {{ image_tag }}
+resources:
+  requests:
+    cpu: {{mentoring_service_cpu_req|default('100m')}}
+    memory: {{mentoring_service_mem_req|default('200Mi')}}
+  limits:
+    cpu: {{ mentoring_service_cpu_limit|default('2')}}
+    memory: {{mentoring_service_mem_limit|default('1430Mi')}}
+network:
+  port: {{ service_mentoring_service_port }}
+  targetport: {{ service_mentoring_service_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ lms_maxsurge|default('25%') }}
+  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+
+mentoring_basepath:  {{ frac_backend_basepath | default('/keys/') }}
+
+environmentjs: |-
+  ACCESS_TOKEN_SECRET="{{ access_token_secret }}"
+  ALLOWED_HOST="{{ mentored_allowed_host}}"
+  API_DOC_URL="/mentoring/api-doc"
+  APPLICATION_BASE_URL="/mentoring/"
+  APPLICATION_ENV="production"
+  APPLICATION_HOST="mentoring-service"
+  APPLICATION_PORT="7101"
+  AUTH_METHOD="keycloak_public_key"
+  KEYCLOAK_PUBLIC_KEY_PATH="/keys"
+  IS_EXTERNAL_USER_SERVICE="true"
+
+  BIB_BLUE_BUTTON_BASE_URL="/bigbluebutton/"
+  BIG_BLUE_BUTTON_SECRET_KEY="test"
+  BIG_BLUE_BUTTON_SECRET_KEY1="test"
+  BIG_BLUE_BUTTON_SESSION_END_URL="{{ big_blue_button_session_end_url }}"
+  BIG_BLUE_BUTTON_URL="{{ big_blue_button_url }}"
+  CLEAR_INTERNAL_CACHE="mentoringinternal"
+  CLOUD_STORAGE="AWS"
+  DEFAULT_AWS_BUCKET_NAME="{{ mentoring_storage_bucket }}"
+  DEFAULT_MEETING_SERVICE="OFF"
+  DEFAULT_ORGANISATION_CODE="{{mentoring_default_organisation_code}}"
+  DEFAULT_ORG_ID="{{mentoring_default_organisation_code}}"
+  DEV_DATABASE_URL="postgres://{{ postgresql_username_mentoring }}:{{ postgresql_password_mentoring }}@{{ postgresql_host }}:{{ postgresql_port}}/elevate_mentoring"
+  DISABLE_LOG="false"
+  ENABLE_EMAIL_FOR_REPORT_ISSUE="true"
+  ERROR_LOG_LEVEL="silly"
+  INTERNAL_ACCESS_TOKEN="{{ mentoring_internal_access_token }}"
+  INTERNAL_CACHE_EXP_TIME="86400"
+  IV="{{ mentoring_iv }}"
+  KAFKA_GROUP_ID="mentoringservice"
+  KAFKA_URL="{{ kafka_servers_list }}"
+  KEY="{{ mentored_key }}"
+  MEETING_END_CALLBACK_EVENTS="{{ mentored_meeting_end_callback_events }}"
+  MENTEE_SESSION_CANCELLATION_EMAIL_TEMPLATE="mentee_session_cancel"
+  MENTEE_SESSION_ENROLLMENT_EMAIL_TEMPLATE="mentee_session_enrollment"
+  MENTOR_SECRET_CODE="{{ mentor_secret_code }}"
+  MENTOR_SESSION_DELETE_EMAIL_TEMPLATE="mentor_session_delete"
+  MENTOR_SESSION_RESCHEDULE_EMAIL_TEMPLATE="mentor_session_reschedule"
+  MONGODB_URL="mongodb://localhost:27018/mentoring"
+  NOTIFICATION_KAFKA_TOPIC="{{ env }}.mentor.notifications"
+  RATING_KAFKA_TOPIC="{{ env }}.mentor.rating"
+  RECORDING_READY_CALLBACK_URL="{{ mentored_recording_ready_callback_url }}"
+  REDIS_HOST="redis://{{ redis_host }}:{{ redis_port }}"
+  REFRESH_VIEW_INTERVAL="30000"
+  REPORT_ISSUE_EMAIL_TEMPLATE_CODE="user_issue_reported"
+  SALT_ROUNDS="10"
+  SCHEDULER_SERVICE_BASE_URL="/scheduler/"
+  SCHEDULER_SERVICE_ERROR_REPORTING_EMAIL_ID="{{ mentored_support_email_id }}"
+  SCHEDULER_SERVICE_HOST="http://mentoring-interface-service:3567"
+  SCHEDULER_SERVICE_URL="http://mentoring-scheduler-service:7401/jobs/scheduleJob"
+  SESSION_EDIT_WINDOW_MINUTES="0"
+  SESSION_MENTEE_LIMIT="5"
+  SIGNED_URL_EXPIRY_IN_MILLISECONDS="120000"
+  SUPPORT_EMAIL_ID="{{ mentored_support_email_id }}"
+  USER_SERVICE_BASE_URL="/user/"
+  USER_SERVICE_HOST="http://mentoring-interface-service:3567"
+  ZEST_ENV="ZEST_ENV"
+  CLEAR_INTERNAL_CACHE="{{ env }}.mentoring.internal"
+  SESSION_VERIFICATION_METHOD=null
+  DEFAULT_QUEUE=mentoring-queue
+  SAMPLE_CSV_FILE_PATH=sample/bulk_session_creation.csv
+  CSV_MAX_ROW=20
+  SESSION_CREATION_MENTOR_LIMIT=1
+  EMAIL_ID_ENCRYPTION_KEY="{{ mentoring_email_id_encryption_key }}"
+  EMAIL_ID_ENCRYPTION_IV="{{ mentoring_email_id_encryption_iv }}"
+  EMAIL_ID_ENCRYPTION_ALGORITHM="{{ mentoring_email_id_encryption_algorithm }}"
+  CLOUD_STORAGE_PROVIDER="{{ mentoring_cloud_provider }}"
+  CLOUD_STORAGE_SECRET={{cloud_storage_secret | replace('\n', '\\n') | default("")}}
+  CLOUD_STORAGE_BUCKETNAME="{{ mentoring_bucket }}"
+  CLOUD_STORAGE_BUCKET_TYPE="{{ mentoring_cloud_storage_type }}"
+  PUBLIC_ASSET_BUCKETNAME="{{ mentoring_bucket }}"
+  CLOUD_STORAGE_ACCOUNTNAME="{{ cloud_storage_key }}"
+  CLOUD_STORAGE_REGION=ap-south-1
+  CLOUD_STORAGE_PROJECT="{{ cloud_public_storage_project }}"
+  CLOUD_ENDPOINT="{{ cloud_storage_endpoint }}"
+  AUTH_TOKEN_HEADER_NAME=x-authenticated-user-token
+  IS_AUTH_TOKEN_BEARER=false
