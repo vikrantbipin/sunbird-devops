@@ -47,7 +47,7 @@
   vars:
     artifacts_container: "{{ backup_bucket }}/{{ cassandra_backup_folder }}"
     artifact_path: "/data/cassandra/backup/{{ cassandra_backup_gzip_file_name }}.tar.gz"
-    artifact: "{{ cassandra_backup_name }}"
+    artifact: "{{ cassandra_backup_name }}/"
     service_account: "{{ gcp_backups_service_account }}"
 
 - name: clean up backup dir after upload
