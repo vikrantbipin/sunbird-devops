@@ -96,7 +96,7 @@ environmentjs: |-
   EMAIL_ID_ENCRYPTION_IV="{{ mentoring_email_id_encryption_iv }}"
   EMAIL_ID_ENCRYPTION_ALGORITHM="{{ mentoring_email_id_encryption_algorithm }}"
   CLOUD_STORAGE_PROVIDER="{{ mentoring_cloud_provider }}"
-  CLOUD_STORAGE_SECRET={{cloud_storage_secret | replace('\n', '\\n') | default("")}}
+  CLOUD_STORAGE_SECRET="{{cloud_storage_secret | replace('\n', '\\n') | default("")}}"
   CLOUD_STORAGE_BUCKETNAME="{{ mentoring_bucket }}"
   CLOUD_STORAGE_BUCKET_TYPE="{{ mentoring_cloud_storage_type }}"
   PUBLIC_ASSET_BUCKETNAME="{{ mentoring_bucket }}"
@@ -106,3 +106,6 @@ environmentjs: |-
   CLOUD_ENDPOINT="{{ cloud_storage_endpoint }}"
   AUTH_TOKEN_HEADER_NAME=x-authenticated-user-token
   IS_AUTH_TOKEN_BEARER=false
+  ADMIN_ACCESS_TOKEN="{{mentoring_admin_access_token}}"
+  ADMIN_TOKEN_HEADER_NAME="admin-auth-token"
+  ORG_ID_HEADER_NAME="organization-id"
