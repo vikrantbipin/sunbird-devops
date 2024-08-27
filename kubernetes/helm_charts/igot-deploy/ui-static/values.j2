@@ -28503,55 +28503,53 @@ appsjson: |-
   ]
  }
 
-envjs: |-
- (function (window) {
-    window["env"] = window["env"] || {};
-    // Environment variables
-    window["env"]["name"] = '{{ igot_portal_env }}';
-    window["env"]["production"] = '';
-    window["env"]["sitePath"] = '{{ domain_name }}';
-    window["env"]["organisation"] = '{{ igot_organisation }}';
-    window["env"]["framework"] = '{{ igot_framework }}'
-    window["env"]["channelId"] = '{{ igot_channelid }}'
-    window["env"]["azureHost"] = 'https://{{ domain_name }}'
-    //window["env"]["contentHost"] = 'https://content.{{ domain_name }}'
-    window["env"]["azureBucket"] = '{{ igot_karmayoggiazurebucket }}'
-    window["env"]["azureOldHost"] = '{{ igot_azureoldhost }}'
-    window["env"]["azureOldBuket"] = '{{ igot_azureoldbuket }}'
-    window["env"]["contentHost"] = 'https://{{ domain_name }}'
-    window["env"]["contentBucket"] = '{{ igot_content_bucket }}'
-    window["env"]["certificateassets"] = '{{ igot_certimage_bucket }}'
-    window["env"]["missionKarmayogiPath"] = '{{ missionKarmayogipath }}'
-    window["env"]["helpEmail"] = "{{ helpemailid }}"
-    window["env"]["staticHomePageUrl"] = 'https://{{ static_domain_name }}/'
-    window["env"]['cscmsUrl'] = 'https://{{ portal_training_url }}/training/'
-    window["env"]['dakshtaName'] = '{{ dakshtaname }}'
-    window["env"]["contactMeetLink"] = '{{ dopt_contactmeetlink }}'
-    window["env"]["karmayogiBharatLink"] = 'https://{{ static_domain_name }}/'
-    window["env"]["meetingLinkDetail"] = 'Connect with us for discussions and queries between 9 AM to 5 PM from Monday to Friday on below link.'
-    window["env"]["programStripName"] = 'Programs'
-    window["env"]["programStripPrimaryCategory"] = 'Program'
-    window["env"]["programStripKey"] = 'programs'
-    window["env"]["quizResultTimeout"] = '5000'
-    window["env"]["assessmentBuffer"] = 0;
-    window["env"]["cdnContentHost"] = '{{ cdn_content_host }}'
-    window["env"]["cdnContentBucket"] = '{{ cdn_content_bucket }}'
-    window["env"]["spvorgID"] = '{{ spv_org_id }}'
-    window["env"]["mdoChannelsBookmarkId"] = '{{ mdochannelsbookmarkid }}';
-    window["env"]["apiCache"] = '3'
-    window["env"]["portalRoles"] = '{{ igot_karmayoggirules }}';
-    window["env"]["portals"] = [
-        { sr: 1, id: 'cbc', name: 'CBC Portal', desc: 'Capacity Building Commission', icon: 'add_moderator', uriPath: 'https://{{ cbc_portal_url }}', roles: ['CBC_ADMIN', 'CBC_MEMBER', 'cbc_admin', 'cbc_member'], isPublic: false },
-        { sr: 2, id: 'cbp', name: 'CBP Portal', desc: 'Create and manage CBPs here', icon: 'add_moderator', uriPath: 'https://{{ cbp_domain_name }}', roles: ['CBP_ADMIN', 'CONTENT_CREATOR', 'CONTENT_REVIEWER', 'CONTENT_PUBLISHER', 'SPV_PUBLISHER', 'cbp_admin', 'content_creator', 'content_reviewer', 'content_publisher', 'spv_publisher', 'program_coordinator'], isPublic: false },
-        { sr: 3, id: 'frac', name: 'Frac Dictionary', desc: 'The dictionary of framework of roles, activities and competencies.', icon: 'local_library', uriPath: '{{ frac_dict_url }}', roles: [], isPublic: true },
-        { sr: 4, id: 'mdo', name: 'MDO Portal', desc: 'Manage MDO user access, work orders and events', icon: 'add_moderator', uriPath: 'https://{{ mdo_portal_url }}', roles: ['MDO_ADMIN', 'MDO_LEADER', 'WAT_MEMBER', 'mdo_admin', 'mdo_leader', 'wat_member'], isPublic: false },
-        { sr: 5, id: 'spv', name: 'SPV Portal', desc: 'Create and manage MDOs', icon: 'add_moderator', uriPath: 'https://{{ spv_portal_url }}', roles: ['SPV_ADMIN', 'STATE_ADMIN'], isPublic: false }
-    ];
-    window["env"]["recaptchaKey"] = '{{ igot_recaptchakey }}';
-    window["env"]["supportEmail"] = "mission.karmayogi@gov.in"
-    window["env"]["providerDataKey"] = '{{ providerdatakey }}';
-    window["env"]["resendOTPTIme"] = 180
- })(this);
+envjson: |-
+  {
+    "name":"dev",
+    "production":"",
+    "sitePath":"portal.dev.karmayogibharat.net",
+    "organisation": "igot-karmayogi",
+    "framework": "igot",
+    "channelId": "",
+    "azureHost": "https://portal.dev.karmayogibharat.net",
+    "azureBucket": "assets/public",
+    "azureOldHost": "https://staas-bbs1.cloud.gov.in",
+    "azureOldBuket": "igot",
+    "contentHost": "https://portal.dev.karmayogibharat.net",
+    "contentBucket": "assets/public",
+    "certificateassets": "assets/certimage",
+    "missionKarmayogiPath": "https://portal.dev.karmayogibharat.net/",
+    "helpEmail": "help@karmayogi.in",
+    "staticHomePageUrl": "https://dev.karmayogibharat.net/",
+    "cscmsUrl": "https://portal.dev.karmayogibharat.net/training/",
+    "dakshtaName": "DAKSHTA",
+    "contactMeetLink": "https://dopt.webex.com/dopt/j.php?MTID=m9710f46735e9269dba8d82c54d13af1b",
+    "karmayogiBharatLink": "https://dev.karmayogibharat.net/",
+    "meetingLinkDetail": "Connect with us for discussions and queries between 9 AM to 5 PM from Monday to Friday on below link.",
+    "programStripName": "Programs",
+    "programStripPrimaryCategory": "Program",
+    "programStripKey": "programs",
+    "quizResultTimeout": "5000",
+    "assessmentBuffer": 0,
+    "cdnContentHost": "https://portal.dev.karmayogibharat.net",
+    "cdnContentBucket": "assets/public",
+    "spvorgID": "0135071359030722569",
+    "mdoChannelsBookmarkId": "76f2eb70-5972-11ef-a96f-77be375b05e1'",
+    "apiCache": "3",
+    "portalRoles": "PUBLIC,DASHBOARD_ADMIN",
+    "portals": [
+        { "sr": 2, "id": "cbp", "name": "CBP Portal", "desc": "Create and manage CBPs here", "icon": "add_moderator", "uriPath": "https://cbp.dev.karmayogibharat.net", "roles": ["CBP_ADMIN", "CONTENT_CREATOR", "CONTENT_REVIEWER", "CONTENT_PUBLISHER", "SPV_PUBLISHER", "cbp_admin", "content_creator", "content_reviewer", "content_publisher", "spv_publisher", "program_coordinator"], "isPublic": false },
+        { "sr": 1, "id": "cbc", "name": "CBC Portal", "desc": "Capacity Building Commission", "icon": "add_moderator", "uriPath": "https://cbc.dev.karmayogibharat.net", "roles": ["CBC_ADMIN", "CBC_MEMBER", "cbc_admin", "cbc_member"], "isPublic": false },
+        { "sr": 3, "id": "frac", "name": "Frac Dictionary", "desc": "The dictionary of framework of roles, activities and competencies.", "icon": "local_library", "uriPath": "https://frac-dictionary.dev.karmayogibharat.net", "roles": [], "isPublic": true },
+        { "sr": 4, "id": "mdo", "name": "MDO Portal", "desc": "Manage MDO user access, work orders and events", "icon": "add_moderator", "uriPath": "https://mdo.dev.karmayogibharat.net", "roles": ["MDO_ADMIN", "MDO_LEADER", "WAT_MEMBER", "mdo_admin", "mdo_leader", "wat_member"], "isPublic": false },
+        { "sr": 5, "id": "spv", "name": "SPV Portal", "desc": "Create and manage MDOs", "icon": "add_moderator", "uriPath": "https://spv.dev.karmayogibharat.net", "roles": ["SPV_ADMIN", "STATE_ADMIN"], "isPublic": false }
+    ],
+    "recaptchaKey": "'6Lcl-CQqAAAAAMEPv0kxyrtYhBVZBXtXygyHNoyX",
+    "supportEmail": "mission.karmayogi@gov.in",
+    "providerDataKey": "do_1140809843675136001224",
+    "resendOTPTIme": 180
+  }    
+
 
 appleappsiteassociation: |-
  {
