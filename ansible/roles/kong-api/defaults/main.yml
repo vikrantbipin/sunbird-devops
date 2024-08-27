@@ -134,6 +134,7 @@ org_prefix : /org
 contentpartner_prefix: /contentpartner
 halloffame_prefix: /halloffame
 cqf_questionset_prefix: /cqfquestionset
+cqf_prefix: /cqf
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -17050,6 +17051,78 @@ kong_apis:
   - name: cqfQuestionSetReview
     uris: "{{ cqf_questionset_prefix }}/v2/review"
     upstream_url: "{{ assessment_service_url }}/questionset/v4/review"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfCreateEntry
+    uris: "{{ cqf_prefix }}/v1/createEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfReadEntry
+    uris: "{{ cqf_prefix }}/v1/readEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfUpdateEntry
+    uris: "{{ cqf_prefix }}/v1/updateEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfListEntry
+    uris: "{{ cqf_prefix }}/v1/listEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/list"
     strip_uri: true
     plugins:
       - name: jwt
