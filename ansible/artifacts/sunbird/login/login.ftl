@@ -84,7 +84,7 @@
                                         <#-- TODO: need to find alternative for prepopulating username -->
                                         <input class="mt-8" id="username" name="username" type="text" disabled />
                                         <#else>
-                                        <input class="mt-8" id="username" name="username" onkeyup="validateEmailChar()" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" type="text" autofocus autocomplete="off" maxLength=256 />
+                                        <input class="mt-8" id="username" name="username" onkeyup="validateEmailChar()" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" type="text" autofocus autocomplete="off" maxLength=95 />
                                         <span id="emailLengthErr" class="ui text error" style="font-size:11px!important;"></span>
                                         </#if>
                                     </div>
@@ -190,7 +190,7 @@
                                         </div>
                                         <input tabindex="0" required id="emailOrPhone" placeholder="Email/Phone number (10 digit number)"
                                         class="mdc-text-field__input ${properties.kcInputClass!} mt-8" 
-                                        name="emailOrPhone" type="text" autofocus autocomplete="off" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" maxlength=256>
+                                        name="emailOrPhone" type="text" autofocus autocomplete="off" onfocusin="inputBoxFocusIn(this)" onfocusout="inputBoxFocusOut(this)" maxlength=95>
                                     </div>
                                     
                                     <div class="mdc-card__actions">
