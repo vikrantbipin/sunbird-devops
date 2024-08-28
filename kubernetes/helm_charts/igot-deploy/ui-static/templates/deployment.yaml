@@ -60,8 +60,8 @@ spec:
           mountPath: /app/dist/www/en/assets/configurations/site.config.json
           subPath: site.config.json
         - name: env-js
-          mountPath: /app/dist/www/en/assets/env.js
-          subPath: env.js
+          mountPath: /app/dist/www/en/assets/env.json
+          subPath: env.json
         - name: apps-json
           mountPath: /app/dist/www/en/assets/configurations/feature/apps.json
           subPath: apps.json
