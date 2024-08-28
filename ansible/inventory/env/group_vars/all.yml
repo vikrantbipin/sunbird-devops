@@ -916,8 +916,8 @@ image_mentoring_service: mentoring-service
 image_mentoring_user_service: mentoring-user-service
 image_mentoring_portal: mentoring-portal
 image_mentoring_interface_service: mentoring-interface-service
-image_cb_integration_framework: cb-integration-framework
-image_cb_service_registry: cb-service-registry
+image_cb_integration_framework_service: cb-integration-framework
+image_cb_service_registry_service: cb-service-registry
 
 #####################bulk-upload-spv#########
 host_bulk_upload: /mydata/bulk_upload

@@ -17,7 +17,7 @@ user_friendly_name: content validation service
 
 # For service
 application_port: "{{ service_cb_service_registry_port }}"
-image_name: "{{ image_cb_service_registry }}"
+image_name: "{{ image_cb_service_registry_service }}"
 tag: "{{ tags_cb_service_registry }}"
 host_port: "{{ application_port }}"
 docker_port: "{{ application_port }}"

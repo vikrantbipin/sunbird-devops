@@ -17,7 +17,7 @@ user_friendly_name: cb_integration_framework
 
 # For service
 application_port: "{{ service_cb_integration_framework_port }}"
-image_name: "{{ image_cb_integration_framework }}"
+image_name: "{{ image_cb_integration_framework_service }}"
 tag: "{{ tags_cb_integration_framework }}"
 host_port: "{{ application_port }}"
 docker_port: "{{ application_port }}"
