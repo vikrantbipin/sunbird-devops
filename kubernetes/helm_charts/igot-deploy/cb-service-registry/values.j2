@@ -1,0 +1,30 @@
+### Default variable file for cios-content-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{cb_service_registry_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{cb_service_registry_replicacount|default(1)}}
+repository: {{ image_cb_service_registry_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{cb_service_registry_cpu_req|default('100m')}}
+    memory: {{cb_service_registry_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{cb_service_registry_cpu_limit|default('1')}}
+    memory: {{cb_service_registry_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_cb_service_registry_port }}
+  targetport: {{ service_cb_service_registry_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ cb_service_registry_maxsurge|default('25%') }}
+  maxunavailable: {{ cb_service_registry_maxunavailable|default('25%') }}
+
+cb_service_registry_backend_basepath: {{ cb_service_registry_backend_basepath | default('/keys/') }}
+

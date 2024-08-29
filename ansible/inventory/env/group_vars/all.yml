@@ -737,6 +737,8 @@ service_mentoring_service: mentoring-service
 service_mentoring_user_service: mentoring-user-service
 service_mentoring_portal: mentoring-portal
 service_mentoring_interface_service: mentoring-interface-service
+service_cb_service_registry: cb-service-registry
+service_cb_integration_framework: cb-integration-framework
 
 # Ports
 service_bulk_upload_port: 3009
@@ -807,6 +809,8 @@ service_mentoring_service_port: 7101
 service_mentoring_user_service_port: 7001
 service_mentoring_portal_port: 7601
 service_mentoring_interface_service_port: 3567
+service_cb_service_registry_port: 8096
+service_cb_integration_framework_port: 8091
 
 # Network alias names, so that one service can talk to another
 network_alias_content_service: private-content-service
@@ -860,6 +864,8 @@ network_alias_mentoring_service: mentoring-service
 network_alias_mentoring_user_service: mentoring-user-service
 network_alias_mentoring_portal: mentoring-portal
 network_alias_mentoring_interface_service: mentoring-interface-service
+network_alias_cb_service_registry: cb-service-registry
+network_alias_cb_integration_framework: cb-integration-framework
 
 # Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
 image_ui_static: ui-static
@@ -910,6 +916,8 @@ image_mentoring_service: mentoring-service
 image_mentoring_user_service: mentoring-user-service
 image_mentoring_portal: mentoring-portal
 image_mentoring_interface_service: mentoring-interface-service
+image_cb_integration_framework_service: cb-integration-framework
+image_cb_service_registry_service: cb-service-registry
 
 #####################bulk-upload-spv#########
 host_bulk_upload: /mydata/bulk_upload
