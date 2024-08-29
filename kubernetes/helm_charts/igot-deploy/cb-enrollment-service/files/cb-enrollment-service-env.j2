@@ -17,14 +17,14 @@ kakfa.offset.reset.value=latest
 kafka.max.poll.interval.ms=15000
 kafka.max.poll.records=100
 kafka.auto.commit.interval.ms=10000
-spring.kafka.cornell.topic.name={{env}}.cornell.progress
-spring.kafka.consumer.group.id=cornell-progress
+spring.kafka.cornell.topic.name={{env}}.enrollment.progress
+spring.kafka.consumer.group.id=enrollment-progress
 
 spring.redis.cacheTtl=3600
 sso.url=https://{{ domain_name }}/auth/
 sso.realm={{ keycloak_sso_realm }}
 
-cios.read.api.base.url=https://{{ domain_name }}/api
+cios.read.api.base.url=http://cb-pores-service:7001
 cios.read.api.fixed.url=/cios/v1/content/readby/externalid/
 kong.api.auth.token={{ bearer_token }}
 
