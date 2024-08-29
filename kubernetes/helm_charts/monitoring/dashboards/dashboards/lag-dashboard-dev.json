@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1088,
-  "iteration": 1724051991150,
+  "id": 1479,
+  "iteration": 1724861708941,
   "links": [],
   "panels": [
     {
@@ -1285,7 +1285,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-metrics-data-transformer-group\", job=\"ingestion-kafka-exporter\"})",
+          "expr": "sum without(partition) (kafka_consumergroup_lag{consumergroup=\"dev-common-certificate-generator-group\", job=\"processing-kafka-exporter\"})",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -6268,6 +6268,6 @@
   },
   "timezone": "",
   "title": "Flink Lag Dashboard - Dev",
-  "uid": "i2aFAsCIz",
-  "version": 1
+  "uid": "lhIxBoqIz",
+  "version": 2
 }

@@ -132,7 +132,9 @@ comp_theme_prefix : /competencyTheme
 comp_sub_theme_prefix : /competencySubTheme
 org_prefix : /org
 contentpartner_prefix: /contentpartner
-
+halloffame_prefix: /halloffame
+cqf_questionset_prefix: /cqfquestionset
+cqf_prefix: /cqf
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -16613,3 +16615,525 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: getSystemSettingsV2
+    uris: "{{ data_service_prefix }}/v2/system/settings/get"
+    upstream_url: "{{ learning_service_url }}/v2/system/settings/get"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'appAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"      
+
+  - name: ciosReadFileInfo
+    uris: "{{ ciosIntegration_prefix }}/v1/file/info"
+    upstream_url: "{{ cios_content_service_url }}/ciosIntegration/v1/file/info"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: hallOfFameMdoLeaderBoard
+    uris: "{{ halloffame_prefix }}/v1/mdoleaderboard"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/halloffame/mdoleaderboard"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: hallOfFameUserLeaderBoard
+    uris: "{{ halloffame_prefix }}/v1/userleaderboard"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/halloffame/org/read"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataAccess'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: surveysampletemplate
+    uris: "{{ surveys_service_prefix }}/template/api/v1/download/sampleTemplate"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/download/sampleTemplate"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: uploadsurvey
+    uris: "{{ surveys_service_prefix }}/template/api/v1/upload"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/upload"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: validatesurvey
+    uris: "{{ surveys_service_prefix }}/template/api/v1/validate"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/validate"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: createsurvey
+    uris: "{{ surveys_service_prefix }}/template/api/v1/survey/create"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/survey/create"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: surveydownloadSolutions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/survey/downloadSolutions"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/survey/downloadSolutions"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: surveygetSolutions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/survey/getSolutions"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/survey/getSolutions"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: authenticatesurveySolutions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/authenticate"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/authenticate"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: signupsurveySolutions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/signup"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/signup"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: errorDownloadofsurveySolutions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/errDownload"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/errDownload"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: userRolesList
+    uris: "{{ surveys_service_prefix }}/template/api/v1/userRoles/list"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/userRoles/list"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: surveyaddSampletemplate
+    uris: "{{ surveys_service_prefix }}template/api/v1/add/sampleTemplate"
+    upstream_url: "{{ ml_survey_service_url }}template/api/v1/add/sampleTemplate"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: surveyupdateSampleTemplate
+    uris: "{{ surveys_service_prefix }}/template/api/v1/update/sampleTemplate"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/update/sampleTemplate"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: uploaduserRoles
+    uris: "{{ surveys_service_prefix }}/template/api/v1/userRoles/singleUpload"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/userRoles/singleUpload"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: listValidations
+    uris: "{{ surveys_service_prefix }}/template/api/v1/validations/list"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/validations/list"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: listConditions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/conditions/list"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/conditions/list"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: updateValidations
+    uris: "{{ surveys_service_prefix }}/template/api/v1/validations/update"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/validations/update"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: updateConditions
+    uris: "{{ surveys_service_prefix }}/template/api/v1/conditions/update"
+    upstream_url: "{{ ml_survey_service_url }}/template/api/v1/conditions/update"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: getsurveyDownloadableUrl
+    uris: "{{ surveys_service_prefix }}apiv1/cloud-services/files/getDownloadableUrl"
+    upstream_url: "{{ ml_survey_service_url }}apiv1/cloud-services/files/getDownloadableUrl"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+      - surveyAccess
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ x_large_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: cqfQuestionSetCreate
+    uris: "{{ cqf_questionset_prefix }}/v2/create"
+    upstream_url: "{{ assessment_service_url }}/questionset/v4/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfQuestionSetUpdateHierarchy
+    uris: "{{ cqf_questionset_prefix }}/v2/hierarchy/update"
+    upstream_url: "{{ assessment_service_url }}/questionset/v4/hierarchy/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfQuestionSetReview
+    uris: "{{ cqf_questionset_prefix }}/v2/review"
+    upstream_url: "{{ assessment_service_url }}/questionset/v4/review"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfCreateEntry
+    uris: "{{ cqf_prefix }}/v1/createEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfReadEntry
+    uris: "{{ cqf_prefix }}/v1/readEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfUpdateEntry
+    uris: "{{ cqf_prefix }}/v1/updateEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: cqfListEntry
+    uris: "{{ cqf_prefix }}/v1/listEntry"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/list"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAdmin'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"

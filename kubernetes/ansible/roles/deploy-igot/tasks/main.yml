@@ -62,6 +62,7 @@
     "sb-cb-ext-service",
     "workflow-handler-service",
     "cb-enrollment-service",
+    "mentoring-service",
     ]
 
 - name: helm upgrade
