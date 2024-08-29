@@ -274,8 +274,7 @@
                 document.getElementById('ivField').value = CryptoJS.enc.Base64.stringify(iv);
 
                 passwordField.value = encrypted;
-               // return validateRecaptcha();
-               return true;
+               return validateRecaptcha();
         }
     </script>
     <script type="text/javascript">
@@ -392,9 +391,9 @@
             }
         }
     </script>
-    <#-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+    script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
         async defer>
-    </script> -->
+    </script> 
     </#if>
 </#if>
 </@layout.registrationLayout>
