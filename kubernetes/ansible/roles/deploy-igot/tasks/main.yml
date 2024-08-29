@@ -4,7 +4,7 @@
     - name: Including shared vars
       include_vars:
         file: ../../../shared_files/vars/ui-shared.yml
-  when: release_name not in ['ml-kb-portal-service']
+  when: release_name not in ['ml-kb-portal-service','ml-template-validation-portal']
 - include_vars:
     file: "{{chart_path}}/files/ansible_vars.yaml"
 
