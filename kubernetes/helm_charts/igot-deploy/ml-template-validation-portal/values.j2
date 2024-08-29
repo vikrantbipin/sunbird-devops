@@ -1,0 +1,33 @@
+### Default variable file for ml_template_validation_portal-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{ml_template_validation_portal_java_mem_limit|default('-Xmx4096m')}}
+
+replicaCount: {{ml_template_validation_portal_replicacount|default(1)}}
+repository: {{ image_ml_template_validation_portal_service }}
+image_tag: {{ image_tag }}
+resources:
+  requests:
+    cpu: {{ml_template_validation_portal_cpu_req|default('100m')}}
+    memory: {{ml_template_validation_portal_mem_req|default('200Mi')}}
+  limits:
+    cpu: {{ ml_template_validation_portal_cpu_limit|default('2')}}
+    memory: {{ml_template_validation_portal_mem_limit|default('1430Mi')}}
+network:
+  port: {{ service_ml_template_validation_portal_port }}
+  targetport: {{ service_ml_template_validation_portal_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ ml_template_validation_portal_maxsurge|default('25%') }}
+  maxunavailable: {{ ml_template_validation_portal_maxunavailable|default('25%') }}
+
+environmentjs: |-
+  window["env"] = {
+      baseURL: 'http://ml-template-validation-backend-service:5000/template/api/v1/',
+      customAuth: true, 
+  };
