@@ -19,9 +19,10 @@ spec:
         severity: critical
     - alert: nginx_4xx_failure_alert_critical
       annotations:
-        message: Nginx error 4xx count is more than 3.5% for the last 2 minutes
+        message: Nginx error 4xx count is more than 3.5% for the last 10 minutes
         summary: Prod Nginx 4xx Error rate is above 3.5%
-      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[2m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[2m]))) * 100 > 3.5
+      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[10m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[10m]))) * 100 > 3.5
+      for: 15m
       labels:
         severity: critical
     - alert: nginx_5xx_failure_alert_fatal
@@ -29,12 +30,14 @@ spec:
         message: Nginx error 5xx count is more than 1% for the last 10 minutes
         summary: Prod Nginx 5xx Error rate is above 1%
       expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|4..|1.."}[10m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[10m]))) * 100 > 1
+      for: 10m
       labels:
         severity: fatal
     - alert: nginx_4xx_failure_alert_fatal
       annotations:
-        message: Nginx error 4xx count is more than 3.5% for the last 10 minutes
+        message: Nginx error 4xx count is more than 3.5% for the last 30 minutes
         summary: Prod Nginx 4xx Error rate is above 3.5%
-      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[10m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[10m]))) * 100 > 3.5 
+      expr: (sum(increase(nginx_http_requests_total{status!~"2..|3..|5..|1.."}[30m])) by (status) / ignoring(status) group_left sum(increase(nginx_http_requests_total[30m]))) * 100 > 3.5 
+      for: 30m
       labels:
         severity: fatal
