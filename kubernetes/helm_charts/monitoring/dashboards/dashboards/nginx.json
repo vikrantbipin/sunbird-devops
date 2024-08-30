@@ -17,8 +17,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 81,
-  "iteration": 1605070117137,
+  "id": 914,
+  "iteration": 1724042805212,
   "links": [],
   "panels": [
     {
@@ -205,7 +205,7 @@
         {
           "expr": "(sum(increase(nginx_http_requests_total{ status!~\"4..|5..\"}[5m])) / sum(increase(nginx_http_requests_total[5m]))) * 100",
           "format": "time_series",
-          "hide": true,
+          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Total Success %",
@@ -322,7 +322,7 @@
         {
           "expr": "(sum(increase(nginx_http_requests_total{ status!~\"2..|3..\"}[5m]))/  sum(increase(nginx_http_requests_total[5m]))) * 100",
           "format": "time_series",
-          "hide": true,
+          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Total Error %",
@@ -422,8 +422,6 @@
   },
   "timepicker": {
     "refresh_intervals": [
-      "10s",
-      "30s",
       "1m",
       "5m",
       "15m",
@@ -446,6 +444,6 @@
   },
   "timezone": "",
   "title": "NGINX",
-  "uid": "0000000025",
-  "version": 3
+  "uid": "QUHaIsCIz",
+  "version": 1
 }

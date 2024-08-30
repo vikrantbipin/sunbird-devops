@@ -24,6 +24,13 @@
   async: 14400
   poll: 30
 
+- name: Compress the backup file
+  shell: "tar -czf {{ cassandra_backup_gzip_file_name }}.tar.gz {{ cassandra_backup_gzip_file_name }}"
+  args:
+    chdir: /data/cassandra/backup
+  async: 14400
+  poll: 30
+
 - name: Check doc_root path
   shell: ls -all /data/cassandra/backup/
   register: doc_data
@@ -39,8 +46,8 @@
     name: artifacts-upload-gcp
   vars:
     artifacts_container: "{{ backup_bucket }}/{{ cassandra_backup_folder }}"
-    artifact_path: "/data/cassandra/backup"
-    artifact: "{{ cassandra_backup_name }}"
+    artifact_path: "/data/cassandra/backup/{{ cassandra_backup_gzip_file_name }}.tar.gz"
+    artifact: "{{ cassandra_backup_name }}/"
     service_account: "{{ gcp_backups_service_account }}"
 
 - name: clean up backup dir after upload
