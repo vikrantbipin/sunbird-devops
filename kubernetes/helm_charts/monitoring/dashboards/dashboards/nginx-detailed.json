@@ -18,7 +18,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1301,
-  "iteration": 1724868206186,
+  "iteration": 1725040703513,
   "links": [],
   "panels": [
     {
@@ -1293,5 +1293,5 @@
   "timezone": "",
   "title": "Nginx Detailed",
   "uid": "7t08loqSk",
-  "version": 1
+  "version": 2
 }
