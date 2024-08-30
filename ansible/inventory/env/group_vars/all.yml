@@ -739,6 +739,8 @@ service_mentoring_portal: mentoring-portal
 service_mentoring_interface_service: mentoring-interface-service
 service_cb_service_registry: cb-service-registry
 service_cb_integration_framework: cb-integration-framework
+service_ml_template_validation_portal_service: ml-template-validation-portal
+service_ml_template_validation_backend_service_service: ml-template-validation-backend-service
 
 # Ports
 service_bulk_upload_port: 3009
@@ -811,6 +813,8 @@ service_mentoring_portal_port: 7601
 service_mentoring_interface_service_port: 3567
 service_cb_service_registry_port: 8096
 service_cb_integration_framework_port: 8091
+service_ml_template_validation_portal_port: 3111
+service_ml_template_validation_backend_service_port: 5000
 
 # Network alias names, so that one service can talk to another
 network_alias_content_service: private-content-service
@@ -866,6 +870,8 @@ network_alias_mentoring_portal: mentoring-portal
 network_alias_mentoring_interface_service: mentoring-interface-service
 network_alias_cb_service_registry: cb-service-registry
 network_alias_cb_integration_framework: cb-integration-framework
+network_alias_ml_template_validation_portal_service: ml-template-validation-portal
+network_alias_ml_template_validation_backend_service_service: ml-template-validation-backend-service
 
 # Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
 image_ui_static: ui-static
@@ -918,6 +924,8 @@ image_mentoring_portal: mentoring-portal
 image_mentoring_interface_service: mentoring-interface-service
 image_cb_integration_framework_service: cb-integration-framework
 image_cb_service_registry_service: cb-service-registry
+image_ml_template_validation_portal_service: solution-upload-portal
+image_ml_template_validation_backend_service_service: ml-template-validation-backend-service
 
 #####################bulk-upload-spv#########
 host_bulk_upload: /mydata/bulk_upload

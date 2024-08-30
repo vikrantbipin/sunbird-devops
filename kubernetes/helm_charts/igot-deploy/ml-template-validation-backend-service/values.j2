@@ -1,0 +1,28 @@
+### Default variable file for ml_template_validation_backend_service-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{ml_template_validation_backend_service_java_mem_limit|default('-Xmx4096m')}}
+
+replicaCount: {{ml_template_validation_backend_service_replicacount|default(1)}}
+repository: {{ image_ml_template_validation_backend_service_service }}
+image_tag: {{ image_tag }}
+resources:
+  requests:
+    cpu: {{ml_template_validation_backend_service_cpu_req|default('100m')}}
+    memory: {{ml_template_validation_backend_service_mem_req|default('200Mi')}}
+  limits:
+    cpu: {{ ml_template_validation_backend_service_cpu_limit|default('2')}}
+    memory: {{ml_template_validation_backend_service_mem_limit|default('6144Mi')}}
+network:
+  port: {{ service_ml_template_validation_backend_service_port }}
+  targetport: {{ service_ml_template_validation_backend_service_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ ml_template_validation_backend_service_maxsurge|default('25%') }}
+  maxunavailable: {{ ml_template_validation_backend_service_maxunavailable|default('25%') }}
+
