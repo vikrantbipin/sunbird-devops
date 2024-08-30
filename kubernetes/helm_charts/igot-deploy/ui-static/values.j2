@@ -28553,20 +28553,32 @@ envjson: |-
 
 appleappsiteassociation: |-
  {
-   "applinks": {
-     "apps": [],
-     "details": [
-       {
-         "appID": "{{ appleappid }}",
-         "paths": [
-           "*"
-         ]
-       },
-       {
-         "appID": "{{ tarento_appleappid }}",
-         "paths": [
-            "*"
-         ]
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "{{appleappid_new}}",
+        "paths": ["*"]
+      },
+      {
+        "appID": "{{appleappid_new1}}",
+        "paths": ["*"]
+      },
+      {
+        "appID": "{{appleappid_uat}}",
+        "paths": ["*"]
+      },
+      {
+        "appID": "{{appleappid_qa}}",
+        "paths": ["*"]
+      },
+      {
+        "appID": "{{appleappid_dev}}",
+        "paths": ["*"]
+      },
+      {
+        "appID": "{{tarento_appleappid}}",
+        "paths": ["*"]
       }
      ]
    }
