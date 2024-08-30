@@ -2,33 +2,33 @@
 # vars file for deploy-lex-core-service
 
 # For script
-release_name: "{{ network_alias_pdf_generator_service }}"
-template_compose_file_name: pdf-generator-service.j2
-template_env_file_name: pdf-generator-service-env.j2
-compose_file_name: "{{ service_pdf_generator_service }}.yml"
-env_file_name: "{{ service_pdf_generator_service }}.env"
+release_name: "{{ network_alias_ml_template_validation_backend_service_service }}"
+template_compose_file_name: ml-template-validation-backend-service-service.j2
+template_env_file_name: ml-template-validation-backend-service-service-env.j2
+compose_file_name: "{{ service_ml_template_validation_backend_service_service }}.yml"
+env_file_name: "{{ service_ml_template_validation_backend_service_service }}.env"
 helm_env_file_location: "../helm_charts/igot-deploy/templates/"
-helm_env_file_name: "{{ helm_env_file_location }}/{{ service_pdf_generator_service }}.env"
-#chart_path: "../kubernetes-deploy/pdf-generator-service" 
+helm_env_file_name: "{{ helm_env_file_location }}/{{ service_ml_template_validation_backend_service_service }}.env"
+#chart_path: "../kubernetes-deploy/ml-template-validation-backend-service-service" 
 env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
 compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
-user_friendly_name: pdf-generator service
+user_friendly_name: ml-template-validation-backend-service service
 
 # For service
-application_port: "{{ service_pdf_generator_port }}"
-image_name: "{{ image_pdf_generator_service }}"
-tag: "{{ tags_pdf_generator_service }}"
+application_port: "{{ service_ml_template_validation_backend_service_port }}"
+image_name: "{{ image_ml_template_validation_backend_service_service }}"
+tag: "{{ tags_ml_template_validation_backend_service_service }}"
 host_port: "{{ application_port }}"
 docker_port: "{{ application_port }}"
-replicas: "{{ service_replicas_pdf_generator_service }}"
-reserved_memory: "{{ service_mem_reserved_pdf_generator_service }}"
-limited_memory: "{{ service_mem_limit_pdf_generator_service }}"
+replicas: "{{ service_replicas_ml_template_validation_backend_service_service }}"
+reserved_memory: "{{ service_mem_reserved_ml_template_validation_backend_service_service }}"
+limited_memory: "{{ service_mem_limit_ml_template_validation_backend_service_service }}"
 #limited_memory: 2048M
 health_check_endpoint: http://127.0.0.1:{{ docker_port }}/actuator/health
-network_alias_name: "{{ network_alias_pdf_generator_service }}"
+network_alias_name: "{{ network_alias_ml_template_validation_backend_service_service }}"
 docker_service_stack_name: lms
-docker_service_name: "{{ service_pdf_generator_service }}"
-force_reload: "{{ force_reload_pdf_generator_service }}"
+docker_service_name: "{{ service_ml_template_validation_backend_service_service }}"
+force_reload: "{{ force_reload_ml_template_validation_backend_service_service }}"
 
 # For application
 server_connection_timeout: 5000
@@ -54,11 +54,11 @@ log_access_key: "{{ log_access_key }}"
 
 
 
-lhub_url: "{{ var_pdf_generator_learning_hub_url }}"
-lhub_certifaction_url: "{{ var_pdf_generator_learning_hub_certification_url }}"
+lhub_url: "{{ var_ml_template_validation_backend_service_learning_hub_url }}"
+lhub_certifaction_url: "{{ var_ml_template_validation_backend_service_learning_hub_certification_url }}"
 spring_datasource_jdbc_url: jdbc:postgresql://{{ postgresql_host }}:{{ postgresql_port }}/{{ postgresql_wingspan_database }}
 
-enable_realtime_progress: "{{ var_pdf_generator_enable_realtime_progress }}"
+enable_realtime_progress: "{{ var_ml_template_validation_backend_service_enable_realtime_progress }}"
 
 root_org: Infosys
 instance_org: infy01
