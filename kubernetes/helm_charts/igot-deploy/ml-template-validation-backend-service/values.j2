@@ -40,7 +40,7 @@ environmentjs: |-
   SECRET_KEY = "{{ml_template_validation_backend_service_secret_key}}"
   admin-token = "{{ml_template_validation_backend_service_admin_token}}" 
 
-configpy: | -
+configpy: |-
   connectionUrl="mongodb://{{ml_mongodb_host | default(groups['mongo_master'][0]+':27017')}}/"
   databaseName = "templateValidation"
   collectionName = "validation"
