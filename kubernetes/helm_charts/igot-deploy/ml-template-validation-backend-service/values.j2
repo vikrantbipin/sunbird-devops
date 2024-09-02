@@ -26,3 +26,16 @@ strategy:
   maxsurge: {{ ml_template_validation_backend_service_maxsurge|default('25%') }}
   maxunavailable: {{ ml_template_validation_backend_service_maxunavailable|default('25%') }}
 
+environmentjs: |-
+  FLASK_APP = app.py
+  FLASK_RUN_PORT = 5000
+  HOSTIP = http://ml-template-validation-backend-service:5000/
+  mongoURL = mongodb://{{ml_mongodb_host | default(groups['mongo_master'][0]+':27017')}}/
+  db = templateValidation
+  userCollection = users
+  conditionsCollection = conditions
+  validationsCollection = validation
+  sampleTemplatesCollection = sampleTemplates
+  #AUTH SECRET_KEY
+  SECRET_KEY = "{{ml_template_validation_backend_service_secret_key}}"
+  admin-token = "{{ml_template_validation_backend_service_admin_token}}" 
