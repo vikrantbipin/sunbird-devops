@@ -39,7 +39,7 @@ spec:
           mountPath: /app/template-validation-portal-service/apiServices/src/main/.env
           subPath: .env
         - name: ml-template-validation-backend-configpy
-          mountPath: /template-validation-portal-service/backend/src/main/modules/config.py
+          mountPath: /app/template-validation-portal-service/backend/src/main/modules/config.py
           subPath: config.py         
         resources:
 {{ toYaml .Values.resources | indent 10 }}
