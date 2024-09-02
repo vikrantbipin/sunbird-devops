@@ -38,6 +38,9 @@ spec:
         - name: ml-template-validation-backend-environmentjs
           mountPath: /app/template-validation-portal-service/apiServices/src/main/.env
           subPath: .env
+        - name: ml-template-validation-backend-service-config
+          mountPath: /template-validation-portal-service/backend/src/main/modules/config.py
+          subPath: config.py         
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         ports:
@@ -53,6 +56,9 @@ spec:
        - name: ml-template-validation-backend-environmentjs
          configMap:
             name: ml-template-validation-backend-environmentjs
+       - name: ml-template-validation-backend-service-config
+         configMap:
+            name: ml-template-validation-backend-service-config
 ---
 apiVersion: v1
 kind: Service
