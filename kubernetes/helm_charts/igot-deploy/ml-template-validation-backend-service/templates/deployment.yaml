@@ -36,10 +36,10 @@ spec:
             name: {{ .Chart.Name }}-config
         volumeMounts:
         - name: ml-template-validation-backend-environmentjs
-          mountPath: /app/template-validation-portal-service/apiServices/src/main/.env
+          mountPath: /app/.env
           subPath: .env
         - name: ml-template-validation-backend-configpy
-          mountPath: /app/template-validation-portal-service/backend/src/main/modules/config.py
+          mountPath: /app/backend/src/main/modules/config.py
           subPath: config.py         
         resources:
 {{ toYaml .Values.resources | indent 10 }}
