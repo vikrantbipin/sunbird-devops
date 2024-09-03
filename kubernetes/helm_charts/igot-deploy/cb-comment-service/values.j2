@@ -1,4 +1,4 @@
-### Default variable file for cb-pores-service ###
+### Default variable file for cb-comment-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -6,25 +6,25 @@ dockerhub: {{ docker_hub_url }}
 
 
 env:
-  javaoptions: {{cb_pores_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{cb_comment_java_mem_limit|default('-Xmx600m')}}
 
-replicaCount: {{cb_pores_replicacount|default(1)}}
-repository: {{ image_cb_pores_service }}
+replicaCount: {{cb_comment_replicacount|default(1)}}
+repository: {{ image_cb_comment_service }}
 image_tag: {{image_tag}}
 resources:
   requests:
-    cpu: {{cb_pores_cpu_req|default('100m')}}
-    memory: {{cb_pores_mem_req|default('100Mi')}}
+    cpu: {{cb_comment_cpu_req|default('100m')}}
+    memory: {{cb_comment_mem_req|default('100Mi')}}
   limits:
-    cpu: {{cb_pores_cpu_limit|default('1')}}
-    memory: {{cb_pores_mem_limit|default('1024Mi')}}
+    cpu: {{cb_comment_cpu_limit|default('1')}}
+    memory: {{cb_comment_mem_limit|default('1024Mi')}}
 network:
-  port: {{ service_cb_pores_port }}
-  targetport: {{ service_cb_pores_port }}
+  port: {{ service_cb_comment_port }}
+  targetport: {{ service_cb_comment_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ cb_pores_maxsurge|default('25%') }}
-  maxunavailable: {{ cb_pores_maxunavailable|default('25%') }}
+  maxsurge: {{ cb_comment_maxsurge|default('25%') }}
+  maxunavailable: {{ cb_comment_maxunavailable|default('25%') }}
 
-cb_pores_backend_basepath: {{ cb_pores_backend_basepath | default('/keys/') }}
+cb_comment_backend_basepath: {{ cb_comment_backend_basepath | default('/keys/') }}
 
