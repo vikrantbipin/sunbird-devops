@@ -34,6 +34,13 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ .Chart.Name }}-config
+        volumeMounts:
+        - name: ml-template-validation-backend-environmentjs
+          mountPath: /app/template-validation-portal-service/apiServices/src/main/.env
+          subPath: .env
+        - name: ml-template-validation-backend-configpy
+          mountPath: /app/template-validation-portal-service/backend/src/main/modules/config.py
+          subPath: config.py         
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         ports:
@@ -45,6 +52,13 @@ spec:
 {{ toYaml .Values.readinessProbe | indent 10 }}
         {{- end }}
 
+      volumes:
+       - name: ml-template-validation-backend-environmentjs
+         configMap:
+            name: ml-template-validation-backend-environmentjs
+       - name: ml-template-validation-backend-configpy
+         configMap:
+            name: ml-template-validation-backend-configpy
 ---
 apiVersion: v1
 kind: Service

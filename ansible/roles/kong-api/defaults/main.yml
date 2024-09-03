@@ -17137,3 +17137,112 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+
+  - name: createDefaultRule
+    uris: "{{ mentoring_prefix }}/v1/default-rule/create"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/default-rule/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin' 
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
+
+  - name: readDefaultRule
+    uris: "{{ mentoring_prefix }}/v1/default-rule/read"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/default-rule/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin' 
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: updateDefaultRule
+    uris: "{{ mentoring_prefix }}/v1/default-rule/update"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/default-rule/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin' 
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: deleteDefaultRule
+    uris: "{{ mentoring_prefix }}/v1/default-rule/delete"
+    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/default-rule/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'mentorServiceOrgAdmin' 
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: assessmentSubmitV6
+    uris: "/v6/user/assessment/submit"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v6/user/assessment/submit"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ x_large_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: ciosNotPublishContentDelete
+    uris: "{{ ciosIntegration_prefix }}/v1/deleteContent"
+    upstream_url: "{{ cios_content_service_url }}/ciosIntegration/v1/deleteContent"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
