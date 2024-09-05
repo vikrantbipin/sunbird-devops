@@ -135,6 +135,7 @@ contentpartner_prefix: /contentpartner
 halloffame_prefix: /halloffame
 cqf_questionset_prefix: /cqfquestionset
 cqf_prefix: /cqf
+service_registry_prefix: /serviceregistry
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -177,6 +178,7 @@ cb_pores_service_url : "http://cb-pores-service:7001"
 cios_content_service_url : "http://cios-content-service:7001"
 mentoring_interface_service_url: "http://mentoring-interface-service:3567"
 cb_external_enrollment_service_url: "http://cb-enrollment-service:7002"
+cb_service_registry_url: "http://cb-service-registry:8096"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -17318,3 +17320,93 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ large_request_size_limit }}"
+
+  - name: callExternalApi
+    uris: "{{ service_registry_prefix }}/v1/callExternalApi"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/v1/callExternalApi"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: serviceRegistryConfigCreate
+    uris: "{{ service_registry_prefix }}/config/create"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: serviceRegistryConfigDelete
+    uris: "{{ service_registry_prefix }}/config/delete"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: serviceRegistryConfigSearch
+    uris: "{{ service_registry_prefix }}/config/search"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: serviceRegistryConfigFetch
+    uris: "{{ service_registry_prefix }}/config/fetch"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/fetch"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
