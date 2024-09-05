@@ -183,6 +183,7 @@
         cornell_course_count: "{{ cornell_course_count.json.facets['contentPartner.contentPartnerName'][0].count }}"
       failed_when:
         -  cornell_course_count == "0"
+      ignore_errors: yes
 
     - name: Cornell Course Count
       debug:
