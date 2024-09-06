@@ -1404,24 +1404,24 @@ appsjson: |-
 
 envjson: |-
  {
-    "name": "dev"
-    "debug": "";
-    "sitePath": "{{ cbp_domain_name }}";
-    "organisation": "{{ igot_organisation }}";
-    "framework": "{{ igot_framework }}"
-    "karmYogi": "{{ igot_portal_name }}/"	
-    "channelId": "{{ igot_channelid }}"
-    "azureHost": "{{ igot_cbp_azurehost }}"
-    "azureBucket": "{{ igot_azurebucket }}"
-    "azureOldHost": "{{ igot_azureoldhost }}"
-    "azureOldBuket": "{{ igot_azureoldbuket }}"
-    "portalRoles": ["CBP_ADMIN","CONTENT_CREATOR","CONTENT_REVIEWER","CONTENT_PUBLISHER","PROGRAM_COORDINATOR","SPV_PUBLISHER"];
-    "scromContentEndpoint": "assets/public/content/html/"
-    "cbpPortal": "https://{{ cbp_domain_name }}/"
-    "isretakeAllowed": false
-    "contentBucket": "assets/public"
-    "certImage": "assets/certimage/content"
-    "timeForContentQuality": {{time_for_content_quality}}
-    "compatibilityLevel": {{ compatibilitylevel | default("6")}}
-    "assessmentBuffer": 120
+    "name": "dev",
+    "debug": "",
+    "sitePath": "{{ cbp_domain_name }}",
+    "organisation": "{{ igot_organisation }}",
+    "framework": "{{ igot_framework }}",
+    "karmYogi": "{{ igot_portal_name }}/",	
+    "channelId": "{{ igot_channelid }}",
+    "azureHost": "{{ igot_cbp_azurehost }}",
+    "azureBucket": "{{ igot_azurebucket }}",
+    "azureOldHost": "{{ igot_azureoldhost }}",
+    "azureOldBuket": "{{ igot_azureoldbuket }}",
+    "portalRoles": ["CBP_ADMIN","CONTENT_CREATOR","CONTENT_REVIEWER","CONTENT_PUBLISHER","PROGRAM_COORDINATOR","SPV_PUBLISHER"],
+    "scromContentEndpoint": "assets/public/content/html/",
+    "cbpPortal": "https://{{ cbp_domain_name }}/",
+    "isretakeAllowed": false,
+    "contentBucket": "assets/public",
+    "certImage": "assets/certimage/content",
+    "timeForContentQuality": {{time_for_content_quality}},
+    "compatibilityLevel": {{ compatibilitylevel | default("6")}},
+    "assessmentBuffer": 120,
  }
