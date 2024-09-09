@@ -1389,27 +1389,23 @@ appsjson: |-
   ]
  }
 
-envjs: |-
- (function (window) {
-    window["env"] = window["env"] || {};
-
-    // Environment variables
-    window["env"]["sitePath"] = 'mdo.{{ static_domain_name }}';
-    window["env"]["name"] = '{{ env }}';
-    window["env"]["debug"] = '';
-    window["env"]["karmYogiPath"] = 'https://{{ domain_name }}'
-    window["env"]["cbpPath"] = 'https://cbp.{{ static_domain_name }}'
-    window["env"]["contentHost"] = 'https://{{ static_domain_name }}'
-    window["env"]["mdoPath"] = 'https://{{ mdo_portal_url }}'
-
-    window["env"]["azureBucket"] = '{{ igot_content_bucket }}'
-    window["env"]["contentBucket"] = '{{ igot_content_bucket }}'
-    window["env"]["teamsUrl"] = '{{ team_url }}'
-    window["env"]["portalRoles"] = '{{ igot_mdorules }}';
-    window["env"]["resendOTPTIme"] = 180;
-    window["env"]["domainName"] = 'https://{{ domain_name }}/';
-    window["env"]["userBucket"] = 'content-store/user-report/';
-    window["env"]["KCMframeworkName"] = '{{mdo_kcmframeworkname}}';
-    window["env"]["connectionType"] = 'online';
-    window["env"]["ODCSMasterFramework"] = '{{mdo_odcsmasterframework}}';
- })(this);
+envjson: |-
+ {
+   "sitePath": "mdo.{{ static_domain_name }}",
+   "name": "{{ env }}",
+   "debug": "",
+   "karmYogiPath": "https://{{ domain_name }}",
+   "cbpPath": "https://cbp.{{ static_domain_name }}",
+   "contentHost": "https://{{ static_domain_name }}",
+   "mdoPath": "https://{{ mdo_portal_url }}",
+   "azureBucket": "{{ igot_content_bucket }}",
+   "contentBucket": "{{ igot_content_bucket }}",
+   "teamsUrl": "{{ team_url }}",
+   "portalRoles": "{{ igot_mdorules }}",
+   "resendOTPTIme": 180,
+   "domainName": "https://{{ domain_name }}/",
+   "userBucket": "content-store/user-report/",
+   "KCMframeworkName": "{{mdo_kcmframeworkname}}",
+   "connectionType": "online",
+   "ODCSMasterFramework": "{{mdo_odcsmasterframework}}"
+ }

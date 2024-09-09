@@ -149,6 +149,50 @@
       failed_when:
         -  live_course_count == "0"
 
+    - name: Cornell Course Counti API
+      uri:
+        url: "https://{{ static_domain_name }}/api/cios/v1/search/content"
+        method: POST
+        headers:
+          accept: "*/*"
+          Content-Type: "application/json"
+          Authorization: "{{ bearer_token }}"
+        body: |
+          {
+            "filterCriteriaMap": {},
+            "requestedFields": [
+              "contentId"
+            ],
+            "facets": [
+              "contentPartner.contentPartnerName"
+            ],
+            "pageNumber": 0,
+            "pageSize": 100,
+            "orderBy": "duration",
+            "orderDirection": "desc"
+          }
+        body_format: json
+        return_content: yes
+      register: cornell_course_count
+      until: cornell_course_count is not failed
+      retries: 10
+      delay: 2
+
+    - name: Cornell Course Count
+      set_fact:
+        cornell_course_count: "{{ cornell_course_count.json.facets['contentPartner.contentPartnerName'][0].count }}"
+      failed_when:
+        -  cornell_course_count == "0"
+      ignore_errors: yes
+
+    - name: Cornell Course Count
+      debug:
+        msg: "The Cornell Course Count is {{ cornell_course_count }}"
+
+    - name: Adding Course and Cornell Cources
+      set_fact:
+        live_course_cornell_count: "{{ live_course_count | int + cornell_course_count | int }}"
+
     - name: course duration list
       set_fact:
         course_duration_list: "{{ live_course_output.json.hits.hits | map(attribute='_source.duration') | list }}"
