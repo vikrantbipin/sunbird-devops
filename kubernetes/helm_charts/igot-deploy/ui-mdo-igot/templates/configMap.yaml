@@ -25,8 +25,8 @@ metadata:
   name: mdo-env-js
   namespace: {{ .Values.namespace }}
 data:
-  env.js: |
-{{ .Values.envjs | indent 4 }}
+  env.json: |
+{{ .Values.envjson | indent 4 }}
 
 ---
 apiVersion: v1
