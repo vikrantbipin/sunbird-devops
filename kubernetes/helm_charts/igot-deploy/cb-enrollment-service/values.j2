@@ -34,3 +34,9 @@ autoscaling:
   maxReplicas: {{ cb_enrollment_service_autoscaling_maxReplicas|default(2) }}
   targetCPUUtilizationPercentage: {{ cb_enrollment_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
   targetMemoryUtilizationPercentage: {{ cb_enrollment_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
