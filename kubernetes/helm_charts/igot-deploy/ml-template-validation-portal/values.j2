@@ -39,9 +39,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ ml-template-validation-portal_autoscaling_enabled | default('false') }}
-  minReplicas: {{ ml-template-validation-portal_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ ml-template-validation-portal_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ ml-template-validation-portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ ml-template-validation-portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ ml_template_validation_portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml_template_validation_portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml_template_validation_portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml_template_validation_portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml_template_validation_portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

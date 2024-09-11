@@ -34,9 +34,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ pm-microsurvey-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ pm-microsurvey-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ pm-microsurvey-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ pm-microsurvey-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ pm-microsurvey-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ pm_microsurvey_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ pm_microsurvey_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ pm_microsurvey_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ pm_microsurvey_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ pm_microsurvey_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

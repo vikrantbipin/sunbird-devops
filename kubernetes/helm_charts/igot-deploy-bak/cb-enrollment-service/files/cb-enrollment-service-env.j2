@@ -1,0 +1,43 @@
+server.port={{ application_port }}
+spring.data.cassandra.startupTimeoutInSeconds=100000
+spring.data.cassandra.contact-points={{ sunbird_cassandra_db_host }}
+spring.data.cassandra.port=9042
+spring.data.cassandra.keyspace-name={{ keyspace_sunbird }}
+spring.data.cassandra.username={{ cassandra_username }}
+spring.data.cassandra.password={{ cassandra_password }}
+spring.data.cassandra.local-datacenter=DC1
+cassandra.config.host={{ sunbird_cassandra_db_host }}
+spring.redis.host={{ kp_redis_ip }}
+spring.redis.port=6379
+spring.redis.password=""
+accesstoken.publickey.basepath=/keys/
+redis.insights.index=12
+spring.kafka.bootstrap.servers={{ kafka_servers_list }}
+kakfa.offset.reset.value=latest
+kafka.max.poll.interval.ms=15000
+kafka.max.poll.records=100
+kafka.auto.commit.interval.ms=10000
+spring.kafka.cornell.topic.name={{env}}.enrollment.progress
+spring.kafka.consumer.group.id=enrollment-progress
+
+spring.redis.cacheTtl=3600
+sso.url=https://{{ domain_name }}/auth/
+sso.realm={{ keycloak_sso_realm }}
+
+cios.read.api.base.url=http://cb-pores-service:7001
+cios.read.api.fixed.url=/cios/v1/content/readby/externalid/
+kong.api.auth.token={{ bearer_token }}
+
+spring.kafka.certificate.topic.name={{env}}.common.generate.certificate.request
+redis.cache.enabled=false
+
+svgTemplate={{svgtemplate}}
+
+spring.datasource.url=jdbc:postgresql://{{ postgresql_host }}:{{ postgresql_port }}/sunbird
+spring.datasource.username={{postgresql_username_sunbird }}
+spring.datasource.password={{ postgresql_password_sunbird }}
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.show-sql=false
+spring.jpa.hibernate.ddl-auto=update
+certificate.char.length=100

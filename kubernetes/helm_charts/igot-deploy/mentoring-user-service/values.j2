@@ -35,7 +35,7 @@ environmentjs: |-
     ALLOWED_IDLE_TIME= "300"
     API_DOC_URL= "/user/api-doc"
     APPLICATION_ENV= "production"
-    APPLICATION_HOST= "http://mentoring-user-servicet/7001"
+    APPLICATION_HOST= "http://mentoring-user-service/7001"
     APPLICATION_PORT= "7001"
     APP_NAME= "MentorED"
     AWS_ACCESS_KEY_ID= "t{{ cloud_storage_key }}"
@@ -111,9 +111,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ mentoring-user-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ mentoring-user-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ mentoring-user-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ mentoring-user-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ mentoring-user-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ mentoring_user_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring_user_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring_user_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring_user_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring_user_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

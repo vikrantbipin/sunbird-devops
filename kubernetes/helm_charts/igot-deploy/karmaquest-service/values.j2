@@ -1,4 +1,4 @@
-### Default variable file for karmaquest-service ###
+### Default variable file for karmaquest_service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ karmaquest-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ karmaquest-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ karmaquest-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ karmaquest-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ karmaquest-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ karmaquest_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ karmaquest_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ karmaquest_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ karmaquest_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ karmaquest_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

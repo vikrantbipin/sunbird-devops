@@ -40,9 +40,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ developer-console-web-portal_autoscaling_enabled | default('false') }}
-  minReplicas: {{ developer-console-web-portal_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ developer-console-web-portal_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ developer-console-web-portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ developer-console-web-portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ developer_console_web_portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ developer_console_web_portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ developer_console_web_portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ developer_console_web_portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ developer_console_web_portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

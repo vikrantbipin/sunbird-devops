@@ -37,9 +37,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ ui-proxies_autoscaling_enabled | default('false') }}
-  minReplicas: {{ ui-proxies_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ ui-proxies_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ ui-proxies_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ ui-proxies_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ ui_proxies_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui_proxies_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui_proxies_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui_proxies_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui_proxies_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

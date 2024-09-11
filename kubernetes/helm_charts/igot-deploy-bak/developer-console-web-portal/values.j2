@@ -1,0 +1,48 @@
+### Default variable file for lms-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{lms_replicacount|default(1)}}
+repository: {{ image_developer_console_web_portal }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{lms_cpu_req|default('100m')}}
+    memory: {{lms_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{lms_cpu_limit|default('1')}}
+    memory: {{lms_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_developer_console_web_portal_port }}
+  targetport: {{ service_developer_console_web_portal_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ lms_maxsurge|default('25%') }}
+  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+
+ui_proxies_bulk_upload: {{ host_bulk_upload }}
+
+envjs: |-
+  window.env = {
+    REACT_APP_DEV_CONSOLE_KEYCLOAK_URL: 'https://{{ react_app_dev_console_keycloak_url }}'
+  }
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ developer-console-web-portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ developer-console-web-portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ developer-console-web-portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ developer-console-web-portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ developer-console-web-portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

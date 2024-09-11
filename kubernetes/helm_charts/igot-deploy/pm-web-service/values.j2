@@ -41,9 +41,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ pm-web-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ pm-web-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ pm-web-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ pm-web-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ pm-web-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ pm_web_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ pm_web_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ pm_web_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ pm_web_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ pm_web_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

@@ -1,0 +1,55 @@
+### Default variable file for cb_enrollment_service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{cb_enrollment_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{cb_enrollment_replicacount|default(1)}}
+repository: {{ image_cb_enrollment_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{cb_enrollment_cpu_req|default('100m')}}
+    memory: {{cb_enrollment_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{cb_enrollment_cpu_limit|default('1')}}
+    memory: {{cb_enrollment_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_cb_enrollment_port }}
+  targetport: {{ service_cb_enrollment_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ cb_enrollment_maxsurge|default('25%') }}
+  maxunavailable: {{ cb_enrollment_maxunavailable|default('25%') }}
+
+cb_enrollment_backend_basepath: {{ cb_enrollment_backend_basepath | default('/keys/') }}
+
+autoscaling:
+  enabled: {{ cb_enrollment_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb_enrollment_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb_enrollment_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb_enrollment_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb_enrollment_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ cb_enrollment_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb_enrollment_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb_enrollment_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb_enrollment_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb_enrollment_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

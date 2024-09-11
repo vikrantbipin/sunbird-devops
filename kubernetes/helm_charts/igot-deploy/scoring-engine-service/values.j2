@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ scoring-engine-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ scoring-engine-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ scoring-engine-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ scoring-engine-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ scoring-engine-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ scoring_engine_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ scoring_engine_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ scoring_engine_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ scoring_engine_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ scoring_engine_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

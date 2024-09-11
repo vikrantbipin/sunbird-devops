@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ demand-capture_autoscaling_enabled | default('false') }}
-  minReplicas: {{ demand-capture_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ demand-capture_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ demand-capture_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ demand-capture_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ demand_capture_autoscaling_enabled | default('false') }}
+  minReplicas: {{ demand_capture_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ demand_capture_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ demand_capture_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ demand_capture_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

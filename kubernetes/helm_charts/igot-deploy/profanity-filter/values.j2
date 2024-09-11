@@ -37,9 +37,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ profanity-filter_autoscaling_enabled | default('false') }}
-  minReplicas: {{ profanity-filter_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ profanity-filter_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ profanity-filter_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ profanity-filter_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ profanity_filter_autoscaling_enabled | default('false') }}
+  minReplicas: {{ profanity_filter_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ profanity_filter_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ profanity_filter_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ profanity_filter_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

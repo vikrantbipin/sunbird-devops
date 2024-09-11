@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ml-template-validation-backend-environmentjs
+  namespace: {{ .Values.namespace }}
+data:
+  .env: |
+{{ .Values.environmentjs | indent 4 }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ml-template-validation-backend-configpy
+  namespace: {{ .Values.namespace }}
+data:
+  config.py: |
+{{ .Values.configpy | indent 4 }}
+
+

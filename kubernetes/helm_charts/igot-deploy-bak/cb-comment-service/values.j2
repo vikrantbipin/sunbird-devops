@@ -1,0 +1,44 @@
+### Default variable file for cb-comment-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{cb_comment_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{cb_comment_replicacount|default(1)}}
+repository: {{ image_cb_comment_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{cb_comment_cpu_req|default('100m')}}
+    memory: {{cb_comment_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{cb_comment_cpu_limit|default('1')}}
+    memory: {{cb_comment_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_cb_comment_port }}
+  targetport: {{ service_cb_comment_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ cb_comment_maxsurge|default('25%') }}
+  maxunavailable: {{ cb_comment_maxunavailable|default('25%') }}
+
+cb_comment_backend_basepath: {{ cb_comment_backend_basepath | default('/keys/') }}
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ cb-comment-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb-comment-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb-comment-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb-comment-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb-comment-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

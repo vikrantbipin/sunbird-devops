@@ -1,0 +1,44 @@
+### Default variable file for cios-content-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{cios_content_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{cios_content_replicacount|default(1)}}
+repository: {{ image_cios_content_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{cios_content_cpu_req|default('100m')}}
+    memory: {{cios_content_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{cios_content_cpu_limit|default('1')}}
+    memory: {{cios_content_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_cios_content_port }}
+  targetport: {{ service_cios_content_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ cios_content_maxsurge|default('25%') }}
+  maxunavailable: {{ cios_content_maxunavailable|default('25%') }}
+
+cios_content_backend_basepath: {{ cios_content_backend_basepath | default('/keys/') }}
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ cios-content-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cios-content-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cios-content-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cios-content-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cios-content-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

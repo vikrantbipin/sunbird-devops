@@ -1,4 +1,4 @@
-### Default variable file for cios-content-service ###
+### Default variable file for cios_content_service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ cios-content-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ cios-content-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ cios-content-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ cios-content-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ cios-content-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ cios_content_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cios_content_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cios_content_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cios_content_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cios_content_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

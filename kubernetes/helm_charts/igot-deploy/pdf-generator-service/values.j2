@@ -34,9 +34,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ pdf-generator-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ pdf-generator-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ pdf-generator-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ pdf-generator-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ pdf-generator-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ pdf_generator_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ pdf_generator_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ pdf_generator_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ pdf_generator_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ pdf_generator_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

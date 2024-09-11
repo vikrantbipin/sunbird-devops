@@ -1,0 +1,44 @@
+### Default variable file for workflow-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{workflow_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{workflow_replicacount|default(1)}}
+repository: {{ image_workflow_handler_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{workflow_cpu_req|default('100m')}}
+    memory: {{workflow_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{workflow_cpu_limit|default('1')}}
+    memory: {{workflow_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_workflow_handler_port }}
+  targetport: {{ service_workflow_handler_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ workflow_maxsurge|default('25%') }}
+  maxunavailable: {{ workflow_maxunavailable|default('25%') }}
+
+workflow_backend_basepath: {{ workflow_backend_basepath | default('/keys/') }}
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ workflow-handler-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ workflow-handler-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ workflow-handler-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ workflow-handler-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ workflow-handler-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

@@ -28591,9 +28591,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ ui-static_autoscaling_enabled | default('false') }}
-  minReplicas: {{ ui-static_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ ui-static_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ ui-static_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ ui-static_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ ui_static_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui_static_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui_static_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui_static_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui_static_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

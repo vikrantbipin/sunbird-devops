@@ -1,0 +1,47 @@
+### Default variable file for lms-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{ml_kb_portal_java_mem_limit|default('-Xmx4096m')}}
+
+replicaCount: {{ml_kb_portal_replicacount|default(1)}}
+repository: {{ image_ml_kb_portal_service }}
+image_tag: {{ image_tag }}
+resources:
+  requests:
+    cpu: {{ml_kb_portal_cpu_req|default('100m')}}
+    memory: {{ml_kb_portal_mem_req|default('200Mi')}}
+  limits:
+    cpu: {{ ml_kb_portal_cpu_limit|default('2')}}
+    memory: {{ml_kb_portal_mem_limit|default('1430Mi')}}
+network:
+  port: {{ service_ml_kb_portal_port }}
+  targetport: {{ service_ml_kb_portal_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ lms_maxsurge|default('25%') }}
+  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+
+environmentjs: |-
+  window["env"] = {
+      baseURL: 'https://{{ domain_name }}',
+      storageURL: 'https://{{ upstream_url }}',
+  };
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ml-kb-portal-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml-kb-portal-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml-kb-portal-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml-kb-portal-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml-kb-portal-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

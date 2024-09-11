@@ -56,9 +56,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ mentoring-portal_autoscaling_enabled | default('false') }}
-  minReplicas: {{ mentoring-portal_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ mentoring-portal_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ mentoring-portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ mentoring-portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ mentoring_portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring_portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring_portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring_portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring_portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

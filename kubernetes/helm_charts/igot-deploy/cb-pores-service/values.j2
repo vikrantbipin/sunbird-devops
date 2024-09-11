@@ -1,4 +1,4 @@
-### Default variable file for cb-pores-service ###
+### Default variable file for cb_pores_service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ cb-pores-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ cb-pores-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ cb-pores-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ cb-pores-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ cb-pores-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ cb_pores_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb_pores_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb_pores_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb_pores_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb_pores_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

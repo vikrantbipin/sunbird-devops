@@ -1417,9 +1417,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ ui-mdo-igot_autoscaling_enabled | default('false') }}
-  minReplicas: {{ ui-mdo-igot_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ ui-mdo-igot_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ ui-mdo-igot_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ ui-mdo-igot_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ ui_mdo_igot_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui_mdo_igot_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui_mdo_igot_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui_mdo_igot_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui_mdo_igot_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

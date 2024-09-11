@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ cb-integration-framework_autoscaling_enabled | default('false') }}
-  minReplicas: {{ cb-integration-framework_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ cb-integration-framework_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ cb-integration-framework_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ cb-integration-framework_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ cb_integration_framework_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb_integration_framework_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb_integration_framework_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb_integration_framework_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb_integration_framework_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

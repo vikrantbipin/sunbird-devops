@@ -1,0 +1,44 @@
+### Default variable file for karmaquest-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{karmaquest_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{karmaquest_replicacount|default(1)}}
+repository: {{ image_karmaquest_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{karmaquest_cpu_req|default('100m')}}
+    memory: {{karmaquest_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{karmaquest_cpu_limit|default('1')}}
+    memory: {{karmaquest_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_karmaquest_port }}
+  targetport: {{ service_karmaquest_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ karmaquest_maxsurge|default('25%') }}
+  maxunavailable: {{ karmaquest_maxunavailable|default('25%') }}
+
+karmaquest_backend_basepath: {{ karmaquest_backend_basepath | default('/keys/') }}
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ karmaquest-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ karmaquest-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ karmaquest-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ karmaquest-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ karmaquest-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

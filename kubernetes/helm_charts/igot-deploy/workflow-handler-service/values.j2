@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ workflow-handler-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ workflow-handler-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ workflow-handler-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ workflow-handler-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ workflow-handler-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ workflow_handler_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ workflow_handler_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ workflow_handler_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ workflow_handler_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ workflow_handler_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

@@ -47,9 +47,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ frac-web-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ frac-web-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ frac-web-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ frac-web-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ frac-web-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ frac_web_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ frac_web_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ frac_web_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ frac_web_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ frac_web_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

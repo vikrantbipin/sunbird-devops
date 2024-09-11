@@ -1447,9 +1447,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ ui-cbc-igot_autoscaling_enabled | default('false') }}
-  minReplicas: {{ ui-cbc-igot_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ ui-cbc-igot_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ ui-cbc-igot_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ ui-cbc-igot_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ ui_cbc_igot_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui_cbc_igot_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui_cbc_igot_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui_cbc_igot_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui_cbc_igot_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

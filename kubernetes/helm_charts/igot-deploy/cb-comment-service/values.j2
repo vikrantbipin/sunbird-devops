@@ -1,4 +1,4 @@
-### Default variable file for cb-comment-service ###
+### Default variable file for cb_comment_service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -36,9 +36,9 @@ serviceMonitor:
     release: prometheus-operator
 
 autoscaling:
-  enabled: {{ cb-comment-service_autoscaling_enabled | default('false') }}
-  minReplicas: {{ cb-comment-service_autoscaling_minReplicas|default(1) }}
-  maxReplicas: {{ cb-comment-service_autoscaling_maxReplicas|default(2) }}
-  targetCPUUtilizationPercentage: {{ cb-comment-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
-  targetMemoryUtilizationPercentage: {{ cb-comment-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+  enabled: {{ cb_comment_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb_comment_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb_comment_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb_comment_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb_comment_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 
