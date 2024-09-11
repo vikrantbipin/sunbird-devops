@@ -99,3 +99,17 @@ configpy: |-
   downloadSuccessSheet = "https://{{domain_name}}/content-store/"
   errBasic = 300
   errAdv = 301
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ml-template-validation-backend-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml-template-validation-backend-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml-template-validation-backend-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml-template-validation-backend-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml-template-validation-backend-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

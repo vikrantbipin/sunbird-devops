@@ -103,3 +103,17 @@ environmentjs: |-
     SCHEDULER_SERVICE_URL= "http://mentoring-interface-service:3567/jobs/scheduleJob"
     SIGNED_URL_EXPIRY_IN_MILLISECONDS= "120000"
     CLEAR_INTERNAL_CACHE= "{{ env }}.user.internal"
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring-user-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring-user-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring-user-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring-user-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring-user-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

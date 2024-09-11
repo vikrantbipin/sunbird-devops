@@ -31,3 +31,17 @@ environmentjs: |-
       baseURL: 'https://{{ domain_name }}',
       storageURL: 'https://{{ upstream_url }}',
   };
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ml-kb-portal-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml-kb-portal-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml-kb-portal-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml-kb-portal-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml-kb-portal-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

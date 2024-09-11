@@ -28,3 +28,17 @@ strategy:
 
 content_partner_provider_backend_basepath: {{ content_partner_provider_backend_basepath | default('/keys/') }}
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ content-partner-provider_autoscaling_enabled | default('false') }}
+  minReplicas: {{ content-partner-provider_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ content-partner-provider_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ content-partner-provider_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ content-partner-provider_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

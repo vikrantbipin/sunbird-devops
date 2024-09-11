@@ -28,3 +28,17 @@ strategy:
 
 cb_integration_framework_backend_basepath: {{ cb_integration_framework_backend_basepath | default('/keys/') }}
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ cb-integration-framework_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb-integration-framework_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb-integration-framework_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb-integration-framework_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb-integration-framework_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

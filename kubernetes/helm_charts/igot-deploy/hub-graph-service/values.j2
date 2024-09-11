@@ -29,3 +29,17 @@ strategy:
 
 
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ hub-graph-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ hub-graph-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ hub-graph-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ hub-graph-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ hub-graph-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

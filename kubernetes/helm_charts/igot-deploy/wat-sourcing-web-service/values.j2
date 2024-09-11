@@ -35,3 +35,17 @@ envjs: |-
     REACT_APP_FRAC_DICTIONARY_COMPETENCY: 'https://{{react_app_frac_dictionary_competency}}'
 
  }
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ wat-sourcing-web-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ wat-sourcing-web-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ wat-sourcing-web-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ wat-sourcing-web-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ wat-sourcing-web-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

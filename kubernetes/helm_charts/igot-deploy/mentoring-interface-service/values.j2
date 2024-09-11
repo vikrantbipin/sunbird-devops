@@ -56,3 +56,17 @@ environmentjs: |-
     SUNBIRD_NOTIFICAION_SERVICE_BASE_URL="https://{{ domain_name }}"
     SUNBIRD_NOTIFICATION_SENDER_EMAIL="{{sunbird_notification_sender_email}}"
     SUNBIRD_AUTHORIZATION_TOKEN="{{bearer_token}}"
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring-interface-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring-interface-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring-interface-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring-interface-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring-interface-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

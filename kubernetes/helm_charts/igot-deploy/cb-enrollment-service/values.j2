@@ -40,3 +40,16 @@ serviceMonitor:
   labels: # labels with which the prometheus choose the serviceMonitor
     app: prometheus-operator
     release: prometheus-operator
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ cb-enrollment-service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ cb-enrollment-service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ cb-enrollment-service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ cb-enrollment-service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ cb-enrollment-service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

@@ -47,3 +47,17 @@ faqassistantjson: |-
     "job_time_interval_seconds" : {{ faq_time_interval }}
  }
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ faq-assistant_autoscaling_enabled | default('false') }}
+  minReplicas: {{ faq-assistant_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ faq-assistant_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ faq-assistant_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ faq-assistant_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

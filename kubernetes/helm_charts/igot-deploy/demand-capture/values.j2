@@ -28,3 +28,17 @@ strategy:
 
 demand_capture_backend_basepath: {{ demand_capture_backend_basepath | default('/keys/') }}
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ demand-capture_autoscaling_enabled | default('false') }}
+  minReplicas: {{ demand-capture_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ demand-capture_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ demand-capture_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ demand-capture_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

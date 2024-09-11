@@ -48,3 +48,17 @@ environmentjs: |-
     isAuthBypassed: true,
     unauthorizedRedirectUrl: "https://{{ domain_name }}/page/home"
   };
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring-portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring-portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring-portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring-portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring-portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

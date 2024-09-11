@@ -1382,3 +1382,16 @@ envjson: |-
     "connectionType": "online",
     "azureBucket": "assets/public"
   }
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ui-spv-igot_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui-spv-igot_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui-spv-igot_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui-spv-igot_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui-spv-igot_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+
