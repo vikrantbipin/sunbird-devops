@@ -1,4 +1,4 @@
-### Default variable file for form-service ###
+### Default variable file for form_service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -25,4 +25,18 @@ strategy:
   type: RollingUpdate
   maxsurge: {{ form_maxsurge|default('25%') }}
   maxunavailable: {{ form_maxunavailable|default('25%') }}
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ form_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ form_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ form_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ form_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ form_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

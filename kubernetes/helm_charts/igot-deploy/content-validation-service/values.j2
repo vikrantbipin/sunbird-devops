@@ -28,3 +28,17 @@ strategy:
 
 
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ content_validation_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ content_validation_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ content_validation_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ content_validation_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ content_validation_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

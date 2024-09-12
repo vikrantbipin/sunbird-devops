@@ -33,3 +33,17 @@ envjs: |-
     REACT_APP_PMDASH_API_URL: 'https://{{react_app_pmdash_api_url}}',
     REACT_APP_PMDASH_PROTOTYPE_URL: 'https://{{react_app_pmdash_prototype_url}}'
  }
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ pm_web_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ pm_web_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ pm_web_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ pm_web_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ pm_web_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

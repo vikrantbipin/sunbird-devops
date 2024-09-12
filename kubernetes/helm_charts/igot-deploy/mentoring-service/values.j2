@@ -108,3 +108,18 @@ environmentjs: |-
   ADMIN_ACCESS_TOKEN="{{mentoring_admin_access_token}}"
   ADMIN_TOKEN_HEADER_NAME="admin-auth-token"
   ORG_ID_HEADER_NAME="organization-id"
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

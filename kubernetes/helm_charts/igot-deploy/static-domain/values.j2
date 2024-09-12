@@ -23,3 +23,17 @@ strategy:
   maxunavailable: {{ lms_maxunavailable|default('25%') }}
 
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ static_domain_autoscaling_enabled | default('false') }}
+  minReplicas: {{ static_domain_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ static_domain_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ static_domain_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ static_domain_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

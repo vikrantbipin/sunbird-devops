@@ -26,3 +26,17 @@ strategy:
   maxsurge: {{ lms_maxsurge|default('25%') }}
   maxunavailable: {{ lms_maxunavailable|default('25%') }}
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ pm_zuul_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ pm_zuul_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ pm_zuul_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ pm_zuul_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ pm_zuul_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+
