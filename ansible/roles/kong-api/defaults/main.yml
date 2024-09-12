@@ -17652,7 +17652,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: cqfassessmentList
-    uris: "{{ questionset_prefix }}/question/list"
+    uris: "{{ cqf_questionset_prefix }}/question/list"
     upstream_url: "{{ sb_cb_ext_service_url }}/v1/cqfassessment/question/list"
     strip_uri: true
     plugins:
