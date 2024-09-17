@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for mentoring_portal-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -23,8 +23,8 @@ network:
   targetport: {{ service_mentoring_portal_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ mentoring_portal_maxsurge|default('25%') }}
+  maxunavailable: {{ mentoring_portal_maxunavailable|default('25%') }}
 
 environmentjs: |-
   window["env"] = {
