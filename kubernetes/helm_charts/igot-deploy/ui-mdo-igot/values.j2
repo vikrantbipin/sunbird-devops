@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for ui_mdo-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -6,25 +6,25 @@ dockerhub: {{ docker_hub_url }}
 portalname: {{ mdo_portal_url }}
 
 env:
-  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{ui_mdo_java_mem_limit|default('-Xmx600m')}}
 
-replicaCount: {{lms_replicacount|default(1)}}
+replicaCount: {{ui_mdo_replicacount|default(1)}}
 repository: {{ image_ui_mdo_igot }}
 image_tag: {{ image_tag }}
 resources:
   requests:
-    cpu: {{lms_cpu_req|default('100m')}}
-    memory: {{lms_mem_req|default('100Mi')}}
+    cpu: {{ui_mdo_cpu_req|default('100m')}}
+    memory: {{ui_mdo_mem_req|default('100Mi')}}
   limits:
-    cpu: {{lms_cpu_limit|default('1')}}
-    memory: {{lms_mem_limit|default('1024Mi')}}
+    cpu: {{ui_mdo_cpu_limit|default('1')}}
+    memory: {{ui_mdo_mem_limit|default('1024Mi')}}
 network:
   port: {{ service_ui_mdo_igot_port }}
   targetport: 3002
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ ui_mdo_maxsurge|default('25%') }}
+  maxunavailable: {{ ui_mdo_maxunavailable|default('25%') }}
 
 ui_proxies_bulk_upload: {{ host_bulk_upload }}
 

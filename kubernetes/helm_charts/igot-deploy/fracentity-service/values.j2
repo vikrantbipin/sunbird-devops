@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for fracentity-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -23,8 +23,8 @@ network:
   targetport: {{ service_fracentity_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ fracentity_maxsurge|default('25%') }}
+  maxunavailable: {{ fracentity_maxunavailable|default('25%') }}
 
 frac_backend_basepath: {{ frac_backend_basepath | default('/keys/') }}
 
