@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for profanity_moderator_admin-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -6,23 +6,23 @@ dockerhub: {{ docker_hub_url }}
 
 
 env:
-  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{profanity_moderator_admin_java_mem_limit|default('-Xmx600m')}}
 
-replicaCount: {{lms_replicacount|default(1)}}
+replicaCount: {{profanity_moderator_admin_replicacount|default(1)}}
 repository: {{ image_profanity_moderator_admin_service }}
 image_tag: {{ image_tag }}
 resources:
   requests:
-    cpu: {{lms_cpu_req|default('100m')}}
-    memory: {{lms_mem_req|default('100Mi')}}
+    cpu: {{profanity_moderator_admin_cpu_req|default('100m')}}
+    memory: {{profanity_moderator_admin_mem_req|default('100Mi')}}
   limits:
-    cpu: {{lms_cpu_limit|default('1')}}
-    memory: {{lms_mem_limit|default('1024Mi')}}
+    cpu: {{profanity_moderator_admin_cpu_limit|default('1')}}
+    memory: {{profanity_moderator_admin_mem_limit|default('1024Mi')}}
 network:
   port: {{ service_profanity_moderator_admin_port }}
   targetport: {{ service_profanity_moderator_admin_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ profanity_moderator_admin_maxsurge|default('25%') }}
+  maxunavailable: {{ profanity_moderator_admin_maxunavailable|default('25%') }}
 

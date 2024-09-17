@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for mentoring_service-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -23,8 +23,8 @@ network:
   targetport: {{ service_mentoring_service_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ mentoring_service_maxsurge|default('25%') }}
+  maxunavailable: {{ mentoring_service_maxunavailable|default('25%') }}
 
 mentoring_basepath:  {{ frac_backend_basepath | default('/keys/') }}
 
