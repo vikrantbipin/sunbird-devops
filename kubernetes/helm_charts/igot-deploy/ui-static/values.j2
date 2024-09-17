@@ -16,8 +16,8 @@ resources:
     cpu: {{ui_static_cpu_req|default('100m')}}
     memory: {{ui_static_mem_req|default('100Mi')}}
   limits:
-    cpu: {{ui_static_cpu_limit|default('1')}}
-    memory: {{ui_static_mem_limit|default('1024Mi')}}
+    cpu: {{ui_static_cpu_limit|default('300m')}}
+    memory: {{ui_static_mem_limit|default('512Mi')}}
 network:
   port: {{ service_ui_static_port }}
   targetport: {{ service_ui_static_port }}
