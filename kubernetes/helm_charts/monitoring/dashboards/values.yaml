@@ -359,8 +359,8 @@ dashboards:
        file: dashboards/host-details.json
      dashboard10:
        file: dashboards/load-metrics.json
-     dashboard11:
-       file: dashboards/lp-pipline-metrics.json
+         #     dashboard11:
+         #       file: dashboards/lp-pipline-metrics.json
      dashboard12:
        file: dashboards/lp-pipeline-metricsLag.json
      dashboard13:
@@ -391,6 +391,8 @@ dashboards1:
        file: dashboards/node-exporter.json
      health:
        file: dashboards/health.json
+     ssl-cert-monitor:
+       file: dashboards/ssl-cert-monitor.json
 
 dashboards2:
    kong:
@@ -398,8 +400,8 @@ dashboards2:
        file: dashboards/api-manager-req-resp.json
      dashboardkong2:
        file: dashboards/api-manager-aggregated-beta.json
-     dashboardkong3:
-       file: dashboards/api-manager-old.json
+         #     dashboardkong3:
+         #       file: dashboards/api-manager-old.json
      dashboardkong4:
        file: dashboards/api-manager-req-resp-aggregated-beta.json
      dashboardkong5:
