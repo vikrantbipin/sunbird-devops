@@ -138,6 +138,7 @@ cqf_prefix: /cqf
 service_registry_prefix: /serviceregistry
 surveys_service_template_prefix: /template
 comment_prefix: /comment
+organisation_prefix: /organisation
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -17686,3 +17687,75 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: fileDownloadForCompetencyOrganisationMappingForOrg
+    uris: "{{ organisation_prefix }}/v1/getCompetencyDesignationMappingFile"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/getCompetencyMappingFile"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: bulkUploadForCompetencyOrganisationMappingForOrg
+    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/bulkUpload"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/bulkUpload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: bulkUploadForCompetencyOrganisationMappingDetailsForOrg
+    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/bulkUpload/details"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/details/bulkUpload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: bulkUploadFileDownloadForCompetencyOrganisationMappingForOrg
+    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/download"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/download"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
