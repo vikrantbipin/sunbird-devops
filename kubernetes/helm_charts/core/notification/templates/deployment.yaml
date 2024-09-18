@@ -28,6 +28,11 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.dockerhub }}/{{ .Values.repository }}:{{ .Values.image_tag }}"
         imagePullPolicy: Always
+        env:
+        - name: JAVA_OPTIONS
+          value: {{ .Values.env.javaoptions | quote }}
+        - name: _JAVA_OPTIONS
+          value: -Dlog4j2.formatMsgNoLookups=true
         envFrom:
         - configMapRef:
             name: {{ .Chart.Name }}-config
