@@ -14,6 +14,7 @@ resources:
   limits:
     cpu: {{ui_static_domain_cpu_limit|default('300m')}}
     memory: {{ui_static_domain_mem_limit|default('300Mi')}}
+
 network:
   port: {{ service_static_domian_port }}
   targetport: 80

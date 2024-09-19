@@ -18,6 +18,7 @@ resources:
   limits:
     cpu: {{ui_spv_cpu_limit|default('300m')}}
     memory: {{ui_spv_mem_limit|default('512Mi')}}
+
 network:
   port: {{ service_ui_spv_igot_port }}
   targetport: 3002
