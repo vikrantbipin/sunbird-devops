@@ -438,3 +438,13 @@ competency.selected.version.facets.map={"competencies_v6":"competencies_v6.compe
 national.learning.insights.fields={{ national_learning_insights_fields }}
 national.learning.insights.property.fields={"valueColor": "#FFFFFF","labelColor": "#FFFFFF","linebreak":"false","background": "#1B4CA1","iconColor": "#FFFFFF"}
 national.learning.insights.redis.key.mapping={"Certificate Issued Yesterday":"dashboard_content_certificates_generated_yday_nlw_count","Total Certificate Issued So Far":"dashboard_content_certificates_generated_nlw_count","Events Published":"dashboard_events_published_nlw_count","Total Enrolments":"dashboard_content_enrolment_nlw_count"}
+
+#cbPoresService
+cb.pores.service.host=http://cb-pores-service:7001
+cb.pores.master.designation.endpoint=/designation/search
+sample.file.master.designation.workspace.name=Master
+Designationsample.bulk.upload.designation.file.name=bulkUploadDesignationMasterData.xlsx
+org.designation.bulk.upload.container.name=orgDesignation
+kafka.topics.org.designation.bulk.upload.event={{env}}.org.designation.bulk.upload
+kafka.topics.org.designation.bulk.upload.event.group=orgDesignationBulkUpload
+redis.master.data.read.timeout=3600
