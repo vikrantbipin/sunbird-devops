@@ -17703,9 +17703,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"        
 
-  - name: fileDownloadForCompetencyOrganisationMappingForOrg
-    uris: "{{ organisation_prefix }}/v1/getCompetencyDesignationMappingFile"
-    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/getCompetencyMappingFile"
+  - name: sampleFileDownloadForCompetencyOrganisationMappingForOrg
+    uris: "{{ organisation_prefix }}/v1/getCompetencyDesignationMappingFile/sample"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/getCompetencyMappingFile/sample"
     strip_uri: true
     plugins:
       - name: jwt
@@ -17739,9 +17739,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: bulkUploadForCompetencyOrganisationMappingDetailsForOrg
-    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/bulkUpload/details"
-    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/details/bulkUpload"
+  - name: bulkUploadForCompetencyOrganisationMappingProgressDetailsForOrg
+    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/bulkUpload/progress/details"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/progress/details/bulkUpload"
     strip_uri: true
     plugins:
       - name: jwt
@@ -17792,3 +17792,75 @@ kong_apis:
        config.limit_by: credential
      - name: request-size-limiting
        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: sampleFileDownloadForOrganisationDesignationMapping
+    uris: "{{ designation_prefix }}/v1/orgMapping/sample"
+    upstream_url: "{{ sb_cb_ext_service_url }}/designation/v1/orgMapping/sample"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: bulkUploadForOrganisationDesignationMapping
+    uris: "{{ designation_prefix }}/v1/orgMapping/bulkUpload"
+    upstream_url: "{{ sb_cb_ext_service_url }}/designation/v1/orgMapping/bulkUpload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: bulkUploadForOrganisationDesignationMappingProgressDetails
+    uris: "{{ designation_prefix }}/v1/orgMapping/bulkUpload/progress/details"
+    upstream_url: "{{ sb_cb_ext_service_url }}/designation/v1/orgMapping/progress/details/bulkUpload"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: bulkUploadFileDownloadFileForOrganisationDesignationMapping
+    uris: "{{ designation_prefix }}/v1/orgMapping/download"
+    upstream_url: "{{ sb_cb_ext_service_url }}/designation/v1/orgMapping/download"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
