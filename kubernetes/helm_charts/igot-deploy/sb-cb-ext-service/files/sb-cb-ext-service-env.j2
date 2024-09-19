@@ -421,3 +421,20 @@ sb.composite.v4.search=/v4/search
 
 spv.full.report.folder.name=full_report
 spv.full.report.file.name=reports.zip
+
+master.competency.framework.name={{kcmframeworkname}}
+bulk.upload.competency.your.workspace.name=Your Workspace
+bulk.upload.competency.reference.workspace.name=Reference Sheet Competency
+bulk.upload.master.designation.workspace.name=Org Designation master
+bulk.upload.competency.designation.file.name=bulkUploadMasterData.xlsx
+competency.designation.bulk.upload.container.name=competencyDesignation
+
+kafka.topics.competency.designation.bulk.upload.event={{env}}.competency.designation.bulk.upload
+kafka.topics.competency.designation.bulk.upload.event.group=competencyDesignationBulkUpload
+designation.competency.bulk.upload.update.threshold.value=10
+
+competency.selected.version=competencies_v6
+competency.selected.version.facets.map={"competencies_v6":"competencies_v6.competencyAreaName,competencies_v6.competencyThemeName,competencies_v6.competencySubThemeName","competencies_v5":"competencies_v5.competencyArea,competencies_v5.competencyTheme,competencies_v5.competencySubTheme"}
+national.learning.insights.fields='{{national_learning_insights_fields}}'
+national.learning.insights.property.fields='{"valueColor": "#FFFFFF","labelColor": "#FFFFFF","linebreak":"false","background": "#1B4CA1","iconColor": "#FFFFFF"}'
+national.learning.insights.redis.key.mapping='{"Certificate Issued Yesterday":"dashboard_content_certificates_generated_yday_nlw_count","Total Certificate Issued So Far":"dashboard_content_certificates_generated_nlw_count","Events Published":"dashboard_events_published_nlw_count","Total Enrolments":"dashboard_content_enrolment_nlw_count"}'

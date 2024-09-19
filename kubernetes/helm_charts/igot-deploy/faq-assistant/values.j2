@@ -16,8 +16,8 @@ resources:
     cpu: {{faq_assistant_cpu_req|default('100m')}}
     memory: {{faq_assistant_mem_req|default('100Mi')}}
   limits:
-    cpu: {{faq_assistant_cpu_limit|default('1')}}
-    memory: {{faq_assistant_mem_limit|default('1024Mi')}}
+    cpu: {{faq_assistant_cpu_limit|default('300m')}}
+    memory: {{faq_assistant_mem_limit|default('500Mi')}}
 network:
   port: {{ service_faq_assistant_port }}
   targetport: {{ service_faq_assistant_port }}

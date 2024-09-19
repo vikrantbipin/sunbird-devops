@@ -16,8 +16,9 @@ resources:
     cpu: {{ui_cbp_cpu_req|default('100m')}}
     memory: {{ui_cbp_mem_req|default('100Mi')}}
   limits:
-    cpu: {{ui_cbp_cpu_limit|default('1')}}
-    memory: {{ui_cbp_mem_limit|default('1024Mi')}}
+    cpu: {{ui_cbp_cpu_limit|default('300m')}}
+    memory: {{ui_cbp_mem_limit|default('512Mi')}}
+
 network:
   port: {{ service_ui_cbp_igot_port }}
   targetport: 3002
