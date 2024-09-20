@@ -51,7 +51,7 @@ environmentjs: |-
   DEFAULT_MEETING_SERVICE="OFF"
   DEFAULT_ORGANISATION_CODE="{{mentoring_default_organisation_code}}"
   DEFAULT_ORG_ID="{{mentoring_default_organisation_code}}"
-  DEV_DATABASE_URL="postgres://{{ postgresql_username_mentoring }}:{{ postgresql_password_mentoring }}@{{ postgresql_host }}:{{ postgresql_port}}/elevate_mentoring"
+  DEV_DATABASE_URL="postgres://{{ postgresql_username_mentoring }}:{{ postgresql_password_mentoring }}@{{ sl_postgresql_host }}:{{ postgresql_port}}/elevate_mentoring"
   DISABLE_LOG="false"
   ENABLE_EMAIL_FOR_REPORT_ISSUE="true"
   ERROR_LOG_LEVEL="silly"
