@@ -17849,3 +17849,75 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: ciosReadContentByPartnercodeAndExternalid
+    uris: "{{ ciosIntegration_prefix }}/v1/read/content"
+    upstream_url: "{{ cios_content_service_url }}/ciosIntegration/v1/read/content"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"  
+
+  - name: ciosSearchContent
+    uris: "{{ ciosIntegration_prefix }}/v1/search/content"
+    upstream_url: "{{ cios_content_service_url }}/ciosIntegration/v1/search/content"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"  
+
+  - name: ciosUpdateContent
+    uris: "{{ ciosIntegration_prefix }}/v1/update/content"
+    upstream_url: "{{ cios_content_service_url }}/ciosIntegration/v1/update/content"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"  
+
+  - name: readbypartnercode
+    uris: "{{ contentpartner_prefix }}/v1/readbypartnercode"
+    upstream_url: "{{ cb_pores_service_url }}/contentpartner/v1/readbypartnercode"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
