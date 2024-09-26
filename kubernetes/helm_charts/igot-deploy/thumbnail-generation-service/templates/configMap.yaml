@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gcp_storage_credentialsjson
+  namespace: {{ .Values.namespace }}
+data:
+  gcp_storage_credentials.json: |
+{{ .Values.gcp_storage_credentialsjson | indent 4 }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gcp_gemini_credentialsjson
+  namespace: {{ .Values.namespace }}
+data:
+  gcp_gemini_credentials.json: |
+{{ .Values.gcp_gemini_credentialsjson | indent 4 }}
+
+---
