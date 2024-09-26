@@ -877,7 +877,7 @@ network_alias_cb_integration_framework: cb-integration-framework
 network_alias_ml_template_validation_portal_service: ml-template-validation-portal
 network_alias_ml_template_validation_backend_service_service: ml-template-validation-backend-service
 network_alias_cb_comment_service: cb-comment-service
-network_alias_thumbnail_generation_service:thumbnail-generation-service
+network_alias_thumbnail_generation_service: thumbnail-generation-service
 
 # Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
 image_ui_static: ui-static
