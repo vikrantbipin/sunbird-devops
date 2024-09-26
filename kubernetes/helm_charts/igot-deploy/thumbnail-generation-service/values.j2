@@ -26,10 +26,10 @@ strategy:
   maxsurge: {{ thumbnail_generation_maxsurge|default('25%') }}
   maxunavailable: {{ thumbnail_generation_maxunavailable|default('25%') }}
 
-gcp_storage_credentialsjson: |-
+gcpstoragecredentialsjson: |-
  {{gcp_artifcats_upload_service_account}}
 
-gcp_gemini_credentialsjson: |-
+gcpgeminicredentialsjson: |-
  {{gcp_gemini_upload_service_account}}
 
 

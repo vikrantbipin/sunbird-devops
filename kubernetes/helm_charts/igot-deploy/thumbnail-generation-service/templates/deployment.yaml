@@ -25,12 +25,12 @@ spec:
       - name: {{ .Values.imagepullsecrets }}
 {{- end }}
       volumes:
-        - name: gcp_gemini_credentialsjson
+        - name: gcpgeminicredentialsjson
           configMap:
-            name: gcp_gemini_credentialsjson
-        - name: gcp_storage_credentialsjson
+            name: gcpgeminicredentialsjson
+        - name: gcpstoragecredentialsjson
           configMap:
-            name: gcp_storage_credentialsjson
+            name: gcpstoragecredentialsjson
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.dockerhub }}/{{ .Values.repository }}:{{ .Values.image_tag }}"
@@ -44,10 +44,10 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
-        - name: gcp_gemini_credentialsjson
+        - name: gcpgeminicredentialsjson
           mountPath: /app/gcp_gemini_credentials.json
           subPath: gcp_gemini_credentials.json
-        - name: gcp_storage_credentialsjson
+        - name: gcpstoragecredentialsjson
           mountPath: /app/gcp_storage_credentials.json
           subPath: gcp_storage_credentials.json
         ports:
