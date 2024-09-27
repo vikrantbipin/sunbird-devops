@@ -17792,3 +17792,45 @@ kong_apis:
        config.limit_by: credential
      - name: request-size-limiting
        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+   - name: publicAssessmentRead
+    uris: "{{ public_assessment_prefix }}/v1/read"
+    upstream_url: "{{ public_assessment_service_url }}/v5/public/user/assessment/read"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentQuestionList
+    uris: "{{ public_assessment_prefix }}/v1/question/list"
+    upstream_url: "{{ public_assessment_service_url }}/v5/public/assessment/question/list"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+   - name: publicAssessmentSubmit
+    uris: "{{ public_assessment_prefix }}/v1/assessment/submit"
+    upstream_url: "{{ public_assessment_service_url }}/v5/user/assessment/submit"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"     
