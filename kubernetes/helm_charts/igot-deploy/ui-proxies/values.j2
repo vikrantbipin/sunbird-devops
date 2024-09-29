@@ -29,3 +29,17 @@ strategy:
 ui_proxies_bulk_upload: {{ host_bulk_upload }}
 
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ui_proxies_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui_proxies_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui_proxies_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui_proxies_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui_proxies_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

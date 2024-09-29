@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for mentoring_scheduler-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -23,8 +23,8 @@ network:
   targetport: {{ service_mentoring_scheduler_service_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ mentoring_scheduler_maxsurge|default('25%') }}
+  maxunavailable: {{ mentoring_scheduler_maxunavailable|default('25%') }}
 
 environmentjs: |-
     API_DOC_URL= "/scheduler/api-doc"
@@ -39,3 +39,17 @@ environmentjs: |-
     REDIS_HOST= "{{ redis_host }}"
     REDIS_PORT= "{{ redis_port }}"
     ZEST_ENV= "ZEST_ENV"
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring_scheduler_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring_scheduler_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring_scheduler_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring_scheduler_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring_scheduler_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

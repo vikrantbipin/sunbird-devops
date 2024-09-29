@@ -41,3 +41,17 @@ envjs: |-
     APP_COLLAB_MONGO_CONNECTION_STRING: "",
     APP_COLLAB_KEYCLOAK_URL: '{{app_collab_keycloak_url}}'
  }
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ frac_collab_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ frac_collab_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ frac_collab_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ frac_collab_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ frac_collab_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

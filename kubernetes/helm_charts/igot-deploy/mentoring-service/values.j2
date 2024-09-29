@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for mentoring_service-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -23,8 +23,8 @@ network:
   targetport: {{ service_mentoring_service_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ mentoring_service_maxsurge|default('25%') }}
+  maxunavailable: {{ mentoring_service_maxunavailable|default('25%') }}
 
 mentoring_basepath:  {{ frac_backend_basepath | default('/keys/') }}
 
@@ -51,7 +51,7 @@ environmentjs: |-
   DEFAULT_MEETING_SERVICE="OFF"
   DEFAULT_ORGANISATION_CODE="{{mentoring_default_organisation_code}}"
   DEFAULT_ORG_ID="{{mentoring_default_organisation_code}}"
-  DEV_DATABASE_URL="postgres://{{ postgresql_username_mentoring }}:{{ postgresql_password_mentoring }}@{{ postgresql_host }}:{{ postgresql_port}}/elevate_mentoring"
+  DEV_DATABASE_URL="postgres://{{ postgresql_username_mentoring }}:{{ postgresql_password_mentoring }}@{{ sl_postgresql_host }}:{{ postgresql_port}}/elevate_mentoring"
   DISABLE_LOG="false"
   ENABLE_EMAIL_FOR_REPORT_ISSUE="true"
   ERROR_LOG_LEVEL="silly"
@@ -108,3 +108,18 @@ environmentjs: |-
   ADMIN_ACCESS_TOKEN="{{mentoring_admin_access_token}}"
   ADMIN_TOKEN_HEADER_NAME="admin-auth-token"
   ORG_ID_HEADER_NAME="organization-id"
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

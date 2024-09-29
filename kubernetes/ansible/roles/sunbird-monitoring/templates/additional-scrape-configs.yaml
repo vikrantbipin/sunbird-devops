@@ -87,7 +87,7 @@ scrapeconfig:
   {% for item in service_blackbox_checks %}
   # This empty line ensures indentation is correct after ansible jinja2 template is materialized
   - job_name: 'availability_{{ item.service_name }}'
-    metrics_path: /metrics
+    metrics_path: {{ item.metricspath  }}
     params:
       module: [{{ item.probe_module }}]
     static_configs:

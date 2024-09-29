@@ -48,6 +48,7 @@ spec:
         - configMapRef:
             name: {{ .Chart.Name }}-config
         resources:
+{{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - name: host-config
           mountPath: /app/dist/www/en/assets/configurations/host.config.json
