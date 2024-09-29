@@ -1,0 +1,30 @@
+### Default variable file for cios-content-service ###
+
+namespace: {{ namespace }}
+imagepullsecrets: {{ imagepullsecrets }}
+dockerhub: {{ docker_hub_url }}
+
+
+env:
+  javaoptions: {{public_assessment_java_mem_limit|default('-Xmx600m')}}
+
+replicaCount: {{public_assessment_replicacount|default(1)}}
+repository: {{ image_public_assessment_service }}
+image_tag: {{image_tag}}
+resources:
+  requests:
+    cpu: {{public_assessment_cpu_req|default('100m')}}
+    memory: {{public_assessment_mem_req|default('100Mi')}}
+  limits:
+    cpu: {{public_assessment_cpu_limit|default('1')}}
+    memory: {{public_assessment_mem_limit|default('1024Mi')}}
+network:
+  port: {{ service_public_assessment_port }}
+  targetport: {{ service_public_assessment_port }}
+strategy:
+  type: RollingUpdate
+  maxsurge: {{ public_assessment_maxsurge|default('25%') }}
+  maxunavailable: {{ public_assessment_maxunavailable|default('25%') }}
+
+public_assessment_backend_basepath: {{ public_assessment_backend_basepath | default('/keys/') }}
+

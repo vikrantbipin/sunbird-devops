@@ -1,0 +1,32 @@
+---
+# vars file for deploy-lex-core-service
+
+# For script
+release_name: "{{ network_alias_public_assessment }}"
+template_compose_file_name: public_assessment.j2
+template_env_file_name: public-assessment-service-env.j2
+compose_file_name: "{{ service_public_assessment }}.yml"
+env_file_name: "{{ service_public_assessment }}.env"
+helm_env_file_location: "../helm_charts/igot-deploy/templates/"
+helm_env_file_name: "{{ helm_env_file_location }}/{{ service_public_assessment }}.env"
+#chart_path: "../kubernetes-deploy/public_assessment"
+
+env_file_deployment_location: "{{ env_files_dir }}/{{ env_file_name }}"
+compose_file_deployment_location: "{{ compose_files_dir }}/{{ compose_file_name }}"
+user_friendly_name: public_assessment
+
+# For service
+application_port: "{{ service_public_assessment_port }}"
+image_name: "{{ image_public_assessment_service }}"
+tag: "{{ tags_public_assessment }}"
+host_port: "{{ application_port }}"
+docker_port: "{{ application_port }}"
+replicas: "{{ service_replicas_public_assessment }}"
+reserved_memory: "{{ service_mem_reserved_public_assessment }}"
+limited_memory: "{{ service_mem_limit_public_assessment }}"
+#limited_memory: 2048M
+health_check_endpoint: http://127.0.0.1:{{ docker_port }}/contentValidation/actuator/health
+network_alias_name: "{{ network_alias_public_assessment }}"
+docker_service_stack_name: lms
+docker_service_name: "{{ service_public_assessment }}"
+force_reload: "{{ force_reload_public_assessment }}"
