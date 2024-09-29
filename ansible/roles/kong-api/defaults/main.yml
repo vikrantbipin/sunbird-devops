@@ -16681,7 +16681,7 @@ kong_apis:
 
   - name: hallOfFameUserLeaderBoard
     uris: "{{ halloffame_prefix }}/v1/userleaderboard"
-    upstream_url: "{{ sb_cb_ext_service_url }}/v1/halloffame/user/read"
+    upstream_url: "{{ sb_cb_ext_service_url }}/v1/halloffame/org/read"
     strip_uri: true
     plugins:
     - name: jwt
@@ -17705,9 +17705,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"        
 
-  - name: sampleFileDownloadForCompetencyOrganisationMappingForOrg
-    uris: "{{ organisation_prefix }}/v1/getCompetencyDesignationMappingFile/sample"
-    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/getCompetencyMappingFile/sample"
+  - name: fileDownloadForCompetencyOrganisationMappingForOrg
+    uris: "{{ organisation_prefix }}/v1/getCompetencyDesignationMappingFile"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/getCompetencyMappingFile"
     strip_uri: true
     plugins:
       - name: jwt
@@ -17741,9 +17741,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: bulkUploadForCompetencyOrganisationMappingProgressDetailsForOrg
-    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/bulkUpload/progress/details"
-    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/progress/details/bulkUpload"
+  - name: bulkUploadForCompetencyOrganisationMappingDetailsForOrg
+    uris: "{{ organisation_prefix }}/v1/competencyDesignationMappings/bulkUpload/details"
+    upstream_url: "{{ sb_cb_ext_service_url }}/organisation/v1/competencyDesignationMappings/details/bulkUpload"
     strip_uri: true
     plugins:
       - name: jwt
