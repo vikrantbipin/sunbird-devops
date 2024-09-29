@@ -32,3 +32,17 @@ envjs: |-
   window.env = {
     REACT_APP_DEV_CONSOLE_KEYCLOAK_URL: 'https://{{ react_app_dev_console_keycloak_url }}'
   }
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ developer_console_web_portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ developer_console_web_portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ developer_console_web_portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ developer_console_web_portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ developer_console_web_portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

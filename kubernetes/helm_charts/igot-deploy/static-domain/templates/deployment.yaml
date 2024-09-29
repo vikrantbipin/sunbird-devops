@@ -37,6 +37,7 @@ spec:
         image: {{ .Values.dockerhub }}/{{ .Values.repository }}:{{ .Values.image_tag }}
         imagePullPolicy: Always
         resources:
+{{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - name: {{ .Chart.Name }}-configurations-json
           mountPath: /usr/local/apache2/htdocs/assets/jsonfiles/configurations.json

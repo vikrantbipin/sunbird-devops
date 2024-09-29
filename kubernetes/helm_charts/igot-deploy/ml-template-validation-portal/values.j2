@@ -28,6 +28,20 @@ strategy:
 
 environmentjs: |-
   window["env"] = {
-      baseURL: 'http://ml-template-validation-backend-service:5000/template/api/v1/',
+      baseUrl: 'https://{{domain_name}}/apis/proxies/v8/',
       customAuth: true,
   };
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ml_template_validation_portal_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml_template_validation_portal_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml_template_validation_portal_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml_template_validation_portal_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml_template_validation_portal_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

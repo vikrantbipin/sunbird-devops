@@ -35,7 +35,7 @@ environmentjs: |-
     ALLOWED_IDLE_TIME= "300"
     API_DOC_URL= "/user/api-doc"
     APPLICATION_ENV= "production"
-    APPLICATION_HOST= "http://mentoring-user-servicet/7001"
+    APPLICATION_HOST= "http://mentoring-user-service/7001"
     APPLICATION_PORT= "7001"
     APP_NAME= "MentorED"
     AWS_ACCESS_KEY_ID= "t{{ cloud_storage_key }}"
@@ -103,3 +103,17 @@ environmentjs: |-
     SCHEDULER_SERVICE_URL= "http://mentoring-interface-service:3567/jobs/scheduleJob"
     SIGNED_URL_EXPIRY_IN_MILLISECONDS= "120000"
     CLEAR_INTERNAL_CACHE= "{{ env }}.user.internal"
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ mentoring_user_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ mentoring_user_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ mentoring_user_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ mentoring_user_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ mentoring_user_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

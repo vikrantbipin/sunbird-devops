@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for profanity_image_moderation-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -6,26 +6,40 @@ dockerhub: {{ docker_hub_url }}
 
 
 env:
-  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{profanity_image_moderation_java_mem_limit|default('-Xmx600m')}}
 
-replicaCount: {{lms_replicacount|default(1)}}
+replicaCount: {{profanity_image_moderation_replicacount|default(1)}}
 repository: {{ image_profanity_image_moderation_service }}
 image_tag: {{image_tag}}
 resources:
   requests:
-    cpu: {{lms_cpu_req|default('100m')}}
-    memory: {{lms_mem_req|default('100Mi')}}
+    cpu: {{profanity_image_moderation_cpu_req|default('100m')}}
+    memory: {{profanity_image_moderation_mem_req|default('100Mi')}}
   limits:
-    cpu: {{lms_cpu_limit|default('1')}}
-    memory: {{lms_mem_limit|default('1024Mi')}}
+    cpu: {{profanity_image_moderation_cpu_limit|default('1')}}
+    memory: {{profanity_image_moderation_mem_limit|default('1024Mi')}}
 network:
   port: 80
   targetport: {{ service_profanity_image_moderation_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ profanity_image_moderation_maxsurge|default('25%') }}
+  maxunavailable: {{ profanity_image_moderation_maxunavailable|default('25%') }}
 
 ui_proxies_bulk_upload: {{ host_bulk_upload }}
 
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ profanity_image_moderation_autoscaling_enabled | default('false') }}
+  minReplicas: {{ profanity_image_moderation_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ profanity_image_moderation_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ profanity_image_moderation_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ profanity_image_moderation_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

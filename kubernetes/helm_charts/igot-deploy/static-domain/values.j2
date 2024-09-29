@@ -1,25 +1,40 @@
-### Default variable file for lms-service ###
+### Default variable file for ui_static_domain-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
 dockerhub: {{ docker_hub_url }}
 
-replicaCount: {{lms_replicacount|default(1)}}
+replicaCount: {{ui_static_domain_replicacount|default(1)}}
 repository: {{ image_static_domian }}
 image_tag: {{ image_tag }}
 resources:
   requests:
-    cpu: {{lms_cpu_req|default('100m')}}
-    memory: {{lms_mem_req|default('100Mi')}}
+    cpu: {{ui_static_domain_cpu_req|default('100m')}}
+    memory: {{ui_static_domain_mem_req|default('100Mi')}}
   limits:
-    cpu: {{lms_cpu_limit|default('1')}}
-    memory: {{lms_mem_limit|default('1024Mi')}}
+    cpu: {{ui_static_domain_cpu_limit|default('300m')}}
+    memory: {{ui_static_domain_mem_limit|default('300Mi')}}
+
 network:
   port: {{ service_static_domian_port }}
   targetport: 80
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ ui_static_domain_maxsurge|default('25%') }}
+  maxunavailable: {{ ui_static_domain_maxunavailable|default('25%') }}
 
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ static_domain_autoscaling_enabled | default('false') }}
+  minReplicas: {{ static_domain_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ static_domain_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ static_domain_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ static_domain_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 

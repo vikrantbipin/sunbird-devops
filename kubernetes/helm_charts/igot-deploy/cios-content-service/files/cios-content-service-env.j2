@@ -55,3 +55,14 @@ spring.data.cassandra.local-datacenter=DC1
 cassandra.config.host={{ sunbird_cassandra_db_host }}
 cios.read.api.base.url=http://cb-pores-service:7001
 cios.read.api.fixed.url=/cios/v1/content/readby/externalid/
+
+partner.read.path=/contentpartner/v1/readbypartnercode/
+
+elasticsearch.host={{ elasticsearch_host }}
+elasticsearch.port={{ elasticsearch_http_port }}
+elasticsearch.username={{ elasticsearch_username }}
+elasticsearch.password={{ elasticsearch_password }}
+elastic.required.field.cios.content.json.path=/EsFieldsMapping/esRequiredFieldsJsonFilePath.json
+search.result.redis.ttl=600
+cornell.partner.code=CORNELL
+upgrad.partner.code=UPGRAD

@@ -40,3 +40,17 @@ envjs: |-
  }
 
 
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ developer_console_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ developer_console_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ developer_console_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ developer_console_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ developer_console_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

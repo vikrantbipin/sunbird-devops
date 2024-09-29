@@ -4,6 +4,9 @@ namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
 dockerhub: {{ dockerhub }}
 
+env:
+  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+
 replicaCount: {{notification_replicacount|default(1)}}
 repository: {{notification_repository|default('notification_service')}}
 image_tag: {{ image_tag }}

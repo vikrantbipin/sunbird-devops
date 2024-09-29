@@ -29,8 +29,8 @@ strategy:
 environmentjs: |-
   FLASK_APP = app.py
   FLASK_RUN_PORT = 5000
-  HOSTIP = http://ml-template-validation-backend-service:5000/
-  mongoURL = mongodb://{{ml_mongodb_host | default(groups['mongo_master'][0]+':27017')}}/
+  HOSTIP = http://0.0.0.0
+  mongoURL = mongodb://{{ml_mongodb_host | default(groups['mongo_master'][0]+':27017')}}
   db = templateValidation
   userCollection = users
   conditionsCollection = conditions
@@ -99,3 +99,17 @@ configpy: |-
   downloadSuccessSheet = "https://{{domain_name}}/content-store/"
   errBasic = 300
   errAdv = 301
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ml_template_validation_backend_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml_template_validation_backend_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml_template_validation_backend_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml_template_validation_backend_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml_template_validation_backend_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

@@ -1,4 +1,4 @@
-### Default variable file for lms-service ###
+### Default variable file for ui_static-service ###
 
 namespace: {{ namespace }}
 imagepullsecrets: {{ imagepullsecrets }}
@@ -6,25 +6,25 @@ dockerhub: {{ docker_hub_url }}
 portalname: {{ karmayogi_portal_url }}
 
 env:
-  javaoptions: {{lms_java_mem_limit|default('-Xmx600m')}}
+  javaoptions: {{ui_static_java_mem_limit|default('-Xmx600m')}}
 
-replicaCount: {{lms_replicacount|default(1)}}
+replicaCount: {{ui_static_replicacount|default(1)}}
 repository: {{ image_ui_static_fusion }}
 image_tag: {{image_tag}}
 resources:
   requests:
-    cpu: {{lms_cpu_req|default('100m')}}
-    memory: {{lms_mem_req|default('100Mi')}}
+    cpu: {{ui_static_cpu_req|default('100m')}}
+    memory: {{ui_static_mem_req|default('100Mi')}}
   limits:
-    cpu: {{lms_cpu_limit|default('1')}}
-    memory: {{lms_mem_limit|default('1024Mi')}}
+    cpu: {{ui_static_cpu_limit|default('300m')}}
+    memory: {{ui_static_mem_limit|default('512Mi')}}
 network:
   port: {{ service_ui_static_port }}
   targetport: {{ service_ui_static_port }}
 strategy:
   type: RollingUpdate
-  maxsurge: {{ lms_maxsurge|default('25%') }}
-  maxunavailable: {{ lms_maxunavailable|default('25%') }}
+  maxsurge: {{ ui_static_maxsurge|default('25%') }}
+  maxunavailable: {{ ui_static_maxunavailable|default('25%') }}
 
 ui_proxies_bulk_upload: {{ host_bulk_upload }}
 
@@ -13652,9 +13652,25 @@ hostconfig: |-
       "description": "SUPERINTENDING GEOPHYSICIST"
     }
        
-    
-    ]
-  }
+   ],
+   "compentency": {
+      "competencies_v5": {
+        "vKey": "competencies_v5",
+        "vCompetencyArea": "competencyArea",
+        "vCompetencyAreaDescription": "competencyAreaDescription",
+        "vCompetencyTheme": "competencyTheme",
+        "vCompetencySubTheme": "competencySubTheme"
+      },
+      "competencies_v6": {
+        "vKey": "competencies_v6",
+        "vCompetencyArea": "competencyAreaName",
+        "vCompetencyAreaDescription": "competencyAreaDescription",
+        "vCompetencyTheme": "competencyThemeName",
+        "vCompetencySubTheme": "competencySubThemeName"
+      }
+   }
+  } 
+  
 siteconfig: |
 
  {
@@ -27681,6 +27697,22 @@ siteconfig: |
       "active": false
     }
   ],
+  "compentency": {
+      "competencies_v5": {
+        "vKey": "competencies_v5",
+        "vCompetencyArea": "competencyArea",
+        "vCompetencyAreaDescription": "competencyAreaDescription",
+        "vCompetencyTheme": "competencyTheme",
+        "vCompetencySubTheme": "competencySubTheme"
+      },
+      "competencies_v6": {
+        "vKey": "competencies_v6",
+        "vCompetencyArea": "competencyAreaName",
+        "vCompetencyAreaDescription": "competencyAreaDescription",
+        "vCompetencyTheme": "competencyThemeName",
+        "vCompetencySubTheme": "competencySubThemeName"
+      }
+   },
   "npsCategory": "NPS2"
   }
 appsjson: |-
@@ -28547,7 +28579,8 @@ envjson: |-
     "recaptchaKey": "{{ igot_recaptchakey }}",
     "supportEmail": "mission.karmayogi@gov.in",
     "providerDataKey": "{{ providerdatakey }}",
-    "resendOTPTIme": 180
+    "resendOTPTIme": 180,
+    "compentencyVersionKey": "competencies_v5"
   }    
 
 
@@ -28583,3 +28616,17 @@ appleappsiteassociation: |-
      ]
    }
  }
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ ui_static_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ui_static_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ui_static_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ui_static_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ui_static_autoscaling_targetMemoryUtilizationPercentage|default('') }}
+

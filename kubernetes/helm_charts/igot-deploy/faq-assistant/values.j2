@@ -16,8 +16,8 @@ resources:
     cpu: {{faq_assistant_cpu_req|default('100m')}}
     memory: {{faq_assistant_mem_req|default('100Mi')}}
   limits:
-    cpu: {{faq_assistant_cpu_limit|default('1')}}
-    memory: {{faq_assistant_mem_limit|default('1024Mi')}}
+    cpu: {{faq_assistant_cpu_limit|default('300m')}}
+    memory: {{faq_assistant_mem_limit|default('500Mi')}}
 network:
   port: {{ service_faq_assistant_port }}
   targetport: {{ service_faq_assistant_port }}
@@ -46,4 +46,18 @@ faqassistantjson: |-
     "druid_port" : "{{ druid_port }}",
     "job_time_interval_seconds" : {{ faq_time_interval }}
  }
+
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ faq_assistant_autoscaling_enabled | default('false') }}
+  minReplicas: {{ faq_assistant_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ faq_assistant_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ faq_assistant_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ faq_assistant_autoscaling_targetMemoryUtilizationPercentage|default('') }}
 
