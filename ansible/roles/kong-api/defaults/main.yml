@@ -139,6 +139,7 @@ service_registry_prefix: /serviceregistry
 surveys_service_template_prefix: /template
 comment_prefix: /comment
 organisation_prefix: /organisation
+public_assessment_prefix: /public/assessment
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -184,6 +185,7 @@ cb_external_enrollment_service_url: "http://cb-enrollment-service:7002"
 cb_service_registry_url: "http://cb-service-registry:8096"
 ml_template_validation_survey_service_url: "http://ml-template-validation-backend-service:5000"
 cb_comment_service_url: "http://cb-comment-service:8099"
+public_assessment_service_url : "http://public-assessment-service:8090"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -17792,6 +17794,90 @@ kong_apis:
        config.limit_by: credential
      - name: request-size-limiting
        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+       
+  - name: publicAssessmentReadVersion4
+    uris: "{{ public_assessment_prefix }}/v1/read"
+    upstream_url: "{{ public_assessment_service_url }}/v1/public/assessment/read"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentQuestionListVersion4
+    uris: "{{ public_assessment_prefix }}/v1/question/list"
+    upstream_url: "{{ public_assessment_service_url }}/v1/public/assessment/question/list"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentReadVersion5
+    uris: "{{ public_assessment_prefix }}/v5/read"
+    upstream_url: "{{ public_assessment_service_url }}/v5/public/user/assessment/read"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentQuestionListVersion5
+    uris: "{{ public_assessment_prefix }}/v5/question/list"
+    upstream_url: "{{ public_assessment_service_url }}/v5/public/assessment/question/list"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentSubmitVersion5
+    uris: "{{ public_assessment_prefix }}/v5/assessment/submit"
+    upstream_url: "{{ public_assessment_service_url }}/v5/user/assessment/submit"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentSubmitVersion4
+    uris: "{{ public_assessment_prefix }}/v4/assessment/submit"
+    upstream_url: "{{ public_assessment_service_url }}/v4/user/assessment/submit"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: sampleFileDownloadForOrganisationDesignationMapping
     uris: "{{ designation_prefix }}/v1/orgMapping/sample"
@@ -17948,6 +18034,20 @@ kong_apis:
       - name: acl
         config.whitelist:
           - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: publicAssessmentResultVersion5
+    uris: "{{ public_assessment_prefix }}/v5/result"
+    upstream_url: "{{ public_assessment_service_url }}/v5/quml/assessment/result"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
