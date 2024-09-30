@@ -63,3 +63,8 @@ public-assessment-service-host=http://public-assessment-service:8090
 
 kafka.topic.certificate.assessment.group=certificate.assessment.group
 kafka.topic.certificate.request={{env}}.assessment.public.certificate.request
+
+kakfa.offset.reset.value=latest
+kafka.max.poll.interval.ms=15000
+kafka.max.poll.records=100
+kafka.auto.commit.interval.ms=10000
