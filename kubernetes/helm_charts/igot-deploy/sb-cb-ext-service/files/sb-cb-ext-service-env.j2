@@ -449,6 +449,14 @@ kafka.topics.org.designation.bulk.upload.event={{env}}.org.designation.bulk.uplo
 kafka.topics.org.designation.bulk.upload.event.group=orgDesignationBulkUpload
 redis.master.data.read.timeout=3600
 
-
 kafka.topics.cqf.assessment.postpublish={{env}}.questionset.postpublish
 kafka.groupId.cqf.assessment.postpublish={{env}}-questionset-publish-group
+
+spring.kafka.public.assessment.topic.name={{env}}.public.assessment.cert.generation.post.process
+spring.kafka.public.assessment.consumer.group.id=public.assessment.cert.generation.post.process
+public.assessment.cloud.certificate.folder.name=public-assessment-certificate
+ 
+public-assessment-service-host=http://public-assessment-service:8090
+public-assessment-email-notify-url=/assessment/notify
+
+user.registration.custodian.orgName=iGOT
