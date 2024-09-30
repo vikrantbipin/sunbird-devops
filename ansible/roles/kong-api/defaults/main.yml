@@ -18054,17 +18054,3 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
-  - name: publicAssessmentNotify
-    uris: "{{ public_assessment_prefix }}/notify"
-    upstream_url: "{{ public_assessment_service_url }}/assessment/notify"
-    strip_uri: true
-    plugins:
-      - name: cors
-      - "{{ statsd_pulgin }}"
-      - name: rate-limiting
-        config.policy: local
-        config.hour: "{{ medium_rate_limit_per_hour }}"
-        config.limit_by: credential
-      - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
