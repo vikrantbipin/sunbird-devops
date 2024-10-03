@@ -13652,25 +13652,9 @@ hostconfig: |-
       "description": "SUPERINTENDING GEOPHYSICIST"
     }
        
-   ],
-   "compentency": {
-      "competencies_v5": {
-        "vKey": "competencies_v5",
-        "vCompetencyArea": "competencyArea",
-        "vCompetencyAreaDescription": "competencyAreaDescription",
-        "vCompetencyTheme": "competencyTheme",
-        "vCompetencySubTheme": "competencySubTheme"
-      },
-      "competencies_v6": {
-        "vKey": "competencies_v6",
-        "vCompetencyArea": "competencyAreaName",
-        "vCompetencyAreaDescription": "competencyAreaDescription",
-        "vCompetencyTheme": "competencyThemeName",
-        "vCompetencySubTheme": "competencySubThemeName"
-      }
-   }
-  } 
-  
+    
+    ]
+  }
 siteconfig: |
 
  {
@@ -27697,22 +27681,6 @@ siteconfig: |
       "active": false
     }
   ],
-  "compentency": {
-      "competencies_v5": {
-        "vKey": "competencies_v5",
-        "vCompetencyArea": "competencyArea",
-        "vCompetencyAreaDescription": "competencyAreaDescription",
-        "vCompetencyTheme": "competencyTheme",
-        "vCompetencySubTheme": "competencySubTheme"
-      },
-      "competencies_v6": {
-        "vKey": "competencies_v6",
-        "vCompetencyArea": "competencyAreaName",
-        "vCompetencyAreaDescription": "competencyAreaDescription",
-        "vCompetencyTheme": "competencyThemeName",
-        "vCompetencySubTheme": "competencySubThemeName"
-      }
-   },
   "npsCategory": "NPS2"
   }
 appsjson: |-
@@ -28579,8 +28547,7 @@ envjson: |-
     "recaptchaKey": "{{ igot_recaptchakey }}",
     "supportEmail": "mission.karmayogi@gov.in",
     "providerDataKey": "{{ providerdatakey }}",
-    "resendOTPTIme": 180,
-    "compentencyVersionKey": "competencies_v5"
+    "resendOTPTIme": 180
   }    
 
 
@@ -28629,4 +28596,3 @@ autoscaling:
   maxReplicas: {{ ui_static_autoscaling_maxReplicas|default(2) }}
   targetCPUUtilizationPercentage: {{ ui_static_autoscaling_targetCPUUtilizationPercentage|default(60) }}
   targetMemoryUtilizationPercentage: {{ ui_static_autoscaling_targetMemoryUtilizationPercentage|default('') }}
-
