@@ -29,7 +29,8 @@ strategy:
 environmentjs: |-
   window["env"] = {
       baseUrl: 'https://spv.{{nginx_proxy_server_name}}/apis/proxies/v8/',
-      customAuth: true,
+      linkUrl: '{{domain_name}}/',
+      customAuth: true
   };
 
 serviceMonitor:
