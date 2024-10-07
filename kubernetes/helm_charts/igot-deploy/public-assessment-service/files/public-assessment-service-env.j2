@@ -40,7 +40,7 @@ user.assessment.submission.duration=120
 kafka.topics.user.assessment.async.submit.handler={{env}}.assessment.async.submit.handler
 kafka.topics.user.assessment.async.submit.handler.group=assessmentAsyncSubmitHandlerGroup
 
-encryption.key{{public_assessment_service_encryption_key}}
+encryption.key={{public_assessment_service_encryption_key}}
 
 svgTemplate={{public_assessment_service_svgtemplate}}
 
@@ -54,3 +54,25 @@ kafka.topics.public.assessment.certificate={{env}}.assessment.public.certificate
 assessment.primarykey.notallowed.certificate=Practice Question Set
 public.user.assessment.data={{ public_assessment_service_assessment_data }}
 assessment.user.submit.data.table={{ public_assessment_service_assessment_data }}
+
+notify.service.host=http://notification-service:9000
+notify.service.path.async=/v2/notification/send
+notification.support.mail={{sunbird_notification_sender_email}}
+public.assessment.certificate.template=publicAssessmentCertificateTempate
+public-assessment-service-host=http://public-assessment-service:8090
+
+kafka.topic.certificate.assessment.group=certificate.assessment.group
+kafka.topic.certificate.request={{env}}.assessment.public.certificate.request
+
+kakfa.offset.reset.value=latest
+kafka.max.poll.interval.ms=15000
+kafka.max.poll.records=100
+kafka.auto.commit.interval.ms=10000
+
+public.assessment.completion.template=publicAssessmentCompletionTemplate
+spring.kafka.public.assessment.notification.topic.name={{env}}.public.assessment.cert.generation.email
+public.assessment.cert.generation.post.process.topic={{env}}.public.assessment.cert.generation.post.process
+kafka.topic.download.certificate={{env}}.public.assessment.cert.generation.email
+
+public.access.url=https://{{portal_domain_name}}/assets/public/
+storage.cloud.url={{cloud_storage_endpoint}}/{{sb_cb_ext_container}}/

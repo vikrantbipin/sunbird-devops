@@ -276,8 +276,8 @@ sb.env.chiper.password={{cipher_password}}
 
 sb.es.user.notification.preference.index=notify_preference
 
-assessment.read.assessmentLevel.params=name,identifier,primaryCategory,versionKey,mimeType,code,version,objectType,status,expectedDuration,totalQuestions,maxQuestions,description,maxAssessmentRetakeAttempts,competencies_v3,assessmentType,sectionTimeBound,showMarks
-assessment.read.sectionLevel.params=parent,name,identifier,description,trackable,primaryCategory,versionKey,mimeType,code,version,objectType,status,index,maxQuestions,scoreCutoffType,minimumPassPercentage,additionalInstructions,sectionLevelDefinition,assessmentType,expectedDuration
+assessment.read.assessmentLevel.params=name,identifier,primaryCategory,versionKey,mimeType,code,version,objectType,status,expectedDuration,totalQuestions,maxQuestions,description,maxAssessmentRetakeAttempts,competencies_v3,assessmentType,sectionTimeBound,showMarks,questionParagraph,sectionType
+assessment.read.sectionLevel.params=parent,name,identifier,description,trackable,primaryCategory,versionKey,mimeType,code,version,objectType,status,index,maxQuestions,scoreCutoffType,minimumPassPercentage,additionalInstructions,sectionLevelDefinition,assessmentType,expectedDuration,questionParagraph,sectionType
 assessment.read.questionLevel.params=parent,name,identifier,primaryCategory,body,versionKey,mimeType,code,objectType,status,qType,index,showSolutions,allowAnonymousAccess,visibility,version,showFeedback,license,questionLevel,expectedDuration,totalMarks
 
 assessment.read.min.question.params=parent,name,identifier,primaryCategory,versionKey,mimeType,objectType,qType
@@ -460,3 +460,7 @@ public-assessment-service-host=http://public-assessment-service:8090
 public-assessment-email-notify-url=/assessment/notify
 
 user.registration.custodian.orgName=iGOT
+
+public.assessment.encryption.key={{public_assessment_service_encryption_key}}
+spring.kafka.public.assessment.notification.topic.name={{env}}.public.assessment.cert.generation.email
+public.user.assessment.table.name={{ public_assessment_service_assessment_data }}
