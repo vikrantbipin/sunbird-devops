@@ -18055,6 +18055,24 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
+  - name: uploadCiosLogsFile
+    uris: "/storage/v1/uploadCiosLogsFile"
+    upstream_url: "{{ sb_cb_ext_service_url }}/storage/v1/uploadCiosLogsFile"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
   - name: OperationalReportDownloadV2
     uris: "/operationalreports/v2/download"
     upstream_url: "{{ sb_cb_ext_service_url }}/operational/reports/v2/download"
@@ -18072,3 +18090,21 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: downloadCiosLogs
+    uris: "/storage/v1/downloadCiosLogs"
+    upstream_url: "{{ sb_cb_ext_service_url }}/storage/v1/downloadCiosLogs"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
