@@ -29,7 +29,7 @@ strategy:
 environmentjs: |-
   window["env"] = {
       baseUrl: 'https://spv.{{nginx_proxy_server_name}}/apis/proxies/v8/',
-      linkUrl: '{{domain_name}}/',
+      linkUrl: 'https://{{domain_name}}/',
       customAuth: true
   };
 
