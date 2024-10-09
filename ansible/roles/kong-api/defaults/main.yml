@@ -7853,11 +7853,6 @@ kong_apis:
     upstream_url: "{{ sb_cb_ext_service_url }}/staff/position"
     strip_uri: true
     plugins:
-    - n- name: staffOperation
-    uris: "/staff/position"
-    upstream_url: "{{ sb_cb_ext_service_url }}/staff/position"
-    strip_uri: true
-    plugins:
     - name: jwt
     - name: cors
     - "{{ statsd_pulgin }}"
