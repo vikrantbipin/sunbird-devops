@@ -7853,11 +7853,6 @@ kong_apis:
     upstream_url: "{{ sb_cb_ext_service_url }}/staff/position"
     strip_uri: true
     plugins:
-    - n- name: staffOperation
-    uris: "/staff/position"
-    upstream_url: "{{ sb_cb_ext_service_url }}/staff/position"
-    strip_uri: true
-    plugins:
     - name: jwt
     - name: cors
     - "{{ statsd_pulgin }}"
@@ -18108,3 +18103,58 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: ciosEnrollProgressUpdate
+    uris: "{{ external_enrollment_prefix }}/v1/user/progressupdate"
+    upstream_url: "{{ cb_external_enrollment_service_url }}/cios-enroll/v1/user/progressupdate"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+          - 'contentPartner'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: likeComment
+    uris: "{{ comment_prefix }}/v1/like"
+    upstream_url: "{{ cb_comment_service_url }}/comment/v1/like"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        
+  - name: getLikeByCommentIdAndUserId
+    uris: "{{ comment_prefix }}/v1/like/read"
+    upstream_url: "{{ cb_comment_service_url }}/comment/v1/like/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
