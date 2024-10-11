@@ -67,10 +67,10 @@ search.result.redis.ttl=600
 cornell.partner.code=CORNELL
 upgrad.partner.code=UPGRAD
 
-cloud.storage.type.name: {{ cloud_service_provider }}
-cloud.storage.key: {{ cloud_storage_key }}
-cloud.storage.secret: {{ cloud_storage_secret | replace('\n', '\\n')}}
-cloud.storage.endpoint: https://storage.googleapis.com
+cloud.storage.type.name={{ cloud_service_provider }}
+cloud.storage.key={{ cloud_storage_key }}
+cloud.storage.secret={{ cloud_storage_secret | replace('\n', '\\n')}}
+cloud.storage.endpoint=https://storage.googleapis.com
 cios.cloud.container.name={{ cios_cloud_bucket }}
 cios.logs.cloud.folder.name=cios-logs
 coursera.partner.code=COURSERA
