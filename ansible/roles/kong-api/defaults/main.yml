@@ -140,6 +140,7 @@ surveys_service_template_prefix: /template
 comment_prefix: /comment
 organisation_prefix: /organisation
 public_assessment_prefix: /public/assessment
+event_progress_prefix: /eventprogress
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -18264,7 +18265,7 @@ kong_apis:
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: eventStateUpdate
-    uris: "/event-progres"
+    uris: "{{ event_progress_prefix }}/v1/event/state/update"
     upstream_url: "{{ lms_service_url }}/v1/event/state/update"
     strip_uri: true
     plugins:
