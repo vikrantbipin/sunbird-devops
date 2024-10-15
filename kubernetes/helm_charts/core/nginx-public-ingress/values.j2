@@ -531,7 +531,7 @@ proxyconfig: |-
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
       proxy_pass http://kong;
-      client_max_body_size 400M;
+      client_max_body_size 1126M;
     }
 
     location /apis/ {
@@ -767,7 +767,7 @@ proxyconfig: |-
       proxy_http_version 1.1;
       proxy_set_header X-Request-ID $sb_request_id;
       proxy_pass http://kong;
-      client_max_body_size 400M;
+      client_max_body_size 1126M;
     }
 
     location ~ apis/proxies/v8/ratings/v1/read {
@@ -1470,7 +1470,7 @@ proxyconfig: |-
     {# Including custom configuration #}
     {{ proxy_custom_config }}
 
-    client_max_body_size 400M;
+    client_max_body_size 1126M;
     }
 
 
@@ -2374,7 +2374,7 @@ proxyconfig: |-
     {# Including custom configuration #}
     {{ proxy_custom_config }}
 
-    client_max_body_size 400M;
+    client_max_body_size 1126M;
 
     }
   server {
@@ -3222,7 +3222,7 @@ proxyconfig: |-
     {# Including custom configuration #}
     {{ proxy_custom_config }}
 
-    client_max_body_size 400M;
+    client_max_body_size 1126M;
 
     }
 
@@ -4140,7 +4140,7 @@ proxyconfig: |-
     {# Including custom configuration #}
     {{ proxy_custom_config }}
 
-    client_max_body_size 400M;
+    client_max_body_size 1126M;
 
     }
 
@@ -5058,7 +5058,7 @@ proxyconfig: |-
     {# Including custom configuration #}
     {{ proxy_custom_config }}
 
-    client_max_body_size 400M;
+    client_max_body_size 1126M;
 
     }
 
@@ -5187,7 +5187,7 @@ nginxconfig: |
 
       sendfile        on;
       #tcp_nopush     on;
-      client_max_body_size 400M;
+      client_max_body_size 1126M;
       keepalive_timeout  65s;
       keepalive_requests 200;
       # Nginx connection limit per ip
