@@ -18194,7 +18194,21 @@ kong_apis:
       config.limit_by: credential
     - name: request-size-limiting
       config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+      
+  - name: getOrgListV2
+    uris: "{{ org_service_prefix }}/v2/list"
+    upstream_url: "{{ sb_cb_ext_service_url }}/org/v2/list"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ small_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
   - name: userEventEnrollmentList
     uris: "{{ user_service_prefix }}/events/list"
     upstream_url: "{{ lms_service_url }}/v1/user/events/list"
