@@ -18236,7 +18236,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: listOfComments
-    uris: "{{ comment_prefix }}/search"
+    uris: "{{ comment_prefix }}/list"
     upstream_url: "{{ cb_comment_service_url }}/comment/list"
     strip_uri: true
     plugins:
