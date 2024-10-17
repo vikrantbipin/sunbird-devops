@@ -49,3 +49,4 @@ redis_key_lp_monthly_active_users: "lp_monthly_active_users"
 redis_key_lp_completed_count: "lp_completed_count"
 redis_key_lp_completed_yesterday_count: "lp_completed_yesterday_count"
 
+redis_key_lp_cornell_course_count: "lp_cornell_course_count"
