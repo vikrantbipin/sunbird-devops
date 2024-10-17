@@ -1,7 +1,8 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout displayMessage=false; section>
     <#if section = "title">
-    ${message.summary}
+    <#-- ${message.summary} -->
+    <#import "error.ftl" as layout>
     <#elseif section = "form">
     <div class="custom-wrapper">
         <div class="custom-grid">
