@@ -149,7 +149,7 @@
       failed_when:
         -  live_course_count == "0"
 
-    - name: Cornell Course Counti API
+    - name: Cornell Course Count API
       uri:
         url: "https://{{ static_domain_name }}/api/cios/v1/search/content"
         method: POST
@@ -345,7 +345,7 @@
 
     - name: Redis Update Cornell Course Count
       command: "redis-cli -h {{ redis_host }} -p {{ redis_port }} -n {{ redis_db }} SET {{ redis_key_lp_cornell_course_count }} {{ cornell_course_count }}"
- 
+
     - mail:
         host: "{{mail_server_host}}"
         port: "{{sunbird_mail_server_port}}"
