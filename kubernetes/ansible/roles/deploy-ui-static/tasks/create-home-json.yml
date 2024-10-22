@@ -1,0 +1,57 @@
+---
+  - name: Generate User authentication token 
+    uri:
+      url: "{{keycloak_url}}/auth/realms/sunbird/protocol/openid-connect/token"
+      method: POST
+      body_format: form-urlencoded
+      body:
+        username: "{{keycloak_username}}"
+        password: "{{keycloak_password}}"
+        client_id: admin-cli
+        grant_type: password
+      status_code: [200,201,308,302,401]
+    register:  data
+    until: data is not failed
+    retries: 10
+    delay: 10
+
+  - name: store token in a variable
+    set_fact:
+       access_token: "{{data.json.access_token}}"
+
+  - name: For json generate
+    uri:
+      url: "https://{{domain_name}}/apis/v1/form/read"
+      method: POST
+      headers:
+        Content-Type: "application/json"
+        authorization: "{{bearer_token}}"
+        x-authenticated-user-token: "{{access_token}}"
+      body_format: json
+      body:
+          request:
+            type: "page"
+            subType: "home"
+            action: "page-configuration"
+            component: "portal"
+            rootOrgId: "*"
+    register: form_data
+    until: form_data is not failed
+    retries: 10
+    delay: 10
+
+  - name: datadebug
+    debug:
+      var: form_data.json.result.form.data
+
+  - name: Write form API response to a file
+    copy:
+      content: "{{ form_data.json.result.form.data | to_nice_json }}"
+      dest: /tmp/home.json
+
+  - name: Generate ConfigMap YAML file from JSON file
+    shell: |
+      kubectl create configmap karmayogi-home-json -n {{ namespace }} --from-file=/tmp/home.json -o yaml --dry-run=client > /tmp/home-json.yaml
+
+  - name: Apply the updated Kubernetes ConfigMap
+    shell: "kubectl apply -f /tmp/home-json.yaml -n {{ namespace }}"
