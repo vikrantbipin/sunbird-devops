@@ -614,7 +614,7 @@ proxyconfig: |-
     location ~ /api/ratings/v1/summary/ {
       # Enabling caching
       proxy_cache_key "$request_uri";
-      proxy_cache summary_cache;
+      proxy_cache ratings_cache;
       add_header X-Proxy-Cache $upstream_cache_status;
       add_header X-Proxy-Cache-Date $upstream_http_date;
       proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
