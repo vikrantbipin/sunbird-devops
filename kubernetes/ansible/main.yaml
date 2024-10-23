@@ -9,7 +9,10 @@
   roles:
     - role: deploy-igot
       tags: ["always"]
-      when: "'deploy-static-domain' not in ansible_run_tags"
+      when: "'deploy-static-domain' not in ansible_run_tags and 'deploy-ui-static' not in ansible_run_tags"
     - role: deploy-static-domain
       tags:
         - deploy-static-domain
+    - role: deploy-ui-static
+      tags:
+        - deploy-ui-static

@@ -40,6 +40,9 @@ spec:
         - name: apple-app-site
           configMap:
             name: apple-app-site-association
+        - name: karmayogi-home-json
+          configMap:
+            name: karmayogi-home-json
 
       containers:
       - name: {{ .Chart.Name }}
@@ -69,6 +72,10 @@ spec:
         - name: apple-app-site
           mountPath: /app/dist/.well-known/apple-app-site-association
           subPath: apple-app-site-association
+        - name: karmayogi-home-json
+          mountPath: /app/dist/www/en/assets/configurations/page/home.json
+          subPath: home.json
+
         ports:
         - containerPort: {{ .Values.network.port }}
         {{- if .Values.healthcheck }}
