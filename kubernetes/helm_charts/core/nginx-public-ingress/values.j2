@@ -691,7 +691,7 @@ proxyconfig: |-
       proxy_http_version 1.1;
       proxy_pass http://ui-proxies:3003;
     }
-	
+
     location ~ /apis/public/v8/careers/list {
       # Enabling caching
       proxy_cache_key "$request_uri";
@@ -718,7 +718,7 @@ proxyconfig: |-
       proxy_http_version 1.1;
       proxy_pass http://ui-proxies:3003;
     }
-	
+
     location ~ /apis/public/v8/tenders/list {
       # Enabling caching
       proxy_cache_key "$request_uri";
