@@ -465,6 +465,13 @@ public.assessment.encryption.key={{public_assessment_service_encryption_key}}
 spring.kafka.public.assessment.notification.topic.name={{env}}.public.assessment.cert.generation.email
 public.user.assessment.table.name={{ public_assessment_service_assessment_data }}
 
+public.user.event.bulk.onboard.topic={{env}}.public.user.event.bulk.onboard
+public.user.event.bulk.onboard.topic.group=publicUserEventBulkOnboard
+public.user.event.bulk.onboard.container.name=eventbulkonboard
+user.issue.certificate.for.event.topic={{env}}.issue.certificate.request
+user.event.enrolment.table=user_entity_enrolments
+public.user.event.bulkonboard.table=public_user_event_bulkonboard
+
 sb.csv.delimiter=,
 sb.tags.delimiter=;
 user.event.karma.point.topic={{env}}.user.claim.event.karma.points
