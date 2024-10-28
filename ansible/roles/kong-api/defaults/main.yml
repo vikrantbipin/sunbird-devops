@@ -18353,3 +18353,40 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: eventUserBulkOnboardStatus
+    uris: "{{ user_service_prefix }}/v1/event/bulkonboard/status"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/event/bulkonboard/status/"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: eventUserBulkOnboardDownloadFile
+    uris: "{{ user_service_prefix }}/v1/event/bulkonboard/download"
+    upstream_url: "{{ sb_cb_ext_service_url }}/user/event/bulkonboard/download/"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
