@@ -63,6 +63,7 @@
     "workflow-handler-service",
     "cb-enrollment-service",
     "mentoring-service",
+    "cb-comment-service",
     ]
 
 - name: helm upgrade

@@ -35,3 +35,7 @@ spring.data.cassandra.username={{ cassandra_username }}
 spring.data.cassandra.password={{ cassandra_password }}
 spring.data.cassandra.local-datacenter=DC1
 cassandra.config.host={{ sunbird_cassandra_db_host }}
+
+accesstoken.publickey.basepath=/keys/
+sso.url=https://{{ domain_name }}/auth/
+sso.realm={{ keycloak_sso_realm }}
