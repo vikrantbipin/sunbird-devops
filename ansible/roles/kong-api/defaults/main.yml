@@ -18442,7 +18442,7 @@ kong_apis:
 
   - name: serviceRegistryConfigUpdate
     uris: "{{ service_registry_prefix }}/config/update"
-    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/create"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -18460,7 +18460,7 @@ kong_apis:
 
   - name: serviceRegistryConfigRead
     uris: "{{ service_registry_prefix }}/config/read"
-    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/create"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/read"
     strip_uri: true
     plugins:
       - name: jwt
