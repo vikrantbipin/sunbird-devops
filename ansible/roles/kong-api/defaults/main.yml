@@ -18427,7 +18427,7 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: eventUserBulkOnboardStatus
+  - name: bpUserEnrollmentReportGenerate
     uris: "{{ blended_program_prefix }}/v1/generate/report"
     upstream_url: "{{ sb_cb_ext_service_url }}/bp/v1/generate/report"
     strip_uri: true
@@ -18445,7 +18445,7 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: eventUserBulkOnboardStatus
+  - name: bpUserEnrollmentReportStatus
     uris: "{{ blended_program_prefix }}/v1/bpreport/status"
     upstream_url: "{{ sb_cb_ext_service_url }}/bp/v1/bpreport/status"
     strip_uri: true
@@ -18463,7 +18463,7 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: eventUserBulkOnboardStatus
+  - name: bpUserEnrollmentReportDownload
     uris: "{{ blended_program_prefix }}/v1/bpreport/download"
     upstream_url: "{{ sb_cb_ext_service_url }}/bp/v1/bpreport/download/"
     strip_uri: true
