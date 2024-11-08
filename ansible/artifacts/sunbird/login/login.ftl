@@ -1,8 +1,7 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout displayInfo=social.displayInfo; section>
 <#if section = "title">
-    <#-- ${msg("loginTitle",(realm.displayName!''))} -->
-    <#import "error.ftl" as layout>
+    ${msg("loginTitle",(realm.displayName!''))}
     <#elseif section = "header">
     <#elseif section = "form">
     <#if realm.password>
