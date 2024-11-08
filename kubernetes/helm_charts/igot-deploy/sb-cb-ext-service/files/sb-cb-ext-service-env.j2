@@ -475,3 +475,20 @@ public.user.event.bulkonboard.table=public_user_event_bulkonboard
 sb.csv.delimiter=,
 sb.tags.delimiter=;
 user.event.karma.point.topic={{env}}.user.claim.event.karma.points
+
+cios.cloud.container.name={{cios_cloud_bucket}}
+cios.cloud.folder.name=partner
+
+framework.read.endpoint=v1/framework/read/
+
+wingspan.datasource.jdbc-url=jdbc:postgresql://{{postgresql_host}}:{{ postgresql_port }}/{{ postgresql_wingspan_database }}
+wingspan.datasource.username={{ postgresql_username_wingspan }}
+wingspan.datasource.password={{ postgresql_password_wingspan }}
+wingspan.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+wingspan.datasource.driver-class-name=org.postgresql.Driver
+wingspan.jpa.properties.hibernate.format_sql=true
+wingspan.jpa.show-sql=false
+igot.es.user.form.index=fs-forms-data
+es.form.index.type=_doc
+bp.user.enrolment.report.container.name=gcpbpreports
+kafka.topic.bp.report= {{env}}.bp.report.generation
