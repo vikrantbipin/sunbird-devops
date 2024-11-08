@@ -18427,6 +18427,56 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
+  - name: readContentV4
+    uris: "{{ content_prefix }}/v4/read"
+    upstream_url: "{{ content_service_url }}/content/v4/read"
+    strip_uri: true
+    plugins:
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+       
+  - name: serviceRegistryConfigUpdate
+    uris: "{{ service_registry_prefix }}/config/update"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+        
+  - name: serviceRegistryConfigRead
+    uris: "{{ service_registry_prefix }}/config/read"
+    upstream_url: "{{ cb_service_registry_url }}/serviceregistry/config/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"        
+        
   - name: bpUserEnrollmentReportGenerate
     uris: "{{ blended_program_prefix }}/v1/generate/report"
     upstream_url: "{{ sb_cb_ext_service_url }}/bp/v1/generate/report"
@@ -18444,7 +18494,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+        
   - name: bpUserEnrollmentReportStatus
     uris: "{{ blended_program_prefix }}/v1/bpreport/status"
     upstream_url: "{{ sb_cb_ext_service_url }}/bp/v1/bpreport/status"
@@ -18462,7 +18512,7 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
+          
   - name: bpUserEnrollmentReportDownload
     uris: "{{ blended_program_prefix }}/v1/bpreport/download"
     upstream_url: "{{ sb_cb_ext_service_url }}/bp/v1/bpreport/download/"
@@ -18480,4 +18530,3 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
-
