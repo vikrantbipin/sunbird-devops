@@ -2,28 +2,28 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Chart.Name }}
-  namespace: {{ .Values.namespace }}
+  name: {{ .Chart.Name }}  # Sets the HPA name based on the chart name
+  namespace: {{ .Values.namespace }}  # Namespace from values
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Chart.Name }}
-  minReplicas: {{ .Values.autoscaling.minReplicas }}
-  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+    name: {{ .Chart.Name }}  # HPA targets a Deployment with the chart's name
+  minReplicas: {{ .Values.autoscaling.minReplicas }}  # Minimum replicas for autoscaling
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}  # Maximum replicas for autoscaling
   metrics:
     {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
       resource:
         name: cpu
         target:
-          AverageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+          AverageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}  # CPU target
     {{- end }}
     {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
         target:
-          AverageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+          AverageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}  # Memory target
     {{- end }}
 {{- end }}
