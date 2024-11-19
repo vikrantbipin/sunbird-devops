@@ -1,0 +1,53 @@
+server.connection-timeout=5000
+server.tomcat.max-threads=2048
+server.tomcat.min-spare-threads=20
+server.tomcat.max-connections=15000
+server.tomcat.accept-count=500
+server.port={{ application_port }}
+ 
+#spring data jpa for postgres
+spring.datasource.url=jdbc:postgresql://{{ postgresql_host }}:{{ postgresql_port }}/sunbird
+spring.datasource.username={{postgresql_username_sunbird }}
+spring.datasource.password={{ postgresql_password_sunbird }}
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.show-sql=false
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto = update
+ 
+spring.data.cassandra.startupTimeoutInSeconds=100000
+spring.data.cassandra.contact-points={{ sunbird_cassandra_db_host }}
+spring.data.cassandra.port=9042
+spring.data.cassandra.keyspace-name={{ keyspace_sunbird }}
+spring.data.cassandra.username={{ cassandra_username }}
+spring.data.cassandra.password={{ cassandra_password }}
+spring.data.cassandra.local-datacenter=DC1
+ 
+cassandra.config.host={{ sunbird_cassandra_db_host }}
+ 
+spring.redis.host={{ kp_redis_ip }}
+spring.redis.port=6379
+spring.redis.password=
+spring.redis.cacheTtl= 60000
+search.result.redis.ttl=600
+ 
+elasticsearch.host={{ elasticsearch_host }}
+elasticsearch.port={{ elasticsearch_http_port }}
+elasticsearch.username={{ elasticsearch_username }}
+elasticsearch.password={{ elasticsearch_password }}
+elastic.required.field.discussion.json.path=/EsFieldsmapping/discussionEsMapping.json
+ 
+#kafka Server
+spring.kafka.bootstrap.servers={{ kafka_servers_list }}
+#kafka properties
+kakfa.offset.reset.value=latest
+kafka.max.poll.interval.ms=15000
+kafka.max.poll.records=100
+kafka.auto.commit.interval.ms=10000
+ 
+sso.url==https://{{ domain_name }}/auth/
+sso.realm={{ keycloak_sso_realm }}
+sso.connection.pool.size=20
+sso.enabled=true
+ 
+accesstoken.publickey.basepath=/keys/
