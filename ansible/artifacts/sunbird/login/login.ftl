@@ -10,7 +10,7 @@
             <div class="ui raised shadow container segment fullpage-background-image left-box">
                 <div class="ui column" style="padding:0">
                     <div class="img-container" style="width:100%; max-width:100%">
-                        <img alt="Slides" src="${url.resourcesPath}/img/StickyNotes.png" style="width: 88%">
+                        <img alt="Slides" src="${url.resourcesPath}/img/How_to_Login_V2.png" style="width: 88%">
                     </div>
                 </div>
             </div>
