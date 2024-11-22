@@ -27,3 +27,16 @@ strategy:
   maxunavailable: {{ lms_maxunavailable|default('25%') }}
 
 frac_backend_basepath: {{ frac_backend_basepath | default('/keys/') }}
+
+serviceMonitor:
+  enabled: true
+  labels: # labels with which the prometheus choose the serviceMonitor
+    app: prometheus-operator
+    release: prometheus-operator
+
+autoscaling:
+  enabled: {{ fracentity_service_autoscaling_enabled | default('false') }}
+  minReplicas: {{ fracentity_service_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ fracentity_service_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ fracentity_service_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ fracentity_service_autoscaling_targetMemoryUtilizationPercentage|default('') }}
