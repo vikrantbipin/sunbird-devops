@@ -185,6 +185,12 @@
         -  cornell_course_count == "0"
       ignore_errors: yes
 
+    # Ensure cornell_course_count is set to 0 if it's "0"
+    - name: Ensure cornell_course_count is numeric 0 if it's "0"
+      set_fact:
+        cornell_course_count: 0
+      when: cornell_course_count == "0"
+
     - name: Cornell Course Count
       debug:
         msg: "The Cornell Course Count is {{ cornell_course_count }}"
