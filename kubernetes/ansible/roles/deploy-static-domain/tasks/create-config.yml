@@ -180,16 +180,7 @@
 
     - name: Cornell Course Count
       set_fact:
-        cornell_course_count: "{{ cornell_course_count.json.facets['contentPartner.contentPartnerName'][0].count }}"
-      failed_when:
-        -  cornell_course_count == "0"
-      ignore_errors: yes
-
-    # Ensure cornell_course_count is set to 0 if it's "0"
-    - name: Ensure cornell_course_count is numeric 0 if it's "0"
-      set_fact:
-        cornell_course_count: 0
-      when: cornell_course_count == "0"
+        cornell_course_count: "{{ cornell_course_count.json.facets['contentPartner.contentPartnerName'][0].count | default(0, true) }}"
 
     - name: Cornell Course Count
       debug:
