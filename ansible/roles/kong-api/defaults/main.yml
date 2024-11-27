@@ -142,6 +142,7 @@ organisation_prefix: /organisation
 public_assessment_prefix: /public/assessment
 event_progress_prefix: /eventprogress
 blended_program_prefix: /bp
+discussionfeed_prefix: /feedDiscussion
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -188,6 +189,7 @@ cb_service_registry_url: "http://cb-service-registry:8096"
 ml_template_validation_survey_service_url: "http://ml-template-validation-backend-service:5000"
 cb_comment_service_url: "http://cb-comment-service:8099"
 public_assessment_service_url : "http://public-assessment-service:8090"
+cb_discussion_service_url : "http://cb-discussion-service:7001"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -18530,3 +18532,184 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+
+  - name: customSelfRegistration
+    uris: "/customselfregistration"
+    upstream_url: "{{ sb_cb_ext_service_url }}/getSelfRegistrationQRPdf"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: discussionCreate
+    uris: "{{ discussionfeed_prefix }}/create"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: discussionUpdate
+    uris: "{{ discussionfeed_prefix }}/update"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: discussionRead
+    uris: "{{ discussionfeed_prefix }}/read"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: deleteDiscussion
+    uris: "{{ discussionfeed_prefix }}/delete"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: searchDiscussion
+    uris: "{{ discussionfeed_prefix }}/search"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/search"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: voteDiscussion
+    uris: "{{ discussionfeed_prefix }}/upvote"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/upvote"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: orgExtendedUpdate
+    uris: "{{ org_service_prefix }}/ext/v1/update"
+    upstream_url: "{{ sb_cb_ext_service_url }}/org/ext/v1/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ small_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: listAllQRCodesForCustomSelfRegistration
+    uris: "/customselfregistration/listallqrs"
+    upstream_url: "{{ sb_cb_ext_service_url }}/listAllQRCodes"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: getLikedCommentsByUserIDAndCourseId
+    uris: "{{ comment_prefix }}/v1/likedComments"
+    upstream_url: "{{ cb_comment_service_url }}/comment/v1/likedComments"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"        
