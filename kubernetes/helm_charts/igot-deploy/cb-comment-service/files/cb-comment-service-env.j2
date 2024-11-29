@@ -40,3 +40,8 @@ accesstoken.publickey.basepath=/keys/
 sso.url=https://{{ domain_name }}/auth/
 sso.realm={{ keycloak_sso_realm }}
 
+content-service-host=http://content-service:9000/
+content-read-endpoint=content/v3/read
+content-read-endpoint-fields=?fields=primaryCategory,identifier,batches,versionKey,additionalTags
+default.content.properties=name,identifier,contentType,createdFor,creatorContacts,creatorIDs,creatorDetails,creator,reviewer
+
