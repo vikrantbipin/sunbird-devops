@@ -744,7 +744,7 @@ service_ml_template_validation_backend_service_service: ml-template-validation-b
 service_public_assessment: public-assessment-service
 service_cb_comment_service: cb-comment-service
 service_thumbnail_generation_service: thumbnail-generation-service
-
+service_cb_discussion_service: cb-discussion-service
 
 # Ports
 service_bulk_upload_port: 3009
@@ -822,6 +822,7 @@ service_ml_template_validation_backend_service_port: 5000
 service_public_assessment_port: 8090
 service_cb_comment_port: 8099
 service_thumbnail_generation_port: 8000
+service_cb_discussion_port: 7001
 
 # Network alias names, so that one service can talk to another
 network_alias_content_service: private-content-service
@@ -882,6 +883,7 @@ network_alias_ml_template_validation_backend_service_service: ml-template-valida
 network_alias_public_assessment: public-assessment-service
 network_alias_cb_comment_service: cb-comment-service
 network_alias_thumbnail_generation_service: thumbnail-generation-service
+network_alias_cb_discussion_service: cb-discussion-service
 
 # Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
 image_ui_static: ui-static
@@ -939,6 +941,6 @@ image_ml_template_validation_backend_service_service: ml-template-validation-bac
 image_public_assessment_service: public-assessment-service
 image_cb_comment_service: cb-comment-service
 image_thumbnail_generation_service: thumbnail-generation-service
-
+image_cb_discussion_service: cb-discussion-service
 #####################bulk-upload-spv#########
 host_bulk_upload: /mydata/bulk_upload
