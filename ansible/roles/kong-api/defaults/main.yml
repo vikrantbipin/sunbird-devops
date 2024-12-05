@@ -3129,12 +3129,8 @@ kong_apis:
     upstream_url: "{{ learning_service_url }}/v1/org/read"
     strip_uri: true
     plugins:
-    - name: jwt
     - name: cors
     - "{{ statsd_pulgin }}"
-    - name: acl
-      config.whitelist:
-        - 'orgAccess'
     - name: rate-limiting
       config.policy: local
       config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -18714,3 +18710,20 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}" 
 
+  - name: uploadLogoToGcpContainer
+    uris: "/customselfregistration/upload/logo/gcpcontainer"
+    upstream_url: "{{ sb_cb_ext_service_url }}/upload/logo/gcpcontainer"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'dataAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
