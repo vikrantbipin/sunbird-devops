@@ -33,9 +33,9 @@ cornell.progress.transformation.source-to-target.spec.path=/Transformation/corne
 
 #######Sprint17 config#######
 service.locator.host=http://cb-service-registry:8096
-service.locator.fixedurl=/serviceregistry/api/v1/callExternalApi
+service.locator.fixedurl=/serviceregistry/v1/callExternalApi
 cornell.enrollment.service.code=cornell-enrollment-list
-scheduler.enabled=true
+scheduler.enabled=false
 scheduler.fixedRate=600000
 scheduler.cron=0 */10 * * * ?
 cornell.enrollment.list.limit=10
@@ -86,8 +86,6 @@ content.onboarding.consumer.group=cios.content.onboard_group
 
 spring.main.allow-circular-references=true
 
-service.locator.fixedurl=/serviceregistry/v1/callExternalApi
-scheduler.enabled=false
 coursera.enrollment.list.limit=1000
 coursera.enrollment.list.course_type=lesson
 coursera.date.range=10
