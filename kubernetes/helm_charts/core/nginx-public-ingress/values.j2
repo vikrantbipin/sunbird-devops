@@ -1332,6 +1332,7 @@ proxyconfig: |-
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
       proxy_set_header X-Scheme $scheme;
+      add_header Content-Security-Policy "frame-ancestors *;";
       proxy_connect_timeout 5;
       proxy_send_timeout 60;
       proxy_read_timeout 70;
@@ -2276,7 +2277,6 @@ proxyconfig: |-
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP {{ nginx_client_public_ip_header | d('$remote_addr') }};
       proxy_set_header X-Scheme $scheme;
-      add_header Content-Security-Policy "frame-ancestors 'self'";
       proxy_connect_timeout 5;
       proxy_send_timeout 60;
       proxy_read_timeout 70;
