@@ -745,6 +745,7 @@ service_public_assessment: public-assessment-service
 service_cb_comment_service: cb-comment-service
 service_thumbnail_generation_service: thumbnail-generation-service
 service_cb_discussion_service: cb-discussion-service
+service_cb_community_service: cb-community-service
 
 # Ports
 service_bulk_upload_port: 3009
@@ -823,6 +824,7 @@ service_public_assessment_port: 8090
 service_cb_comment_port: 8099
 service_thumbnail_generation_port: 8000
 service_cb_discussion_port: 7001
+service_cb_community_port: 7001
 
 # Network alias names, so that one service can talk to another
 network_alias_content_service: private-content-service
@@ -884,6 +886,7 @@ network_alias_public_assessment: public-assessment-service
 network_alias_cb_comment_service: cb-comment-service
 network_alias_thumbnail_generation_service: thumbnail-generation-service
 network_alias_cb_discussion_service: cb-discussion-service
+network_alias_cb_community_service: cb-community-service
 
 # Image names, this is used by the service alone, but since we want to have all the images in one place, we are oncfiguring the images here
 image_ui_static: ui-static
@@ -942,5 +945,6 @@ image_public_assessment_service: public-assessment-service
 image_cb_comment_service: cb-comment-service
 image_thumbnail_generation_service: thumbnail-generation-service
 image_cb_discussion_service: cb-discussion-service
+image_cb_community_service: cb-community-service
 #####################bulk-upload-spv#########
 host_bulk_upload: /mydata/bulk_upload
