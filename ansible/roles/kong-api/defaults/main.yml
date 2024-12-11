@@ -18641,7 +18641,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: voteDiscussion
-    uris: "{{ discussionfeed_prefix }}/upvote"
+    uris: "{{ discussionfeed_prefix }}/vote"
     upstream_url: "{{ cb_discussion_service_url }}/discussion/vote"
     strip_uri: true
     plugins:
