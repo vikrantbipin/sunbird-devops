@@ -65,6 +65,7 @@
     "mentoring-service",
     "cb-comment-service",
     "cb-discussion-service",
+    "cb-community-service",
     ]
 
 - name: helm upgrade
