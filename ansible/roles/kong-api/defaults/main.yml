@@ -18746,7 +18746,7 @@ kong_apis:
 
   - name: communityCreate
     uris: "{{ community_prefix }}/create"
-    upstream_url: "{{ cb_community_service_url }}/create"
+    upstream_url: "{{ cb_community_service_url }}/community/v1/create"
     strip_uri: true
     plugins:
       - name: jwt
@@ -18764,7 +18764,7 @@ kong_apis:
 
   - name: communityUpdate
     uris: "{{ community_prefix }}/update"
-    upstream_url: "{{ cb_community_service_url }}/update"
+    upstream_url: "{{ cb_community_service_url }}/community/v1/update"
     strip_uri: true
     plugins:
       - name: jwt
@@ -18782,7 +18782,7 @@ kong_apis:
 
   - name: communityRead
     uris: "{{ community_prefix }}/read"
-    upstream_url: "{{ cb_community_service_url }}/read"
+    upstream_url: "{{ cb_community_service_url }}/community/v1/read"
     strip_uri: true
     plugins:
       - name: jwt
@@ -18800,7 +18800,7 @@ kong_apis:
 
   - name: deleteCommunity
     uris: "{{ community_prefix }}/delete"
-    upstream_url: "{{ cb_community_service_url }}/delete"
+    upstream_url: "{{ cb_community_service_url }}/community/v1/delete"
     strip_uri: true
     plugins:
       - name: jwt
