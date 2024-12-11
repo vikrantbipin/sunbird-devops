@@ -143,6 +143,7 @@ public_assessment_prefix: /public/assessment
 event_progress_prefix: /eventprogress
 blended_program_prefix: /bp
 discussionfeed_prefix: /feedDiscussion
+community_prefix: /community/v1
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -190,6 +191,7 @@ ml_template_validation_survey_service_url: "http://ml-template-validation-backen
 cb_comment_service_url: "http://cb-comment-service:8099"
 public_assessment_service_url : "http://public-assessment-service:8090"
 cb_discussion_service_url : "http://cb-discussion-service:7001"
+cb_community_service_url : "http://cb-community-service:7001"
 
 premium_consumer_rate_limits:
   - api: createContent
@@ -18741,3 +18743,75 @@ kong_apis:
         config.limit_by: credential
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: communityCreate
+    uris: "{{ community_prefix }}/create"
+    upstream_url: "{{ cb_community_service_url }}/create"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: communityUpdate
+    uris: "{{ community_prefix }}/update"
+    upstream_url: "{{ cb_community_service_url }}/update"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: communityRead
+    uris: "{{ community_prefix }}/read"
+    upstream_url: "{{ cb_community_service_url }}/read"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentAccess'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: deleteCommunity
+    uris: "{{ community_prefix }}/delete"
+    upstream_url: "{{ cb_community_service_url }}/delete"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentUpdate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"        
