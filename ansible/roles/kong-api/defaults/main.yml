@@ -18640,9 +18640,9 @@ kong_apis:
       - name: request-size-limiting
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
-  - name: voteDiscussion
-    uris: "{{ discussionfeed_prefix }}/vote"
-    upstream_url: "{{ cb_discussion_service_url }}/discussion/vote"
+  - name: upVoteDiscussion
+    uris: "{{ discussionfeed_prefix }}/upVote"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/upVote"
     strip_uri: true
     plugins:
       - name: jwt
@@ -18819,6 +18819,24 @@ kong_apis:
   - name: discussionUpdate
     uris: "{{ discussionfeed_prefix }}/answerPosts"
     upstream_url: "{{ cb_discussion_service_url }}/discussion/answerPosts"
+    strip_uri: true
+    plugins:
+      - name: jwt
+      - name: cors
+      - "{{ statsd_pulgin }}"
+      - name: acl
+        config.whitelist:
+          - 'contentCreate'
+      - name: rate-limiting
+        config.policy: local
+        config.hour: "{{ medium_rate_limit_per_hour }}"
+        config.limit_by: credential
+      - name: request-size-limiting
+        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+
+  - name: downVoteDiscussion
+    uris: "{{ discussionfeed_prefix }}/downVote"
+    upstream_url: "{{ cb_discussion_service_url }}/discussion/downVote"
     strip_uri: true
     plugins:
       - name: jwt
