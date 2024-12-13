@@ -18853,8 +18853,8 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
 
   - name: recommendationCourseByDesignation
-    uris: "/v1/recommendations/courses"
-    upstream_url: "{{ sb_cb_ext_service_url }}/v1/recommendations/courses"
+    uris: "/recommendations/v1/courses"
+    upstream_url: "{{ sb_cb_ext_service_url }}/recommendations/v1/courses"
     strip_uri: true
     plugins:
      - name: jwt
