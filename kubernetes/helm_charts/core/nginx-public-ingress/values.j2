@@ -128,6 +128,9 @@ proxyconfig: |-
     ignore_invalid_headers off;  #pass through headers from Jenkins which are considered invalid by Nginx server.
     resolver {{ kube_dns_ip }} valid=30s;
 
+    location /apis/protected/v8/user/telemetry {
+      return 200 'telemetry disabled on dev';
+    }
     location ~* ^/auth/(.*)/impersonation {
       return 301 {{proto}}://portal.{{ nginx_proxy_server_name }};
     }
