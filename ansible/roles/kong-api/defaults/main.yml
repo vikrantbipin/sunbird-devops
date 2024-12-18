@@ -12544,6 +12544,7 @@ kong_apis:
       - name: acl
         config.whitelist:
           - 'dataAccess'
+          - 'storageReportDownload'
       - name: rate-limiting
         config.policy: local
         config.hour: "{{ medium_rate_limit_per_hour }}"
@@ -18710,7 +18711,7 @@ kong_apis:
         config.hour: "{{ medium_rate_limit_per_hour }}"
         config.limit_by: credential
       - name: request-size-limiting
-        config.allowed_payload_size: "{{ medium_request_size_limit }}"
+        config.allowed_payload_size: "{{ medium_request_size_limit }}" 
 
   - name: uploadLogoToGcpContainer
     uris: "/customselfregistration/upload/logo/gcpcontainer"
