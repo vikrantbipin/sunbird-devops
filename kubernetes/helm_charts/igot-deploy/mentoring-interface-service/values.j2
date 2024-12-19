@@ -31,14 +31,14 @@ environmentjs: |-
     API_DOC_URL= "/interface/api-doc"
     APPLICATION_ENV= "development"
     APPLICATION_PORT= "3567"
-    INSTALLED_PACKAGES= "elevate-user elevate-mentoring elevate-scheduler"
+    INSTALLED_PACKAGES= "sunbird-mentoring"
     MENTORING_SERVICE_BASE_URL= "http://mentoring-service:7101"
     NOTIFICATION_SERVICE_BASE_URL= "http://mentoring-notification-service:7201"
     RATE_LIMITER_ENABLED= "true"
     RATE_LIMITER_GENERAL_LIMIT= "50"
     RATE_LIMITER_NUMBER_OF_PROXIES= "3"
     RATE_LIMITER_PUBLIC_LOW_LIMIT= "5"
-    REQUIRED_PACKAGES= "sunbird-user@1.6.0 sunbird-mentoring@1.1.57 elevate-scheduler@1.0.4 elevate-kafka@1.0.7 kb-mentoring-notification@1.1.2"
+    REQUIRED_PACKAGES= "sunbird-mentoring@3.1.1"
     SCHEDULER_SERVICE_BASE_URL= "http://mentoring-scheduler-service:7401"
     SUPPORTED_HTTP_TYPES= "GET POST PUT PATCH DELETE"
     USER_SERVICE_BASE_URL= "http://learner-service:9000"
@@ -56,6 +56,8 @@ environmentjs: |-
     SUNBIRD_NOTIFICAION_SERVICE_BASE_URL="https://{{ domain_name }}"
     SUNBIRD_NOTIFICATION_SENDER_EMAIL="{{sunbird_notification_sender_email}}"
     SUNBIRD_AUTHORIZATION_TOKEN="{{bearer_token}}"
+    ROUTE_CONFIG_JSON_URLS_PATHS = "https://raw.githubusercontent.com/KB-iGOT/mentoring/refs/heads/{{mentoring_service_branch}}/interface-routes/sunbird-mentoring.json"
+    REQUIRED_BASE_PACKAGES = "sunbird-mentoring"
 
 serviceMonitor:
   enabled: true
