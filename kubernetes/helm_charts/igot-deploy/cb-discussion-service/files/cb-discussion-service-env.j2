@@ -52,3 +52,9 @@ sso.enabled=true
  
 accesstoken.publickey.basepath=/keys/
 discussion.entity=discussion_entity_v1
+
+cloud.storage.type.name={{ cloud_service_provider }}
+cloud.storage.key={{ cloud_storage_key }}
+cloud.storage.secret={{ cloud_storage_secret | replace('\n', '\\n')}}
+
+

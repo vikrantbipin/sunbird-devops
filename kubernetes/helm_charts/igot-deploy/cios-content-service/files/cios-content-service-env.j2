@@ -73,7 +73,7 @@ cloud.storage.secret={{ cloud_storage_secret | replace('\n', '\\n')}}
 cloud.storage.endpoint=https://storage.googleapis.com
 cios.cloud.container.name={{ cios_cloud_bucket }}
 cios.logs.cloud.folder.name=cios-logs
-coursera.partner.code=COURSERA
+coursera.partner.code={{cios_coursera_partner_code}}
 kafka.topic.content.onboarding={{ env }}.cios.content.onboard
 
 cb.pores.service.url=http://cb-pores-service:7001
@@ -88,10 +88,10 @@ spring.main.allow-circular-references=true
 
 coursera.enrollment.list.limit=1000
 coursera.enrollment.list.course_type=lesson
-coursera.date.range=10
-coursera.enrollment.service.code=coursera-enrollment-api
-coursera.scheduler.cron=0 */2 * * * *
-coursera.scheduler.enabled=false
+coursera.date.range={{cios_coursera_date_range | default('200')}}
+coursera.enrollment.service.code={{cios_coursera_enrollment_service_code}}
+coursera.scheduler.cron={{cios_coursera_scheduler_cron}}
+coursera.scheduler.enabled={{cios_coursera_scheduler_enabled| default('true')}}
 
 coursera.date.before=enrollAtBefore
 coursera.date.after=enrollAtAfter
