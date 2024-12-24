@@ -144,6 +144,8 @@ event_progress_prefix: /eventprogress
 blended_program_prefix: /bp
 discussionfeed_prefix: /feedDiscussion
 community_prefix: /community/v1
+super_user_service_prefix: /super/user
+
 
 # Service URLs
 knowledge_mw_service_url: "http://knowledge-mw-service:5000"
@@ -2703,6 +2705,24 @@ kong_apis:
   - name: privateUserUpdate
     uris: "{{ user_service_prefix }}/private/v1/update"
     upstream_url: "{{ sb_cb_ext_service_url }}/user/private/admin/patch"
+    strip_uri: true
+    plugins:
+    - name: jwt
+    - name: cors
+    - "{{ statsd_pulgin }}"
+    - name: acl
+      config.whitelist:
+        - 'dataCreate'
+    - name: rate-limiting
+      config.policy: local
+      config.hour: "{{ medium_rate_limit_per_hour }}"
+      config.limit_by: credential
+    - name: request-size-limiting
+      config.allowed_payload_size: "{{ small_request_size_limit }}"
+
+  - name: privateUserUpdate
+    uris: "{{ super_user_service_prefix }}/private/v1/update"
+    upstream_url: "{{ learning_service_url }}/private/user/v1/update"
     strip_uri: true
     plugins:
     - name: jwt
