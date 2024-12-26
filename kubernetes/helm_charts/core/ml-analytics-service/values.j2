@@ -17,5 +17,12 @@ network:
   targetport: 7000
 strategy:
   type: RollingUpdate
-  maxsurge: {{ ml_core_maxsurge|default('25%') }}
-  maxunavailable: {{ ml_core_maxunavailable|default('25%') }}
+  maxsurge: {{ ml_analytics_maxsurge|default('25%') }}
+  maxunavailable: {{ ml_analytics_maxunavailable|default('25%') }}
+
+autoscaling:
+  enabled: {{ ml_analytics_autoscaling_enabled | default('false') }}
+  minReplicas: {{ ml_analytics_autoscaling_minReplicas|default(1) }}
+  maxReplicas: {{ ml_analytics_autoscaling_maxReplicas|default(2) }}
+  targetCPUUtilizationPercentage: {{ ml_analytics_autoscaling_targetCPUUtilizationPercentage|default(60) }}
+  targetMemoryUtilizationPercentage: {{ ml_analytics_autoscaling_targetMemoryUtilizationPercentage|default('') }}
