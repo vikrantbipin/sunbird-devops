@@ -14202,7 +14202,7 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
         
   - name: mentorProfileReadInterfaced
-    uris: "{{ mentoring_interface_service_url }}/v1/profile/read"
+    uris: "{{ mentoring_interface_prefix }}/v1/profile/read"
     upstream_url: "{{ mentoring_interface_service_url }}/interface/v1/profile/read"
     strip_uri: true
     plugins:
@@ -14261,8 +14261,8 @@ kong_apis:
         config.allowed_payload_size: "{{ medium_request_size_limit }}"
         
   - name: mentorProfileDetailsInterface
-    uris: "{{ mentoring_interface_service_url }}/v1/mentors/details"
-    upstream_url: "{{ mentoring_interface_service_url }}/mentoring/v1/mentors/details"
+    uris: "{{ mentoring_interface_prefix }}/v1/mentors/details"
+    upstream_url: "{{ mentoring_interface_service_url }}/interface/v1/mentors/details"
     strip_uri: true
     plugins:
       - name: jwt
