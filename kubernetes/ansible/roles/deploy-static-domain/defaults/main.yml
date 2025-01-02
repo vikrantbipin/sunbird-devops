@@ -50,5 +50,3 @@ redis_key_lp_completed_count: "lp_completed_count"
 redis_key_lp_completed_yesterday_count: "lp_completed_yesterday_count"
 
 redis_key_lp_cornell_course_count: "lp_cornell_course_count"
-redis_key_dashboard_enrolment_count: "dashboard_enrolment_count"
-redis_key_dashboard_completed_count: "dashboard_completed_count"
